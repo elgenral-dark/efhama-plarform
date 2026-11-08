@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="760" height="920" viewBox="0 0 760 920" role="img" aria-labelledby="title desc">
+  <title id="title">مخطط خطوات استدعاء دالة</title>
+  <desc id="desc">ابدأ، مرر المدخلات للدالة، نفذ المعالجة، أعد النتيجة، ثم انته.</desc>
+  <defs>
+    <marker id="arrow" markerWidth="12" markerHeight="12" refX="10" refY="6" orient="auto"><path d="M0 0 12 6 0 12z" fill="#3C4AE8"/></marker>
+  </defs>
+  <rect width="760" height="920" rx="28" fill="#fff"/>
+  <text x="380" y="55" fill="#172033" font-family="Arial,sans-serif" font-size="30" font-weight="700" text-anchor="middle">مخطط استدعاء دالة</text>
+  <g fill="none" stroke="#3C4AE8" stroke-width="6" marker-end="url(#arrow)">
+    <path d="M380 155v55"/><path d="M380 315v55"/><path d="M380 485v55"/><path d="M380 650v55"/>
+  </g>
+  <g font-family="Arial,sans-serif" font-size="25" font-weight="700" text-anchor="middle">
+    <rect x="245" y="85" width="270" height="70" rx="35" fill="#eef0ff" stroke="#3C4AE8" stroke-width="4"/>
+    <text x="380" y="130" fill="#27324a">ابدأ البرنامج</text>
+    <polygon points="225,210 535,210 515,315 205,315" fill="#f7f8ff" stroke="#3C4AE8" stroke-width="4"/>
+    <text x="370" y="273" fill="#27324a">مرر المدخلات للدالة</text>
+    <rect x="215" y="370" width="330" height="115" rx="12" fill="#eef0ff" stroke="#3C4AE8" stroke-width="4"/>
+    <text x="380" y="420" fill="#27324a">نفذ جسم الدالة</text>
+    <text x="380" y="456" fill="#5f6b85" font-size="21">اجمع a + b</text>
+    <polygon points="380,540 555,595 380,650 205,595" fill="#fff7e6" stroke="#e49a17" stroke-width="4"/>
+    <text x="380" y="604" fill="#62430a">هل انتهت المعالجة؟</text>
+    <polygon points="205,705 555,705 535,800 185,800" fill="#edfff5" stroke="#20b26b" stroke-width="4"/>
+    <text x="370" y="765" fill="#16784b">أعد النتيجة: 30</text>
+    <rect x="245" y="830" width="270" height="65" rx="32" fill="#eef0ff" stroke="#3C4AE8" stroke-width="4"/>
+    <text x="380" y="872" fill="#27324a">انتهى</text>
+  </g>
+</svg>
