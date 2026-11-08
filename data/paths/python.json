@@ -1,0 +1,151 @@
+{
+  "slug": "python",
+  "title": "Python",
+  "titleAr": "برمجة بايثون",
+  "titleEn": "Python Programming",
+  "icon": "PY",
+  "accentColor": "#3776AB",
+  "tag": "Python",
+  "description": "ابدأ بتعلم لغة Python بطريقة عملية وبسيطة مع أمثلة تطبيقية ونماذج مشاريع صغيرة.",
+  "difficulty": "مبتدئ",
+  "levelCode": "Beginner",
+  "contentStatus": "outline",
+  "levels": [
+    {
+      "id": "python-unit-01",
+      "name": "مقدمة اللغة",
+      "description": "التعرّف على تركيب Python وأول خطوة لتشغيل أكوادها.",
+      "lessons": [
+        { "id": "python-1", "title": "مقدمة إلى Python", "summary": "لماذا Python مناسبة للمبتدئين، وكيفية تثبيتها وتشغيل أول برنامج.", "duration": "10 دقيقة",
+        "content": [
+          {"type":"diagram","visualType":"concept","title":"توضيح بصري: مقدمة إلى Python","description":"لماذا Python مناسبة للمبتدئين، وكيفية تثبيتها وتشغيل أول برنامج.","image":"assets/images/lessons/python/python-1.svg","alt":"رسم يوضح مقدمة إلى Python: Write Code، Python Interpreter، Execute، Output"}
+        ] },
+        { "id": "python-2", "title": "المتغيرات وأنواع البيانات", "summary": "تتعرف على الأرقام، النصوص، والقيم المنطقية وكيفية التعامل معها.", "duration": "12 دقيقة",
+        "content": [
+          {"type":"diagram","visualType":"diagram","title":"توضيح بصري: المتغيرات وأنواع البيانات","description":"تتعرف على الأرقام، النصوص، والقيم المنطقية وكيفية التعامل معها.","image":"assets/images/lessons/python/python-2.svg","alt":"رسم يوضح المتغيرات وأنواع البيانات: Variable، Name، Value، Type"},
+          {
+            "type": "python-playground",
+            "id": "python-variables-practice",
+            "title": "جرّب المتغيرات وأنواع البيانات",
+            "description": "عدّل القيم ثم اطبعها مع نوع كل قيمة.",
+            "instructions": "غيّر الاسم والعمر، ثم اطبع الاسم والعمر ونوع الاسم باستخدام type().",
+            "expectedOutput": "يظهر الاسم والعمر، ثم <class 'str'> لنوع الاسم.",
+            "code": "name = \"نور\"\nage = 12\n\nprint(\"Name:\", name)\nprint(\"Age:\", age)\nprint(type(name))",
+            "checks": [
+              {"includes":"print(","message":"استخدم print لعرض القيم"},
+              {"includes":"type(","message":"استخدم type لمعرفة نوع البيانات"}
+            ],
+            "solution": {
+              "code": "name = \"ليلى\"\nage = 13\n\nprint(\"Name:\", name)\nprint(\"Age:\", age)\nprint(type(name))"
+            }
+          }
+        ] }
+      ]
+    },
+    {
+      "id": "python-unit-02",
+      "name": "التحكم والتكرار",
+      "description": "تعلم التحكم في تدفق البرنامج باستخدام الشروط والحلقات.",
+      "lessons": [
+        { "id": "python-3", "title": "العمليات والمنطق", "summary": "تتعرف على العوامل الحسابية والمنطقية وكيف تعمل معًا في المعادلات.", "duration": "13 دقيقة",
+        "content": [
+          {"type":"diagram","visualType":"code-visualization","title":"توضيح بصري: العمليات والمنطق","description":"تتعرف على العوامل الحسابية والمنطقية وكيف تعمل معًا في المعادلات.","image":"assets/images/lessons/python/python-3.svg","alt":"رسم يوضح العمليات والمنطق: Expression، Precedence، Operators، Computed Result"}
+        ] },
+        { "id": "python-4", "title": "الشرط والتحكم", "summary": "تتعلم كتابة شروط if وelif وelse لتحديد مسار التنفيذ.", "duration": "14 دقيقة",
+        "content": [
+          {"type":"diagram","visualType":"flowchart","title":"توضيح بصري: الشرط والتحكم","description":"تتعلم كتابة شروط if وelif وelse لتحديد مسار التنفيذ.","image":"assets/images/lessons/python/python-4.svg","alt":"رسم يوضح الشرط والتحكم: Read Input، Condition True?، Run IF Branch، Run ELSE Branch"},
+          {
+            "type": "python-playground",
+            "id": "python-conditions-practice",
+            "title": "تحدي: تحقق من النجاح",
+            "description": "استخدم if وelse لاختيار الرسالة المناسبة حسب الدرجة.",
+            "instructions": "أكمل الشرط بحيث تظهر \"ناجح\" إذا كانت الدرجة 50 أو أكثر، وإلا تظهر \"حاول مرة أخرى\".",
+            "expectedOutput": "ناجح",
+            "code": "score = 75\n\n# اكتب شرط if/else للتحقق من النجاح",
+            "checks": [
+              {"includes":"if score >= 50","message":"تحقق أن الدرجة 50 أو أكثر"},
+              {"includes":"else:","message":"أضف فرعًا للحالة الأخرى"},
+              {"includes":"print(","message":"اعرض رسالة لكل حالة"}
+            ],
+            "solution": {
+              "code": "score = 75\n\nif score >= 50:\n    print(\"ناجح\")\nelse:\n    print(\"حاول مرة أخرى\")"
+            }
+          }
+        ] },
+        { "id": "python-5", "title": "الحلقات والتكرار", "summary": "تستخدم for وwhile لتكرار الإجراءات بشكل فعّال وذكي.", "duration": "16 دقيقة",
+        "content": [
+          {"type":"diagram","visualType":"flowchart","title":"توضيح بصري: الحلقات والتكرار","description":"تستخدم for وwhile لتكرار الإجراءات بشكل فعّال وذكي.","image":"assets/images/lessons/python/python-5.svg","alt":"رسم يوضح الحلقات والتكرار: Initialize، Continue Loop?، Run Body، Exit Loop"},
+          {
+            "type": "python-playground",
+            "id": "python-loops-practice",
+            "title": "تحدي: اطبع الأرقام من 1 إلى 10",
+            "description": "استخدم حلقة for ودالة range لإنشاء تسلسل الأرقام.",
+            "instructions": "أكمل الحلقة لطباعة الأعداد من 1 إلى 10، كل عدد في سطر.",
+            "expectedOutput": "الأعداد من 1 حتى 10، كل عدد في سطر منفصل.",
+            "code": "# اطبع الأعداد من 1 إلى 10\n",
+            "checks": [
+              {"includes":"for ","message":"استخدم حلقة for"},
+              {"includes":"range(1, 11)","message":"اجعل range تشمل الأعداد من 1 إلى 10"},
+              {"includes":"print(","message":"اطبع العدد في كل دورة"}
+            ],
+            "solution": {
+              "code": "for number in range(1, 11):\n    print(number)"
+            }
+          }
+        ] }
+      ]
+    },
+    {
+      "id": "python-unit-03",
+      "name": "الوظائف والبيانات",
+      "description": "استخدم القوائم، الوظائف، والمشاريع الصغيرة لتبني تطبيقات بسيطة.",
+      "lessons": [
+        { "id": "python-6", "title": "القوائم والمجموعات", "summary": "تتعلم كيفية تنظيم البيانات وتجميعها في مجموعات قابلة للتعامل معها.", "duration": "17 دقيقة",
+        "content": [
+          {"type":"diagram","visualType":"diagram","title":"توضيح بصري: القوائم والمجموعات","description":"تتعلم كيفية تنظيم البيانات وتجميعها في مجموعات قابلة للتعامل معها.","image":"assets/images/lessons/python/python-6.svg","alt":"رسم يوضح القوائم والمجموعات: List، Tuple، Set، Dictionary"},
+          {
+            "type": "python-playground",
+            "id": "python-collections-practice",
+            "title": "جرّب القوائم والقواميس",
+            "description": "أضف عنصرًا إلى القائمة، ثم خزّنها داخل قاموس.",
+            "instructions": "أضف \"برتقال\" إلى fruits، وضع القائمة في قاموس تحت المفتاح fruits، ثم اطبع القاموس.",
+            "expectedOutput": "قاموس يحتوي على قائمة الفواكه الثلاث.",
+            "code": "fruits = [\"تفاح\", \"موز\"]\n# أضف برتقالًا إلى القائمة\n\ninventory = {\"fruits\": fruits}\n# اطبع القاموس",
+            "checks": [
+              {"includes":"fruits.append(","message":"أضف عنصرًا جديدًا باستخدام append"},
+              {"includes":"inventory[\"fruits\"]","message":"استخدم مفتاح fruits في القاموس"},
+              {"includes":"print(","message":"اطبع محتوى القاموس"}
+            ],
+            "solution": {
+              "code": "fruits = [\"تفاح\", \"موز\"]\nfruits.append(\"برتقال\")\n\ninventory = {\"fruits\": fruits}\nprint(inventory)"
+            }
+          }
+        ] },
+        { "id": "python-7", "title": "الوظائف", "summary": "تكتب دوالك الخاصة لتقسيم الشيفرة وتنظيم العمل في مشاريعك.", "duration": "18 دقيقة",
+        "content": [
+          {"type":"diagram","visualType":"concept","title":"توضيح بصري: الوظائف","description":"تكتب دوالك الخاصة لتقسيم الشيفرة وتنظيم العمل في مشاريعك.","image":"assets/images/lessons/python/python-7.svg","alt":"رسم يوضح الوظائف: Define، Call، Process، Return"},
+          {
+            "type": "python-playground",
+            "id": "python-functions-practice",
+            "title": "جرّب كتابة دالة",
+            "description": "اكتب دالة تجمع رقمين ثم استدعها.",
+            "instructions": "أكمل الدالة لتُرجع مجموع الرقمين، ثم اطبع نتيجة add(4, 6).",
+            "expectedOutput": "10",
+            "code": "def add(first, second):\n    # أعد مجموع الرقمين\n    pass\n\nprint(add(4, 6))",
+            "checks": [
+              {"includes":"return first + second","message":"أعد مجموع الرقمين باستخدام return"},
+              {"includes":"print(add(4, 6))","message":"استدعِ الدالة واطبع الناتج"}
+            ],
+            "solution": {
+              "code": "def add(first, second):\n    return first + second\n\nprint(add(4, 6))"
+            }
+          }
+        ] },
+        { "id": "python-8", "title": "مشروع صغير الأولى", "summary": "تجمع كل ما تعلمته في مشروع صغير وعملي ينهي رحلتك الأولى في Python.", "duration": "22 دقيقة",
+        "content": [
+          {"type":"diagram","visualType":"step-by-step","title":"توضيح بصري: مشروع صغير الأولى","description":"تجمع كل ما تعلمته في مشروع صغير وعملي ينهي رحلتك الأولى في Python.","image":"assets/images/lessons/python/python-8.svg","alt":"رسم يوضح مشروع صغير الأولى: Input، Process، Decision، Display Result"}
+        ] }
+      ]
+    }
+  ]
+}

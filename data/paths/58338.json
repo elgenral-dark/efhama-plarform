@@ -1,0 +1,67 @@
+{
+  "id": "58338",
+  "title": "Visual Learning System — معرض الرسومات التعليمية",
+  "summary": "درس تجريبي يوضح أنواعًا مختلفة من الرسومات التعليمية وطريقة ظهورها داخل الدروس. الرسومات أمثلة توضيحية وليست رسومات نهائية لكل محتوى المنصة.",
+  "duration": "10 دقائق",
+  "nextLessonId": null,
+  "content": [
+    { "type": "heading", "text": "Visual Learning System" },
+    { "type": "paragraph", "text": "ده درس تجريبي لعرض نظام الرسومات التعليمية الجديد. تقدر تضغط على أي رسمة لفتحها بحجم أكبر. الأمثلة التالية توضح إمكانيات النظام، ومش معناها إن الرسومات النهائية لكل الدروس بقت جاهزة." },
+    {
+      "type": "diagram",
+      "visualType": "concept",
+      "title": "Concept Illustration — مفهوم الدالة",
+      "description": "المدخلات تمر بعملية داخل الدالة، ثم تعود النتيجة إلى البرنامج.",
+      "image": "assets/images/lessons/logic/visual-learning-demo/concept-function.svg",
+      "alt": "رسم يوضح إدخال الرقمين 10 و20 إلى دالة تجمعهما ثم إرجاع الناتج 30"
+    },
+    {
+      "type": "diagram",
+      "visualType": "flowchart",
+      "title": "Flowchart — خطوات استدعاء دالة",
+      "description": "مخطط انسيابي يوضح الانتقال من بدء البرنامج إلى تمرير المدخلات وتنفيذ الدالة وإرجاع النتيجة.",
+      "image": "assets/images/lessons/logic/visual-learning-demo/flowchart-function.svg",
+      "alt": "مخطط انسيابي يبدأ بتشغيل البرنامج، ثم تمرير المدخلات، وتنفيذ جسم الدالة، وإرجاع النتيجة، ثم الانتهاء"
+    },
+    {
+      "type": "diagram",
+      "visualType": "diagram",
+      "title": "Diagram — العلاقة بين أجزاء الدالة",
+      "description": "رسم تقني يربط استدعاء الدالة بالمعاملات وجسم الدالة والقيمة الراجعة.",
+      "image": "assets/images/lessons/logic/visual-learning-demo/function-diagram.svg",
+      "alt": "مخطط يوضح استدعاء add مع الرقمين 10 و20 وتمريرهما للمعاملين ثم تنفيذ الجمع وإرجاع 30"
+    },
+    {
+      "type": "diagram",
+      "visualType": "step-by-step",
+      "title": "Step-by-Step Illustration — جمع رقمين",
+      "description": "أربع خطوات متتابعة من استدعاء الدالة حتى استخدام القيمة التي أرجعتها.",
+      "image": "assets/images/lessons/logic/visual-learning-demo/step-by-step-addition.svg",
+      "alt": "أربع خطوات مرقمة: استدعاء add، تمرير الرقمين 4 و5، جمعهما، ثم تخزين النتيجة 9"
+    },
+    {
+      "type": "diagram",
+      "visualType": "infographic",
+      "title": "Infographic — أنواع الدوال حسب مصدرها",
+      "description": "ملخص بصري يفرّق بين الدوال الجاهزة والدوال التي يكتبها المبرمج.",
+      "image": "assets/images/lessons/logic/visual-learning-demo/infographic-function-types.svg",
+      "alt": "إنفوجرافيك يقارن بين الدوال الجاهزة مثل len والدوال التي يكتبها المبرمج باستخدام def"
+    },
+    {
+      "type": "diagram",
+      "visualType": "code-visualization",
+      "title": "Code Visualization — تطبيق map على قائمة",
+      "description": "تصور بصري يبين كيف تتحول كل قيمة في قائمة عند تطبيق دالة عليها باستخدام map.",
+      "image": "assets/images/lessons/logic/visual-learning-demo/code-visualization-map.svg",
+      "alt": "القائمة 1 و2 و3 تمر عبر دالة تضاعف القيم وتنتج القائمة 2 و4 و6"
+    },
+    { "type": "heading", "text": "إضافة رسمة إلى درس آخر" },
+    { "type": "paragraph", "text": "أضف عنصرًا من النوع diagram إلى مصفوفة content في ملف الدرس JSON، وضع الصورة داخل public/assets/images/lessons/ مع تقسيم المجلدات حسب المسار والدرس. استخدم visualType لتحديد نوع الرسم، وأضف عنوانًا ووصفًا ونص alt يشرح الصورة." },
+    { "type": "code", "title": "شكل عنصر الرسم في ملف الدرس", "copyButton": true, "code": "{\n  \"type\": \"diagram\",\n  \"visualType\": \"concept\",\n  \"title\": \"كيف تعمل الدالة؟\",\n  \"description\": \"توضيح انتقال البيانات داخل الدالة.\",\n  \"image\": \"assets/images/lessons/logic/your-lesson/example.svg\",\n  \"alt\": \"رسم يوضح مدخلات الدالة ومعالجتها وإرجاع النتيجة\"\n}" },
+    { "type": "heading", "text": "اختبار سريع" }
+  ],
+  "quiz": [
+    { "question": "إيه النوع المستخدم لعرض رسمة من ملف SVG داخل الدرس؟", "options": ["diagram مع image وalt", "code فقط", "paragraph مع SVG مضمّن", "list"], "answer": "A", "explanation": "عنصر diagram يقبل visualType وعنوانًا ووصفًا ومسار الصورة ونصًا بديلًا alt." },
+    { "question": "إزاي تفتح الرسمة بحجم أكبر؟", "options": ["تنسخ مسار الملف", "تضغط على الرسمة", "تغيّر اتجاه الصفحة", "تفتح قائمة الدرس"], "answer": "B", "explanation": "الرسمة زر تفاعلي يفتح عارض التكبير، ويمكن إغلاقه بزر الإغلاق أو مفتاح Escape." }
+  ]
+}

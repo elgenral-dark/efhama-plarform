@@ -1,0 +1,82 @@
+{
+  "slug": "css",
+  "title": "CSS",
+  "titleAr": "تنسيق صفحات الويب",
+  "titleEn": "CSS",
+  "icon": "CSS",
+  "accentColor": "#264DE4",
+  "tag": "CSS",
+  "description": "اعرف كيفية تنسيق الصفحات، التحكم بالألوان، المسافات، الاستجابة، والهوية البصرية للموقع.",
+  "difficulty": "مبتدئ",
+  "levelCode": "Beginner",
+  "contentStatus": "outline",
+  "levels": [
+    {
+      "id": "css-unit-01",
+      "name": "أساسيات التنسيق",
+      "description": "سرّع طريقك إلى تنسيق الصفحات والحصول على مظهر أنيق.",
+      "lessons": [
+        { "id": "css-1", "title": "مقدمة في CSS", "summary": "تعرّف على CSS وسبب أهميته في تصميم واجهات الصفحات.", "duration": "10 دقيقة",
+        "content": [
+          {"type":"diagram","visualType":"concept","title":"توضيح بصري: مقدمة في CSS","description":"تعرّف على CSS وسبب أهميته في تصميم واجهات الصفحات.","image":"assets/images/lessons/css/css-1.svg","alt":"رسم يوضح مقدمة في CSS: HTML Structure، CSS Rules، Browser، Styled Page"},
+          {
+            "type": "html-css-playground",
+            "id": "css-styling-practice",
+            "title": "جرّب تنسيق البطاقة",
+            "description": "غيّر قواعد CSS وراقب أثرها على العنصر في المعاينة.",
+            "instructions": "أضف إلى المحدد .card خاصيتي background وpadding حتى تظهر البطاقة بخلفية ومساحة داخلية.",
+            "expectedOutput": "تظهر البطاقة بخلفية فاتحة ومساحة داخلية مريحة حول النص.",
+            "html": "<main class=\"card\">\n  <h1>بطاقتي الأولى</h1>\n  <p>أغيّر شكل الصفحة باستخدام CSS.</p>\n</main>",
+            "css": "body {\n  font-family: Arial, sans-serif;\n}\n.card {\n  max-width: 420px;\n  margin: 32px auto;\n  border-radius: 16px;\n  color: #20243a;\n}",
+            "checks": [
+              {"editor":"css","includes":"background","message":"أضف خاصية background داخل قاعدة .card"},
+              {"editor":"css","includes":"padding","message":"أضف خاصية padding داخل قاعدة .card"}
+            ],
+            "solution": {
+              "html": "<main class=\"card\">\n  <h1>بطاقتي الأولى</h1>\n  <p>أغيّر شكل الصفحة باستخدام CSS.</p>\n</main>",
+              "css": "body {\n  font-family: Arial, sans-serif;\n  background: #f3f5ff;\n}\n.card {\n  max-width: 420px;\n  margin: 32px auto;\n  padding: 24px;\n  background: #ffffff;\n  border-radius: 16px;\n  color: #20243a;\n}"
+            }
+          }
+        ] },
+        { "id": "css-2", "title": "اللون والخطوط", "summary": "تستخدم الألوان والخطوط لتحسين جاذبية الصفحة ووضوحها.", "duration": "12 دقيقة",
+        "content": [
+          {"type":"diagram","visualType":"infographic","title":"توضيح بصري: اللون والخطوط","description":"تستخدم الألوان والخطوط لتحسين جاذبية الصفحة ووضوحها.","image":"assets/images/lessons/css/css-2.svg","alt":"رسم يوضح اللون والخطوط: Color Palette، Font Family، Size Scale، Readable UI"}
+        ] }
+      ]
+    },
+    {
+      "id": "css-unit-02",
+      "name": "المسافات والتخطيط",
+      "description": "تعلّم إدارة الهامش، الحشو، والكتل لتوزيع العناصر بشكل منظم.",
+      "lessons": [
+        { "id": "css-3", "title": "المسافات والهوامش", "summary": "تتعرف على padding وmargin وكيف تؤثر على توزيع العناصر في الصفحة.", "duration": "14 دقيقة",
+        "content": [
+          {"type":"diagram","visualType":"diagram","title":"توضيح بصري: المسافات والهوامش","description":"تتعرف على padding وmargin وكيف تؤثر على توزيع العناصر في الصفحة.","image":"assets/images/lessons/css/css-3.svg","alt":"رسم يوضح المسافات والهوامش: Content، Padding، Border، Margin"}
+        ] },
+        { "id": "css-4", "title": "الربط بين العناصر", "summary": "تتعرف على المحددات، الفئات، والهوية لتحديد عناصر معينة بالضبط.", "duration": "15 دقيقة",
+        "content": [
+          {"type":"diagram","visualType":"diagram","title":"توضيح بصري: الربط بين العناصر","description":"تتعرف على المحددات، الفئات، والهوية لتحديد عناصر معينة بالضبط.","image":"assets/images/lessons/css/css-4.svg","alt":"رسم يوضح الربط بين العناصر: Selector، Matching Elements، Class، ID"}
+        ] }
+      ]
+    },
+    {
+      "id": "css-unit-03",
+      "name": "التصميم المتجاوب",
+      "description": "اجعل الصفحتك تبدو ممتازة على الهاتف، اللوحي، وسطح المكتب.",
+      "lessons": [
+        { "id": "css-5", "title": "الحاويات والتخطيط", "summary": "تتعلم تصميم الصفحات باستخدام الحاويات، الصفوف، والأعمدة.", "duration": "16 دقيقة",
+        "content": [
+          {"type":"diagram","visualType":"diagram","title":"توضيح بصري: الحاويات والتخطيط","description":"تتعلم تصميم الصفحات باستخدام الحاويات، الصفوف، والأعمدة.","image":"assets/images/lessons/css/css-5.svg","alt":"رسم يوضح الحاويات والتخطيط: Container، Rows، Columns، Grid Layout"}
+        ] },
+        { "id": "css-6", "title": "الاستجابة للموبايل", "summary": "تستخدم media queries لتكيف الصفحة مع أحجام الشاشات المختلفة.", "duration": "17 دقيقة",
+        "content": [
+          {"type":"diagram","visualType":"flowchart","title":"توضيح بصري: الاستجابة للموبايل","description":"تستخدم media queries لتكيف الصفحة مع أحجام الشاشات المختلفة.","image":"assets/images/lessons/css/css-6.svg","alt":"رسم يوضح الاستجابة للموبايل: Viewport Width، Media Query Applies?، Mobile Rules، Desktop Rules"}
+        ] },
+        { "id": "css-7", "title": "مخطط تصميم صفحة", "summary": "تطبق ما تعلمته في تصميم واجهة كاملة مع ألوان، مسافات، وتخطيط متوازن.", "duration": "22 دقيقة",
+        "content": [
+          {"type":"diagram","visualType":"step-by-step","title":"توضيح بصري: مخطط تصميم صفحة","description":"تطبق ما تعلمته في تصميم واجهة كاملة مع ألوان، مسافات، وتخطيط متوازن.","image":"assets/images/lessons/css/css-7.svg","alt":"رسم يوضح مخطط تصميم صفحة: Plan Layout، Choose Colors، Set Spacing، Review Page"}
+        ] }
+      ]
+    }
+  ]
+}
