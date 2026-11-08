@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#3C4AE8">
+<title>الإشعارات — افهمها | efhamha</title>
+<link rel="stylesheet" href="css/styles.css">
+<link rel="stylesheet" href="css/notifications.css" data-notifications-styles="true">
+</head>
+<body>
+<header class="site-header">
+  <div class="container header-inner">
+    <a href="index.html" class="efhamha-logo" aria-label="افهمها — الصفحة الرئيسية">
+      <svg class="efhamha-logo-icon" viewBox="0 0 40 36" width="40" height="36" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <path d="M14 6 L4 18 L14 30" fill="none" stroke="var(--logo-bracket)" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+        <path d="M26 6 L36 18 L26 30" fill="none" stroke="var(--logo-bracket)" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+        <polyline points="16,24 20,19 24,13" fill="none" stroke="var(--logo-dot-1)" stroke-width="1.5" stroke-linecap="round"/>
+        <circle cx="16" cy="24" r="1.8" fill="var(--logo-dot-1)"/><circle cx="20" cy="19" r="2.2" fill="var(--logo-dot-2)"/><circle cx="24" cy="13" r="2.8" fill="var(--logo-dot-3)"/>
+      </svg><span class="efhamha-logo-name">efhamha</span>
+    </a>
+    <nav class="main-nav" id="mainNav" aria-label="التنقل الرئيسي">
+      <a href="index.html">الرئيسية</a><a href="chapters.html">الفصول</a><a href="programming-paths/index.html">مسارات التعلم</a>
+    </nav>
+    <div class="header-actions">
+      <button class="theme-toggle" id="themeToggle" type="button" aria-label="تبديل الوضع الليلي والنهاري">
+        <span class="icon-moon" aria-hidden="true">☾</span><span class="icon-sun hidden" aria-hidden="true">☀</span>
+      </button>
+      <button class="nav-toggle" id="navToggle" type="button" aria-label="فتح قائمة التنقل" aria-expanded="false" aria-controls="mainNav">☰</button>
+    </div>
+  </div>
+</header>
+<main class="container notifications-page">
+  <header class="notifications-page-heading">
+    <div><p class="eyebrow">حسابك</p><h1>سجل الإشعارات</h1><p class="muted">تابع تحديثات حسابك واشتراكك ومحتوى المنصة.</p></div>
+    <span class="notification-page-unread" id="notificationPageUnreadCount">0 غير مقروء</span>
+  </header>
+  <section class="notifications-toolbar" aria-label="تصفية الإشعارات">
+    <label>نوع الإشعار
+      <select id="notificationTypeFilter">
+        <option value="">عرض الكل</option><option value="account">الحساب</option><option value="subscription">الاشتراك</option>
+        <option value="education">التعليم</option><option value="general">عام</option>
+      </select>
+    </label>
+    <label class="notification-check"><input id="unreadOnlyFilter" type="checkbox"> غير المقروء فقط</label>
+    <div class="notifications-toolbar-actions">
+      <button class="btn btn-outline btn-sm" id="markAllNotificationsRead" type="button">تحديد الكل كمقروء</button>
+      <button class="btn btn-ghost btn-sm" id="deleteAllNotifications" type="button">حذف الكل</button>
+    </div>
+  </section>
+  <p class="notification-page-status" id="notificationPageStatus" role="status" aria-live="polite"></p>
+  <section class="notifications-history-list" id="notificationsList" aria-live="polite"></section>
+  <button class="btn btn-outline notifications-load-more" id="loadMoreNotifications" type="button" hidden>عرض المزيد</button>
+</main>
+<script src="js/navigation.js" defer></script>
+</body>
+</html>

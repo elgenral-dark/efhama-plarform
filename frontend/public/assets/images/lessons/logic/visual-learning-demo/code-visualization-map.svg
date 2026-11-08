@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1000" height="450" viewBox="0 0 1000 450" role="img" aria-labelledby="title desc">
+  <title id="title">تصور بصري لتحويل عناصر القائمة</title>
+  <desc id="desc">القائمة 1 و2 و3 تمر عبر map التي تضاعف كل عنصر، فتنتج القائمة 2 و4 و6.</desc>
+  <defs>
+    <marker id="arrow" markerWidth="12" markerHeight="12" refX="10" refY="6" orient="auto"><path d="M0 0 12 6 0 12z" fill="#3C4AE8"/></marker>
+  </defs>
+  <rect width="1000" height="450" rx="28" fill="#fff"/>
+  <text x="500" y="55" fill="#172033" font-family="Arial,sans-serif" font-size="30" font-weight="700" text-anchor="middle">كيف تطبّق map دالة على كل عنصر؟</text>
+  <g font-family="monospace" font-size="24" font-weight="700" text-anchor="middle">
+    <rect x="55" y="145" width="250" height="170" rx="20" fill="#eef0ff" stroke="#3C4AE8" stroke-width="4"/>
+    <text x="180" y="198" fill="#3C4AE8" font-family="Arial,sans-serif">القائمة الأصلية</text>
+    <text x="180" y="255" fill="#27324a">[1, 2, 3]</text>
+  </g>
+  <path d="M310 230h70" stroke="#3C4AE8" stroke-width="6" marker-end="url(#arrow)"/>
+  <rect x="390" y="145" width="230" height="170" rx="20" fill="#3C4AE8"/>
+  <text x="505" y="198" fill="#fff" font-family="Arial,sans-serif" font-size="24" font-weight="700" text-anchor="middle">الدالة المطبّقة</text>
+  <text x="505" y="254" fill="#fff" font-family="monospace" font-size="24" text-anchor="middle">x → x * 2</text>
+  <path d="M625 230h70" stroke="#3C4AE8" stroke-width="6" marker-end="url(#arrow)"/>
+  <rect x="705" y="145" width="240" height="170" rx="20" fill="#edfff5" stroke="#20b26b" stroke-width="4"/>
+  <text x="825" y="198" fill="#16784b" font-family="Arial,sans-serif" font-size="24" font-weight="700" text-anchor="middle">القائمة الناتجة</text>
+  <text x="825" y="255" fill="#27324a" font-family="monospace" font-size="24" text-anchor="middle">[2, 4, 6]</text>
+  <text x="500" y="375" fill="#5f6b85" font-family="Arial,sans-serif" font-size="21" text-anchor="middle">كل عنصر يمر بالدالة، والنواتج تُجمع في Iterator ثم يمكن تحويله إلى list</text>
+</svg>

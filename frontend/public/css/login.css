@@ -1,0 +1,168 @@
+/* ============================================================
+   صفحة تسجيل الدخول — التصميم الجديد (مقسوم: هوية + نموذج)
+   ============================================================ */
+.login-split { display: grid; grid-template-columns: 1.05fr 1fr; min-height: 100vh; width: 100%; min-width: 0; }
+.login-brand, .login-form-side, .login-card { min-width: 0; max-width: 100%; }
+
+/* ----- لوحة الهوية ----- */
+.login-brand {
+  position: relative; overflow: hidden; color: #fff;
+  background: linear-gradient(160deg, #3C4AE8 0%, #5A67F0 55%, #2F3BC4 100%);
+  display: flex; align-items: center; padding: 3rem;
+}
+.login-brand-shape { position: absolute; border-radius: 50%; background: #fff; opacity: .14; }
+.login-brand-shape.s1 { width: 340px; height: 340px; top: -120px; inset-inline-end: -100px; }
+.login-brand-shape.s2 { width: 220px; height: 220px; bottom: -80px; inset-inline-start: -60px; opacity: .1; }
+.login-brand-shape.s3 { width: 90px; height: 90px; bottom: 18%; inset-inline-end: 14%; opacity: .18; }
+.login-brand-inner { position: relative; z-index: 1; max-width: 480px; margin-inline: auto; width: 100%; }
+
+.login-logo { color: #fff; margin-bottom: 2.2rem; display: inline-flex; }
+.login-logo.efhamha-logo {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  text-decoration: none;
+  margin-bottom: 2.2rem;
+}
+.login-logo.efhamha-logo .efhamha-logo-name {
+  color: #fff !important;
+  font-family: "Inter", "Segoe UI", system-ui, sans-serif;
+  font-weight: 500;
+  font-size: 26px;
+  letter-spacing: 0.5px;
+  line-height: 1;
+  display: inline-block !important;
+}
+.login-logo .logo-text small { color: rgba(255, 255, 255, .72); }
+
+.login-brand-title { font-size: clamp(1.7rem, 3.2vw, 2.5rem); line-height: 1.5; margin-bottom: 1rem; font-weight: 800; }
+.login-brand-title span { color: #FFD66B; }
+.login-brand-desc { color: rgba(255, 255, 255, .85); font-size: 1rem; margin-bottom: 2.2rem; max-width: 42ch; }
+
+.login-brand-points { list-style: none; display: flex; flex-direction: column; gap: 1.1rem; }
+.login-brand-points li { display: flex; gap: .9rem; align-items: center; }
+.pt-icon {
+  width: 44px; height: 44px; border-radius: 13px; flex-shrink: 0;
+  background: rgba(255, 255, 255, .15); display: grid; place-items: center; color: #fff;
+}
+.login-brand-points strong { display: block; font-size: .98rem; }
+.login-brand-points small { color: rgba(255, 255, 255, .78); font-size: .82rem; }
+
+/* ----- جانب النموذج ----- */
+.login-form-side { display: grid; place-items: center; padding: 2.2rem 1.2rem; background: var(--bg); }
+
+.login-card {
+  width: min(440px, 100%); background: var(--surface);
+  border: 1px solid var(--border); border-radius: 20px;
+  padding: 2.3rem 2.2rem; box-shadow: var(--shadow);
+}
+.login-card > h2 { font-size: 1.45rem; }
+.login-sub { margin: .35rem 0 1.5rem; }
+
+.alert {
+  display: flex; align-items: center; gap: .5rem;
+  border-radius: 12px; padding: .7rem .95rem; font-size: .88rem; font-weight: 600;
+}
+.alert-error { background: #FDECEC; color: #B91C1C; border: 1px solid #F3C2C2; }
+[data-theme="dark"] .alert-error { background: #3A1518; border-color: #7A2222; color: #FCA5A5; }
+
+.field { margin-bottom: 1.15rem; }
+.field > label { display: block; font-weight: 700; font-size: .88rem; margin-bottom: .4rem; }
+
+.input-wrap { position: relative; display: flex; align-items: center; }
+.input-icon {
+  position: absolute; inset-inline-start: .9rem; color: var(--text-muted);
+  display: inline-flex; pointer-events: none;
+}
+.input-wrap input {
+  width: 100%; padding: .8rem 1rem; padding-inline-start: 2.7rem;
+  border-radius: 12px; border: 1.5px solid var(--border);
+  background: var(--bg-soft); color: var(--text);
+  font-family: inherit; font-size: .95rem; transition: border-color .15s, box-shadow .15s;
+}
+.input-wrap.has-action input { padding-inline-end: 2.8rem; }
+.input-wrap input:focus { outline: none; border-color: var(--primary); box-shadow: 0 0 0 4px var(--primary-light); }
+.input-wrap input::placeholder { color: var(--text-muted); opacity: .7; }
+
+.input-action {
+  position: absolute; inset-inline-end: .55rem; background: none; border: none;
+  cursor: pointer; color: var(--text-muted); padding: .35rem; border-radius: 8px;
+  display: inline-flex; transition: .15s;
+}
+.input-action:hover { color: var(--primary); background: var(--primary-light); }
+.input-action .ic-eyeoff { display: none; }
+.input-action.show .ic-eye { display: none; }
+.input-action.show .ic-eyeoff { display: inline; }
+
+.field-error { color: var(--danger); font-size: .78rem; font-weight: 600; margin-top: .35rem; }
+
+.remember { display: flex; align-items: center; gap: .5rem; font-size: .9rem; margin: .1rem 0 1.4rem; cursor: pointer; user-select: none; }
+.remember input { width: 17px; height: 17px; accent-color: var(--primary); cursor: pointer; }
+
+.btn-lg { padding: .85rem 1.6rem; font-size: 1.03rem; border-radius: 13px; }
+.btn-spinner {
+  width: 18px; height: 18px; display: inline-block; vertical-align: -4px; margin-inline-start: .5rem;
+  border: 2.5px solid rgba(255, 255, 255, .35); border-top-color: #fff; border-radius: 50%;
+  animation: login-spin .7s linear infinite;
+}
+@keyframes login-spin { to { transform: rotate(360deg); } }
+.btn[disabled] { opacity: .75; cursor: wait; }
+
+.security-note {
+  margin-top: 1.3rem; font-size: .76rem; color: var(--text-muted);
+  background: var(--bg-soft); border-radius: 10px; padding: .7rem .9rem; line-height: 1.8;
+}
+
+/* ----- موبايل ----- */
+@media (max-width: 900px) {
+  .login-split { grid-template-columns: 1fr; }
+  .login-brand { width: 100%; padding: 2rem 1.4rem 1.7rem; align-items: flex-start; }
+  .login-brand-inner { margin-inline: 0; max-width: none; }
+  .login-logo { margin-bottom: 1.3rem; }
+  .login-logo.efhamha-logo .efhamha-logo-name { display: inline-block !important; font-size: 22px; }
+  .login-brand-title { font-size: 1.55rem; margin-bottom: .6rem; }
+  .login-brand-desc { margin-bottom: 0; font-size: .92rem; }
+  .login-brand-points, .login-brand-shape { display: none; }
+  .login-form-side { width: 100%; padding: 1.5rem 1rem 2.6rem; }
+  .login-card { padding: 1.8rem 1.5rem; border-radius: 16px; }
+}
+
+/* تبديل دخول/إنشاء حساب */
+.security-note a { color: var(--primary); font-weight: 700; margin-inline-start: .35rem; }
+.security-note a:hover { text-decoration: underline; }
+
+.session-transfer-dialog {
+  width: min(520px, calc(100vw - 2rem));
+  max-width: none;
+  padding: 0;
+  color: var(--text);
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  box-shadow: var(--shadow);
+}
+.session-transfer-dialog::backdrop { background: rgba(15, 23, 42, .58); }
+.session-transfer-content { padding: 2rem; text-align: center; }
+.session-transfer-icon {
+  display: grid;
+  place-items: center;
+  width: 48px;
+  height: 48px;
+  margin: 0 auto 1rem;
+  color: var(--primary);
+  background: var(--primary-light);
+  border-radius: 15px;
+  font-size: 1.5rem;
+  font-weight: 800;
+}
+.session-transfer-content h2 { margin-bottom: .65rem; font-size: 1.25rem; }
+.session-transfer-content p { margin-bottom: 1.4rem; color: var(--text-muted); line-height: 1.8; }
+.session-transfer-actions { display: grid; gap: .75rem; }
+.session-transfer-actions .btn { white-space: normal; line-height: 1.6; }
+
+@media (max-width: 480px) {
+  .session-transfer-content { padding: 1.4rem 1rem; }
+  .login-brand { padding-inline: max(1rem, env(safe-area-inset-left)); }
+  .login-form-side { padding-inline: max(.75rem, env(safe-area-inset-left)); }
+  .login-card { padding-inline: clamp(1rem, 5vw, 1.5rem); }
+}

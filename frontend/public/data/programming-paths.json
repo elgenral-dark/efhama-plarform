@@ -1,0 +1,72 @@
+[
+  {
+    "slug": "logic",
+    "title": "أساسيات البرمجة والمنطق",
+    "tag": "Logic",
+    "icon": "◎",
+    "description": "تعرف على التفكير البرمجي، حل المشكلات، والأوامر الشرطية قبل الدخول إلى أي لغة برمجية.",
+    "difficulty": "مبتدئ",
+    "level": "مبتدئ"
+  },
+  {
+    "slug": "python",
+    "title": "Python",
+    "titleAr": "برمجة بايثون",
+    "titleEn": "Python Programming",
+    "tag": "Python",
+    "icon": "PY",
+    "accentColor": "#3776AB",
+    "description": "ابدأ بتعلم لغة Python بطريقة عملية وبسيطة مع أمثلة تطبيقية ونماذج مشاريع صغيرة.",
+    "difficulty": "مبتدئ",
+    "level": "مبتدئ",
+    "levelCode": "Beginner"
+  },
+  {
+    "slug": "html",
+    "title": "HTML",
+    "titleAr": "أساسيات HTML",
+    "titleEn": "HTML",
+    "tag": "HTML",
+    "icon": "HTML",
+    "accentColor": "#E34F26",
+    "description": "تعلم بناء هيكل الصفحات الإلكترونية، العناوين، الروابط، القوائم، الصور، والنماذج.",
+    "difficulty": "مبتدئ",
+    "level": "مبتدئ",
+    "levelCode": "Beginner"
+  },
+  {
+    "slug": "css",
+    "title": "CSS",
+    "titleAr": "تنسيق صفحات الويب",
+    "titleEn": "CSS",
+    "tag": "CSS",
+    "icon": "CSS",
+    "accentColor": "#264DE4",
+    "description": "اعرف كيفية تنسيق الصفحات، التحكم بالألوان، المسافات، الاستجابة، والهوية البصرية للموقع.",
+    "difficulty": "مبتدئ",
+    "level": "مبتدئ",
+    "levelCode": "Beginner"
+  },
+  {
+    "slug": "javascript",
+    "title": "JavaScript",
+    "titleAr": "برمجة JavaScript",
+    "titleEn": "JavaScript",
+    "tag": "JS",
+    "icon": "JS",
+    "accentColor": "#B59B00",
+    "description": "ثم انتقل إلى البرمجة التفاعلية. تعلم المتغيرات، الدوال، الأحداث، والـ DOM.",
+    "difficulty": "متوسط",
+    "level": "متوسط",
+    "levelCode": "Intermediate"
+  },
+  {
+    "slug": "sql",
+    "title": "SQL وقواعد البيانات",
+    "tag": "SQL",
+    "icon": "SQL",
+    "description": "تعلّم كيفية تخزين البيانات، استرجاعها، وربطها بأساسيات قواعد البيانات بطريقة منطقية.",
+    "difficulty": "متوسط",
+    "level": "متوسط"
+  }
+]

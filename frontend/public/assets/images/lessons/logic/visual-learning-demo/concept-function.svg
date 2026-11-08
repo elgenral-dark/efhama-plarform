@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1000" height="420" viewBox="0 0 1000 420" role="img" aria-labelledby="title desc">
+  <title id="title">مفهوم الدالة</title>
+  <desc id="desc">مدخلات تدخل إلى دالة، تتم معالجتها، ثم تخرج النتيجة.</desc>
+  <rect width="1000" height="420" rx="28" fill="#fff"/>
+  <text x="500" y="58" fill="#172033" font-family="Arial,sans-serif" font-size="30" font-weight="700" text-anchor="middle">الدالة: مدخلات ← معالجة ← نتيجة</text>
+  <rect x="70" y="145" width="230" height="150" rx="22" fill="#eef0ff" stroke="#3C4AE8" stroke-width="4"/>
+  <text x="185" y="205" fill="#3C4AE8" font-family="Arial,sans-serif" font-size="27" font-weight="700" text-anchor="middle">المدخلات</text>
+  <text x="185" y="251" fill="#27324a" font-family="Arial,sans-serif" font-size="23" text-anchor="middle">a = 10 ، b = 20</text>
+  <path d="M315 220h82" fill="none" stroke="#3C4AE8" stroke-width="8" stroke-linecap="round"/>
+  <path d="m385 202 24 18-24 18" fill="none" stroke="#3C4AE8" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/>
+  <rect x="410" y="125" width="240" height="190" rx="28" fill="#3C4AE8"/>
+  <text x="530" y="195" fill="#fff" font-family="Arial,sans-serif" font-size="28" font-weight="700" text-anchor="middle">الدالة</text>
+  <text x="530" y="245" fill="#fff" font-family="monospace" font-size="24" text-anchor="middle">calculate_sum</text>
+  <text x="530" y="282" fill="#e5e8ff" font-family="Arial,sans-serif" font-size="21" text-anchor="middle">تجمع الرقمين</text>
+  <path d="M665 220h82" fill="none" stroke="#3C4AE8" stroke-width="8" stroke-linecap="round"/>
+  <path d="m735 202 24 18-24 18" fill="none" stroke="#3C4AE8" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/>
+  <rect x="760" y="145" width="180" height="150" rx="22" fill="#edfff5" stroke="#20b26b" stroke-width="4"/>
+  <text x="850" y="205" fill="#16784b" font-family="Arial,sans-serif" font-size="27" font-weight="700" text-anchor="middle">النتيجة</text>
+  <text x="850" y="251" fill="#27324a" font-family="monospace" font-size="25" text-anchor="middle">30</text>
+</svg>

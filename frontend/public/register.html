@@ -1,0 +1,282 @@
+﻿<!doctype html>
+<html lang="ar" dir="rtl">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#3C4AE8" />
+    <title>التسجيل والاشتراك — افهمها | efhamha</title>
+    <script>
+      (function () {
+        var t = localStorage.getItem("efhama_theme");
+        if (t) document.documentElement.setAttribute("data-theme", t);
+      })();
+    </script>
+    <link rel="icon" type="image/png" href="assets/icons/favicon.svg" />
+    <link rel="apple-touch-icon" href="assets/icons/favicon.svg" />
+    <link rel="manifest" href="manifest.json" />
+    <link rel="stylesheet" href="css/styles.css" />
+    <link rel="stylesheet" href="css/login.css" />
+    <link rel="stylesheet" href="css/register.css" />
+  </head>
+  <body>
+    <div class="login-split register-layout">
+      <aside class="login-brand" aria-label="عن منصة افهمها">
+        <span class="login-brand-shape s1" aria-hidden="true"></span>
+        <span class="login-brand-shape s2" aria-hidden="true"></span>
+        <span class="login-brand-shape s3" aria-hidden="true"></span>
+        <div class="login-brand-inner">
+          <a class="efhamha-logo login-logo" href="index.html" aria-label="efhamha">
+        <svg class="efhamha-logo-icon" viewBox="0 0 40 36" width="40" height="36" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <path d="M14 6 L4 18 L14 30" fill="none" stroke="rgba(255,255,255,0.9)" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M26 6 L36 18 L26 30" fill="none" stroke="rgba(255,255,255,0.9)" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+          <polyline points="16,24 20,19 24,13" fill="none" stroke="rgba(255,255,255,0.75)" stroke-width="1.5" stroke-linecap="round"/>
+          <circle cx="16" cy="24" r="1.8" fill="rgba(255,255,255,0.75)"/>
+          <circle cx="20" cy="19" r="2.2" fill="rgba(255,255,255,0.88)"/>
+          <circle cx="24" cy="13" r="2.8" fill="#ffffff"/>
+        </svg>
+        <span class="efhamha-logo-name" style="color:#fff">efhamha</span>
+      </a>
+          <span class="register-eyebrow">رحلتك التعليمية تبدأ هنا</span>
+          <h1 class="login-brand-title">
+            افهم البرمجة،<br /><span>وطبّقها بثقة.</span>
+          </h1>
+          <p class="login-brand-desc">
+            أنشئ حسابك واطلب اشتراكك السنوي. سيتم تفعيل الوصول إلى المنصة بعد
+            مراجعة إثبات الدفع من فريق افهمها.
+          </p>
+          <ul class="login-brand-points">
+            <li>
+              <span class="pt-icon" aria-hidden="true">✓</span>
+              <div>
+                <strong>تعلم منظم وتفاعلي</strong
+                ><small>مسارات ودروس وتمارين ومشروعات تطبيقية</small>
+              </div>
+            </li>
+            <li>
+              <span class="pt-icon" aria-hidden="true">⌁</span>
+              <div>
+                <strong>تقدمك محفوظ</strong
+                ><small>تابع تعلمك من حيث توقفت بعد تفعيل الحساب</small>
+              </div>
+            </li>
+            <li>
+              <span class="pt-icon" aria-hidden="true">12</span>
+              <div>
+                <strong>اشتراك سنوي واحد</strong
+                ><small>12 شهرًا من تاريخ الموافقة على الدفع</small>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </aside>
+
+      <main class="login-form-side register-main">
+        <div class="register-content">
+          <header class="register-topline">
+            <span class="muted small">لديك حساب؟</span>
+            <a class="btn btn-outline btn-sm" href="login.html">تسجيل الدخول</a>
+          </header>
+
+          <section
+            class="login-card register-card"
+            aria-labelledby="registerTitle"
+          >
+            <div class="register-intro">
+              <span class="register-step">تسجيل واشتراك</span>
+              <h2 id="registerTitle">أهلًا بك في افهمها</h2>
+              <p class="muted small">
+                يلزم الاشتراك السنوي وموافقة الإدارة للوصول إلى الدروس والمحتوى.
+              </p>
+            </div>
+
+            <section class="annual-plan" aria-label="تفاصيل الاشتراك السنوي">
+              <div class="annual-plan-head">
+                <div>
+                  <span class="plan-kicker">الاشتراك المتاح</span>
+                  <h3>اشتراك سنوي</h3>
+                </div>
+                <span class="plan-mark" aria-hidden="true">12</span>
+              </div>
+              <p class="plan-price" dir="ltr">
+                <strong>100</strong> <span>EGP</span> <small>/ Year</small>
+              </p>
+              <p class="plan-duration">
+                اشتراك واحد لمدة 12 شهرًا من تاريخ التفعيل.
+              </p>
+              <ul class="plan-features">
+                <li>الوصول إلى المسارات والدروس التعليمية.</li>
+                <li>استخدام التمارين والاختبارات والمشروعات.</li>
+                <li>حفظ تقدمك وإنجازاتك أثناء التعلم.</li>
+              </ul>
+            </section>
+
+            <section class="payment-box" aria-labelledby="paymentTitle">
+              <h3 id="paymentTitle">بيانات الدفع</h3>
+              <p>حوّل <strong>100 جنيه مصري</strong> إلى رقم التحويل التالي:</p>
+              <div class="payment-number-row">
+                <p class="payment-number" dir="ltr" id="paymentNumber"></p>
+                <button
+                  type="button"
+                  class="copy-payment-number"
+                  id="copyPaymentNumber"
+                >
+                  نسخ الرقم
+                </button>
+              </div>
+              <p
+                class="payment-copy-status"
+                id="paymentCopyStatus"
+                role="status"
+                aria-live="polite"
+              ></p>
+              <ol>
+                <li>أتمم التحويل بقيمة <strong>100 EGP</strong>.</li>
+                <li>احتفظ بصورة واضحة لإيصال أو شاشة تأكيد التحويل.</li>
+                <li>ارفع الصورة في النموذج، ثم أرسل الطلب للمراجعة.</li>
+              </ol>
+            </section>
+
+            <div
+              class="register-alert"
+              id="registerAlert"
+              role="alert"
+              hidden
+            ></div>
+            <section
+              class="request-status"
+              id="requestStatus"
+              aria-live="polite"
+              hidden
+            >
+              <span class="status-icon" aria-hidden="true">✓</span>
+              <div>
+                <h3 id="statusTitle"></h3>
+                <p id="statusMessage"></p>
+                <p class="status-request" id="statusRequest"></p>
+                <p class="status-rejection" id="rejectionReason" hidden></p>
+              </div>
+            </section>
+
+            <form id="registerForm" class="register-form" novalidate>
+              <h3 class="section-title">بيانات المستخدم</h3>
+              <div class="field" id="nameField">
+                <label for="fullName">الاسم الكامل</label>
+                <div class="input-wrap">
+                  <input
+                    type="text"
+                    id="fullName"
+                    name="name"
+                    autocomplete="name"
+                    maxlength="80"
+                    required
+                  />
+                </div>
+              </div>
+              <div class="field" id="emailField">
+                <label for="email">البريد الإلكتروني</label>
+                <div class="input-wrap">
+                  <input
+                    type="email"
+                    id="email"
+                    name="email"
+                    autocomplete="email"
+                    inputmode="email"
+                    required
+                  />
+                </div>
+              </div>
+              <div class="field" id="passwordField">
+                <label for="password">كلمة المرور</label>
+                <div class="input-wrap">
+                  <input
+                    type="password"
+                    id="password"
+                    name="password"
+                    autocomplete="new-password"
+                    minlength="8"
+                    required
+                  />
+                </div>
+              </div>
+              <div class="field" id="confirmField">
+                <label for="confirmPassword">تأكيد كلمة المرور</label>
+                <div class="input-wrap">
+                  <input
+                    type="password"
+                    id="confirmPassword"
+                    name="confirmPassword"
+                    autocomplete="new-password"
+                    minlength="8"
+                    required
+                  />
+                </div>
+              </div>
+              <button
+                type="button"
+                class="btn btn-outline btn-block btn-sm"
+                id="checkRequestBtn"
+              >
+                عرض حالة طلب سابق
+              </button>
+
+              <h3 class="section-title proof-title">إثبات الدفع</h3>
+              <p class="muted small proof-help">
+                ارفع صورة PNG أو JPEG أو WebP، بحد أقصى 5 ميجابايت. تحفظ الصورة
+                بشكل خاص ولا تظهر إلا لمسؤولي المنصة.
+              </p>
+              <label class="upload-control" for="proof">
+                <span class="upload-icon" aria-hidden="true">↑</span>
+                <span
+                  ><strong>اختر صورة إثبات التحويل</strong
+                  ><small id="fileName">لم يتم اختيار صورة</small></span
+                >
+                <input
+                  id="proof"
+                  type="file"
+                  accept="image/png,image/jpeg,image/webp"
+                  required
+                />
+              </label>
+              <img
+                class="proof-preview"
+                id="proofPreview"
+                alt="معاينة صورة إثبات الدفع"
+                hidden
+              />
+
+              <label class="remember register-remember" id="rememberRow">
+                <input type="checkbox" id="remember" checked />
+                تذكرني على هذا الجهاز
+              </label>
+              <button
+                type="submit"
+                class="btn btn-block btn-lg"
+                id="registerBtn"
+              >
+                <span class="btn-label">إرسال طلب الاشتراك</span
+                ><span class="btn-spinner" hidden></span>
+              </button>
+            </form>
+
+            <a
+              class="btn btn-block whatsapp-button"
+              id="whatsappLink"
+              target="_blank"
+              rel="noopener noreferrer"
+              hidden
+            >
+              متابعة عبر WhatsApp وإرفاق صورة التحويل
+            </a>
+            <p class="register-footnote">
+              لن يتم تفعيل الوصول إلى المحتوى إلا بعد مراجعة الطلب وموافقة
+              الإدارة.
+            </p>
+          </section>
+        </div>
+      </main>
+    </div>
+    <script src="js/auth.js"></script>
+    <script src="js/payment-config.js"></script>
+    <script src="js/register.js"></script>
+  </body>
+</html>

@@ -1,0 +1,7 @@
+**/.env
+**/node_modules/
+**/.vercel/
+**/dist/
+**/.jwt_secret
+backend/data/
+frontend/public/vendor/

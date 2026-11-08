@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<link rel="icon" type="image/svg+xml" href="assets/icons/favicon.svg">
+<link rel="icon" type="image/png" href="assets/icons/icon-192.png">
+<link rel="apple-touch-icon" href="assets/icons/icon-192.png">
+<link rel="manifest" href="manifest.json">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>تسجيل الدخول — افهمها | efhamha</title>
+<script>
+/* تطبيق الثيم المحفوظ قبل الرسم لتجنب الوميض */
+(function(){var t=localStorage.getItem("efhama_theme");if(t)document.documentElement.setAttribute("data-theme",t);})();
+</script>
+<link rel="stylesheet" href="css/styles.css">
+<link rel="stylesheet" href="css/login.css">
+</head>
+<body>
+
+<div class="login-split">
+  <!-- لوحة الهوية -->
+  <aside class="login-brand" aria-label="عن المنصة">
+    <span class="login-brand-shape s1" aria-hidden="true"></span>
+    <span class="login-brand-shape s2" aria-hidden="true"></span>
+    <span class="login-brand-shape s3" aria-hidden="true"></span>
+    <div class="login-brand-inner">
+      <a class="efhamha-logo login-logo" href="index.html" aria-label="efhamha">
+        <svg class="efhamha-logo-icon" viewBox="0 0 40 36" width="40" height="36" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <path d="M14 6 L4 18 L14 30" fill="none" stroke="rgba(255,255,255,0.9)" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M26 6 L36 18 L26 30" fill="none" stroke="rgba(255,255,255,0.9)" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+          <polyline points="16,24 20,19 24,13" fill="none" stroke="rgba(255,255,255,0.75)" stroke-width="1.5" stroke-linecap="round"/>
+          <circle cx="16" cy="24" r="1.8" fill="rgba(255,255,255,0.75)"/>
+          <circle cx="20" cy="19" r="2.2" fill="rgba(255,255,255,0.88)"/>
+          <circle cx="24" cy="13" r="2.8" fill="#ffffff"/>
+        </svg>
+        <span class="efhamha-logo-name" style="color:#fff">efhamha</span>
+      </a>
+      <h1 class="login-brand-title">مش هنحفظك المنهج..<br><span>هنفهمهولك.</span></h1>
+      <p class="login-brand-desc">منصة افهمها للتعلم والتطبيق في البرمجة والذكاء الاصطناعي، بشروحات مبسطة واختبارات تفاعلية.</p>
+      <ul class="login-brand-points">
+        <li>
+          <span class="pt-icon" aria-hidden="true"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg></span>
+          <div><strong>شروحات مبسطة لكل المنهج</strong><small>4 فصول و14 درسًا بأمثلة ومخططات تفاعلية</small></div>
+        </li>
+        <li>
+          <span class="pt-icon" aria-hidden="true"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="m8.5 12 2.5 2.5 4.5-5"/></svg></span>
+          <div><strong>اختبارات تفاعلية</strong><small>تصحيح فوري مع شرح لكل إجابة</small></div>
+        </li>
+        <li>
+          <span class="pt-icon" aria-hidden="true"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><ellipse cx="12" cy="5" rx="8" ry="3"/><path d="M4 5v6c0 1.66 3.58 3 8 3s8-1.34 8-3V5"/><path d="M4 11v6c0 1.66 3.58 3 8 3s8-1.34 8-3v-6"/></svg></span>
+          <div><strong>تقدمك محفوظ في حسابك</strong><small>كمّل من حيث توقفت على أي جهاز</small></div>
+        </li>
+      </ul>
+    </div>
+  </aside>
+
+  <!-- نموذج الدخول -->
+  <main class="login-form-side">
+    <div style="width: min(440px, 100%); margin-bottom: 1rem; display: flex; justify-content: space-between; align-items: center;">
+      <a class="btn btn-ghost btn-sm" href="index.html" style="display:inline-flex; align-items:center; gap:.4rem;">
+        <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m15 18-6-6 6-6"/></svg>
+        الرئيسية
+      </a>
+      <div>
+        <span class="muted small">ليس لديك حساب؟</span>
+        <a class="btn btn-outline btn-sm" href="register.html">التسجيل</a>
+      </div>
+    </div>
+    <form class="login-card" id="loginForm" novalidate>
+      <h2 id="formTitle">تسجيل الدخول</h2>
+      <p class="muted small login-sub" id="formSub">ادخل بحسابك لمتابعة التعلم من حيث توقفت.</p>
+
+      <div class="alert alert-error" id="loginError" role="alert" hidden>
+        <span aria-hidden="true"><svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 8v4M12 16h.01"/></svg></span><span id="loginErrorText"></span>
+      </div>
+
+      <div class="field">
+        <label for="email">البريد الإلكتروني</label>
+        <div class="input-wrap">
+          <span class="input-icon" aria-hidden="true"><svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg></span>
+          <input type="email" id="email" placeholder="example@mail.com" autocomplete="username" inputmode="email">
+        </div>
+        <p class="field-error" id="emailError" hidden></p>
+      </div>
+
+      <div class="field">
+        <label for="password">كلمة المرور</label>
+        <div class="input-wrap has-action">
+          <span class="input-icon" aria-hidden="true"><svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="11" width="16" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg></span>
+          <input type="password" id="password" placeholder="••••••••" autocomplete="current-password">
+          <button type="button" class="input-action" id="togglePass" aria-label="إظهار كلمة المرور" title="إظهار/إخفاء كلمة المرور">
+            <svg class="ic-eye" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7-10-7-10-7z"/><circle cx="12" cy="12" r="3"/></svg><svg class="ic-eyeoff" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19M14.12 14.12A3 3 0 1 1 9.88 9.88"/><line x1="2" y1="2" x2="22" y2="22"/></svg>
+          </button>
+        </div>
+        <p class="field-error" id="passwordError" hidden></p>
+      </div>
+
+      <label class="remember">
+        <input type="checkbox" id="remember" checked>
+        تذكرني على هذا الجهاز
+      </label>
+
+      <button type="submit" class="btn btn-block btn-lg" id="loginBtn">
+        <span class="btn-label">تسجيل الدخول</span><span class="btn-spinner" hidden></span>
+      </button>
+
+      <p class="security-note" id="switchRow">
+        <span id="switchText">ليس لديك حساب؟</span>
+        <a href="register.html" id="switchMode">التسجيل والاشتراك</a>
+      </p>
+    </form>
+  </main>
+</div>
+
+<dialog class="session-transfer-dialog" id="sessionTransferDialog" aria-labelledby="sessionTransferTitle" aria-describedby="sessionTransferMessage">
+  <div class="session-transfer-content">
+    <span class="session-transfer-icon" aria-hidden="true">!</span>
+    <h2 id="sessionTransferTitle">الحساب مستخدم حاليًا</h2>
+    <p id="sessionTransferMessage">هذا الحساب مستخدم حاليًا على جهاز آخر. هل تريد تسجيل الخروج من الجهاز الآخر والدخول من الجهاز الحالي؟</p>
+    <div class="session-transfer-actions">
+      <button class="btn btn-block" id="confirmSessionTransfer" type="button">نعم، تسجيل الخروج من الجهاز الآخر والدخول من الجهاز الحالي</button>
+      <button class="btn btn-outline btn-block" id="cancelSessionTransfer" type="button">لا، إلغاء العملية والاستمرار في استخدام الجهاز القديم</button>
+    </div>
+  </div>
+</dialog>
+
+<script src="js/auth.js"></script>
+<script src="js/login.js"></script>
+</body>
+</html>

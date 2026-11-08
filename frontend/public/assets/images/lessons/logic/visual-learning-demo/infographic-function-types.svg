@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1000" height="460" viewBox="0 0 1000 460" role="img" aria-labelledby="title desc">
+  <title id="title">ملخص أنواع الدوال حسب دورها</title>
+  <desc id="desc">الدوال تستقبل مدخلات وتعالجها وقد تعيد نتيجة، ويمكن أن تكون جاهزة أو يكتبها المبرمج.</desc>
+  <rect width="1000" height="460" rx="28" fill="#fff"/>
+  <text x="500" y="58" fill="#172033" font-family="Arial,sans-serif" font-size="30" font-weight="700" text-anchor="middle">الدوال: فكرة واحدة واستخدامات متعددة</text>
+  <g font-family="Arial,sans-serif" text-anchor="middle">
+    <rect x="70" y="120" width="390" height="120" rx="20" fill="#eef0ff" stroke="#3C4AE8" stroke-width="4"/>
+    <text x="265" y="168" fill="#3C4AE8" font-size="26" font-weight="700">Built-in</text>
+    <text x="265" y="208" fill="#27324a" font-size="21">دوال جاهزة مثل len() وsum()</text>
+    <rect x="540" y="120" width="390" height="120" rx="20" fill="#f3f5ff" stroke="#7d87ee" stroke-width="4"/>
+    <text x="735" y="168" fill="#3C4AE8" font-size="26" font-weight="700">User-defined</text>
+    <text x="735" y="208" fill="#27324a" font-size="21">دوال يكتبها المبرمج باستخدام def</text>
+    <path d="M265 255v50h470v-50" fill="none" stroke="#3C4AE8" stroke-width="5"/>
+    <path d="m725 294 10 12 10-12" fill="none" stroke="#3C4AE8" stroke-width="5"/>
+    <rect x="210" y="320" width="580" height="92" rx="20" fill="#edfff5" stroke="#20b26b" stroke-width="4"/>
+    <text x="500" y="358" fill="#16784b" font-size="24" font-weight="700">مدخلات  →  تنفيذ مهمة  →  نتيجة اختيارية</text>
+    <text x="500" y="390" fill="#27324a" font-size="19">اختَر الدالة التي تجعل البرنامج أوضح وأسهل في إعادة الاستخدام</text>
+  </g>
+</svg>
