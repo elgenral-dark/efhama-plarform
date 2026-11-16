@@ -1,0 +1,413 @@
+{
+  "id": "59382",
+  "title": "IF / ELSE IF / ELSE – Multiple Conditions",
+  "summary": "تتعلم التعامل مع شروط متعددة وترتيبها وكتابة قرارات متعددة في Pseudocode وPython.",
+  "duration": "35 دقيقة",
+  "content": [
+    {
+      "type": "heading",
+      "text": "Multiple Conditions – التعامل مع شروط متعددة"
+    },
+    {
+      "type": "heading",
+      "text": "🎯 أهداف الدرس"
+    },
+    {
+      "type": "paragraph",
+      "text": "بعد الدرس ده هتكون قادر على:"
+    },
+    {
+      "type": "list",
+      "items": [
+        "فهم معنى ELSE IF.",
+        "التعامل مع أكتر من احتمال في البرنامج.",
+        "ترتيب الشروط بطريقة صحيحة.",
+        "فهم ترتيب تنفيذ الشروط.",
+        "كتابة خوارزميات فيها قرارات متعددة."
+      ]
+    },
+    {
+      "type": "heading",
+      "text": "1. المشكلة اللي بنحلها"
+    },
+    {
+      "type": "paragraph",
+      "text": "في الدرس السابق اتعلمنا IF / ELSE، ودي بتخلينا نتعامل مع احتمالين، مثلًا: الطالب ناجح أو راسب. لكن تخيل إننا عايزين نعمل برنامج لتقييم درجات الطلاب: من 90 إلى 100 ممتاز، ومن 80 إلى أقل من 90 جيد جدًا، ومن 70 إلى أقل من 80 جيد، ومن 50 إلى أقل من 70 مقبول، وأقل من 50 راسب. هنا عندنا خمسة احتمالات، ومش كفاية نستخدم IF / ELSE بس. علشان كده هنستخدم ELSE IF."
+    },
+    {
+      "type": "heading",
+      "text": "2. يعني إيه ELSE IF؟"
+    },
+    {
+      "type": "paragraph",
+      "text": "ELSE IF معناها: لو الشرط السابق مش صحيح، اختبر شرطًا جديدًا. يعني البرنامج بيمشي بالترتيب: يختبر شرط IF، ولو صحيح ينفذ أوامره وينهي سلسلة الاختيارات؛ ولو خطأ ينتقل إلى ELSE IF ويختبر الشرط التالي، ويستمر لحد ما يلاقي شرطًا صحيحًا. لو مفيش أي شرط صحيح، ينفذ ELSE لو موجودة."
+    },
+    {
+      "type": "steps",
+      "items": [
+        "يختبر شرط IF.",
+        "لو صحيح، ينفذ أوامره وينهي سلسلة الاختيارات.",
+        "لو خطأ، ينتقل إلى ELSE IF.",
+        "يختبر الشرط التالي ويستمر حتى يجد شرطًا صحيحًا.",
+        "لو مفيش أي شرط صحيح، ينفذ ELSE لو موجودة."
+      ]
+    },
+    {"type":"diagram","visualType":"flowchart","title":"توضيح بصري: IF / ELSE IF / ELSE – Multiple Conditions","description":"تتعلم التعامل مع شروط متعددة وترتيبها وكتابة قرارات متعددة في Pseudocode وPython.","image":"assets/images/lessons/logic/59382.svg","alt":"رسم يوضح IF / ELSE IF / ELSE – Multiple Conditions: Check IF، Condition True?، Run Branch، Check ELIF or ELSE"},
+    {
+      "type": "heading",
+      "text": "3. التركيب الأساسي"
+    },
+    {
+      "type": "code",
+      "title": "سلسلة الشروط",
+      "copyButton": true,
+      "code": "IF condition1 THEN\n\n    instructions1\n\nELSE IF condition2 THEN\n\n    instructions2\n\nELSE IF condition3 THEN\n\n    instructions3\n\nELSE\n\n    default instructions\n\nEND IF"
+    },
+    {
+      "type": "paragraph",
+      "text": "مهم تعرف إن ELSE اختيارية، وممكن تكتب أكتر من ELSE IF حسب المشكلة."
+    },
+    {
+      "type": "heading",
+      "text": "4. مثال عملي: تقييم درجات الطلاب"
+    },
+    {
+      "type": "paragraph",
+      "text": "خلينا نكتب الخوارزمية لتقييم الدرجة إلى ممتاز أو جيد جدًا أو جيد أو مقبول أو راسب."
+    },
+    {
+      "type": "code",
+      "title": "تقييم درجات الطلاب",
+      "copyButton": true,
+      "code": "START\n\n    INPUT grade\n\n    IF grade >= 90 THEN\n        OUTPUT \"Excellent\"\n    ELSE IF grade >= 80 THEN\n        OUTPUT \"Very Good\"\n    ELSE IF grade >= 70 THEN\n        OUTPUT \"Good\"\n    ELSE IF grade >= 50 THEN\n        OUTPUT \"Pass\"\n    ELSE\n        OUTPUT \"Fail\"\n    END IF\n\nEND"
+    },
+    {
+      "type": "heading",
+      "text": "نجرب بأرقام مختلفة"
+    },
+    {
+      "type": "test-cases",
+      "title": "تقييم درجات مختلفة",
+      "columns": [
+        "الدرجة",
+        "أول شرط متحقق",
+        "النتيجة"
+      ],
+      "rows": [
+        [
+          "95",
+          "grade >= 90",
+          "Excellent"
+        ],
+        [
+          "85",
+          "grade >= 80",
+          "Very Good"
+        ],
+        [
+          "75",
+          "grade >= 70",
+          "Good"
+        ],
+        [
+          "60",
+          "grade >= 50",
+          "Pass"
+        ],
+        [
+          "40",
+          "لا يوجد شرط صحيح",
+          "Fail"
+        ]
+      ]
+    },
+    {
+      "type": "paragraph",
+      "text": "لاحظ إننا مش محتاجين نكتب في كل شرط إن الدرجة أقل من الحد الأعلى؛ لأن البرنامج بيمشي بالترتيب، وأي درجة حققت شرطًا سابقًا مش هتكمل لباقي الاختيارات."
+    },
+    {
+      "type": "heading",
+      "text": "5. ليه ترتيب الشروط مهم؟"
+    },
+    {
+      "type": "code",
+      "title": "ترتيب غير صحيح",
+      "copyButton": true,
+      "code": "IF grade >= 50 THEN\n    OUTPUT \"Pass\"\nELSE IF grade >= 90 THEN\n    OUTPUT \"Excellent\"\nELSE\n    OUTPUT \"Fail\"\nEND IF"
+    },
+    {
+      "type": "paragraph",
+      "text": "لو الدرجة 95، أول شرط هيكون صحيح، وهيعرض Pass. وبالتالي مش هيوصل لشرط Excellent! إذن ترتيب الشروط هنا غلط."
+    },
+    {
+      "type": "callout",
+      "text": "لما تكون الشروط بتعتمد على نطاقات متداخلة، ابدأ غالبًا بالشرط الأكثر تحديدًا أو الحد الأعلى، وبعده الأقل."
+    },
+    {
+      "type": "heading",
+      "text": "6. مثال تاني: تحديد حالة الرقم"
+    },
+    {
+      "type": "paragraph",
+      "text": "عايزين برنامج يحدد إذا كان الرقم موجب أو سالب أو يساوي صفر."
+    },
+    {
+      "type": "code",
+      "title": "تحديد حالة الرقم",
+      "copyButton": true,
+      "code": "START\n\n    INPUT number\n\n    IF number > 0 THEN\n        OUTPUT \"Positive\"\n    ELSE IF number < 0 THEN\n        OUTPUT \"Negative\"\n    ELSE\n        OUTPUT \"Zero\"\n    END IF\n\nEND"
+    },
+    {
+      "type": "test-cases",
+      "title": "نتائج تحديد حالة الرقم",
+      "columns": [
+        "الرقم",
+        "النتيجة"
+      ],
+      "rows": [
+        [
+          "15",
+          "Positive"
+        ],
+        [
+          "-8",
+          "Negative"
+        ],
+        [
+          "0",
+          "Zero"
+        ]
+      ]
+    },
+    {
+      "type": "heading",
+      "text": "7. مثال باستخدام Python"
+    },
+    {
+      "type": "paragraph",
+      "text": "نفس المثال السابق بلغة Python:"
+    },
+    {
+      "type": "code",
+      "title": "Python",
+      "copyButton": true,
+      "code": "number = int(input(\"Enter a number: \"))\n\nif number > 0:\n    print(\"Positive\")\nelif number < 0:\n    print(\"Negative\")\nelse:\n    print(\"Zero\")"
+    },
+    {
+      "type": "paragraph",
+      "text": "خد بالك من الفرق: في Python بنستخدم elif بدل ELSE IF."
+    },
+    {
+      "type": "test-cases",
+      "title": "Pseudocode وPython",
+      "columns": [
+        "Pseudocode",
+        "Python"
+      ],
+      "rows": [
+        [
+          "ELSE IF",
+          "elif"
+        ],
+        [
+          "THEN",
+          "لا تُكتب"
+        ],
+        [
+          "END IF",
+          "لا تُكتب"
+        ],
+        [
+          "OUTPUT",
+          "print()"
+        ],
+        [
+          "INPUT",
+          "input()"
+        ]
+      ]
+    },
+    {
+      "type": "heading",
+      "text": "8. تتبع تنفيذ الشروط"
+    },
+    {
+      "type": "paragraph",
+      "text": "خلينا نفترض إن الدرجة 85."
+    },
+    {
+      "type": "test-cases",
+      "title": "تتبع تقييم الدرجة 85",
+      "columns": [
+        "الخطوة",
+        "الشرط",
+        "النتيجة"
+      ],
+      "rows": [
+        [
+          "1",
+          "grade >= 90",
+          "FALSE"
+        ],
+        [
+          "2",
+          "grade >= 80",
+          "TRUE"
+        ],
+        [
+          "3",
+          "مش محتاجين نختبر الباقي",
+          "انتهى"
+        ]
+      ]
+    },
+    {
+      "type": "paragraph",
+      "text": "الناتج: Very Good. وده اسمه Condition Evaluation أو تقييم الشروط."
+    },
+    {
+      "type": "heading",
+      "text": "9. أخطاء شائعة"
+    },
+    {
+      "type": "list",
+      "items": [
+        "ترتيب الشروط بشكل خاطئ: ممكن شرط عام يمنع الوصول لشرط أكثر تحديدًا.",
+        "نسيان ELSE: لو كل الشروط طلعت FALSE ومفيش ELSE، البرنامج مش هينفذ أي اختيار من السلسلة.",
+        "استخدام حدود غير دقيقة: استخدام > بدل >= ممكن يغير النتيجة عند الحد الفاصل.",
+        "تكرار شروط غير ضرورية: حاول تكتب الشروط بشكل واضح ومنظم."
+      ]
+    },
+    {
+      "type": "heading",
+      "text": "📚 المصطلحات المهمة"
+    },
+    {
+      "type": "glossary",
+      "title": "قاموس المصطلحات",
+      "items": [
+        {
+          "term": "ELSE IF",
+          "meaning": "شرط بديل إضافي"
+        },
+        {
+          "term": "Multiple Conditions",
+          "meaning": "شروط متعددة"
+        },
+        {
+          "term": "Condition Chain",
+          "meaning": "سلسلة شروط"
+        },
+        {
+          "term": "Condition Evaluation",
+          "meaning": "تقييم الشرط"
+        },
+        {
+          "term": "Branch",
+          "meaning": "مسار"
+        },
+        {
+          "term": "Nested Conditions",
+          "meaning": "شروط متداخلة"
+        },
+        {
+          "term": "elif",
+          "meaning": "الصيغة المستخدمة في Python"
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "text": "🧠 ملخص الدرس"
+    },
+    {
+      "type": "list",
+      "items": [
+        "IF لاختبار أول شرط.",
+        "ELSE IF لاختبار شروط إضافية.",
+        "ELSE للتعامل مع الحالات المتبقية.",
+        "البرنامج ينفذ أول مسار يتحقق شرطه فقط.",
+        "ترتيب الشروط ممكن يغيّر نتيجة البرنامج.",
+        "في Python بنستخدم elif."
+      ]
+    },
+    {
+      "type": "heading",
+      "text": "💻 التحدي العملي"
+    },
+    {
+      "type": "paragraph",
+      "text": "اعمل برنامج يستقبل عمر المستخدم ويحدد الفئة العمرية: أقل من 13 Child، من 13 إلى أقل من 18 Teenager، من 18 إلى أقل من 60 Adult، و60 أو أكثر Senior."
+    },
+    {
+      "type": "steps",
+      "items": [
+        "اكتب الحل باستخدام Pseudocode.",
+        "اكتب الحل باستخدام Python.",
+        "جرّب الأعمار: 10، 15، 25، 65.",
+        "اعمل جدول تتبع يوضح الشرط الذي تحقق في كل حالة."
+      ]
+    },
+    {
+      "type": "paragraph",
+      "text": "التحدي الإضافي: أضف شرطًا يمنع إدخال عمر سالب، ويعرض رسالة مناسبة لو المستخدم أدخل قيمة غير صالحة."
+    }
+  ],
+  "quiz": [
+    {
+      "question": "بنستخدم ELSE IF ليه؟",
+      "options": [
+        "لتكرار الأوامر.",
+        "لاختبار احتمال إضافي.",
+        "لإنشاء متغير.",
+        "لطباعة النصوص."
+      ],
+      "answer": "B",
+      "explanation": "تسمح ELSE IF باختبار شرط جديد لو الشروط السابقة لم تتحقق."
+    },
+    {
+      "question": "إيه الكلمة المقابلة لـ ELSE IF في Python؟",
+      "options": [
+        "elseif",
+        "otherwise",
+        "elif",
+        "nextif"
+      ],
+      "answer": "C",
+      "explanation": "Python بتستخدم elif بدل ELSE IF."
+    },
+    {
+      "question": "لو الدرجة 85 في مثال التقييم، إيه النتيجة؟",
+      "options": [
+        "Excellent",
+        "Very Good",
+        "Good",
+        "Fail"
+      ],
+      "answer": "B",
+      "explanation": "شرط 90 غير متحقق، والشرط التالي grade >= 80 متحقق، فالنتيجة Very Good."
+    },
+    {
+      "question": "لو كل الشروط FALSE ومفيش ELSE، إيه اللي يحصل؟",
+      "options": [
+        "ينفذ كل الأوامر.",
+        "البرنامج يعيد التشغيل.",
+        "مش هيتنفذ أي فرع من السلسلة.",
+        "يتحول الشرط إلى TRUE."
+      ],
+      "answer": "C",
+      "explanation": "من غير ELSE مفيش مسار افتراضي، لذلك لا ينفذ أي فرع."
+    },
+    {
+      "question": "ليه ترتيب الشروط مهم؟",
+      "options": [
+        "لأنه بيغير لون البرنامج.",
+        "لأن أول شرط صحيح بيتم تنفيذه، وبعده السلسلة بتنتهي.",
+        "لأنه بيزود عدد المتغيرات.",
+        "ملوش أي تأثير."
+      ],
+      "answer": "B",
+      "explanation": "أول شرط صحيح ينفذ، لذلك قد يمنع الترتيب الخاطئ الوصول لشروط لاحقة."
+    }
+  ]
+}

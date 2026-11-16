@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="420" viewBox="0 0 960 420" role="img" aria-labelledby="title desc" direction="rtl" preserveAspectRatio="xMidYMid meet">
+<title id="title">Logical Operators – AND / OR / NOT</title>
+<desc id="desc">Visual summary: AND, OR, NOT, Truth Table</desc>
+<defs>
+  <marker id="arrow" markerWidth="12" markerHeight="12" refX="10" refY="6" orient="auto" markerUnits="userSpaceOnUse">
+    <path d="M2 3 L10 6 L2 9 Z" fill="#3C4AE8"/>
+  </marker>
+</defs>
+<rect width="960" height="420" rx="26" fill="#fff"/>
+<text x="480" y="405" text-anchor="middle" fill="#6b7280" font-family="'Cairo', system-ui, -apple-system, sans-serif" font-size="15">EFHAMHA · VISUAL LEARNING</text>
+
+<rect x="290" y="42" width="380" height="72" rx="18" fill="#3C4AE8" stroke="#3C4AE8" stroke-width="3"/>
+<text x="480" y="86" text-anchor="middle" fill="#fff" font-family="'Cairo', system-ui, -apple-system, sans-serif" font-size="22" font-weight="700">Logical Operators · المعاملات المنطقية</text>
+
+<path d="M590 114 L730 168" stroke="#3C4AE8" stroke-width="3.2" stroke-linecap="round" marker-end="url(#arrow)"/>
+<path d="M480 114 L480 166" stroke="#3C4AE8" stroke-width="3.2" stroke-linecap="round" marker-end="url(#arrow)"/>
+<path d="M370 114 L230 168" stroke="#3C4AE8" stroke-width="3.2" stroke-linecap="round" marker-end="url(#arrow)"/>
+
+<rect x="645" y="176" width="230" height="114" rx="18" fill="#eef0ff" stroke="#3C4AE8" stroke-width="3"/>
+<text x="760" y="222" text-anchor="middle" direction="ltr" fill="#26324a" font-family="'Cairo', system-ui, -apple-system, sans-serif" font-size="21" font-weight="700">AND</text>
+<text x="760" y="258" text-anchor="middle" fill="#5f6b85" font-family="'Cairo', system-ui, -apple-system, sans-serif" font-size="15">صحيح فقط إذا تحقق الشرطان معاً</text>
+
+<rect x="365" y="176" width="230" height="114" rx="18" fill="#fff7e6" stroke="#d58b18" stroke-width="3"/>
+<text x="480" y="222" text-anchor="middle" direction="ltr" fill="#26324a" font-family="'Cairo', system-ui, -apple-system, sans-serif" font-size="21" font-weight="700">OR</text>
+<text x="480" y="258" text-anchor="middle" fill="#5f6b85" font-family="'Cairo', system-ui, -apple-system, sans-serif" font-size="15">صحيح إذا تحقق أي شرط منهما</text>
+
+<rect x="85" y="176" width="230" height="114" rx="18" fill="#edfff5" stroke="#20a36a" stroke-width="3"/>
+<text x="200" y="222" text-anchor="middle" direction="ltr" fill="#26324a" font-family="'Cairo', system-ui, -apple-system, sans-serif" font-size="21" font-weight="700">NOT</text>
+<text x="200" y="258" text-anchor="middle" fill="#5f6b85" font-family="'Cairo', system-ui, -apple-system, sans-serif" font-size="15">يعكس القيمة المنطقية (نفي)</text>
+
+<text x="480" y="344" text-anchor="middle" fill="#5f6b85" font-family="'Cairo', system-ui, -apple-system, sans-serif" font-size="17">بناء الشروط المركبة للتحكم في تدفق البرنامج</text>
+</svg>

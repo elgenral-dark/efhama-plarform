@@ -1,0 +1,405 @@
+{
+  "version": 1,
+  "tracks": [
+    {
+      "slug": "python",
+      "title": "مشروعات Python",
+      "projects": [
+        {
+          "id": "python-simple-calculator", "title": "Simple Calculator", "level": "beginner", "minutes": 35,
+          "skills": ["المتغيرات", "الإدخال والإخراج", "العمليات الحسابية", "الشروط"],
+          "prerequisites": ["python-2", "python-3", "python-4"],
+          "idea": "حاسبة نصية تنفذ عملية حسابية واحدة على رقمين.",
+          "goal": "قراءة القيم والتحقق من العملية ثم عرض الناتج أو رسالة مفهومة.",
+          "phases": ["استقبل رقمين ونوع العملية من المستخدم.", "نفّذ الجمع والطرح والضرب والقسمة باستخدام الشروط.", "تحقق من اختيار العملية ومنع القسمة على صفر."],
+          "tests": ["جرّب جمع 8 و3 وتأكد من الناتج.", "جرّب عملية غير معروفة والقسمة على صفر."],
+          "hint": "حوّل مدخلات الأرقام إلى float، واستخدم if/elif لاختيار العملية.",
+          "starter": "first = float(input(\"الرقم الأول: \"))\nsecond = float(input(\"الرقم الثاني: \"))\noperation = input(\"العملية (+ - * /): \")\n# أكمل اختيار العملية والتحقق من القسمة على صفر",
+          "solution": "first = float(input(\"الرقم الأول: \"))\nsecond = float(input(\"الرقم الثاني: \"))\noperation = input(\"العملية (+ - * /): \")\nif operation == \"+\":\n    result = first + second\nelif operation == \"-\":\n    result = first - second\nelif operation == \"*\":\n    result = first * second\nelif operation == \"/\" and second != 0:\n    result = first / second\nelse:\n    result = \"عملية غير صالحة\"\nprint(result)"
+        },
+        {
+          "id": "python-number-guessing", "title": "Number Guessing Game", "level": "beginner", "minutes": 45,
+          "skills": ["الشروط", "الحلقات", "المقارنة", "الإدخال"],
+          "prerequisites": ["python-4", "python-5"],
+          "idea": "لعبة تخمين رقم سري مع إرشاد اللاعب حتى يصيب.",
+          "goal": "تكرار طلب التخمين وإعطاء تلميح أعلى أو أقل ثم إنهاء اللعبة.",
+          "phases": ["اختر رقمًا سريًا وجهّز عداد المحاولات.", "كرر طلب الإدخال وقارن التخمين بالرقم.", "اعرض رسالة فوز وعدد المحاولات."],
+          "tests": ["أدخل الرقم الصحيح وتأكد من انتهاء الحلقة.", "أدخل قيمة أصغر وأكبر قبل التخمين الصحيح."],
+          "hint": "استخدم while، واخرج منها عندما يتساوى التخمين والرقم السري.",
+          "starter": "secret = 7\nattempts = 0\n# أضف حلقة تطلب التخمين وتعطي تلميحًا",
+          "solution": "secret = 7\nattempts = 0\nguess = None\nwhile guess != secret:\n    guess = int(input(\"خمن الرقم: \"))\n    attempts += 1\n    if guess < secret:\n        print(\"أعلى\")\n    elif guess > secret:\n        print(\"أقل\")\nprint(\"أحسنت! المحاولات:\", attempts)"
+        },
+        {
+          "id": "python-student-grades", "title": "Student Grades System", "level": "beginner", "minutes": 55,
+          "skills": ["القوائم", "الحلقات", "المتوسط", "الشروط"],
+          "prerequisites": ["python-5", "python-6"],
+          "idea": "تجميع درجات طالب وحساب متوسطه وتصنيفه.",
+          "goal": "إدارة مجموعة درجات وعرض المتوسط وحالة النجاح.",
+          "phases": ["اجمع الدرجات في قائمة.", "احسب المتوسط باستخدام sum وlen.", "صنّف النتيجة وفق حد نجاح واضح."],
+          "tests": ["اختبر درجات نجاح ورسوب.", "تحقق من التعامل مع قائمة فارغة."],
+          "hint": "افحص أن القائمة غير فارغة قبل قسمة مجموعها على طولها.",
+          "starter": "grades = []\n# أضف درجات إلى القائمة ثم احسب المتوسط",
+          "solution": "grades = [85, 72, 91]\nif grades:\n    average = sum(grades) / len(grades)\n    status = \"ناجح\" if average >= 60 else \"يحتاج مراجعة\"\n    print(f\"المتوسط: {average:.1f} - {status}\")\nelse:\n    print(\"لا توجد درجات\")"
+        },
+        {
+          "id": "python-library-management", "title": "Library Management System", "level": "intermediate", "minutes": 90,
+          "skills": ["القواميس", "القوائم", "الدوال", "التحقق من الإدخال"],
+          "prerequisites": ["python-6", "python-7"],
+          "idea": "كتالوج كتب بسيط يتيح البحث والاستعارة والإرجاع أثناء تشغيل البرنامج.",
+          "goal": "تمثيل الكتب بحقول واضحة وتغيير حالة التوفر عبر دوال.",
+          "phases": ["مثّل كل كتاب بقاموس داخل قائمة.", "اكتب دوال البحث والاستعارة والإرجاع.", "تعامل مع كتاب غير موجود أو غير متاح."],
+          "tests": ["استعر كتابًا متاحًا ثم أعده.", "حاول استعارة كتاب غير موجود أو مستعار."],
+          "hint": "اجعل كل عملية دالة، وابحث عن الكتاب بمقارنة العنوان.",
+          "starter": "books = [{\"title\": \"رحلة العلم\", \"available\": True}]\n\ndef find_book(title):\n    # أعد الكتاب المطابق أو None\n    pass",
+          "solution": "books = [{\"title\": \"رحلة العلم\", \"available\": True}]\ndef find_book(title):\n    return next((book for book in books if book[\"title\"].lower() == title.lower()), None)\ndef borrow(title):\n    book = find_book(title)\n    if book and book[\"available\"]:\n        book[\"available\"] = False\n        return \"تمت الاستعارة\"\n    return \"الكتاب غير متاح\"\ndef return_book(title):\n    book = find_book(title)\n    if book:\n        book[\"available\"] = True\n        return \"تم الإرجاع\"\n    return \"الكتاب غير موجود\""
+        },
+        {
+          "id": "python-contact-management", "title": "Contact Management System", "level": "intermediate", "minutes": 80,
+          "skills": ["القواميس", "القوائم", "الدوال", "البحث"],
+          "prerequisites": ["python-6", "python-7"],
+          "idea": "دفتر جهات اتصال يعمل من الطرفية ويبحث بالاسم.",
+          "goal": "إضافة بيانات منظمة والبحث عنها والتحقق من تكرار الاسم.",
+          "phases": ["صمّم سجل جهة الاتصال.", "اكتب دالتي الإضافة والبحث.", "تحقق من الحقول والاسم المكرر."],
+          "tests": ["أضف وابحث عن جهة اتصال موجودة.", "ابحث عن اسم غير موجود وأدخل اسمًا مكررًا."],
+          "hint": "استخدم قائمة قواميس، واجعل البحث غير حساس لحالة الأحرف.",
+          "starter": "contacts = []\n\ndef add_contact(name, phone):\n    # تحقق من البيانات وأضفها\n    pass",
+          "solution": "contacts = []\ndef add_contact(name, phone):\n    name = name.strip()\n    if not name or not phone.strip():\n        return False\n    if any(item[\"name\"].lower() == name.lower() for item in contacts):\n        return False\n    contacts.append({\"name\": name, \"phone\": phone.strip()})\n    return True\ndef find_contact(name):\n    return next((item for item in contacts if item[\"name\"].lower() == name.strip().lower()), None)"
+        },
+        {
+          "id": "python-expense-tracker", "title": "Expense Tracker", "level": "intermediate", "minutes": 85,
+          "skills": ["القوائم", "القواميس", "الدوال", "المجاميع"],
+          "prerequisites": ["python-6", "python-7"],
+          "idea": "سجل مصروفات مصنف يحسب إجمالي الإنفاق لكل فئة.",
+          "goal": "تخزين المصروفات والتحقق من المبلغ واستخراج ملخص مفيد.",
+          "phases": ["سجّل المبلغ والوصف والفئة في قاموس.", "اكتب دالة تجمع المصروفات حسب الفئة.", "ارفض المبالغ السالبة أو الصفرية."],
+          "tests": ["أضف مصروفين لفئة واحدة وقارن الإجمالي.", "جرّب مبلغًا غير صالح وفئة بلا مصروف."],
+          "hint": "مرّ على القائمة واجمع amount عندما تتطابق category.",
+          "starter": "expenses = []\n\ndef add_expense(amount, category, note):\n    # تحقق من المبلغ ثم خزّن المصروف\n    pass",
+          "solution": "expenses = []\ndef add_expense(amount, category, note):\n    if amount <= 0 or not category.strip():\n        return False\n    expenses.append({\"amount\": amount, \"category\": category.strip(), \"note\": note.strip()})\n    return True\ndef total_for(category):\n    return sum(item[\"amount\"] for item in expenses if item[\"category\"].lower() == category.lower())"
+        },
+        {
+          "id": "python-quiz-app", "title": "Quiz Application", "level": "advanced", "minutes": 110,
+          "skills": ["القواميس", "الحلقات", "الدوال", "النقاط"],
+          "prerequisites": ["python-5", "python-6", "python-7"],
+          "idea": "اختبار طرفية من أسئلة متعددة الخيارات مع نتيجة نهائية.",
+          "goal": "فصل بيانات الأسئلة عن منطق العرض والتصحيح.",
+          "phases": ["مثّل السؤال والاختيارات والإجابة الصحيحة.", "اعرض الأسئلة واحسب النقاط.", "تعامل مع اختيار خارج النطاق واعرض النتيجة."],
+          "tests": ["أجب إجابات صحيحة وأخرى خاطئة.", "أدخل اختيارًا غير صالح وتأكد من عدم احتسابه."],
+          "hint": "خزّن correct كفهرس، واستخدم دالة منفصلة لتشغيل كل سؤال.",
+          "starter": "questions = [{\"text\": \"2 + 2؟\", \"options\": [\"3\", \"4\"], \"correct\": 1}]\nscore = 0\n# اعرض الأسئلة وتحقق من الإجابة",
+          "solution": "questions = [{\"text\": \"2 + 2؟\", \"options\": [\"3\", \"4\"], \"correct\": 1}]\nscore = 0\nfor question in questions:\n    print(question[\"text\"])\n    for index, option in enumerate(question[\"options\"], 1):\n        print(index, option)\n    answer = input(\"اختيارك: \")\n    if answer.isdigit() and int(answer) - 1 == question[\"correct\"]:\n        score += 1\nprint(f\"نتيجتك: {score}/{len(questions)}\")"
+        }
+      ]
+    },
+    {
+      "slug": "html",
+      "title": "مشروعات HTML",
+      "projects": [
+        {
+          "id": "html-profile-page", "title": "Personal Profile Page", "level": "beginner", "minutes": 30,
+          "skills": ["العناوين والفقرات", "الروابط", "الصور", "العناصر الدلالية"],
+          "prerequisites": ["html-1", "html-2"],
+          "idea": "صفحة تعريف شخصية منظمة وسهلة القراءة.",
+          "goal": "استخدام عناصر HTML المناسبة لمحتوى حقيقي.",
+          "phases": ["أضف عنوانًا وملخصًا وصورة بنص بديل.", "أضف قائمة مهارات ورابط تواصل.", "نظّم المحتوى داخل header وmain وfooter."],
+          "tests": ["تحقق من وجود h1 واحد ووصف للصورة.", "افتح رابط التواصل وتحقق من وجهته."],
+          "hint": "ابدأ بالهيكل الدلالي ثم أضف المحتوى داخله.",
+          "starter": {"html": "<header><h1>اسمك</h1></header>\n<main>\n  <!-- أضف نبذة ومهارات -->\n</main>\n<footer></footer>", "css": "body { font-family: Arial, sans-serif; }"},
+          "solution": {"html": "<header><h1>سارة أحمد</h1><p>طالبة تتعلم بناء الويب.</p></header>\n<main><section><h2>مهاراتي</h2><ul><li>HTML</li><li>حل المشكلات</li></ul></section><a href=\"mailto:student@example.com\">تواصل معي</a></main>\n<footer><small>صفحة تعريف شخصية</small></footer>", "css": "body { max-width: 720px; margin: 2rem auto; padding: 1rem; font-family: Arial, sans-serif; line-height: 1.7; }"}
+        },
+        {
+          "id": "html-blog-page", "title": "Simple Blog Page", "level": "beginner", "minutes": 45,
+          "skills": ["العناوين", "الفقرات", "القوائم", "العناصر الدلالية"],
+          "prerequisites": ["html-2", "html-3"],
+          "idea": "صفحة تدوينة تحتوي عنوانًا ومحتوى وأقسامًا واضحة.",
+          "goal": "بناء صفحة مقروءة باستخدام article وsection.",
+          "phases": ["أضف عنوان المقال وبيانات الكاتب.", "قسّم النص إلى أقسام معنونة.", "أضف قائمة نقاط وخاتمة."],
+          "tests": ["تحقق من ترتيب العناوين ومن وجود article.", "تأكد من ظهور بيانات الكاتب والنقاط."],
+          "hint": "يمثل article محتوى يمكن فهمه مستقلًا عن بقية الصفحة.",
+          "starter": {"html": "<main>\n  <article>\n    <h1>عنوان التدوينة</h1>\n    <!-- أضف الكاتب والأقسام -->\n  </article>\n</main>", "css": "body { font-family: Arial, sans-serif; }"},
+          "solution": {"html": "<main><article><h1>كيف أتعلم البرمجة؟</h1><p>بقلم سارة</p><section><h2>خطوات صغيرة</h2><p>أتدرب يوميًا على فكرة واحدة.</p><ul><li>أقرأ المثال</li><li>أكتب الكود</li></ul></section></article></main>", "css": "body { max-width: 680px; margin: 2rem auto; padding: 1rem; font-family: Arial, sans-serif; line-height: 1.8; }"}
+        },
+        {
+          "id": "html-registration-form", "title": "Registration Form", "level": "beginner", "minutes": 50,
+          "skills": ["النماذج", "المدخلات", "التسميات", "إمكانية الوصول"],
+          "prerequisites": ["html-5"],
+          "idea": "نموذج تسجيل تعليمي يحتوي الاسم والبريد والموافقة.",
+          "goal": "ربط label بالمدخل واختيار الأنواع المناسبة.",
+          "phases": ["أنشئ form بحقول الاسم والبريد.", "أضف تسميات مرتبطة بمعرّفات المدخلات.", "أضف اختيار موافقة وزر إرسال."],
+          "tests": ["تحقق من تطابق for وid.", "جرّب التحقق المدمج لحقل البريد."],
+          "hint": "استخدم required وtype=email، ولا تترك حقلًا بلا label.",
+          "starter": {"html": "<form>\n  <!-- أضف الحقول والتسميات -->\n</form>", "css": "form { display: grid; gap: 1rem; max-width: 420px; }"},
+          "solution": {"html": "<form><label for=\"name\">الاسم</label><input id=\"name\" required><label for=\"email\">البريد</label><input id=\"email\" type=\"email\" required><label><input type=\"checkbox\" required> أوافق</label><button type=\"submit\">تسجيل</button></form>", "css": "form { display: grid; gap: .75rem; max-width: 420px; } input, button { padding: .7rem; }"}
+        },
+        {
+          "id": "html-product-landing", "title": "Product Landing Page", "level": "intermediate", "minutes": 70,
+          "skills": ["العناصر الدلالية", "الروابط", "الصور", "القوائم"],
+          "prerequisites": ["html-3", "html-4", "html-6"],
+          "idea": "صفحة تعريف بمنتج تعليمي مع ميزات ودعوة لاتخاذ إجراء.",
+          "goal": "تنظيم محتوى تسويقي بسيط في أقسام واضحة.",
+          "phases": ["أنشئ رأس صفحة وعنوانًا رئيسيًا ووصفًا.", "اعرض ثلاث ميزات بقائمة أو articles.", "أضف رابط دعوة واضحًا وتذييلًا."],
+          "tests": ["تحقق من وجود main وعنوان رئيسي.", "تأكد من أن رابط الدعوة يقود إلى قسم واضح."],
+          "hint": "استخدم href لمرساة داخل الصفحة مثل #features.",
+          "starter": {"html": "<header><nav></nav></header>\n<main>\n  <section id=\"hero\"><h1>اسم المنتج</h1></section>\n  <!-- أضف الميزات -->\n</main>", "css": "body { font-family: Arial, sans-serif; }"},
+          "solution": {"html": "<header><nav><a href=\"#features\">المميزات</a></nav></header><main><section id=\"hero\"><h1>منصة تعلم البرمجة</h1><p>تعلّم بالتطبيق خطوة بخطوة.</p><a href=\"#features\">اكتشف المميزات</a></section><section id=\"features\"><h2>المميزات</h2><ul><li>دروس عملية</li><li>تحديات قصيرة</li><li>مشروعات متدرجة</li></ul></section></main><footer>ابدأ التعلم اليوم</footer>", "css": "body { max-width: 900px; margin: auto; padding: 1rem; font-family: Arial, sans-serif; line-height: 1.8; } section { padding: 2rem 0; }"}
+        },
+        {
+          "id": "html-portfolio-structure", "title": "Portfolio Structure", "level": "intermediate", "minutes": 65,
+          "skills": ["العناصر الدلالية", "الروابط", "القوائم", "الجداول"],
+          "prerequisites": ["html-3", "html-6", "html-7"],
+          "idea": "هيكل معرض أعمال يعرض نبذة ومشروعات وطرق التواصل.",
+          "goal": "إنشاء بنية قابلة للتوسعة قبل تنسيقها بـCSS.",
+          "phases": ["أنشئ header وnav وروابط الأقسام.", "أضف قسم نبذة وقائمة مشروعات.", "أضف قسم تواصل وروابط ذات نص وصفي."],
+          "tests": ["جرّب كل رابط تنقل داخلي.", "تحقق من وصف الروابط وعدم استخدام نص مبهم."],
+          "hint": "استخدم id لكل section واجعل روابط القائمة تشير إليه.",
+          "starter": {"html": "<header><nav><!-- روابط الأقسام --></nav></header>\n<main>\n  <section id=\"about\"><h1>نبذة</h1></section>\n  <section id=\"work\"><h2>أعمالي</h2></section>\n</main>", "css": "body { font-family: Arial, sans-serif; }"},
+          "solution": {"html": "<header><nav><a href=\"#about\">نبذة</a> <a href=\"#work\">المشروعات</a> <a href=\"#contact\">تواصل</a></nav></header><main><section id=\"about\"><h1>معرض أعمالي</h1><p>أتعلم تطوير الويب.</p></section><section id=\"work\"><h2>مشروعاتي</h2><ul><li><a href=\"#contact\">صفحة تعريف</a></li></ul></section><section id=\"contact\"><h2>تواصل</h2><a href=\"mailto:student@example.com\">أرسل بريدًا</a></section></main>", "css": "body { max-width: 850px; margin: auto; padding: 1rem; font-family: Arial, sans-serif; } nav { display: flex; gap: 1rem; }"}
+        }
+      ]
+    },
+    {
+      "slug": "css",
+      "title": "مشروعات CSS",
+      "projects": [
+        {
+          "id": "css-responsive-landing", "title": "Responsive Landing Page", "level": "beginner", "minutes": 50,
+          "skills": ["الألوان والخطوط", "المسافات", "التخطيط", "Media Queries"],
+          "prerequisites": ["css-2", "css-3", "css-6"],
+          "idea": "صفحة هبوط بسيطة تتكيف مع الهاتف والكمبيوتر.",
+          "goal": "استخدام قياسات مرنة ونقطة توقف مناسبة.",
+          "phases": ["نسّق العنوان والزر والمسافات.", "استخدم max-width وتخطيطًا مرنًا.", "أضف media query للشاشات الصغيرة."],
+          "tests": ["عاين العرض عند 375px وعند 1280px.", "تأكد من عدم ظهور تمرير أفقي."],
+          "hint": "ابدأ بتصميم الهاتف ثم وسّعه للشاشات الأكبر.",
+          "starter": {"html": "<main class=\"hero\"><h1>تعلم شيئًا جديدًا</h1><p>ابدأ بخطوة صغيرة.</p><a href=\"#start\">ابدأ الآن</a></main>", "css": ".hero {\n  /* أضف التخطيط والألوان */\n}"},
+          "solution": {"html": "<main class=\"hero\"><h1>تعلم شيئًا جديدًا</h1><p>ابدأ بخطوة صغيرة كل يوم.</p><a href=\"#start\">ابدأ الآن</a></main>", "css": "body { margin: 0; font-family: Arial, sans-serif; } .hero { max-width: 900px; margin: auto; padding: clamp(2rem, 8vw, 6rem) 1rem; } a { display: inline-block; padding: .8rem 1rem; background: #3C4AE8; color: white; border-radius: .6rem; } @media (max-width: 600px) { .hero { text-align: center; } }"}
+        },
+        {
+          "id": "css-profile-cards", "title": "Profile Cards", "level": "beginner", "minutes": 45,
+          "skills": ["المحددات", "الألوان", "المسافات", "Flexbox"],
+          "prerequisites": ["css-2", "css-3", "css-4"],
+          "idea": "بطاقات شخصية متناسقة لثلاثة أعضاء فريق.",
+          "goal": "إعادة استخدام قاعدة CSS لتوحيد شكل البطاقات.",
+          "phases": ["أنشئ شبكة بطاقات في HTML.", "نسّق البطاقة والحواف والمسافات.", "اجعل البطاقات تلتف عند ضيق الشاشة."],
+          "tests": ["تحقق من ظهور البطاقات الثلاث.", "عاين تخطيط الهاتف والكمبيوتر."],
+          "hint": "استخدم display:grid مع repeat وminmax.",
+          "starter": {"html": "<section class=\"people\"><article class=\"card\"><h2>سارة</h2><p>مصممة</p></article><article class=\"card\"><h2>عمر</h2><p>مطور</p></article></section>", "css": ".people { /* أنشئ شبكة مرنة */ }\n.card { /* نسّق البطاقة */ }"},
+          "solution": {"html": "<section class=\"people\"><article class=\"card\"><h2>سارة</h2><p>مصممة</p></article><article class=\"card\"><h2>عمر</h2><p>مطور</p></article><article class=\"card\"><h2>نور</h2><p>باحثة</p></article></section>", "css": ".people { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 1rem; } .card { padding: 1.25rem; border-radius: 1rem; background: #eef0ff; }"}
+        },
+        {
+          "id": "css-pricing-table", "title": "Pricing Table", "level": "intermediate", "minutes": 60,
+          "skills": ["Grid", "المحددات", "الألوان", "التباين"],
+          "prerequisites": ["css-2", "css-4", "css-5"],
+          "idea": "مقارنة ثلاث باقات بأسعار ومميزات واضحة.",
+          "goal": "إبراز الباقة المقترحة مع الحفاظ على وضوح المقارنة.",
+          "phases": ["أنشئ عمودًا لكل باقة.", "رتب الأعمدة باستخدام Grid.", "ميّز الباقة المناسبة بصريًا دون إخفاء المعلومات."],
+          "tests": ["قارن الأسعار والمميزات على شاشة ضيقة.", "تحقق من وضوح زر كل باقة."],
+          "hint": "استخدم grid-template-columns ووسم class للباقة المميزة.",
+          "starter": {"html": "<section class=\"plans\"><article class=\"plan\"><h2>أساسية</h2><p>مجانية</p></article><article class=\"plan featured\"><h2>متقدمة</h2><p>١٠٠ جنيه</p></article></section>", "css": ".plans { /* أنشئ أعمدة الباقات */ }\n.plan { /* نسّق كل باقة */ }"},
+          "solution": {"html": "<section class=\"plans\"><article class=\"plan\"><h2>أساسية</h2><p>مجانية</p><button>اختر</button></article><article class=\"plan featured\"><h2>متقدمة</h2><p>١٠٠ جنيه</p><button>اختر</button></article><article class=\"plan\"><h2>فريق</h2><p>٢٠٠ جنيه</p><button>اختر</button></article></section>", "css": ".plans { display: grid; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); gap: 1rem; } .plan { padding: 1.2rem; border: 1px solid #ccd0e0; border-radius: 1rem; } .featured { border: 2px solid #3C4AE8; background: #eef0ff; }"}
+        },
+        {
+          "id": "css-dashboard-ui", "title": "Dashboard UI", "level": "advanced", "minutes": 100,
+          "skills": ["Grid", "Flexbox", "المتغيرات", "التصميم المتجاوب"],
+          "prerequisites": ["css-4", "css-5", "css-6"],
+          "idea": "لوحة معلومات تعليمية ببطاقات إحصاء وشريط تنقل.",
+          "goal": "تركيب تخطيطات متعددة دون التضحية بسهولة القراءة.",
+          "phases": ["أنشئ حاوية رئيسية وشريط تنقل.", "رتب بطاقات الإحصاء باستخدام Grid.", "اضبط الأعمدة والمسافات للموبايل."],
+          "tests": ["اختبر عرض 375px و768px.", "تحقق من عدم قص العناوين أو البطاقات."],
+          "hint": "استخدم CSS variables للألوان وminmax للأعمدة.",
+          "starter": {"html": "<main class=\"dashboard\"><aside>القائمة</aside><section class=\"stats\"><article>الدروس</article><article>المشروعات</article></section></main>", "css": ":root { --primary: #3C4AE8; }\n.dashboard { /* أضف التخطيط */ }"},
+          "solution": {"html": "<main class=\"dashboard\"><aside>الرئيسية · الدروس · المشروعات</aside><section><h1>لوحة الطالب</h1><div class=\"stats\"><article>الدروس: 8</article><article>المشروعات: 2</article><article>التقدم: 60%</article></div></section></main>", "css": ":root { --primary: #3C4AE8; } body { font-family: Arial, sans-serif; } .dashboard { display: grid; grid-template-columns: 220px 1fr; gap: 1.5rem; } .stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 1rem; } article, aside { padding: 1rem; background: #eef0ff; border-radius: .8rem; } @media (max-width: 600px) { .dashboard { grid-template-columns: 1fr; } }"}
+        },
+        {
+          "id": "css-responsive-portfolio", "title": "Responsive Portfolio", "level": "intermediate", "minutes": 80,
+          "skills": ["التخطيط", "Media Queries", "الخطوط", "التباعد"],
+          "prerequisites": ["css-3", "css-5", "css-6"],
+          "idea": "معرض أعمال شخصي بتخطيط مرن لقسم المشروعات.",
+          "goal": "تطبيق تخطيط متجاوب على محتوى متعدد.",
+          "phases": ["نسّق رأس الصفحة والنبذة.", "أنشئ شبكة للمشروعات.", "اضبط تخطيط الهاتف وأحجام النص."],
+          "tests": ["تحقق من بطاقتين أو أكثر في العرض الكبير.", "تأكد أن الأعمدة تصبح واحدة على الهاتف."],
+          "hint": "استخدم auto-fit وminmax ثم قلل المسافات عند الهاتف.",
+          "starter": {"html": "<header><h1>معرض أعمالي</h1></header><main class=\"projects\"><article>مشروع ١</article><article>مشروع ٢</article></main>", "css": ".projects { /* أنشئ شبكة متجاوبة */ }"},
+          "solution": {"html": "<header><h1>معرض أعمالي</h1><p>مشروعات تعلمتها خطوة بخطوة.</p></header><main class=\"projects\"><article><h2>صفحة شخصية</h2></article><article><h2>لوحة معلومات</h2></article></main>", "css": "body { max-width: 1000px; margin: auto; padding: 1rem; font-family: Arial, sans-serif; } .projects { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 1rem; } article { padding: 2rem 1rem; background: #eef0ff; border-radius: 1rem; }"}
+        },
+        {
+          "id": "css-animated-components", "title": "Animated Components", "level": "advanced", "minutes": 75,
+          "skills": ["الانتقالات", "الحالات التفاعلية", "المحددات", "إمكانية الوصول"],
+          "prerequisites": ["css-2", "css-4", "css-6"],
+          "idea": "أزرار وبطاقات بتأثيرات انتقال خفيفة وغير مشتتة.",
+          "goal": "استخدام transition وhover مع احترام تقليل الحركة.",
+          "phases": ["نسّق حالات الزر الأساسية وhover.", "أضف انتقالًا قصيرًا للبطاقة.", "أوقف الحركة عند تفضيل reduced-motion."],
+          "tests": ["جرّب لوحة المفاتيح وحالة focus.", "فعّل تقليل الحركة في إعدادات النظام."],
+          "hint": "اجعل الحركة اختيارية عبر prefers-reduced-motion.",
+          "starter": {"html": "<button class=\"action\">ابدأ التعلم</button><article class=\"card\">مرر المؤشر هنا</article>", "css": ".action { /* أضف hover وfocus */ }\n.card { /* أضف انتقالًا هادئًا */ }"},
+          "solution": {"html": "<button class=\"action\">ابدأ التعلم</button><article class=\"card\">مرر المؤشر هنا</article>", "css": ".action { padding: .8rem 1rem; color: white; background: #3C4AE8; border: 0; border-radius: .6rem; transition: background .2s ease, transform .2s ease; } .action:hover, .action:focus-visible { background: #2a39c8; transform: translateY(-2px); } .card { padding: 1rem; transition: box-shadow .2s ease; } .card:hover { box-shadow: 0 8px 24px #0002; } @media (prefers-reduced-motion: reduce) { *, *::before, *::after { transition-duration: .01ms !important; } }"}
+        }
+      ]
+    },
+    {
+      "slug": "javascript",
+      "title": "مشروعات JavaScript",
+      "projects": [
+        {
+          "id": "js-interactive-calculator", "title": "Interactive Calculator", "level": "beginner", "minutes": 60,
+          "skills": ["الدوال", "الأحداث", "الشروط", "DOM"],
+          "prerequisites": ["js-3", "js-4", "js-5"],
+          "idea": "حاسبة تتفاعل مع حقول إدخال وزر حساب.",
+          "goal": "قراءة قيم عناصر الصفحة وعرض نتيجة آمنة.",
+          "phases": ["اقرأ الرقمين من الحقول.", "استمع لحدث الضغط واحسب المجموع.", "تحقق من المدخلات واعرض رسالة مناسبة."],
+          "tests": ["جرّب رقمين صحيحين.", "جرّب حقلًا فارغًا ونصًا غير رقمي."],
+          "hint": "استخدم Number.isFinite للتحقق من القيم بعد تحويلها.",
+          "starter": "const button = document.querySelector(\"#calculate\");\nbutton.addEventListener(\"click\", () => {\n  // اقرأ الرقمين واعرض النتيجة\n});",
+          "previewHtml": "<main><label>الأول <input id=\"first\" type=\"number\" value=\"4\"></label><label>الثاني <input id=\"second\" type=\"number\" value=\"6\"></label><button id=\"calculate\">احسب</button><p id=\"result\">النتيجة تظهر هنا</p></main>",
+          "previewCss": "body { font-family: Arial, sans-serif; } main { display: grid; gap: .7rem; max-width: 320px; }",
+          "solution": "const button = document.querySelector(\"#calculate\");\nbutton.addEventListener(\"click\", async () => {\n  const first = Number((await document.querySelector(\"#first\")).value);\n  const second = Number((await document.querySelector(\"#second\")).value);\n  const result = await document.querySelector(\"#result\");\n  result.textContent = Number.isFinite(first + second) ? `الناتج: ${first + second}` : \"أدخل رقمين صحيحين\";\n});"
+        },
+        {
+          "id": "js-todo-list", "title": "To-Do List", "level": "beginner", "minutes": 65,
+          "skills": ["DOM", "الأحداث", "المصفوفات", "إنشاء العناصر"],
+          "prerequisites": ["js-5", "js-6"],
+          "idea": "قائمة مهام تسمح بإضافة مهمة وتعليمها مكتملة.",
+          "goal": "إنشاء عناصر DOM والتعامل مع نقراتها.",
+          "phases": ["اقرأ نص المهمة عند الإضافة.", "أنشئ عنصرًا وزر إكمال.", "امنع إضافة النص الفارغ."],
+          "tests": ["أضف مهمتين وأكمل واحدة.", "حاول إضافة نص فارغ."],
+          "hint": "أنشئ العناصر عبر document.createElement بدل تركيب HTML من إدخال المستخدم.",
+          "starter": "const addButton = document.querySelector(\"#add\");\naddButton.addEventListener(\"click\", () => {\n  // أنشئ مهمة جديدة بأمان\n});",
+          "previewHtml": "<main><label>مهمة <input id=\"task\"></label><button id=\"add\">إضافة</button><ul id=\"list\"></ul></main>",
+          "previewCss": "body { font-family: Arial, sans-serif; } li { margin: .5rem; }",
+          "solution": "const addButton = document.querySelector(\"#add\");\naddButton.addEventListener(\"click\", async () => {\n  const input = await document.querySelector(\"#task\");\n  const list = await document.querySelector(\"#list\");\n  if (!input.value.trim()) return;\n  const item = document.createElement(\"li\");\n  item.textContent = input.value.trim();\n  item.addEventListener(\"click\", () => { item.className = \"done\"; });\n  list.appendChild(item);\n  input.value = \"\";\n});"
+        },
+        {
+          "id": "js-quiz-app", "title": "Quiz Application", "level": "intermediate", "minutes": 85,
+          "skills": ["المصفوفات", "الكائنات", "الأحداث", "الشروط"],
+          "prerequisites": ["js-4", "js-5", "js-6"],
+          "idea": "سؤال اختيار من متعدد يعرض تغذية راجعة ويحسب النقاط.",
+          "goal": "ربط بيانات الأسئلة بعناصر واجهة تفاعلية.",
+          "phases": ["خزّن الأسئلة والاختيارات في مصفوفة كائنات.", "اعرض الاختيارات وأضف مستمعًا للنقر.", "احسب النتيجة واعرضها بعد الإجابة."],
+          "tests": ["اختر إجابة صحيحة وأخرى خاطئة.", "تحقق من عدم زيادة النقاط أكثر من مرة."],
+          "hint": "مرر فهرس الخيار إلى دالة التحقق وقارنه بفهرس الإجابة.",
+          "starter": "const question = { text: \"2 + 2؟\", choices: [\"3\", \"4\"], answer: 1 };\nlet score = 0;\n// اعرض الاختيارات وتعامل مع الإجابة",
+          "previewHtml": "<main><h2 id=\"question\">السؤال</h2><button class=\"choice\">3</button><button class=\"choice\">4</button><p id=\"feedback\"></p>",
+          "previewCss": "body { font-family: Arial, sans-serif; } button { margin: .3rem; padding: .6rem; }",
+          "solution": "const question = { text: \"2 + 2؟\", choices: [\"3\", \"4\"], answer: 1 };\nlet score = 0;\nlet answered = false;\nfor (const [index, button] of (await document.querySelectorAll(\".choice\")).entries()) {\n  button.addEventListener(\"click\", async () => {\n    if (answered) return;\n    answered = true;\n    if (index === question.answer) score += 1;\n    (await document.querySelector(\"#feedback\")).textContent = score ? \"إجابة صحيحة\" : \"حاول مرة أخرى\";\n  });\n}"
+        },
+        {
+          "id": "js-digital-clock", "title": "Digital Clock", "level": "beginner", "minutes": 40,
+          "skills": ["الدوال", "الكائنات", "DOM", "المؤقتات"],
+          "prerequisites": ["js-3", "js-5"],
+          "idea": "ساعة تعرض الوقت الحالي وتتحدث دوريًا.",
+          "goal": "تنسيق كائن Date وتحديث عنصر DOM بمؤقت.",
+          "phases": ["اكتب دالة لتنسيق الوقت.", "حدّث عنصر الساعة.", "استخدم فترة تحديث مناسبة."],
+          "tests": ["تحقق أن الوقت يتغير.", "تأكد من ظهور الدقائق والثواني برقمين."],
+          "hint": "استخدم padStart(2, \"0\") لكل جزء من الوقت.",
+          "starter": "const clock = document.querySelector(\"#clock\");\nfunction updateClock() {\n  // نسّق الوقت الحالي\n}\nupdateClock();",
+          "previewHtml": "<main><h1 id=\"clock\">00:00:00</h1></main>",
+          "previewCss": "body { font-family: Arial, sans-serif; text-align: center; } #clock { color: #3C4AE8; }",
+          "solution": "const clock = document.querySelector(\"#clock\");\nfunction updateClock() {\n  const now = new Date();\n  clock.textContent = [now.getHours(), now.getMinutes(), now.getSeconds()].map(value => String(value).padStart(2, \"0\")).join(\":\");\n}\nupdateClock();\nsetInterval(updateClock, 1000);"
+        },
+        {
+          "id": "js-notes-app", "title": "Notes Application", "level": "intermediate", "minutes": 90,
+          "skills": ["التخزين المحلي", "المصفوفات", "DOM", "الأحداث"],
+          "prerequisites": ["js-5", "js-6", "js-8"],
+          "idea": "تطبيق ملاحظات محلي يضيف الملاحظة ويعرضها بعد إعادة التحميل.",
+          "goal": "قراءة وكتابة JSON في localStorage والتعامل مع قيم مفقودة.",
+          "phases": ["حمّل الملاحظات بأمان عند البدء.", "أضف ملاحظة جديدة إلى القائمة.", "احفظ القائمة وأعد عرضها."],
+          "tests": ["أضف ملاحظة ثم أعد تحميل الصفحة.", "تحقق من عدم فقد الملاحظات السابقة."],
+          "hint": "استخدم JSON.parse مع قيمة افتراضية، ثم JSON.stringify عند الحفظ.",
+          "starter": "const notes = JSON.parse(localStorage.getItem(\"notes\") || \"[]\");\n// أضف واجهة إدخال وحفظ الملاحظات",
+          "previewHtml": "<main><label>ملاحظة <input id=\"note\"></label><button id=\"save\">حفظ</button><ul id=\"notes\"></ul></main>",
+          "previewCss": "body { font-family: Arial, sans-serif; }",
+          "solution": "const notes = JSON.parse(localStorage.getItem(\"efhama-notes\") || \"[]\");\nconst list = document.querySelector(\"#notes\");\nfunction render() { list.textContent = \"\"; for (const text of notes) { const item = document.createElement(\"li\"); item.textContent = text; list.appendChild(item); } }\ndocument.querySelector(\"#save\").addEventListener(\"click\", async () => {\n  const input = await document.querySelector(\"#note\");\n  if (!input.value.trim()) return;\n  notes.push(input.value.trim());\n  localStorage.setItem(\"efhama-notes\", JSON.stringify(notes));\n  input.value = \"\";\n  render();\n});\nrender();"
+        },
+        {
+          "id": "js-weather-interface", "title": "Weather Interface (Local Demo)", "level": "intermediate", "minutes": 75,
+          "skills": ["الكائنات", "المصفوفات", "الشروط", "DOM"],
+          "prerequisites": ["js-5", "js-6", "js-7"],
+          "idea": "واجهة طقس تعليمية تختار مدينة من بيانات محلية ثابتة بلا اتصال شبكي.",
+          "goal": "عرض حالة الطقس من مجموعة بيانات محلية مع رسالة عند غياب المدينة.",
+          "phases": ["أنشئ بيانات مدن تعليمية محلية.", "ابحث عن المدينة المختارة.", "اعرض الاسم والحرارة والوصف أو رسالة عدم العثور."],
+          "tests": ["ابحث عن مدينة موجودة.", "ابحث عن مدينة غير موجودة."],
+          "hint": "لا تستخدم API أو fetch؛ المطلوب تدريب واجهة ببيانات محلية فقط.",
+          "starter": "const weather = { Cairo: { temperature: 27, condition: \"مشمس\" } };\n// اربط البحث بزر واعرض البيانات المحلية",
+          "previewHtml": "<main><label>المدينة <input id=\"city\" value=\"Cairo\"></label><button id=\"search\">بحث</button><p id=\"weather\">النتيجة</p></main>",
+          "previewCss": "body { font-family: Arial, sans-serif; }",
+          "solution": "const weather = { Cairo: { temperature: 27, condition: \"مشمس\" }, Alexandria: { temperature: 23, condition: \"غائم\" } };\ndocument.querySelector(\"#search\").addEventListener(\"click\", async () => {\n  const city = (await document.querySelector(\"#city\")).value.trim();\n  const result = await document.querySelector(\"#weather\");\n  const item = weather[city];\n  result.textContent = item ? `${city}: ${item.temperature}° - ${item.condition}` : \"المدينة غير موجودة في البيانات التعليمية\";\n});"
+        },
+        {
+          "id": "js-interactive-dashboard", "title": "Interactive Dashboard", "level": "advanced", "minutes": 120,
+          "skills": ["المصفوفات", "الدوال", "الأحداث", "DOM", "التصفية"],
+          "prerequisites": ["js-5", "js-6", "js-7"],
+          "idea": "لوحة تعلم تعرض بطاقات بيانات ويمكن تصفيتها بزر.",
+          "goal": "اشتقاق عرض واجهة من بيانات منظمة والتفاعل مع التصفية.",
+          "phases": ["مثّل عناصر اللوحة في مصفوفة كائنات.", "اعرض البطاقات عبر دالة واحدة.", "أضف مرشحًا أو زر تحديث للحالة."],
+          "tests": ["تحقق من عرض كل العناصر.", "جرّب مرشحًا لا يعيد نتائج ومرشحًا يعيد عدة نتائج."],
+          "hint": "استخدم filter لإنتاج القائمة المعروضة ثم أعد بناء البطاقات.",
+          "starter": "const items = [{ title: \"Python\", progress: 40 }, { title: \"HTML\", progress: 80 }];\n// اعرض البطاقات وأضف تصفية",
+          "previewHtml": "<main><button id=\"filter\">مكتمل أكثر من 50%</button><section id=\"cards\"></section></main>",
+          "previewCss": "body { font-family: Arial, sans-serif; } #cards { display: grid; gap: .7rem; }",
+          "solution": "const items = [{ title: \"Python\", progress: 40 }, { title: \"HTML\", progress: 80 }];\nconst cards = document.querySelector(\"#cards\");\nfunction render(list) { cards.textContent = \"\"; for (const item of list) { const card = document.createElement(\"article\"); card.textContent = `${item.title}: ${item.progress}%`; cards.appendChild(card); } }\nrender(items);\ndocument.querySelector(\"#filter\").addEventListener(\"click\", () => render(items.filter(item => item.progress >= 50)));"
+        }
+      ]
+    },
+    {
+      "slug": "web",
+      "title": "مشروعات متكاملة (HTML + CSS + JavaScript)",
+      "projects": [
+        {
+          "id": "web-personal-portfolio", "title": "Personal Portfolio", "level": "beginner", "minutes": 100,
+          "skills": ["HTML الدلالي", "CSS المتجاوب", "أحداث JavaScript"],
+          "prerequisites": ["html-2", "css-3", "js-5"],
+          "idea": "معرض شخصي يجمع نبذة ومشروعات وروابط تواصل.",
+          "goal": "ربط بنية HTML بتنسيق CSS وتفاعل بسيط.",
+          "phases": ["أنشئ أقسام الصفحة وروابط التنقل.", "نسّق تخطيطًا متجاوبًا للبطاقات.", "أضف زرًا يبدل رسالة ترحيب عبر JavaScript."],
+          "tests": ["اختبر روابط الأقسام على الهاتف.", "اضغط زر التفاعل وتأكد من تغير النص."],
+          "hint": "في مختبر JavaScript استخدم معاينته المستقلة، وفي HTML/CSS استخدم معاينة الصفحة الساكنة.",
+          "starter": {"html": "<header><h1>معرض أعمالي</h1></header><main><section id=\"work\"><h2>مشروعاتي</h2><button id=\"hello\">رحب بي</button><p id=\"message\"></p></section></main>", "css": "body { font-family: Arial, sans-serif; }", "js": "const button = document.querySelector(\"#hello\");\n// أضف مستمع الضغط"},
+          "previewHtml": "<main><h1>معرض أعمالي</h1><button id=\"hello\">رحب بي</button><p id=\"message\"></p></main>",
+          "previewCss": "body { font-family: Arial, sans-serif; } button { background: #3C4AE8; color: white; padding: .7rem; }",
+          "solution": {"html": "<header><h1>معرض أعمالي</h1><nav><a href=\"#about\">نبذة</a> <a href=\"#work\">مشروعاتي</a></nav></header><main><section id=\"about\"><h2>نبذة</h2><p>أتعلم بناء تجارب ويب مفيدة.</p></section><section id=\"work\"><h2>مشروعاتي</h2><button id=\"hello\">رحب بي</button><p id=\"message\"></p></section></main>", "css": "body { max-width: 850px; margin: auto; padding: 1rem; font-family: Arial, sans-serif; } nav { display: flex; gap: 1rem; } button { padding: .7rem; color: white; background: #3C4AE8; border: 0; border-radius: .5rem; }", "js": "document.querySelector(\"#hello\").addEventListener(\"click\", async () => { (await document.querySelector(\"#message\")).textContent = \"أهلًا بك في معرض أعمالي!\"; });"}
+        },
+        {
+          "id": "web-task-management", "title": "Task Management App", "level": "intermediate", "minutes": 150,
+          "skills": ["النماذج", "التخطيط", "DOM", "المصفوفات"],
+          "prerequisites": ["html-5", "css-5", "js-5", "js-6"],
+          "idea": "واجهة مهام تسمح بالإضافة والتعليم كمكتمل.",
+          "goal": "تنظيم مهام عبر عناصر HTML وتفاعلات JavaScript.",
+          "phases": ["ابنِ نموذج إضافة وقائمة مهام.", "نسّق الحالات المفتوحة والمكتملة.", "أضف المهام بأمان وبدّل حالتها عند الضغط."],
+          "tests": ["أضف عدة مهام وأكمل واحدة.", "حاول إرسال مهمة فارغة."],
+          "hint": "استخدم textContent لإدخال نص المهمة بدل innerHTML.",
+          "starter": {"html": "<main><form id=\"task-form\"><label for=\"task\">مهمة</label><input id=\"task\"><button>إضافة</button></form><ul id=\"tasks\"></ul></main>", "css": "#tasks { list-style: none; }", "js": "const form = document.querySelector(\"#task-form\");\nform.addEventListener(\"submit\", async (event) => {\n  // امنع الإرسال وأضف المهمة\n});"},
+          "previewHtml": "<main><form id=\"task-form\"><label for=\"task\">مهمة</label><input id=\"task\"><button>إضافة</button></form><ul id=\"tasks\"></ul></main>",
+          "previewCss": "body { font-family: Arial, sans-serif; }",
+          "solution": {"html": "<main><h1>مهامي</h1><form id=\"task-form\"><label for=\"task\">مهمة</label><input id=\"task\"><button>إضافة</button></form><ul id=\"tasks\"></ul></main>", "css": "body { font-family: Arial, sans-serif; max-width: 600px; margin: auto; padding: 1rem; } li { padding: .6rem; cursor: pointer; } .done { text-decoration: line-through; opacity: .6; }", "js": "const form = document.querySelector(\"#task-form\");\nform.addEventListener(\"submit\", async (event) => {\n  event.preventDefault();\n  const input = await document.querySelector(\"#task\");\n  if (!input.value.trim()) return;\n  const item = document.createElement(\"li\");\n  item.textContent = input.value.trim();\n  item.addEventListener(\"click\", () => { item.className = \"done\"; });\n  (await document.querySelector(\"#tasks\")).appendChild(item);\n  input.value = \"\";\n});"}
+        },
+        {
+          "id": "web-student-dashboard", "title": "Student Dashboard", "level": "intermediate", "minutes": 140,
+          "skills": ["العناصر الدلالية", "Grid", "الكائنات", "عرض البيانات"],
+          "prerequisites": ["html-6", "css-5", "js-6"],
+          "idea": "لوحة تعرض تقدمًا تعليميًا من بيانات ثابتة داخل المشروع.",
+          "goal": "تنظيم البيانات وعرض إحصاءات وبطاقات متجاوبة.",
+          "phases": ["أنشئ أقسام ملخص الدروس والمشروعات.", "صمّم البطاقات باستخدام Grid.", "اعرض القيم من مصفوفة بيانات محلية."],
+          "tests": ["تحقق من تطابق عدد البطاقات مع البيانات.", "عاين اللوحة على الهاتف."],
+          "hint": "استخدم بيانات محلية تعليمية ولا تعرض تقدمًا حقيقيًا أو بيانات حساب.",
+          "starter": {"html": "<main><h1>لوحة الطالب</h1><section id=\"stats\"></section></main>", "css": "#stats { display: grid; gap: 1rem; }", "js": "const stats = [{ label: \"دروس مكتملة\", value: 4 }];\n// اعرض بطاقة لكل عنصر"},
+          "previewHtml": "<main><h1>لوحة الطالب</h1><section id=\"stats\"></section></main>",
+          "previewCss": "body { font-family: Arial, sans-serif; } #stats { display: grid; gap: .6rem; }",
+          "solution": {"html": "<main><h1>لوحة الطالب</h1><section id=\"stats\"></section></main>", "css": "body { font-family: Arial, sans-serif; max-width: 800px; margin: auto; } #stats { display: grid; grid-template-columns: repeat(auto-fit,minmax(150px,1fr)); gap: 1rem; } article { padding: 1rem; background: #eef0ff; border-radius: .8rem; }", "js": "const stats = [{ label: \"دروس مكتملة\", value: 4 }, { label: \"مشروعات\", value: 2 }];\nconst root = document.querySelector(\"#stats\");\nfor (const stat of stats) {\n  const card = document.createElement(\"article\");\n  card.textContent = `${stat.label}: ${stat.value}`;\n  root.appendChild(card);\n}"}
+        },
+        {
+          "id": "web-learning-site", "title": "Interactive Learning Website", "level": "advanced", "minutes": 180,
+          "skills": ["هيكلة HTML", "CSS المتجاوب", "الأحداث", "المصفوفات", "DOM"],
+          "prerequisites": ["html-5", "css-6", "js-5", "js-6"],
+          "idea": "صفحة تعلم مصغرة تعرض دروسًا محلية وتسمح بتصفيتها حسب الموضوع.",
+          "goal": "تجميع المهارات في تجربة تعليمية صغيرة دون خادم أو بيانات شخصية.",
+          "phases": ["أنشئ رأسًا وقسم قائمة الدروس.", "نسّق البطاقات لتناسب الهاتف.", "اعرض بيانات الدروس المحلية وأضف مرشح موضوع."],
+          "tests": ["جرّب مرشحين مختلفين ومرشحًا بلا نتائج.", "تحقق من وضوح الصفحة على شاشة صغيرة."],
+          "hint": "اجعل بيانات الدروس ثابتة في JavaScript، ولا تستخدم طلبات شبكة.",
+          "starter": {"html": "<main><h1>تعلم البرمجة</h1><select id=\"topic\"><option value=\"all\">كل الموضوعات</option></select><section id=\"lessons\"></section></main>", "css": "#lessons { display: grid; gap: 1rem; }", "js": "const lessons = [{ title: \"المتغيرات\", topic: \"أساسيات\" }];\n// اعرض الدروس وأضف التصفية"},
+          "previewHtml": "<main><h1>تعلم البرمجة</h1><select id=\"topic\"><option value=\"all\">كل الموضوعات</option><option>أساسيات</option></select><section id=\"lessons\"></section></main>",
+          "previewCss": "body { font-family: Arial, sans-serif; } #lessons { display: grid; gap: .5rem; }",
+          "solution": {"html": "<main><h1>تعلم البرمجة</h1><label>الموضوع <select id=\"topic\"><option value=\"all\">كل الموضوعات</option><option value=\"أساسيات\">أساسيات</option></select></label><section id=\"lessons\"></section></main>", "css": "body { max-width: 850px; margin: auto; padding: 1rem; font-family: Arial, sans-serif; } #lessons { display: grid; grid-template-columns: repeat(auto-fit,minmax(200px,1fr)); gap: 1rem; } article { padding: 1rem; background: #eef0ff; border-radius: .8rem; }", "js": "const lessons = [{ title: \"المتغيرات\", topic: \"أساسيات\" }, { title: \"الشروط\", topic: \"أساسيات\" }];\nconst root = document.querySelector(\"#lessons\");\nconst filter = document.querySelector(\"#topic\");\nfunction render() {\n  root.textContent = \"\";\n  for (const lesson of lessons.filter(item => filter.value === \"all\" || item.topic === filter.value)) {\n    const card = document.createElement(\"article\");\n    card.textContent = `${lesson.title} - ${lesson.topic}`;\n    root.appendChild(card);\n  }\n}\nfilter.addEventListener(\"change\", render);\nrender();"}
+        }
+      ]
+    }
+  ]
+}

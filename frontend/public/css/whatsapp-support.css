@@ -1,0 +1,88 @@
+.whatsapp-support-button {
+  position: fixed;
+  z-index: 120;
+  inset-inline-end: 20px;
+  inset-block-end: max(20px, env(safe-area-inset-bottom));
+  display: grid;
+  width: 58px;
+  height: 58px;
+  place-items: center;
+  border: 0;
+  border-radius: 50%;
+  background: #25d366;
+  color: #fff;
+  box-shadow: 0 5px 18px rgba(18, 140, 62, .32);
+  opacity: 0;
+  transform: translateY(12px) scale(.92);
+  animation: whatsapp-support-appear .35s ease-out .12s forwards;
+  transition: background-color .18s ease, box-shadow .18s ease, transform .18s ease;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.whatsapp-support-button:hover {
+  background: #1ebe5d;
+  box-shadow: 0 8px 24px rgba(18, 140, 62, .4);
+  color: #fff;
+  transform: translateY(-3px) scale(1.04);
+}
+
+.whatsapp-support-button:focus-visible {
+  outline: 3px solid #128c7e;
+  outline-offset: 4px;
+}
+
+.whatsapp-support-button svg {
+  display: block;
+  width: 34px;
+  height: 34px;
+}
+
+.whatsapp-support-button::before {
+  position: absolute;
+  inset-block-start: 50%;
+  inset-inline-end: calc(100% + 10px);
+  z-index: 1;
+  width: max-content;
+  max-width: min(250px, calc(100vw - 110px));
+  padding: 8px 12px;
+  border: 1px solid rgba(255, 255, 255, .12);
+  border-radius: 9px;
+  background: #17212b;
+  color: #fff;
+  content: attr(data-tooltip);
+  font: 600 .82rem/1.4 "Segoe UI", Tahoma, Arial, sans-serif;
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(-50%) translateX(4px);
+  transition: opacity .16s ease, transform .16s ease;
+}
+
+.whatsapp-support-button:hover::before,
+.whatsapp-support-button:focus-visible::before {
+  opacity: 1;
+  transform: translateY(-50%) translateX(0);
+}
+
+@keyframes whatsapp-support-appear {
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+@media (max-width: 520px) {
+  .whatsapp-support-button {
+    inset-inline-end: 14px;
+    inset-block-end: max(16px, env(safe-area-inset-bottom));
+    width: 54px;
+    height: 54px;
+  }
+
+  .whatsapp-support-button svg { width: 32px; height: 32px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .whatsapp-support-button {
+    animation: none;
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+}

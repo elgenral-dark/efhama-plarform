@@ -1,0 +1,127 @@
+﻿<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>مراجعة الاشتراكات — افهمها | efhamha</title>
+<link rel="icon" type="image/svg+xml" href="assets/icons/favicon.svg">
+<link rel="icon" type="image/png" href="assets/icons/icon-192.png">
+<link rel="apple-touch-icon" href="assets/icons/icon-192.png">
+<link rel="stylesheet" href="css/styles.css">
+<link rel="stylesheet" href="css/admin-subscriptions.css">
+<link rel="stylesheet" href="css/design-refresh.css">
+<script src="js/navigation.js" defer></script>
+</head>
+<body>
+<header class="site-header">
+  <div class="container header-inner">
+    <a href="index.html" class="efhamha-logo" aria-label="efhamha — الصفحة الرئيسية">
+      <svg class="efhamha-logo-icon" viewBox="0 0 40 36" width="40" height="36" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <path d="M14 6 L4 18 L14 30" fill="none" stroke="var(--logo-bracket)" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+        <path d="M26 6 L36 18 L26 30" fill="none" stroke="var(--logo-bracket)" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+        <polyline points="16,24 20,19 24,13" fill="none" stroke="var(--logo-dot-1)" stroke-width="1.5" stroke-linecap="round"/>
+        <circle cx="16" cy="24" r="1.8" fill="var(--logo-dot-1)"/>
+        <circle cx="20" cy="19" r="2.2" fill="var(--logo-dot-2)"/>
+        <circle cx="24" cy="13" r="2.8" fill="var(--logo-dot-3)"/>
+      </svg>
+      <span class="efhamha-logo-name">efhamha</span>
+    </a>
+    <div class="admin-heading"><h1>مراجعة طلبات الاشتراك</h1><p class="muted small">مراجعة إثباتات الدفع وتفعيل الاشتراكات السنوية</p></div>
+    <div class="header-actions">
+      <button class="btn btn-ghost btn-sm" id="adminLogout" type="button">تسجيل الخروج</button>
+    </div>
+  </div>
+</header>
+<main class="container admin-subscriptions">
+  <section class="admin-extra announcement-management">
+    <h2>إرسال إعلان أو إشعار</h2>
+    <p class="muted small">يُحفظ كل إعلان في السجل ويُرسل مرة واحدة لكل مستلم نشط. لا تُرسل بيانات حساسة ضمن الإشعار.</p>
+    <form id="announcementForm" class="announcement-form">
+      <label>العنوان<input id="announcementTitle" maxlength="160" required></label>
+      <label>التصنيف
+        <select id="announcementCategory">
+          <option value="system">إعلان نظام</option><option value="general">عام</option>
+          <option value="course">دورة</option><option value="lesson">درس</option>
+          <option value="exam">اختبار</option><option value="assignment">واجب</option>
+          <option value="grade">درجة</option><option value="subscription">اشتراك</option>
+          <option value="payment">دفع</option><option value="account">حساب</option>
+          <option value="teacher">المعلم</option><option value="admin">الإدارة</option>
+        </select>
+      </label>
+      <label class="announcement-message">الرسالة<textarea id="announcementMessage" maxlength="2000" rows="3" required></textarea></label>
+      <label>نطاق الإرسال
+        <select id="announcementScope">
+          <option value="all">جميع المستخدمين النشطين</option>
+          <option value="roles">أدوار محددة</option>
+          <option value="users">مستخدمون محددون</option>
+        </select>
+      </label>
+      <fieldset id="announcementRoles" class="announcement-roles" hidden>
+        <legend>الأدوار</legend>
+        <label><input type="checkbox" value="student" checked> الطلاب</label>
+        <label><input type="checkbox" value="admin"> المسؤولون</label>
+      </fieldset>
+      <label id="announcementUsersField" hidden>معرّفات المستخدمين (أرقام مفصولة بفواصل)
+        <input id="announcementUsers" inputmode="numeric" placeholder="12, 24, 35">
+      </label>
+      <label>رابط داخلي اختياري<input id="announcementActionUrl" maxlength="500" placeholder="/chapters.html"></label>
+      <div class="announcement-submit-row">
+        <button class="btn" id="sendAnnouncement" type="submit">إرسال الإعلان</button>
+        <span id="announcementStatus" class="muted small" role="status" aria-live="polite"></span>
+      </div>
+    </form>
+    <h3>سجل الإعلانات</h3>
+    <div id="announcementHistory" class="announcement-history" aria-live="polite"></div>
+  </section>
+  <section class="admin-extra">
+    <h2>الحسابات واعتماد الأدمن</h2>
+    <p class="muted small">الحسابات الجديدة لا تدخل قبل اعتمادها. يسمح لكل حساب بجلسة واحدة نشطة، ويمكن لصاحبه نقلها عند تسجيل الدخول.</p>
+    <button class="btn btn-outline btn-sm" id="refreshUsers" type="button">تحديث الحسابات</button>
+    <div class="managed-users" id="managedUsers"></div>
+  </section>
+  <section class="admin-extra">
+    <h2>سجل محاولات نقل الجلسات</h2>
+    <p class="muted small">يسجل هذا السجل طلبات نقل الجلسة ونتيجتها. بيانات الشبكة والمتصفح للمراجعة فقط.</p>
+    <button class="btn btn-outline btn-sm" id="refreshSessionTransfers" type="button">تحديث السجل</button>
+    <div class="device-attempts" id="sessionTransfers" aria-live="polite"></div>
+  </section>
+  <div class="admin-toolbar">
+    <label for="requestFilter">عرض الطلبات</label>
+    <select id="requestFilter">
+      <option value="pending">قيد المراجعة</option>
+      <option value="approved">تمت الموافقة</option>
+      <option value="rejected">مرفوضة</option>
+    </select>
+    <button class="btn btn-outline btn-sm" id="refreshRequests" type="button">تحديث</button>
+  </div>
+  <div class="admin-notice" id="adminNotice" role="status" aria-live="polite"></div>
+  <section class="request-list" id="requestList" aria-live="polite"></section>
+  <nav class="admin-pagination" aria-label="صفحات طلبات الاشتراك">
+    <button class="btn btn-ghost btn-sm" id="previousPage" type="button" disabled>السابق</button>
+    <span id="pageInfo" class="muted small"></span>
+    <button class="btn btn-ghost btn-sm" id="nextPage" type="button" disabled>التالي</button>
+  </nav>
+</main>
+<template id="requestTemplate">
+  <article class="admin-request">
+    <div class="request-details">
+      <div class="request-heading"><h2 class="request-name"></h2><span class="request-status-badge"></span></div>
+      <p class="request-email"></p>
+      <p class="request-code"></p>
+      <p class="request-amount"></p>
+      <p class="request-date"></p>
+      <p class="request-subscription"></p>
+      <p class="request-rejection"></p>
+    </div>
+    <div class="request-proof"><img class="proof-image" data-theme-image="photo" alt="إثبات دفع المشترك"></div>
+    <div class="request-actions">
+      <button class="btn approve-button" type="button">الموافقة وتفعيل سنة</button>
+      <label class="reject-reason-label">سبب الرفض<textarea class="reject-reason" maxlength="1000" rows="2" placeholder="اكتب سببًا واضحًا ليظهر للمستخدم"></textarea></label>
+      <button class="btn btn-outline reject-button" type="button">رفض الطلب</button>
+    </div>
+  </article>
+</template>
+<script src="js/auth.js"></script>
+<script src="js/admin-subscriptions.js"></script>
+</body>
+</html>

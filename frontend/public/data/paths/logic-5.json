@@ -1,0 +1,39 @@
+{
+  "id": "logic-5",
+  "title": "البحث عن أكبر وأصغر قيمة",
+  "summary": "تتعلم خوارزمية البحث عن أكبر وأصغر قيمة، وكتابتها بصيغة Pseudocode وPython وتحليل كفاءتها.",
+  "duration": "25 دقيقة",
+  "content": [
+    { "type": "heading", "text": "Finding Maximum and Minimum" },
+    { "type": "heading", "text": "1. مقدمة" },
+    { "type": "paragraph", "text": "تخيل إن عندك درجات 5 طلاب: 75, 90, 62, 88, 95، وعايز تعرف أعلى درجة وأقل درجة. مع عدد صغير من القيم يمكن النظر إليها، لكن الخوارزمية تساعدنا في فحص 1000 رقم أو مليون رقم بطريقة منظمة." },
+    { "type": "heading", "text": "2. يعني إيه Maximum وMinimum؟" },
+    { "type": "list", "items": ["Maximum: أكبر قيمة موجودة في مجموعة من القيم.", "Minimum: أصغر قيمة موجودة في مجموعة من القيم.", "مثال: في 10, 25, 7, 40, 15 تكون Maximum = 40 وMinimum = 7."] },
+    { "type": "heading", "text": "3. الفكرة المنطقية للحل" },
+    { "type": "steps", "items": ["ابدأ بأول رقم واعتبره أكبر وأصغر رقم مؤقتًا.", "انتقل إلى الرقم التالي وقارنه بـ Maximum وMinimum.", "حدّث Maximum إذا كان الرقم الحالي أكبر منه.", "حدّث Minimum إذا كان الرقم الحالي أصغر منه.", "كرر حتى تفحص كل الأرقام."] },
+    {"type":"diagram","visualType":"code-visualization","title":"توضيح بصري: البحث عن أكبر وأصغر قيمة","description":"تتعلم خوارزمية البحث عن أكبر وأصغر قيمة، وكتابتها بصيغة Pseudocode وPython وتحليل كفاءتها.","image":"assets/images/lessons/logic/logic-5.svg","alt":"رسم يوضح البحث عن أكبر وأصغر قيمة: Values، Compare، Update Max Min، Final Result"},
+    { "type": "heading", "text": "4. مثال وتتبع الخوارزمية" },
+    { "type": "paragraph", "text": "للقيم 8, 3, 12, 5, 2: نبدأ بـ Maximum = 8 وMinimum = 8. بعد 3 تصبح Minimum = 3، وبعد 12 تصبح Maximum = 12، ثم تظل القيم كما هي مع 5، وأخيرًا تصبح Minimum = 2." },
+    { "type": "test-cases", "title": "Trace Table", "columns": ["الرقم الحالي", "Maximum", "Minimum"], "rows": [["8", "8", "8"], ["3", "8", "3"], ["12", "12", "3"], ["5", "12", "3"], ["2", "12", "2"]] },
+    { "type": "heading", "text": "5. Pseudocode" },
+    { "type": "code", "title": "الخوارزمية", "copyButton": true, "code": "START\n    INPUT N\n    IF N <= 0\n        OUTPUT \"Invalid number of values\"\n    ELSE\n        INPUT number\n        SET Maximum = number\n        SET Minimum = number\n        FOR i = 2 TO N\n            INPUT number\n            IF number > Maximum\n                SET Maximum = number\n            END IF\n            IF number < Minimum\n                SET Minimum = number\n            END IF\n        END FOR\n        OUTPUT Maximum\n        OUTPUT Minimum\n    END IF\nEND" },
+    { "type": "callout", "text": "بدأنا التكرار من الرقم الثاني لأن الرقم الأول استُخدم بالفعل لتهيئة Maximum وMinimum. ولا يمكن تحديد أكبر أو أصغر قيمة لمجموعة فارغة." },
+    { "type": "heading", "text": "6. التنفيذ باستخدام Python" },
+    { "type": "code", "title": "Python", "copyButton": true, "code": "n = int(input(\"How many numbers? \"))\n\nif n <= 0:\n    print(\"Invalid number of values\")\nelse:\n    number = int(input(\"Enter number 1: \"))\n    maximum = number\n    minimum = number\n\n    for i in range(2, n + 1):\n        number = int(input(f\"Enter number {i}: \"))\n        if number > maximum:\n            maximum = number\n        if number < minimum:\n            minimum = number\n\n    print(\"Maximum:\", maximum)\n    print(\"Minimum:\", minimum)" },
+    { "type": "heading", "text": "7. تحليل الكفاءة" },
+    { "type": "list", "items": ["Time Complexity = O(n)، لأننا نفحص كل عنصر مرة واحدة تقريبًا.", "Space Complexity = O(1)، لأننا نحتفظ بعدد ثابت من المتغيرات.", "لا تبدأ Maximum وMinimum بصفر؛ فقد تكون كل القيم سالبة أو موجبة."] },
+    { "type": "heading", "text": "8. مصطلحات مهمة" },
+    { "type": "glossary", "title": "قاموس الدرس", "items": [{ "term": "Maximum", "meaning": "أكبر قيمة." }, { "term": "Minimum", "meaning": "أصغر قيمة." }, { "term": "Comparison", "meaning": "المقارنة بين قيمتين." }, { "term": "Iteration", "meaning": "التكرار." }, { "term": "Update", "meaning": "تحديث قيمة المتغير." }, { "term": "Time Complexity", "meaning": "التعقيد الزمني." }] },
+    { "type": "heading", "text": "9. ملخص الدرس" },
+    { "type": "list", "items": ["نبدأ بأول عنصر ونجعله أكبر وأصغر قيمة مؤقتًا.", "نفحص باقي العناصر واحدًا تلو الآخر ونحدّث القيم عند الحاجة.", "نتعامل مع المجموعة الفارغة برفض N إذا كان صفرًا أو أقل.", "التعقيد الزمني O(n) والمساحة الإضافية O(1)."] },
+    { "type": "heading", "text": "10. اختبر فهمك" },
+    { "type": "paragraph", "text": "1) Maximum في 4, 9, 2, 15, 7 هو 15. 2) نبدأ بأول رقم للتعامل الصحيح مع القيم الموجبة والسالبة. 3) Minimum في -8, -3, -12 هو -12. 4) التعقيد الزمني هو O(n). 5) عند N = 0 لا يمكن تحديد أكبر وأصغر قيمة." },
+    { "type": "heading", "text": "التحدي العملي" },
+    { "type": "paragraph", "text": "اكتب خوارزمية تستقبل درجات 6 طلاب وتحدد أعلى درجة وأقل درجة والفرق بينهما. اختبرها بالقيم 10, 20, 30, 40, 50, 60، والقيم -5, -10, -2, -20, -1, -7، ثم بست قيم متساوية. أنشئ Trace Table لكل حالة واشرح لماذا نجحت الخوارزمية." }
+  ],
+  "quiz": [
+    { "question": "ما قيمة Maximum في 4, 9, 2, 15, 7؟", "options": ["4", "9", "2", "15"], "answer": "D", "explanation": "15 هي أكبر قيمة." },
+    { "question": "ما التعقيد الزمني للخوارزمية؟", "options": ["O(1)", "O(n)", "O(n²)", "O(2ⁿ)"], "answer": "B", "explanation": "نفحص كل عنصر مرة واحدة." },
+    { "question": "ما قيمة Minimum في -8, -3, -12؟", "options": ["-3", "-8", "-12", "0"], "answer": "C", "explanation": "-12 هي أصغر قيمة." }
+  ]
+}

@@ -1,0 +1,107 @@
+{
+  "slug": "javascript",
+  "title": "JavaScript",
+  "titleAr": "برمجة JavaScript",
+  "titleEn": "JavaScript",
+  "icon": "JS",
+  "accentColor": "#B59B00",
+  "tag": "JS",
+  "description": "ثم انتقل إلى البرمجة التفاعلية. تعلم المتغيرات، الدوال، الأحداث، والـ DOM.",
+  "difficulty": "متوسط",
+  "levelCode": "Intermediate",
+  "contentStatus": "outline",
+  "levels": [
+    {
+      "id": "javascript-unit-01",
+      "name": "أساسيات JavaScript",
+      "description": "ابدأ بالكتابة التفاعلية وتفسير الشيفرة بشكل منطقي.",
+      "lessons": [
+        { "id": "js-1", "title": "مقدمة إلى JavaScript", "summary": "تتعرف على JavaScript، لماذا يُستخدم، وأين يظهر في صفحات الويب.", "duration": "10 دقيقة",
+        "content": [
+          {"type":"diagram","visualType":"diagram","title":"توضيح بصري: مقدمة إلى JavaScript","description":"تتعرف على JavaScript، لماذا يُستخدم، وأين يظهر في صفحات الويب.","image":"assets/images/lessons/javascript/js-1.svg","alt":"رسم يوضح مقدمة إلى JavaScript: HTML Structure، CSS Style، JavaScript Logic، Browser Page"}
+        ] },
+        { "id": "js-2", "title": "المتغيرات والعمليات", "summary": "تتعلم تعيين القيم، إجراء العمليات الحسابية، والعمل مع النصوص.", "duration": "13 دقيقة",
+        "content": [
+          {"type":"diagram","visualType":"code-visualization","title":"توضيح بصري: المتغيرات والعمليات","description":"تتعلم تعيين القيم، إجراء العمليات الحسابية، والعمل مع النصوص.","image":"assets/images/lessons/javascript/js-2.svg","alt":"رسم يوضح المتغيرات والعمليات: Initial Value، Assignment، Operation، New Value"},
+          {
+            "type": "javascript-playground",
+            "id": "javascript-variables-practice",
+            "title": "جرّب المتغيرات والعمليات",
+            "description": "شغّل الكود، راقب Console، ثم عدّل قيمة المتغيرات.",
+            "instructions": "غيّر quantity إلى 3، ثم شغّل البرنامج ولاحظ قيمة total في Console.",
+            "expectedOutput": "يظهر في Console: Total: 150",
+            "code": "const price = 50;\nlet quantity = 2;\nconst total = price * quantity;\nconsole.log(\"Total:\", total);",
+            "checks": [
+              {"includes":"quantity = 3","message":"غيّر قيمة quantity إلى 3"},
+              {"includes":"console.log","message":"استخدم console.log لعرض الناتج"}
+            ],
+            "solution": {
+              "code": "const price = 50;\nlet quantity = 3;\nconst total = price * quantity;\nconsole.log(\"Total:\", total);"
+            }
+          }
+        ] },
+        { "id": "js-3", "title": "الوظائف", "summary": "تُنشئ دوالك الخاصة لتقسيم المهمة إلى أجزاء يمكن إعادة استخدامها.", "duration": "15 دقيقة",
+        "content": [
+          {"type":"diagram","visualType":"concept","title":"توضيح بصري: الوظائف","description":"تُنشئ دوالك الخاصة لتقسيم المهمة إلى أجزاء يمكن إعادة استخدامها.","image":"assets/images/lessons/javascript/js-3.svg","alt":"رسم يوضح الوظائف: Define Function، Call Function، Run Statements، Return Value"}
+        ] }
+      ]
+    },
+    {
+      "id": "javascript-unit-02",
+      "name": "التحكم والتفاعل",
+      "description": "أضف منطق التحكم والتفاعل إلى الصفحة باستخدام الحدثيات والشرط.",
+      "lessons": [
+        { "id": "js-4", "title": "الشرط والحلقات", "summary": "تعرّف على if، else، while، وfor لتحديد التنفيذ وتكرار العمليات.", "duration": "15 دقيقة",
+        "content": [
+          {"type":"diagram","visualType":"flowchart","title":"توضيح بصري: الشرط والحلقات","description":"تعرّف على if، else، while، وfor لتحديد التنفيذ وتكرار العمليات.","image":"assets/images/lessons/javascript/js-4.svg","alt":"رسم يوضح الشرط والحلقات: Read Input، Condition True?، Run Branch، Loop Again or Exit"}
+        ] },
+        { "id": "js-5", "title": "الأحداث والـ DOM", "summary": "تتعلم ربط الأزرار والحقول بالأحداث واستهداف عناصر الصفحة.", "duration": "18 دقيقة",
+        "content": [
+          {"type":"diagram","visualType":"diagram","title":"توضيح بصري: الأحداث والـ DOM","description":"تتعلم ربط الأزرار والحقول بالأحداث واستهداف عناصر الصفحة.","image":"assets/images/lessons/javascript/js-5.svg","alt":"رسم يوضح الأحداث والـ DOM: User Click، Event Handler، DOM Element، Visible Update"},
+          {
+            "type": "javascript-playground",
+            "id": "javascript-dom-events-practice",
+            "title": "جرّب DOM وEvents",
+            "description": "غيّر نص الصفحة عند الضغط على الزر، وأضف عنصرًا جديدًا للقائمة.",
+            "instructions": "استخدم await document.querySelector لاختيار العنوان والزر. اربط click event لتغيير النص، ثم أنشئ عنصر li وأضفه إلى القائمة عند الضغط على زر الإضافة.",
+            "expectedOutput": "يتغير العنوان بعد الضغط، ويظهر عنصر جديد في القائمة عند الضغط على زر الإضافة.",
+            "previewHtml": "<main>\n  <h2 id=\"message\">أهلاً بك في JavaScript</h2>\n  <button id=\"change-text\" type=\"button\">غيّر النص</button>\n  <ul id=\"items\"></ul>\n  <button id=\"add-item\" type=\"button\">أضف عنصرًا</button>\n</main>",
+            "previewCss": "body { font: 16px Arial, sans-serif; color: #20243a; }\nmain { display: grid; justify-items: start; gap: 12px; }\nbutton { padding: 9px 14px; border: 0; border-radius: 8px; background: #3C4AE8; color: white; cursor: pointer; }\nli { margin-block: 6px; }",
+            "code": "const message = await document.querySelector(\"#message\");\nconst changeButton = await document.querySelector(\"#change-text\");\nchangeButton.addEventListener(\"click\", () => {\n  message.textContent = \"تم تغيير النص!\";\n});\n\nconst list = await document.querySelector(\"#items\");\nconst addButton = await document.querySelector(\"#add-item\");\naddButton.addEventListener(\"click\", () => {\n  const item = document.createElement(\"li\");\n  item.textContent = \"عنصر جديد\";\n  list.appendChild(item);\n});\nconsole.log(\"جرّب أزرار المعاينة.\");",
+            "checks": [
+              {"includes":"addEventListener","message":"اربط معالجًا لحدث الزر"},
+              {"includes":"textContent","message":"غيّر نص عنصر DOM"},
+              {"includes":"createElement","message":"أنشئ عنصرًا جديدًا"}
+            ],
+            "solution": {
+              "code": "const message = await document.querySelector(\"#message\");\nconst changeButton = await document.querySelector(\"#change-text\");\nchangeButton.addEventListener(\"click\", () => {\n  message.textContent = \"تم تغيير النص!\";\n});\n\nconst list = await document.querySelector(\"#items\");\nconst addButton = await document.querySelector(\"#add-item\");\naddButton.addEventListener(\"click\", () => {\n  const item = document.createElement(\"li\");\n  item.textContent = \"عنصر جديد\";\n  list.appendChild(item);\n});\nconsole.log(\"جرّب أزرار المعاينة.\");"
+            }
+          }
+        ] },
+        { "id": "js-6", "title": "الـ Arrays والكائنات", "summary": "تتعلم تنظيم البيانات في مصفوفات وكائنات وقيمة كل منها.", "duration": "17 دقيقة",
+        "content": [
+          {"type":"diagram","visualType":"diagram","title":"توضيح بصري: الـ Arrays والكائنات","description":"تتعلم تنظيم البيانات في مصفوفات وكائنات وقيمة كل منها.","image":"assets/images/lessons/javascript/js-6.svg","alt":"رسم يوضح الـ Arrays والكائنات: Array Indexes، Array Values، Object Keys، Object Values"}
+        ] }
+      ]
+    },
+    {
+      "id": "javascript-unit-03",
+      "name": "المشاريع والتخزين",
+      "description": "تعلّم التعامل مع البيانات داخل الصفحة وتخزين حالة المستخدم.",
+      "lessons": [
+        { "id": "js-7", "title": "المعالجة والتعامل مع البيانات", "summary": "تستخدم البيانات من المستخدم وتُعدّلها بطريقة منطقية في التطبيق.", "duration": "16 دقيقة",
+        "content": [
+          {"type":"diagram","visualType":"step-by-step","title":"توضيح بصري: المعالجة والتعامل مع البيانات","description":"تستخدم البيانات من المستخدم وتُعدّلها بطريقة منطقية في التطبيق.","image":"assets/images/lessons/javascript/js-7.svg","alt":"رسم يوضح المعالجة والتعامل مع البيانات: Collect Input، Validate Data، Transform Value، Update UI"}
+        ] },
+        { "id": "js-8", "title": "التخزين المحلي", "summary": "تتعلم حفظ حالة التطبيق في المتصفح ومعالجة البيانات بشكل مستمر.", "duration": "16 دقيقة",
+        "content": [
+          {"type":"diagram","visualType":"diagram","title":"توضيح بصري: التخزين المحلي","description":"تتعلم حفظ حالة التطبيق في المتصفح ومعالجة البيانات بشكل مستمر.","image":"assets/images/lessons/javascript/js-8.svg","alt":"رسم يوضح التخزين المحلي: App State، localStorage، Browser Storage، Restore on Load"}
+        ] },
+        { "id": "js-9", "title": "مشروع تفاعلي", "summary": "تجمع كل المفاهيم في مشروع صغير يتيح تفاعل المستخدم مع الصفحة.", "duration": "24 دقيقة",
+        "content": [
+          {"type":"diagram","visualType":"step-by-step","title":"توضيح بصري: مشروع تفاعلي","description":"تجمع كل المفاهيم في مشروع صغير يتيح تفاعل المستخدم مع الصفحة.","image":"assets/images/lessons/javascript/js-9.svg","alt":"رسم يوضح مشروع تفاعلي: Build Interface، Add Event، Update State، Test Interaction"}
+        ] }
+      ]
+    }
+  ]
+}

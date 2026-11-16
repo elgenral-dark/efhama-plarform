@@ -1,0 +1,56 @@
+{
+  "id": "63825",
+  "title": "يعني إيه Pseudocode؟ | Introduction to Pseudocode",
+  "summary": "تتعلم معنى Pseudocode، وفائدته قبل كتابة الكود، وكيفية تحويل خطوات الحل إلى كتابة شبه برمجية.",
+  "duration": "25 دقيقة",
+  "content": [
+    { "type": "heading", "text": "Introduction to Pseudocode" },
+    { "type": "heading", "text": "🎯 أهداف الدرس" },
+    { "type": "list", "items": ["تفهم معنى Pseudocode.", "تعرف ليه بنستخدمه قبل كتابة الكود.", "تميّز بين Pseudocode والكود البرمجي.", "تكتب خطوات حل مشكلة بسيطة باستخدام الكتابة الشبه برمجية."] },
+    { "type": "heading", "text": "1. يعني إيه Pseudocode؟" },
+    { "type": "paragraph", "text": "خلينا نفترض إنك عايز تعمل برنامج بيحسب مجموع رقمين. قبل ما تفتح محرر الأكواد وتبدأ تكتب Python أو JavaScript، محتاج الأول تحدد البرنامج هيعمل إيه بالترتيب." },
+    { "type": "steps", "items": ["ابدأ البرنامج.", "اقرأ الرقم الأول.", "اقرأ الرقم الثاني.", "اجمع الرقمين.", "اعرض الناتج.", "انتهى البرنامج."] },
+    {"type":"diagram","visualType":"concept","title":"توضيح بصري: يعني إيه Pseudocode؟ | Introduction to Pseudocode","description":"تتعلم معنى Pseudocode، وفائدته قبل كتابة الكود، وكيفية تحويل خطوات الحل إلى كتابة شبه برمجية.","image":"assets/images/lessons/logic/63825.svg","alt":"رسم يوضح يعني إيه Pseudocode؟ | Introduction to Pseudocode: Problem، Pseudocode، Python Code، Result"},
+    { "type": "paragraph", "text": "الخطوات دي بتعبّر عن منطق البرنامج، وده بالضبط الهدف من Pseudocode. الـ Pseudocode أو الكتابة الشبه برمجية هي طريقة بنكتب بيها خطوات حل المشكلة باستخدام كلمات وتعليمات بسيطة ومنظمة، بتشبه الكود البرمجي، لكن من غير الالتزام بقواعد لغة برمجة محددة." },
+    { "type": "callout", "text": "بمعنى أبسط: بنكتب للبرنامج هيعمل إيه، قبل ما نحدد هنكتبه إزاي بلغة برمجة معينة." },
+    { "type": "heading", "text": "2. ليه بنستخدم Pseudocode؟" },
+    { "type": "paragraph", "text": "لأن كتابة الكود مباشرة من غير تخطيط ممكن تخليك تتوه وسط التفاصيل." },
+    { "type": "list", "items": ["تنظيم أفكارك قبل البرمجة.", "تقسيم المشكلة لخطوات واضحة.", "اكتشاف الأخطاء في المنطق قبل كتابة الكود.", "شرح طريقة الحل لأي مبرمج حتى لو بيستخدم لغة مختلفة.", "تحويل الحل بعد كده لأي لغة برمجة مناسبة."] },
+    { "type": "paragraph", "text": "نفس خطوات حساب مجموع رقمين ممكن تتحول إلى Python أو JavaScript أو C++." },
+    { "type": "heading", "text": "3. الفرق بين Pseudocode والكود البرمجي" },
+    { "type": "code-comparison", "title": "نفس الحل بطريقتين", "items": [
+      { "title": "Pseudocode", "code": "START\n\nINPUT number1\nINPUT number2\n\nresult = number1 + number2\n\nOUTPUT result\n\nEND" },
+      { "title": "Python", "code": "number1 = int(input(\"Enter first number: \"))\nnumber2 = int(input(\"Enter second number: \"))\n\nresult = number1 + number2\n\nprint(result)" }
+    ] },
+    { "type": "paragraph", "text": "الاتنين بيحققوا نفس الهدف، لكن الـ Pseudocode بيهتم بتوضيح المنطق، والكود البرمجي بيهتم بتنفيذ التعليمات وفق قواعد لغة معينة، والـ Pseudocode مش لازم يكون قابل للتشغيل مباشرة على الكمبيوتر." },
+    { "type": "test-cases", "title": "مقارنة سريعة", "columns": ["Pseudocode", "الكود البرمجي"], "rows": [["تخطيط وشرح المنطق", "تنفيذ التعليمات"], ["غير مرتبط بلغة محددة", "مرتبط بقواعد لغة معينة"], ["لا يلزم أن يعمل مباشرة", "قابل للتشغيل والاختبار"]] },
+    { "type": "heading", "text": "4. أشهر الكلمات المستخدمة في Pseudocode" },
+    { "type": "glossary", "title": "كلمات Pseudocode", "items": [
+      { "term": "START", "meaning": "بداية الخوارزمية" }, { "term": "END", "meaning": "نهاية الخوارزمية" }, { "term": "INPUT", "meaning": "استقبال بيانات" }, { "term": "OUTPUT", "meaning": "عرض نتيجة" }, { "term": "SET", "meaning": "إعطاء قيمة لمتغير" }, { "term": "IF", "meaning": "اختبار شرط" }, { "term": "ELSE", "meaning": "تنفيذ بديل" }, { "term": "WHILE", "meaning": "تكرار بشرط" }, { "term": "FOR", "meaning": "تكرار" }, { "term": "REPEAT", "meaning": "بدء تكرار" }, { "term": "UNTIL", "meaning": "تحديد شرط انتهاء" }
+    ] },
+    { "type": "paragraph", "text": "ملحوظة: دي كلمات شائعة للتعبير عن المنطق، وممكن تختلف طريقة كتابتها من منهج أو مرجع لآخر." },
+    { "type": "heading", "text": "5. مثال عملي: حساب متوسط ثلاثة أرقام" },
+    { "type": "paragraph", "text": "المطلوب: نكتب خطوات برنامج يستقبل ثلاثة أرقام ويحسب متوسطهم. أولًا نستقبل الرقم الأول، ثم الثاني، ثم الثالث، ونجمع الأرقام، ونقسم المجموع على 3، ونعرض المتوسط." },
+    { "type": "code", "title": "Pseudocode", "copyButton": true, "code": "START\n\nINPUT number1\nINPUT number2\nINPUT number3\n\nSET sum = number1 + number2 + number3\nSET average = sum / 3\n\nOUTPUT average\n\nEND" },
+    { "type": "paragraph", "text": "لو المستخدم أدخل 10 و20 و30، هيكون المجموع 60، والمتوسط 20." },
+    { "type": "heading", "text": "6. إزاي تكتب Pseudocode بشكل صحيح؟" },
+    { "type": "steps", "items": ["افهم المشكلة وحدد المطلوب من البرنامج.", "حدد المدخلات (Inputs): إيه البيانات اللي البرنامج محتاج يستقبلها؟", "حدد المعالجة (Processing): إيه العمليات اللي لازم تحصل على البيانات؟", "حدد المخرجات (Outputs): إيه النتيجة اللي المفروض تظهر؟", "اكتب الخطوات بالترتيب باستخدام كلمات واضحة، وخلي كل خطوة بتعبّر عن عملية محددة."] },
+    { "type": "heading", "text": "📚 المصطلحات المهمة" },
+    { "type": "glossary", "title": "Glossary", "items": [
+      { "term": "Pseudocode", "meaning": "الكتابة الشبه برمجية" }, { "term": "Algorithm", "meaning": "خوارزمية" }, { "term": "Input", "meaning": "مدخلات" }, { "term": "Processing", "meaning": "معالجة" }, { "term": "Output", "meaning": "مخرجات" }, { "term": "Programming Language", "meaning": "لغة برمجة" }, { "term": "Logic", "meaning": "منطق" }, { "term": "Instruction", "meaning": "تعليمة" }
+    ] },
+    { "type": "heading", "text": "🧠 ملخص الدرس" },
+    { "type": "list", "items": ["Pseudocode طريقة لوصف خطوات حل المشكلة قبل كتابة الكود.", "مش مرتبط بلغة برمجة معينة.", "بيساعدك ترتب تفكيرك وتكتشف أخطاء المنطق.", "بيتكوّن من تعليمات واضحة ومتسلسلة.", "تقدر تحوّله بعد كده لأي لغة برمجة."] },
+    { "type": "heading", "text": "📝 اختبر فهمك" },
+    { "type": "heading", "text": "💻 التحدي العملي" },
+    { "type": "paragraph", "text": "اكتب Pseudocode لبرنامج بيستقبل اسم الطالب وثلاث درجات، وبعد كده يحسب المتوسط ويعرض اسم الطالب ومتوسط درجاته." },
+    { "type": "steps", "items": ["استخدم INPUT لاستقبال البيانات.", "استخدم SET لتخزين المتوسط.", "استخدم OUTPUT لعرض النتيجة.", "استخدم START وEND لتنظيم بداية ونهاية الحل.", "حاول تحل التحدي بنفسك قبل ما تحوّله إلى كود Python."] }
+  ],
+  "quiz": [
+    { "question": "إيه المقصود بـ Pseudocode؟", "options": ["لغة برمجة قابلة للتشغيل مباشرة.", "طريقة لكتابة خطوات الحل بصورة شبه برمجية.", "برنامج لتصميم المواقع.", "قاعدة بيانات."], "answer": "B", "explanation": "Pseudocode طريقة لكتابة خطوات الحل بصورة شبه برمجية." },
+    { "question": "إمتى بنستخدم Pseudocode غالبًا؟", "options": ["بعد نشر البرنامج فقط.", "قبل كتابة الكود لتنظيم الحل.", "بدل نظام التشغيل.", "لتصميم الصور."], "answer": "B", "explanation": "نستخدمه قبل كتابة الكود لتنظيم الحل." },
+    { "question": "إيه الكلمة المستخدمة لاستقبال البيانات؟", "options": ["OUTPUT", "START", "INPUT", "END"], "answer": "C", "explanation": "INPUT مخصصة لاستقبال البيانات." },
+    { "question": "هل لازم Pseudocode يتكتب بلغة Python؟", "options": ["نعم.", "لا، لأنه مش مرتبط بلغة برمجة محددة."], "answer": "B", "explanation": "Pseudocode يعبر عن منطق الحل بشكل عام." },
+    { "question": "إيه الفرق الأساسي بين Pseudocode والكود البرمجي؟", "options": ["مفيش أي فرق.", "Pseudocode للتخطيط، والكود البرمجي قابل للتنفيذ وفق قواعد لغة معينة.", "Pseudocode أسرع في التنفيذ.", "الكود البرمجي مش بيستخدم متغيرات."], "answer": "B", "explanation": "Pseudocode للتخطيط، بينما الكود البرمجي قابل للتنفيذ وفق قواعد لغة معينة." }
+  ]
+}

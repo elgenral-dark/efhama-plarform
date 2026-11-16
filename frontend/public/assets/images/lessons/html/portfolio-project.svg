@@ -1,0 +1,47 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="420" viewBox="0 0 960 420" role="img" aria-labelledby="title desc" direction="rtl" preserveAspectRatio="xMidYMid meet">
+<title id="title">معرض أعمال شخصي</title>
+<desc id="desc">Visual summary: Header &amp; Bio, Projects Grid, Contact &amp; Links</desc>
+<defs>
+  <marker id="arrow" markerWidth="12" markerHeight="12" refX="10" refY="6" orient="auto" markerUnits="userSpaceOnUse">
+    <path d="M2 3 L10 6 L2 9 Z" fill="#3C4AE8"/>
+  </marker>
+</defs>
+<rect width="960" height="420" rx="26" fill="#fff"/>
+<text x="480" y="405" text-anchor="middle" fill="#6b7280" font-family="'Cairo', system-ui, -apple-system, sans-serif" font-size="15">EFHAMHA · VISUAL LEARNING</text>
+
+<!-- Top Headline / Project Structure -->
+<rect x="290" y="38" width="380" height="66" rx="18" fill="#3C4AE8" stroke="#3C4AE8" stroke-width="3"/>
+<text x="480" y="80" text-anchor="middle" fill="#fff" font-family="'Cairo', system-ui, -apple-system, sans-serif" font-size="22" font-weight="700">Portfolio Structure · بنية المعرض</text>
+
+<!-- Connectors from Top to 3 Layout Sections -->
+<path d="M605 104 L725 158" stroke="#3C4AE8" stroke-width="3.2" stroke-linecap="round" marker-end="url(#arrow)"/>
+<path d="M480 104 L480 156" stroke="#3C4AE8" stroke-width="3.2" stroke-linecap="round" marker-end="url(#arrow)"/>
+<path d="M355 104 L235 158" stroke="#3C4AE8" stroke-width="3.2" stroke-linecap="round" marker-end="url(#arrow)"/>
+
+<!-- Section 1: Header & Bio -->
+<rect x="655" y="165" width="235" height="135" rx="18" fill="#eef0ff" stroke="#3C4AE8" stroke-width="3"/>
+<circle cx="840" cy="195" r="14" fill="#3C4AE8"/>
+<text x="840" y="200" text-anchor="middle" fill="#fff" font-family="'Cairo', system-ui, -apple-system, sans-serif" font-size="13" font-weight="700">1</text>
+<text x="760" y="202" text-anchor="middle" direction="ltr" fill="#26324a" font-family="'Cairo', system-ui, -apple-system, sans-serif" font-size="19" font-weight="700">Header &amp; Bio</text>
+<text x="772" y="235" text-anchor="middle" fill="#5f6b85" font-family="'Cairo', system-ui, -apple-system, sans-serif" font-size="15">النبذة والتعريف الشخصي</text>
+<text x="772" y="265" text-anchor="middle" direction="ltr" fill="#3C4AE8" font-family="Consolas, monospace" font-size="13">&lt;header&gt; &amp; &lt;h1&gt;</text>
+
+<!-- Section 2: Projects Grid -->
+<rect x="362" y="165" width="235" height="135" rx="18" fill="#fff7e6" stroke="#d58b18" stroke-width="3"/>
+<circle cx="547" cy="195" r="14" fill="#d58b18"/>
+<text x="547" y="200" text-anchor="middle" fill="#fff" font-family="'Cairo', system-ui, -apple-system, sans-serif" font-size="13" font-weight="700">2</text>
+<text x="468" y="202" text-anchor="middle" direction="ltr" fill="#26324a" font-family="'Cairo', system-ui, -apple-system, sans-serif" font-size="19" font-weight="700">Projects Grid</text>
+<text x="480" y="235" text-anchor="middle" fill="#5f6b85" font-family="'Cairo', system-ui, -apple-system, sans-serif" font-size="15">معرض المشروعات والأعمال</text>
+<text x="480" y="265" text-anchor="middle" direction="ltr" fill="#d58b18" font-family="Consolas, monospace" font-size="13">&lt;section class="grid"&gt;</text>
+
+<!-- Section 3: Contact & Links -->
+<rect x="70" y="165" width="235" height="135" rx="18" fill="#edfff5" stroke="#20a36a" stroke-width="3"/>
+<circle cx="255" cy="195" r="14" fill="#20a36a"/>
+<text x="255" y="200" text-anchor="middle" fill="#fff" font-family="'Cairo', system-ui, -apple-system, sans-serif" font-size="13" font-weight="700">3</text>
+<text x="175" y="202" text-anchor="middle" direction="ltr" fill="#26324a" font-family="'Cairo', system-ui, -apple-system, sans-serif" font-size="19" font-weight="700">Contact &amp; Links</text>
+<text x="187" y="235" text-anchor="middle" fill="#5f6b85" font-family="'Cairo', system-ui, -apple-system, sans-serif" font-size="15">روابط التواصل والسيرة</text>
+<text x="187" y="265" text-anchor="middle" direction="ltr" fill="#20a36a" font-family="Consolas, monospace" font-size="13">&lt;footer&gt; &amp; &lt;a href&gt;</text>
+
+<!-- Summary footer bar -->
+<text x="480" y="348" text-anchor="middle" fill="#5f6b85" font-family="'Cairo', system-ui, -apple-system, sans-serif" font-size="17">بناء صفحة ويب متكاملة تجمع بين HTML و CSS</text>
+</svg>

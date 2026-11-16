@@ -1,0 +1,56 @@
+{
+  "slug": "sql",
+  "title": "SQL وقواعد البيانات",
+  "icon": "SQL",
+  "tag": "SQL",
+  "description": "تعلّم كيفية تخزين البيانات، استرجاعها، وربطها بأساسيات قواعد البيانات بطريقة منطقية.",
+  "difficulty": "متوسط",
+  "contentStatus": "outline",
+  "levels": [
+    {
+      "id": "sql-unit-01",
+      "name": "أساسيات قواعد البيانات",
+      "description": "فهم ما هي القاعدة، لماذا نحتاجها، وكيفية تنظيم البيانات.",
+      "lessons": [
+        { "id": "sql-1", "title": "مقدمة إلى قواعد البيانات", "summary": "تتعرف على مفهوم قاعدة البيانات وأهميتها في التطبيقات الحديثة.", "duration": "12 دقيقة",
+        "content": [
+          {"type":"diagram","visualType":"concept","title":"توضيح بصري: مقدمة إلى قواعد البيانات","description":"تتعرف على مفهوم قاعدة البيانات وأهميتها في التطبيقات الحديثة.","image":"assets/images/lessons/sql/sql-1.svg","alt":"رسم يوضح مقدمة إلى قواعد البيانات: Application، Database، Tables، Stored Records"}
+        ] },
+        { "id": "sql-2", "title": "إنشاء الجداول", "summary": "تتعلم إنشاء الجداول وإضافة الحقول المناسبة لكل معلوماتك.", "duration": "15 دقيقة",
+        "content": [
+          {"type":"diagram","visualType":"diagram","title":"توضيح بصري: إنشاء الجداول","description":"تتعلم إنشاء الجداول وإضافة الحقول المناسبة لكل معلوماتك.","image":"assets/images/lessons/sql/sql-2.svg","alt":"رسم يوضح إنشاء الجداول: Table، Columns، Rows، Primary Key"}
+        ] }
+      ]
+    },
+    {
+      "id": "sql-unit-02",
+      "name": "إدخال البيانات والاستعلام",
+      "description": "تعرف على كيفية إضافة البيانات والاستعلام عنها بطريقة فعّالة.",
+      "lessons": [
+        { "id": "sql-3", "title": "إدخال البيانات", "summary": "تتعلم الأمر INSERT وكيف تضع البيانات داخل الجدول بشكل صحيح.", "duration": "14 دقيقة",
+        "content": [
+          {"type":"diagram","visualType":"step-by-step","title":"توضيح بصري: إدخال البيانات","description":"تتعلم الأمر INSERT وكيف تضع البيانات داخل الجدول بشكل صحيح.","image":"assets/images/lessons/sql/sql-3.svg","alt":"رسم يوضح إدخال البيانات: INSERT INTO، Choose Columns، Add Values، New Row"}
+        ] },
+        { "id": "sql-4", "title": "استعلامات SELECT", "summary": "تتعلم كيفية قراءة البيانات واختيار الحقول المطلوبة فقط.", "duration": "16 دقيقة",
+        "content": [
+          {"type":"diagram","visualType":"code-visualization","title":"توضيح بصري: استعلامات SELECT","description":"تتعلم كيفية قراءة البيانات واختيار الحقول المطلوبة فقط.","image":"assets/images/lessons/sql/sql-4.svg","alt":"رسم يوضح استعلامات SELECT: SELECT name، FROM students، Choose Columns، Result Rows"}
+        ] }
+      ]
+    },
+    {
+      "id": "sql-unit-03",
+      "name": "العلاقات والتلاعب",
+      "description": "أضف المنطق بين الجداول وراجع مهاراتك في الفحص والفرز.",
+      "lessons": [
+        { "id": "sql-5", "title": "التصفية والفرز", "summary": "تستخدم WHERE وORDER BY لاختيار المعلومات المهمة بشكل أسرع.", "duration": "15 دقيقة",
+        "content": [
+          {"type":"diagram","visualType":"code-visualization","title":"توضيح بصري: التصفية والفرز","description":"تستخدم WHERE وORDER BY لاختيار المعلومات المهمة بشكل أسرع.","image":"assets/images/lessons/sql/sql-5.svg","alt":"رسم يوضح التصفية والفرز: SELECT rows، WHERE filter، ORDER BY، Sorted Result"}
+        ] },
+        { "id": "sql-6", "title": "العلاقات والـ JOIN", "summary": "تتعلم الربط بين الجداول لجمع البيانات ذات العلاقة في استعلام واحد.", "duration": "20 دقيقة",
+        "content": [
+          {"type":"diagram","visualType":"diagram","title":"توضيح بصري: العلاقات والـ JOIN","description":"تتعلم الربط بين الجداول لجمع البيانات ذات العلاقة في استعلام واحد.","image":"assets/images/lessons/sql/sql-6.svg","alt":"رسم يوضح العلاقات والـ JOIN: Students Table، Shared Key، Courses Table، JOIN Result"}
+        ] }
+      ]
+    }
+  ]
+}

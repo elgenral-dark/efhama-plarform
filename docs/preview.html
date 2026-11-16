@@ -1,0 +1,1410 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Preview | مسارات تعلم البرمجة</title>
+    <style>
+      :root {
+        --primary: #3C4AE8;
+        --primary-soft: #eef0ff;
+        --primary-deep: #2a39c8;
+        --bg: #f5f7ff;
+        --surface: #ffffff;
+        --text: #111827;
+        --muted: #5f6b85;
+        --border: rgba(17, 24, 39, 0.08);
+        --success: #20b26b;
+        --shadow: 0 18px 52px rgba(60, 74, 232, 0.12);
+      }
+      * { box-sizing: border-box; }
+      html { scroll-behavior: smooth; }
+      body {
+        margin: 0;
+        font-family: "Segoe UI", Tahoma, Arial, sans-serif;
+        direction: rtl;
+        background: linear-gradient(180deg, #f7f8ff 0%, #ffffff 16%);
+        color: var(--text);
+      }
+      a { text-decoration: none; color: inherit; }
+      button { font: inherit; }
+      .container { width: min(1180px, calc(100% - 32px)); margin-inline: auto; }
+      .topbar { position: sticky; top: 0; z-index: 10; background: rgba(255,255,255,0.8); backdrop-filter: blur(20px); border-bottom: 1px solid var(--border); }
+      .topbar-inner { display: flex; align-items: center; justify-content: space-between; gap: 18px; padding: 18px 0; }
+      .brand { display: inline-flex; align-items: center; gap: 12px; font-weight: 800; }
+      .logo-mark { width: 42px; height: 42px; display: grid; place-items: center; background: url("public/assets/icons/icon-512.png") center / contain no-repeat; color: transparent; font-size: 0; }
+      .navs { display: flex; gap: 12px; }
+      .navs a { color: var(--muted); font-weight: 700; padding: 10px 14px; border-radius: 12px; }
+      .navs a.active { color: var(--primary); background: var(--primary-soft); }
+      .btn { display: inline-flex; align-items: center; justify-content: center; border-radius: 12px; padding: 12px 18px; font-weight: 800; background: var(--primary); color: white; border: 0; cursor: pointer; }
+      .hero { padding: 52px 0 24px; }
+      .hero-grid { display: grid; grid-template-columns: 1.1fr 0.9fr; gap: 28px; align-items: center; }
+      .kicker { display: inline-block; background: white; border: 1px solid var(--border); color: var(--primary); font-weight: 800; font-size: 0.8rem; padding: 10px 16px; border-radius: 999px; }
+      h1 { margin: 18px 0 16px; font-size: clamp(2rem, 4vw, 4rem); line-height: 1.1; }
+      h1 span { color: var(--primary); }
+      .hero p { margin: 0; color: var(--muted); font-size: 1.08rem; line-height: 1.9; max-width: 620px; }
+      .hero-actions { display: flex; gap: 14px; margin-top: 22px; flex-wrap: wrap; }
+      .secondary { border: 1px solid var(--border); background: white; color: var(--text); padding: 13px 18px; border-radius: 12px; font-weight: 800; }
+      .art-card { width: min(100%, 470px); background: linear-gradient(145deg, rgba(60, 74, 232, 0.1), rgba(255,255,255,0.92)); border: 1px solid rgba(60,74,232,0.1); border-radius: 28px; box-shadow: var(--shadow); padding: 26px; }
+      .stats { display: grid; grid-template-columns: repeat(2, minmax(150px, 1fr)); gap: 14px; }
+      .mini-stat { background: rgba(255,255,255,0.82); border-radius: 18px; padding: 18px 16px; border: 1px solid rgba(255,255,255,0.5); }
+      .mini-stat strong { display: block; font-size: 1.7rem; margin-bottom: 6px; color: var(--primary); }
+      .mini-stat span { color: var(--muted); font-size: 0.88rem; font-weight: 700; }
+      .section { padding: 30px 0 54px; }
+      .section-head h2 { margin: 0 0 4px; font-size: clamp(1.7rem, 3vw, 2.4rem); }
+      .section-head p { margin: 0; color: var(--muted); }
+      .path-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 22px; margin-top: 22px; }
+      .path-card { background: var(--surface); border: 1px solid var(--border); border-radius: 22px; box-shadow: 0 14px 30px rgba(17, 24, 39, 0.06); padding: 22px 18px 18px; }
+      .card-top { display: flex; align-items: center; justify-content: space-between; margin-bottom: 16px; }
+      .path-icon { width: 54px; height: 54px; border-radius: 18px; display: grid; place-items: center; background: linear-gradient(135deg, rgba(60,74,232,0.12), rgba(122,135,255,0.12)); color: var(--primary); font-weight: 800; font-size: 1.4rem; }
+      .tag { padding: 7px 10px; border-radius: 10px; background: var(--primary-soft); color: var(--primary); font-weight: 800; font-size: 0.74rem; }
+      .path-card h3 { margin: 0 0 10px; font-size: 1.28rem; }
+      .path-card p { margin: 0; color: var(--muted); line-height: 1.8; min-height: 90px; }
+      .meta { display: flex; justify-content: space-between; margin: 16px 0 12px; color: var(--muted); font-size: 0.8rem; font-weight: 700; }
+      .progress { height: 8px; background: #edf0f8; border-radius: 999px; overflow: hidden; }
+      .progress span { display: block; height: 100%; border-radius: inherit; background: linear-gradient(90deg, var(--primary), #7a87ff); }
+      .progress-label { display: flex; justify-content: space-between; margin-top: 8px; font-size: 0.78rem; color: var(--muted); font-weight: 700; }
+      .actions { display: flex; justify-content: space-between; gap: 12px; margin-top: 18px; }
+      .actions .link-btn { flex: 1; display: inline-flex; justify-content: center; align-items: center; border-radius: 12px; padding: 12px 14px; background: var(--primary); color: white; font-weight: 800; }
+      .actions .ghost-btn { border: 1px solid var(--border); border-radius: 12px; background: transparent; color: var(--text); padding: 11px 12px; }
+      .lesson-preview { padding: 22px 0 70px; }
+      .preview-lesson { background: white; border: 1px solid var(--border); border-radius: 22px; box-shadow: var(--shadow); padding: clamp(18px, 4vw, 36px); }
+      .preview-lesson h2 { margin: 0 0 8px; font-size: clamp(1.5rem, 3vw, 2.2rem); }
+      .preview-lesson h3 { margin: 30px 0 12px; font-size: 1.2rem; }
+      .preview-lesson p { line-height: 1.9; }
+      .preview-kicker { color: var(--primary); font-weight: 800; }
+      .preview-grid, .preview-requirements, .preview-glossary { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 210px), 1fr)); gap: 12px; }
+      .preview-card, .preview-requirement, .preview-term { min-width: 0; padding: 16px; border: 1px solid var(--border); border-radius: 12px; background: #f7f8fc; }
+      .preview-card h4, .preview-requirement h4 { margin: 0 0 8px; }
+      .preview-card p, .preview-card ul, .preview-requirement ul { margin: 0; color: var(--muted); line-height: 1.8; }
+      .preview-card ul, .preview-requirement ul { padding-inline-start: 20px; }
+      .preview-ipo { display: grid; max-width: 560px; gap: 8px; margin: auto; }
+      .preview-ipo button { display: grid; grid-template-columns: 1fr; gap: 4px; padding: 13px 16px; text-align: start; color: var(--text); background: #f7f8fc; border: 1px solid var(--border); border-radius: 12px; cursor: pointer; }
+      .preview-ipo button[aria-pressed="true"] { border-color: var(--primary); background: var(--primary-soft); }
+      .preview-arrow { text-align: center; color: var(--primary); font-weight: 900; }
+      #ipoDetail { min-height: 60px; padding: 14px; background: var(--primary-soft); border-radius: 12px; }
+      .preview-requirement.functional { border-top: 4px solid #228a62; }
+      .preview-requirement.nonfunctional { border-top: 4px solid #c77919; }
+      .preview-glossary dt { color: var(--primary); font-weight: 800; direction: ltr; text-align: start; }
+      .preview-glossary dd { margin: 5px 0 0; color: var(--muted); }
+      .preview-question { margin: 0 0 12px; padding: 16px; border: 1px solid var(--border); border-radius: 12px; }
+      .preview-question legend { font-weight: 800; line-height: 1.8; }
+      .preview-option { display: block; padding: 7px; cursor: pointer; }
+      .preview-feedback { min-height: 1.5em; line-height: 1.8; }
+      .preview-complete { margin-top: 18px; padding: 12px 16px; color: white; background: var(--primary); border: 0; border-radius: 10px; font-weight: 800; cursor: pointer; }
+      #previewSaveStatus { color: var(--muted); }
+      .preview-number-fields { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 150px), 1fr)); gap: 12px; margin-bottom: 14px; }
+      .preview-number-fields label { display: grid; gap: 7px; color: var(--muted); font-weight: 700; }
+      .preview-number-fields input { min-width: 0; width: 100%; padding: 10px 12px; border: 1px solid var(--border); border-radius: 9px; font: inherit; }
+      .preview-result { min-height: 1.6em; color: var(--success); font-weight: 800; line-height: 1.8; }
+      .preview-result.error { color: #b54708; }
+      .preview-table-scroll { max-width: 100%; overflow-x: auto; border: 1px solid var(--border); border-radius: 12px; }
+      .preview-table { width: 100%; min-width: 620px; border-collapse: collapse; text-align: start; }
+      .preview-table th, .preview-table td { padding: 12px; border-bottom: 1px solid var(--border); vertical-align: top; line-height: 1.7; }
+      .preview-table th { color: var(--primary); background: var(--primary-soft); }
+      .preview-trace-simulator { margin: 18px 0; padding: 16px; border: 1px solid var(--border); border-radius: 14px; background: #f7f8fc; }
+      .preview-trace-simulator h4 { margin: 0 0 6px; }
+      .preview-trace-simulator p { line-height: 1.8; }
+      .preview-trace-changed { background: rgba(32,178,107,.08); }
+      .preview-trace-old { color: var(--muted); text-decoration: line-through; }
+      .preview-trace-new { display: inline-block; padding: 2px 8px; color: #176b48; background: rgba(32,178,107,.15); border-radius: 7px; font-weight: 900; }
+      .preview-trace-controls { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 12px; }
+      .preview-trace-controls button:disabled { opacity: .45; cursor: not-allowed; }
+      .error-preview-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 220px), 1fr)); gap: 12px; }
+      .error-preview-card { padding: 16px; border: 1px solid var(--border); border-top: 4px solid var(--primary); border-radius: 12px; background: #f7f8fc; }
+      .error-preview-card.syntax { border-top-color: #3478a8; }
+      .error-preview-card.runtime { border-top-color: #c77919; }
+      .error-preview-card.logical { border-top-color: #20825b; }
+      .error-preview-card h4 { margin: 0 0 8px; }
+      .error-preview-card p { margin: 7px 0 0; color: var(--muted); line-height: 1.8; }
+      .preview-disclosure { margin: 18px 0; border: 1px solid var(--border); border-radius: 12px; background: #f7f8fc; overflow: hidden; }
+      .preview-disclosure summary { padding: 15px; color: var(--primary); font-weight: 800; cursor: pointer; }
+      .preview-disclosure-body { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); border-top: 1px solid var(--border); }
+      .preview-disclosure-body article { padding: 16px; background: #fff; }
+      .preview-disclosure-body h4 { margin: 0 0 8px; }
+      .preview-disclosure-body p { margin: 0; color: var(--muted); }
+      .preview-algorithm-flow { display: grid; max-width: 620px; gap: 8px; margin-inline: auto; }
+      .preview-algorithm-flow details { border: 1px solid var(--border); border-radius: 12px; background: #f7f8fc; overflow: hidden; }
+      .preview-algorithm-flow summary { display: flex; align-items: center; gap: 10px; padding: 13px 15px; font-weight: 800; cursor: pointer; list-style: none; }
+      .preview-algorithm-flow summary::-webkit-details-marker { display: none; }
+      .preview-algorithm-flow summary::after { content: '+'; margin-inline-start: auto; color: var(--primary); }
+      .preview-algorithm-flow details[open] summary::after { content: '−'; }
+      .preview-flow-index { display: grid; place-items: center; width: 32px; aspect-ratio: 1; border-radius: 9px; color: var(--primary); background: var(--primary-soft); }
+      .preview-algorithm-flow details p { margin: 0; padding: 0 15px 14px; padding-inline-start: 57px; color: var(--muted); }
+      .preview-flow-arrow { text-align: center; color: var(--primary); font-weight: 900; }
+      .preview-concept-cards { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; }
+      .preview-concept-card { padding: 18px; border: 1px solid var(--border); border-top: 4px solid #20825b; border-radius: 12px; background: #f7f8fc; }
+      .preview-concept-card.program { border-top-color: #3478a8; }
+      .preview-concept-card h4 { margin: 4px 0 8px; }
+      .preview-concept-card p, .preview-concept-card ol { color: var(--muted); line-height: 1.8; }
+      .preview-property-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 220px), 1fr)); gap: 10px; }
+      .preview-property { border: 1px solid var(--border); border-radius: 12px; background: #f7f8fc; overflow: hidden; }
+      .preview-property summary { display: grid; gap: 5px; padding: 14px; cursor: pointer; list-style: none; }
+      .preview-property summary::-webkit-details-marker { display: none; }
+      .preview-property summary::after { content: 'اعرض التفاصيل +'; color: var(--primary); font-size: .8rem; font-weight: 800; }
+      .preview-property[open] summary::after { content: 'إخفاء التفاصيل −'; }
+      .preview-property p { margin: 0; padding: 0 14px 14px; color: var(--muted); }
+        .preview-symbol-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 155px), 1fr)); gap: 10px; }
+        .preview-symbol-card { display: grid; justify-items: center; gap: 8px; padding: 14px; border: 1px solid var(--border); border-radius: 12px; background: #f7f8fc; text-align: center; }
+        .preview-symbol { display: grid; place-items: center; width: 136px; min-height: 48px; padding: 8px; border: 2px solid var(--primary); color: var(--text); background: var(--primary-soft); font-weight: 800; }
+        .preview-symbol.terminator { border-radius: 999px; }
+        .preview-symbol.io { clip-path: polygon(10% 0, 100% 0, 90% 100%, 0 100%); }
+        .preview-symbol.process { border-radius: 4px; }
+        .preview-symbol.decision { width: 74px; min-height: 74px; margin: 14px 0; transform: rotate(45deg); }
+        .preview-symbol.decision span { transform: rotate(-45deg); }
+        .preview-symbol.flowline { width: auto; min-height: 42px; border: 0; background: transparent; color: var(--primary); font-size: 2rem; }
+        .preview-representation { padding: 16px; margin: 12px 0; border: 1px solid var(--border); border-radius: 12px; background: #f7f8fc; }
+        .preview-representation h4 { margin: 2px 0 8px; }
+        .preview-code-toolbar { display: flex; justify-content: flex-end; }
+        .preview-copy-button { padding: 7px 11px; color: var(--text); background: white; border: 1px solid var(--border); border-radius: 8px; font-weight: 800; cursor: pointer; }
+        .preview-code-block { margin: 8px 0 0; padding: 14px; color: #f8fafc; background: #0f172a; border-radius: 10px; overflow-x: auto; direction: ltr; text-align: left; }
+        .preview-decision-flow { display: grid; justify-items: center; gap: 8px; padding: 18px; border: 1px solid var(--border); border-radius: 12px; background: #f7f8fc; }
+        .preview-decision { display: grid; place-items: center; width: min(230px, 72vw); aspect-ratio: 1.55; padding: 18px; background: var(--primary-soft); clip-path: polygon(50% 0, 100% 50%, 50% 100%, 0 50%); text-align: center; font-weight: 800; }
+        .preview-branches { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; width: min(560px, 100%); }
+        .preview-branches article { display: grid; justify-items: center; gap: 8px; min-width: 0; }
+        .preview-branches strong { color: var(--primary); }
+        .preview-branches span { padding: 10px; border: 1px solid var(--border); border-radius: 10px; background: white; text-align: center; }
+      @media (max-width: 760px) { .hero-grid { grid-template-columns: 1fr; } .hero-grid > div, .art-card { min-width: 0; } .stats { grid-template-columns: repeat(2, minmax(0, 1fr)); } .topbar-inner { flex-wrap: wrap; justify-content: center; } .preview-concept-cards { grid-template-columns: 1fr; } }
+    </style>
+  </head>
+  <body>
+    <header class="topbar">
+      <div class="container topbar-inner">
+        <div class="brand"><span class="logo-mark">E</span><span>Efhama</span></div>
+        <nav class="navs" aria-label="التنقل الرئيسي">
+          <a class="active" href="./preview.html">مسارات التعلم</a>
+          <a href="#">الرئيسية</a>
+        </nav>
+        <button class="btn" type="button">ابدأ الآن</button>
+      </div>
+    </header>
+
+    <main>
+      <section class="hero">
+        <div class="container hero-grid">
+          <div>
+            <div class="kicker">أكاديمية Efhama التعليمية</div>
+            <h1>ابدأ رحلتك في <span>عالم البرمجة</span></h1>
+            <p>اتعلم البرمجة من الصفر، افهم الأساسيات، وطبّق بنفسك لحد ما تقدر تبني مشاريع حقيقية.</p>
+            <div class="hero-actions">
+              <a class="btn" href="public/programming-paths/lesson.html?slug=logic&amp;lesson=logic-14">معاينة درس Flowcharts</a>
+              <a class="secondary" href="#pathGrid">استعرض المسارات</a>
+            </div>
+          </div>
+          <div class="art-card" aria-hidden="true">
+            <div class="stats">
+              <div class="mini-stat"><strong>6</strong><span>مسارات</span></div>
+              <div class="mini-stat"><strong>49</strong><span>دروس</span></div>
+              <div class="mini-stat"><strong>18%</strong><span>معدل البداية</span></div>
+              <div class="mini-stat"><strong>1</strong><span>رحلة</span></div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="container">
+          <div class="section-head">
+            <div>
+              <h2>المسارات التعليمية</h2>
+              <p>اختر المسار المناسب لك وابدأ بناء مهاراتك تدريجيًا.</p>
+            </div>
+          </div>
+          <div class="path-grid" id="pathGrid"></div>
+        </div>
+      </section>
+      <section class="lesson-preview" id="lesson-preview">
+        <div class="container">
+          <article class="preview-lesson">
+            <p class="preview-kicker">الوحدة الثانية: التفكير المنطقي وتحليل المشكلات · الدرس الثاني</p>
+            <h2>إزاي تحلل أي مشكلة برمجية؟</h2>
+            <p><strong>Problem Analysis</strong></p>
+            <p>تحليل المشكلة هو إنك تفهم المطلوب، وتحدد البيانات والوظائف والقيود، قبل ما تبدأ في تصميم الحل وتنفيذه. مثلًا، طلب «برنامج ينظم المكتبة» يحتاج توضيح الكتب والأعضاء والاستعارة والإرجاع والتقارير قبل كتابة الكود.</p>
+
+            <h3>مثال نظام المكتبة</h3>
+            <div class="preview-grid">
+              <article class="preview-card"><h4>المستخدم</h4><p>موظف المكتبة، وربما الأعضاء.</p></article>
+              <article class="preview-card"><h4>المشكلة</h4><p>صعوبة متابعة الكتب المستعارة والمتاحة.</p></article>
+              <article class="preview-card"><h4>الهدف</h4><p>تنظيم بيانات الكتب وحركة الاستعارة.</p></article>
+              <article class="preview-card"><h4>النتيجة</h4><p>معرفة حالة كل كتاب وتسجيل عمليات الاستعارة والإرجاع.</p></article>
+            </div>
+
+            <h3>المدخلات والمعالجة والمخرجات</h3>
+            <div class="preview-ipo" role="group" aria-label="مخطط Input Processing Output">
+              <button type="button" data-preview-ipo="inputs" data-description="Inputs — المدخلات: اسم الكتاب ورقمه، اسم العضو ورقم العضوية، وتاريخ الاستعارة والإرجاع." aria-pressed="true"><strong>Input — المدخلات</strong><span>البيانات التي يستقبلها البرنامج</span></button>
+              <span class="preview-arrow" aria-hidden="true">↓</span>
+              <button type="button" data-preview-ipo="processing" data-description="Processing — المعالجة: تسجيل كتاب، البحث عنه، التحقق من توفره، تسجيل الاستعارة، وتحديث حالته بعد الإرجاع." aria-pressed="false"><strong>Processing — المعالجة</strong><span>العمليات التي ينفذها البرنامج</span></button>
+              <span class="preview-arrow" aria-hidden="true">↓</span>
+              <button type="button" data-preview-ipo="outputs" data-description="Outputs — المخرجات: قائمة الكتب، بيانات الكتاب، الكتب المتاحة والمستعارة، وسجل العمليات." aria-pressed="false"><strong>Output — المخرجات</strong><span>النتائج التي يعرضها البرنامج</span></button>
+            </div>
+            <p id="ipoDetail" aria-live="polite">Inputs — المدخلات: اسم الكتاب ورقمه، اسم العضو ورقم العضوية، وتاريخ الاستعارة والإرجاع.</p>
+
+            <h3>مقارنة المتطلبات</h3>
+            <p>المتطلبات الوظيفية تحدد ما الذي يفعله النظام، أما المتطلبات غير الوظيفية فتحدد جودة التنفيذ والقيود التي يلتزم بها.</p>
+            <div class="preview-requirements">
+              <article class="preview-requirement functional"><p class="preview-kicker">Functional Requirements</p><h4>المتطلبات الوظيفية</h4><p>السؤال: النظام المفروض يعمل إيه؟</p><ul><li>إضافة كتاب وتعديل بياناته.</li><li>حذف كتاب وفق صلاحيات محددة.</li><li>البحث عن الكتب.</li><li>تسجيل الاستعارة والإرجاع.</li><li>عرض حالة كل كتاب.</li></ul></article>
+              <article class="preview-requirement nonfunctional"><p class="preview-kicker">Non-Functional Requirements</p><h4>المتطلبات غير الوظيفية</h4><p>السؤال: بأي جودة ومستوى ينفذ النظام وظائفه؟</p><ul><li>سهولة الاستخدام.</li><li>سرعة الاستجابة.</li><li>حماية بيانات المستخدمين.</li><li>استخدام النظام من أجهزة مختلفة.</li><li>الحفاظ على البيانات وعدم فقدانها.</li></ul></article>
+            </div>
+
+            <h3>تحليل برنامج درجات الطلاب</h3>
+            <p>المطلوب: برنامج يستقبل درجات الطالب في ثلاث مواد، ويحسب المتوسط، ويحدد هل حقق درجة النجاح أم لا.</p>
+            <div class="preview-grid">
+              <article class="preview-card"><h4>الهدف والمدخلات</h4><p>حساب المتوسط وتحديد الحالة. المدخلات: الدرجات الثلاث ودرجة النجاح المطلوبة.</p></article>
+              <article class="preview-card"><h4>المعالجة</h4><ul><li>التحقق من النطاق المسموح.</li><li>جمع الدرجات وحساب المتوسط.</li><li>مقارنة المتوسط بدرجة النجاح.</li></ul></article>
+              <article class="preview-card"><h4>المخرجات</h4><p>متوسط الدرجات وحالة الطالب وفق شرط النجاح المحدد.</p></article>
+              <article class="preview-card"><h4>المتطلبات</h4><p>استقبال الدرجات والتحقق منها وحساب المتوسط وعرض النتيجة، مع رسائل واضحة وإدخال سهل واستجابة سريعة.</p></article>
+            </div>
+            <h3>الخوارزمية المبدئية</h3>
+            <ol><li>ابدأ واستقبل درجات المواد الثلاث.</li><li>تحقق من صحة الدرجات.</li><li>احسب المتوسط وقارنه بدرجة النجاح.</li><li>اعرض المتوسط والحالة ثم انتهِ.</li></ol>
+
+            <h3>قاموس المصطلحات</h3>
+            <dl class="preview-glossary">
+              <div class="preview-term"><dt>Problem Analysis</dt><dd>تحليل المشكلة</dd></div>
+              <div class="preview-term"><dt>Requirements</dt><dd>المتطلبات</dd></div>
+              <div class="preview-term"><dt>Functional Requirements</dt><dd>المتطلبات الوظيفية</dd></div>
+              <div class="preview-term"><dt>Non-Functional Requirements</dt><dd>المتطلبات غير الوظيفية</dd></div>
+              <div class="preview-term"><dt>Constraints</dt><dd>القيود</dd></div>
+              <div class="preview-term"><dt>Assumptions</dt><dd>الافتراضات</dd></div>
+              <div class="preview-term"><dt>Inputs</dt><dd>المدخلات</dd></div>
+              <div class="preview-term"><dt>Processing</dt><dd>المعالجة</dd></div>
+              <div class="preview-term"><dt>Outputs</dt><dd>المخرجات</dd></div>
+              <div class="preview-term"><dt>Decomposition</dt><dd>تقسيم المشكلة</dd></div>
+            </dl>
+
+            <h3>اختبر فهمك</h3>
+            <p id="previewQuizScore" aria-live="polite">أجب عن الأسئلة ثم تحقق من اختيارك.</p>
+            <div id="previewQuiz"></div>
+
+            <h3>التحدي العملي</h3>
+            <p>تخيل إن مدرسة طلبت منك تعمل برنامج لتنظيم حضور الطلاب وغيابهم. حلل المشكلة بنفسك واكتب:</p>
+            <ol><li>الهدف من البرنامج.</li><li>المستخدمين المتوقعين.</li><li>المدخلات المطلوبة.</li><li>العمليات التي ينفذها البرنامج.</li><li>المخرجات المتوقعة.</li><li>خمسة متطلبات وظيفية.</li><li>ثلاثة متطلبات غير وظيفية.</li><li>ثلاثة قيود محتملة.</li><li>تقسيم النظام إلى وظائف أصغر.</li></ol>
+            <p><strong>ممنوع تبدأ بالكود!</strong> هدف التحدي إنك تتدرب على تحليل المشكلة وتحويلها لمتطلبات واضحة.</p>
+            <button class="preview-complete" type="button" id="previewComplete">تحديد الدرس كمكتمل</button>
+            <p id="previewSaveStatus" aria-live="polite"></p>
+          </article>
+        </div>
+      </section>
+      <section class="lesson-preview" id="step-solving-preview">
+        <div class="container">
+          <article class="preview-lesson">
+            <p class="preview-kicker">الوحدة الثانية: التفكير المنطقي وتحليل المشكلات · الدرس الثالث</p>
+            <h2>إزاي تحوّل المشكلة إلى خطوات منطقية؟</h2>
+            <p><strong>Step-by-Step Problem Solving</strong></p>
+            <p>بعد ما فهمنا المشكلة وحددنا الهدف والمدخلات والمخرجات، نرتب ما سيعمله البرنامج خطوة بخطوة. سنستخدم مثال متوسط الدرجات، ثم نجرب قيمًا مختلفة ونتعامل مع الحالات الخاصة قبل كتابة الكود.</p>
+            <nav class="hero-actions" aria-label="التنقل بين دروس الوحدة"><a class="secondary" href="#lesson-preview">الدرس السابق: تحليل المشكلة</a><a class="secondary" href="#pathGrid">المسارات التعليمية</a></nav>
+
+            <h3>خطوات تحويل المشكلة إلى حل</h3>
+            <ol><li>افهم المطلوب وحدد النتيجة.</li><li>حدد المدخلات.</li><li>رتب عمليات المعالجة.</li><li>حدد المخرجات.</li><li>اكتب خوارزمية واضحة.</li><li>اختبر قيمًا عادية وحدّية وغير صالحة.</li><li>عالج الحالات الخاصة.</li></ol>
+
+            <h3>Input → Processing → Output</h3>
+            <div class="preview-ipo" role="group" aria-label="مراحل تدفق البيانات في البرنامج">
+              <button type="button" data-step-ipo="input" data-step-description="Input — المدخلات: درجات المواد الثلاث التي يقدمها المستخدم." aria-pressed="true"><strong>Input — المدخلات</strong><span>الدرجات التي يستقبلها البرنامج</span></button>
+              <span class="preview-arrow" aria-hidden="true">↓</span>
+              <button type="button" data-step-ipo="processing" data-step-description="Processing — المعالجة: جمع الدرجات ثم قسمة المجموع على عدد المواد." aria-pressed="false"><strong>Processing — المعالجة</strong><span>جمع القيم ثم حساب المتوسط</span></button>
+              <span class="preview-arrow" aria-hidden="true">↓</span>
+              <button type="button" data-step-ipo="output" data-step-description="Output — المخرجات: عرض المتوسط الحسابي. الدرجات 80 و90 و70 تعطي متوسطًا يساوي 80." aria-pressed="false"><strong>Output — المخرجات</strong><span>المتوسط الذي يظهر للمستخدم</span></button>
+            </div>
+            <p id="stepIpoDescription" aria-live="polite">Input — المدخلات: درجات المواد الثلاث التي يقدمها المستخدم.</p>
+
+            <h3>جرّب حساب متوسط الدرجات</h3>
+            <p>أدخل ثلاث درجات بين 0 و100. يجمع البرنامج الدرجات ثم يقسم المجموع على 3.</p>
+            <form class="preview-card" id="averageDemo">
+              <div class="preview-number-fields"><label>الدرجة الأولى<input name="grade1" type="number" min="0" max="100" step="any" value="80" required></label><label>الدرجة الثانية<input name="grade2" type="number" min="0" max="100" step="any" value="90" required></label><label>الدرجة الثالثة<input name="grade3" type="number" min="0" max="100" step="any" value="70" required></label></div>
+              <button class="btn" type="submit">احسب المتوسط</button><p class="preview-result" id="averageResult" aria-live="polite"></p>
+            </form>
+
+            <h3>لماذا نتحقق من القسمة على صفر؟</h3>
+            <p>إذا كان عدد الدرجات صفرًا، فحساب المجموع على عدد الدرجات يعني القسمة على صفر، وهي عملية غير معرفة. يجب التحقق من وجود قيم قبل تنفيذ القسمة وإظهار رسالة مفهومة بدلًا من متابعة عملية غير صالحة.</p>
+            <form class="preview-card" id="divisionDemo">
+              <div class="preview-number-fields"><label>المقسوم<input name="numerator" type="number" value="12" step="any" required></label><label>المقسوم عليه<input name="denominator" type="number" value="0" step="any" required></label></div>
+              <button class="btn" type="submit">اختبر القسمة</button><p class="preview-result" id="divisionResult" aria-live="polite"></p>
+            </form>
+
+            <h3>جدول حالات الاختبار</h3>
+            <div class="preview-table-scroll"><table class="preview-table"><thead><tr><th>الحالة</th><th>المدخلات</th><th>النتيجة المتوقعة</th><th>سبب الاختبار</th></tr></thead><tbody>
+              <tr><td>درجات عادية</td><td>80، 90، 70</td><td>المتوسط 80</td><td>التحقق من الحساب المعتاد.</td></tr>
+              <tr><td>كل الدرجات صفر</td><td>0، 0، 0</td><td>المتوسط 0</td><td>اختبار الحد الأدنى الصحيح.</td></tr>
+              <tr><td>الدرجات عند الحد الأعلى</td><td>100، 100، 100</td><td>المتوسط 100</td><td>اختبار الحد الأعلى.</td></tr>
+              <tr><td>درجة خارج النطاق</td><td>-5، 90، 70</td><td>رفض القيمة أو طلب تصحيحها</td><td>التحقق من صحة المدخلات.</td></tr>
+              <tr><td>لا توجد درجات</td><td>عدد القيم 0</td><td>رسالة تعذر حساب المتوسط</td><td>منع القسمة على صفر.</td></tr>
+            </tbody></table></div>
+
+            <h3>قاموس المصطلحات</h3>
+            <dl class="preview-glossary"><div class="preview-term"><dt>Problem Solving</dt><dd>حل المشكلات</dd></div><div class="preview-term"><dt>Step-by-Step</dt><dd>خطوة بخطوة</dd></div><div class="preview-term"><dt>Input</dt><dd>المدخلات</dd></div><div class="preview-term"><dt>Processing</dt><dd>المعالجة</dd></div><div class="preview-term"><dt>Output</dt><dd>المخرجات</dd></div><div class="preview-term"><dt>Algorithm</dt><dd>خطوات مرتبة لحل مشكلة</dd></div><div class="preview-term"><dt>Test Case</dt><dd>حالة اختبار</dd></div><div class="preview-term"><dt>Edge Case</dt><dd>حالة حدّية أو خاصة</dd></div><div class="preview-term"><dt>Validation</dt><dd>التحقق من صحة المدخلات</dd></div><div class="preview-term"><dt>Division by Zero</dt><dd>القسمة على صفر</dd></div></dl>
+
+            <h3>اختبر فهمك</h3>
+            <p id="stepQuizScore" aria-live="polite">أجب عن الأسئلة ثم تحقق من اختيارك.</p><div id="stepQuiz"></div>
+            <h3>التحدي العملي</h3>
+            <p>صمّم خطوات برنامج يحسب متوسط درجات طالب في عدد يختاره المستخدم من المواد. حدد المدخلات والمعالجة والمخرجات، واكتب الخوارزمية خطوة بخطوة، وفكر فيما سيحدث إذا لم يدخل المستخدم أي درجات أو أدخل درجة خارج النطاق. أنشئ ثلاث حالات اختبار على الأقل واكتب النتيجة المتوقعة لكل حالة. لا تبدأ بكتابة الكود قبل أن تتأكد من وضوح الحل.</p>
+            <button class="preview-complete" type="button" id="stepComplete">تحديد الدرس كمكتمل</button><p id="stepSaveStatus" aria-live="polite"></p>
+          </article>
+        </div>
+      </section>
+      <section class="lesson-preview" id="logical-errors-preview">
+        <div class="container">
+          <article class="preview-lesson">
+            <p class="preview-kicker">الوحدة الثانية: التفكير المنطقي وتحليل المشكلات · الدرس الرابع</p>
+            <h2>إزاي تكتشف الأخطاء المنطقية؟</h2>
+            <p><strong>Logical Errors</strong></p>
+            <p>مش كل خطأ في البرنامج بيمنع تشغيله. قد يرفض البرنامج الكود قبل أن يبدأ، أو يتوقف أثناء التنفيذ، أو يعمل حتى النهاية لكن يعرض نتيجة غير صحيحة. في هذه الحالة قد يكون السبب خطأ منطقيًا: صياغة الكود مقبولة، لكن خطوات الحل لا تعبّر عن المطلوب.</p>
+
+            <h3>مقارنة أنواع الأخطاء</h3>
+            <div class="error-preview-grid">
+              <article class="error-preview-card syntax"><p class="preview-kicker">خطأ نحوي</p><h4>Syntax Error</h4><p>يخالف قواعد كتابة اللغة وقد يمنع البرنامج من البدء.</p><p><strong>مثال:</strong> نسيان النقطتين بعد if في Python.</p><p><strong>التعامل:</strong> تصحيح صياغة الكود.</p></article>
+              <article class="error-preview-card runtime"><p class="preview-kicker">خطأ وقت التشغيل</p><h4>Runtime Error</h4><p>يحدث أثناء التنفيذ وقد يوقف البرنامج.</p><p><strong>مثال:</strong> القسمة على صفر.</p><p><strong>التعامل:</strong> التحقق من العملية والقيم أثناء التنفيذ.</p></article>
+              <article class="error-preview-card logical"><p class="preview-kicker">خطأ منطقي</p><h4>Logical Error</h4><p>يعمل البرنامج، لكن النتيجة غير صحيحة.</p><p><strong>مثال:</strong> إضافة قيمة الخصم إلى السعر بدل طرحها.</p><p><strong>التعامل:</strong> مقارنة النتيجة بالمتوقع ومراجعة خطوات الحل.</p></article>
+            </div>
+
+            <h3>مثال حساب السعر بعد الخصم</h3>
+            <p>قيمة الخصم = السعر × نسبة الخصم ÷ 100. السعر النهائي = السعر الأصلي − قيمة الخصم. إذا كان السعر 250 جنيهًا ونسبة الخصم 20%، فالخصم 50 جنيهًا والسعر النهائي 200 جنيه.</p>
+            <form class="preview-card" id="discountPreviewForm">
+              <div class="preview-number-fields"><label>السعر<input name="price" type="number" step="any" value="250" required></label><label>نسبة الخصم (%)<input name="percentage" type="number" step="any" value="20" required></label></div>
+              <button class="btn" type="submit">احسب السعر بعد الخصم</button><p class="preview-result" id="discountPreviewResult" aria-live="polite"></p>
+            </form>
+
+            <h3>Test Cases لحساب الخصم</h3>
+            <div class="preview-table-scroll"><table class="preview-table"><thead><tr><th>الحالة</th><th>السعر</th><th>الخصم</th><th>المتوقع</th><th>الغرض</th></tr></thead><tbody>
+              <tr><td>خصم عادي</td><td>250</td><td>20%</td><td>خصم 50، نهائي 200</td><td>الحساب المعتاد.</td></tr>
+              <tr><td>بدون خصم</td><td>100</td><td>0%</td><td>نهائي 100</td><td>اختبار الحد الأدنى.</td></tr>
+              <tr><td>خصم كامل</td><td>80</td><td>100%</td><td>نهائي 0</td><td>اختبار الحد الأعلى.</td></tr>
+              <tr><td>السعر صفر</td><td>0</td><td>20%</td><td>نهائي 0</td><td>اختبار سعر صالح عند الحد الأدنى.</td></tr>
+              <tr><td>نسبة غير صالحة</td><td>100</td><td>120%</td><td>رفض النسبة</td><td>التحقق من نطاق المدخلات.</td></tr>
+            </tbody></table></div>
+
+            <h3>Testing وDebugging</h3>
+            <details class="preview-disclosure"><summary>افتح البطاقة لعرض الفرق</summary><div class="preview-disclosure-body"><article><h4>Testing — الاختبار</h4><p>نشغّل البرنامج بحالات اختبار ونقارن النتيجة الفعلية بالمتوقعة لاكتشاف المشكلة أو التأكد من صحة السلوك.</p></article><article><h4>Debugging — تصحيح الأخطاء</h4><p>نتتبع التنفيذ والقيم والشروط لتحديد سبب المشكلة، ثم نصلحه ونعيد الاختبار.</p></article></div></details>
+
+            <h3>قاموس المصطلحات</h3>
+            <dl class="preview-glossary"><div class="preview-term"><dt>Error</dt><dd>خطأ في البرنامج</dd></div><div class="preview-term"><dt>Syntax Error</dt><dd>خطأ في قواعد كتابة اللغة</dd></div><div class="preview-term"><dt>Runtime Error</dt><dd>خطأ يحدث أثناء التشغيل</dd></div><div class="preview-term"><dt>Logical Error</dt><dd>خطأ في منطق الحل يؤدي لنتيجة غير صحيحة</dd></div><div class="preview-term"><dt>Testing</dt><dd>اختبار البرنامج ومقارنة النتائج</dd></div><div class="preview-term"><dt>Debugging</dt><dd>تتبع سبب الخطأ وإصلاحه</dd></div><div class="preview-term"><dt>Test Case</dt><dd>مدخلات ونتيجة متوقعة لاختبار البرنامج</dd></div><div class="preview-term"><dt>Expected Result</dt><dd>النتيجة المتوقعة</dd></div><div class="preview-term"><dt>Actual Result</dt><dd>النتيجة الفعلية</dd></div><div class="preview-term"><dt>Discount Percentage</dt><dd>نسبة الخصم</dd></div></dl>
+
+            <h3>اختبر فهمك</h3><p id="logicalQuizScore" aria-live="polite">أجب عن الأسئلة ثم تحقق من اختيارك.</p><div id="logicalQuiz"></div>
+            <h3>التحدي العملي</h3><p>تخيل أنك تطور برنامجًا يحسب المبلغ النهائي لسلة مشتريات بعد تطبيق خصم. اكتب المعادلة الصحيحة، وحدد ثلاثة أخطاء منطقية محتملة، ثم أنشئ أربع حالات اختبار تشمل خصمًا عاديًا، ونسبة 0%، ونسبة 100%، ونسبة خارج النطاق. لكل حالة اكتب السعر والنسبة والنتيجة المتوقعة، ثم اشرح كيف تستخدم Testing لاكتشاف مشكلة وDebugging لمعرفة سببها وإصلاحها.</p>
+            <button class="preview-complete" type="button" id="logicalComplete">تحديد الدرس كمكتمل</button><p id="logicalSaveStatus" aria-live="polite"></p>
+          </article>
+        </div>
+      </section>
+      <section class="lesson-preview" id="testing-basics-preview">
+        <div class="container">
+          <article class="preview-lesson">
+            <p class="preview-kicker">الوحدة الثانية: التفكير المنطقي وتحليل المشكلات · الدرس الخامس</p>
+            <h2>إزاي تختبر الحل وتتأكد إنه صحيح؟</h2>
+            <p><strong>Software Testing Basics</strong></p>
+            <h3>هل البرنامج بيشتغل؟ ولا بيشتغل صح؟</h3>
+            <p>قد يعرض برنامج المتوسط 80 لدرجات 80 و90 و70، لكنه قد يفشل مع الصفر أو قيمة غير صحيحة أو درجة خارج النطاق. Software Testing هي عملية فحص البرنامج والتحقق من تحقيقه للمتطلبات واكتشاف المشكلات قبل وصوله للمستخدمين أو أثناء تطويره.</p>
+            <h3>يعني إيه Test Case؟</h3>
+            <p>حالة الاختبار مجموعة بيانات وخطوات لاختبار وظيفة ومقارنة النتيجة الفعلية بالمتوقعة. وتشمل اسم الاختبار والمدخلات وخطوات التنفيذ والنتيجة المتوقعة والفعلية والحالة: ناجح أو فاشل.</p>
+            <div class="preview-table-scroll"><table class="preview-table"><thead><tr><th>العنصر</th><th>القيمة</th></tr></thead><tbody><tr><td>اسم الاختبار</td><td>جمع رقمين</td></tr><tr><td>المدخل الأول</td><td>10</td></tr><tr><td>المدخل الثاني</td><td>20</td></tr><tr><td>النتيجة المتوقعة</td><td>30</td></tr><tr><td>النتيجة الفعلية</td><td>30</td></tr><tr><td>الحالة</td><td>ناجح</td></tr></tbody></table></div>
+            <h3>أنواع حالات الاختبار</h3>
+            <div class="preview-grid"><article class="preview-card"><h4>Normal Case</h4><p>بيانات معتادة، مثل 80 و90 و70؛ المتوسط المتوقع 80.</p></article><article class="preview-card"><h4>Boundary Case</h4><p>اختبار حدود النطاق 0 إلى 100، والقيم القريبة مثل 1 و99.</p></article><article class="preview-card"><h4>Invalid Input</h4><p>درجة أكبر من 100 أو أقل من صفر أو نص بدل رقم. يرفضها البرنامج أو يعرض رسالة مناسبة حسب المتطلبات.</p></article><article class="preview-card"><h4>Edge Case</h4><p>أرقام كبيرة جدًا، أو عدم إدخال بيانات، أو قيمة عشرية، أو تكرار القيم. قبولها أو رفضها يعتمد على متطلبات النظام.</p></article></div>
+            <h3>اختبار برنامج المتوسط</h3>
+            <p>البرنامج يستقبل ثلاث درجات من 0 إلى 100، ويتأكد من صحتها، ثم يحسب المتوسط.</p>
+            <div class="preview-table-scroll"><table class="preview-table"><thead><tr><th>الاختبار</th><th>الدرجات</th><th>النتيجة المتوقعة</th></tr></thead><tbody><tr><td>حالة طبيعية</td><td>80، 90، 70</td><td>متوسط 80</td></tr><tr><td>أقل حد</td><td>0، 0، 0</td><td>متوسط 0</td></tr><tr><td>أعلى حد</td><td>100، 100، 100</td><td>متوسط 100</td></tr><tr><td>قيمة خارج النطاق</td><td>110، 90، 80</td><td>رفض الإدخال</td></tr><tr><td>قيمة سالبة</td><td>-5، 90، 80</td><td>رفض الإدخال</td></tr><tr><td>قيمة عشرية</td><td>80.5، 90، 70</td><td>حساب المتوسط</td></tr></tbody></table></div>
+            <h3>Unit Testing</h3>
+            <p>اختبار جزء صغير ومستقل من البرنامج، مثل دالة جمع رقمين:</p>
+            <pre dir="ltr"><code>def add_numbers(a, b):
+    return a + b
+
+result = add_numbers(10, 20)
+print(result)
+
+assert add_numbers(10, 20) == 30
+assert add_numbers(5, 5) == 10
+assert add_numbers(-2, 2) == 0</code></pre>
+            <p>الناتج المتوقع 30. لو شرط من شروط assert غير صحيح، Python هتظهر خطأ يوضح إن الاختبار لم ينجح. بنختبر وظيفة صغيرة بدل انتظار اكتمال البرنامج كله.</p>
+            <h3>مستويات الاختبار</h3>
+            <div class="preview-grid"><article class="preview-card"><h4>Unit Testing</h4><p>اختبار وحدة صغيرة، مثل دالة أو عملية حسابية.</p></article><article class="preview-card"><h4>Integration Testing</h4><p>اختبار تعاون المكونات، مثل إرسال نموذج التسجيل بياناته لخدمة الحسابات.</p></article><article class="preview-card"><h4>System Testing</h4><p>اختبار النظام بالكامل، مثل وظائف المكتبة من تسجيل الكتب إلى الاستعارة والإرجاع.</p></article><article class="preview-card"><h4>Acceptance Testing</h4><p>التأكد من تلبية احتياجات المستخدم والمتطلبات المتفق عليها، مثل تجربة موظف المكتبة للنظام.</p></article></div>
+            <h3>Test-Driven Development</h3>
+            <p>TDD أسلوب تطوير نكتب فيه اختبار الوظيفة المطلوبة قبل كودها، ويمر بدورة تتكرر مع كل وظيفة:</p>
+            <div class="preview-grid"><article class="preview-card"><h4>Red</h4><p>نكتب اختبار السلوك المطلوب، وغالبًا يفشل لأن الوظيفة غير موجودة بعد.</p></article><article class="preview-card"><h4>Green</h4><p>نكتب أبسط كود يجعل الاختبار ينجح.</p></article><article class="preview-card"><h4>Refactor</h4><p>نحسن تنظيم الكود وجودته مع الحفاظ على نجاح الاختبارات.</p></article></div>
+            <p>مهم تعرف إن TDD أسلوب تطوير، مش مجرد نوع اختبار.</p>
+            <h3>هل الاختبار يضمن عدم وجود أخطاء؟</h3>
+            <p>لا. نجاح كل الاختبارات المكتوبة مش دليل قاطع على خلو البرنامج من الأخطاء؛ قد توجد حالات لم نختبرها أو متطلبات لم نلاحظها أو مشكلات تظهر في ظروف معينة. لذلك ننوع الاختبارات ونفحص الحدود والمدخلات غير الصحيحة ونراجع النتائج ونعيد الاختبارات بعد تعديل الكود. الاختبار غير الجيد ممكن يفوّت المشكلة.</p>
+            <h3>قاموس المصطلحات</h3>
+            <dl class="preview-glossary"><div class="preview-term"><dt>Software Testing</dt><dd>اختبار البرمجيات</dd></div><div class="preview-term"><dt>Test Case</dt><dd>حالة اختبار</dd></div><div class="preview-term"><dt>Expected Result</dt><dd>النتيجة المتوقعة</dd></div><div class="preview-term"><dt>Actual Result</dt><dd>النتيجة الفعلية</dd></div><div class="preview-term"><dt>Normal Case</dt><dd>الحالة الطبيعية</dd></div><div class="preview-term"><dt>Boundary Case</dt><dd>الحالة الحدية</dd></div><div class="preview-term"><dt>Edge Case</dt><dd>الحالة الخاصة</dd></div><div class="preview-term"><dt>Invalid Input</dt><dd>مدخل غير صحيح</dd></div><div class="preview-term"><dt>Unit Testing</dt><dd>اختبار الوحدة</dd></div><div class="preview-term"><dt>Integration Testing</dt><dd>اختبار التكامل</dd></div><div class="preview-term"><dt>System Testing</dt><dd>اختبار النظام</dd></div><div class="preview-term"><dt>Acceptance Testing</dt><dd>اختبار القبول</dd></div><div class="preview-term"><dt>TDD</dt><dd>التطوير المعتمد على الاختبارات</dd></div><div class="preview-term"><dt>Assertion</dt><dd>تحقق من شرط معين</dd></div></dl>
+            <h3>ملخص الدرس</h3><p>اختبار البرنامج خطوة أساسية. نستخدم Test Cases لمقارنة النتائج المتوقعة بالفعلية، ونختبر الحالات الطبيعية والحدية والمدخلات غير الصحيحة والخاصة. تعلمنا Unit وIntegration وSystem وAcceptance Testing وTDD.</p><p><strong>نجاح البرنامج في اختبار واحد مش معناه إنه صحيح في كل الحالات.</strong></p>
+            <h3>اختبر فهمك</h3><p id="testingQuizScore" aria-live="polite">أجب عن الأسئلة ثم تحقق من اختيارك.</p><div id="testingQuiz"></div>
+            <h3>التحدي العملي</h3><p>صمّم حالات اختبار لبرنامج يحسب متوسط ثلاث درجات من 0 إلى 100، يقبل الأعداد الصحيحة والعشرية، ويعرض رسالة للقيم غير الصحيحة. اكتب 8 حالات على الأقل: طبيعية، أقل قيمة، أعلى قيمة، سالبة، أكبر من 100، عشرية، نص بدل رقم، وبيانات ناقصة. لكل حالة اكتب المدخلات والنتيجة المتوقعة وسبب اختيارها. لا تنتقل للكود قبل تغطية الحالات المهمة.</p>
+            <h3>نهاية الوحدة الثانية</h3><ol><li>إزاي تفكر كمبرمج؟</li><li>إزاي تحلل أي مشكلة برمجية؟</li><li>إزاي تحوّل المشكلة إلى خطوات منطقية؟</li><li>إزاي تكتشف الأخطاء المنطقية؟</li><li>إزاي تختبر الحل وتتأكد إنه صحيح؟</li></ol><p>دلوقتي بقيت تعرف تفهم المشكلة وتحللها وتخطط لحلها وتختبره بدل كتابة كود عشوائي.</p><p class="preview-kicker">الوحدة القادمة: الخوارزميات (Algorithms) — تصميم حلول منظمة وكتابتها قبل تحويلها إلى لغة برمجة.</p>
+            <button class="preview-complete" type="button" id="testingComplete">تحديد الدرس كمكتمل</button><p id="testingSaveStatus" aria-live="polite"></p>
+          </article>
+        </div>
+      </section>
+      <section class="lesson-preview" id="algorithms-preview">
+        <div class="container">
+          <article class="preview-lesson">
+            <p class="preview-kicker">الوحدة الثالثة: الخوارزميات · الدرس الأول</p>
+            <h2>يعني إيه خوارزمية؟</h2>
+            <p><strong>Introduction to Algorithms</strong></p>
+            <h3>قبل ما تكتب كود، لازم تعرف هتحل إزاي</h3>
+            <p>لحساب مجموع رقمين، نستقبل الرقم الأول، ثم الثاني، ثم نجمعهما، ثم نعرض الناتج. الخطوات دي اسمها Algorithm — خوارزمية. الخوارزمية هي الأساس اللي بنبني عليه الحلول البرمجية؛ بنحدد خطوات حل المشكلة قبل ما نحولها لكود.</p>
+            <h3>مخطط خوارزمية جمع رقمين</h3>
+            <div class="preview-algorithm-flow" aria-label="خطوات خوارزمية جمع رقمين"><details open><summary><span class="preview-flow-index">01</span>استقبل الرقم الأول</summary><p>اقرأ الرقم الأول وخزّنه لاستخدامه في عملية الجمع.</p></details><span class="preview-flow-arrow" aria-hidden="true">↓</span><details><summary><span class="preview-flow-index">02</span>استقبل الرقم الثاني</summary><p>اقرأ الرقم الثاني ليصبح لديك المدخلان المطلوبان.</p></details><span class="preview-flow-arrow" aria-hidden="true">↓</span><details><summary><span class="preview-flow-index">03</span>اجمع الرقمين</summary><p>اجمع القيمتين وخزّن الناتج في متغير للمجموع.</p></details><span class="preview-flow-arrow" aria-hidden="true">↓</span><details><summary><span class="preview-flow-index">04</span>اعرض الناتج</summary><p>أظهر المجموع للمستخدم ثم انتهِ.</p></details></div>
+            <h3>يعني إيه Algorithm؟</h3>
+            <p>الخوارزمية مجموعة من الخطوات المحددة والمرتبة والمنطقية لحل مشكلة أو تنفيذ مهمة. ببساطة، هي خطة الحل اللي بتقولنا هنعمل إيه وبأي ترتيب علشان نوصل للنتيجة المطلوبة.</p>
+            <h3>مثال من الحياة اليومية: تحضير كوب شاي</h3>
+            <ol><li>ابدأ وجهّز كوبًا.</li><li>سخّن الماء.</li><li>ضع الشاي في الكوب وأضف الماء الساخن.</li><li>أضف السكر حسب الرغبة.</li><li>قلّب المكونات.</li><li>انتهِ.</li></ol>
+            <p>دي خطوات مرتبة لمهمة معينة. في البرمجة نستخدم نفس الفكرة للعمليات الحسابية ومعالجة البيانات وبناء الأنظمة.</p>
+            <h3>ليه بنستخدم الخوارزميات؟</h3>
+            <div class="preview-grid"><article class="preview-card"><h4>تنظيم التفكير</h4><p>نحدد خطوات الحل بدل كتابة كود عشوائي.</p></article><article class="preview-card"><h4>تقليل الأخطاء</h4><p>نراجع الحل ونكتشف المشكلات قبل كتابة الكود.</p></article><article class="preview-card"><h4>تسهيل الفهم</h4><p>يمكن فهم الفكرة دون معرفة لغة البرمجة المستخدمة.</p></article><article class="preview-card"><h4>إعادة الاستخدام</h4><p>نستخدم منطق الحل نفسه في أكثر من مشروع.</p></article><article class="preview-card"><h4>مقارنة الحلول</h4><p>نقارن الخوارزميات من حيث السرعة واستهلاك الموارد.</p></article></div>
+            <h3>الفرق بين Algorithm وProgram</h3>
+            <p>Algorithm هي خطوات الحل المنطقية. Program هو تنفيذ الحل باستخدام لغة برمجة معينة.</p>
+            <div class="preview-concept-cards"><article class="preview-concept-card"><p class="preview-kicker">خطة الحل</p><h4>Algorithm — الخوارزمية</h4><p>تشرح الخطوات المنطقية وترتيبها، ولا ترتبط بلغة برمجة بعينها.</p><ol><li>استقبل رقمين.</li><li>اجمع الرقمين.</li><li>اعرض الناتج.</li></ol></article><article class="preview-concept-card program"><p class="preview-kicker">تنفيذ الخطة</p><h4>Program — البرنامج</h4><p>يحوّل خطوات الخوارزمية إلى تعليمات بلغة برمجة يمكن تشغيلها.</p></article></div>
+            <pre dir="ltr"><code>number1 = 10
+number2 = 20
+
+result = number1 + number2
+print(result)</code></pre>
+            <p>الناتج: 30. الخوارزمية تشرح الفكرة، والبرنامج يحولها إلى تعليمات بلغة برمجة.</p>
+            <h3>خصائص الخوارزمية الجيدة</h3>
+            <div class="preview-property-grid"><details class="preview-property"><summary><strong>Definiteness — الوضوح</strong><span>خطوات محددة لا تحتمل الغموض.</span></summary><p>«اجمع الرقم الأول مع الثاني» أوضح من «اعمل العملية المناسبة».</p></details><details class="preview-property"><summary><strong>Input — المدخلات</strong><span>البيانات التي تستقبلها الخوارزمية.</span></summary><p>قد تستقبل صفرًا أو أكثر؛ خوارزمية جمع رقمين تستقبل رقمين.</p></details><details class="preview-property"><summary><strong>Output — المخرجات</strong><span>نتائج مرتبطة بالمهمة.</span></summary><p>في خوارزمية الجمع، الناتج هو مجموع الرقمين.</p></details><details class="preview-property"><summary><strong>Finiteness — الانتهاء</strong><span>تنتهي بعد عدد محدود من الخطوات.</span></summary><p>تصل إلى نهاية محددة ولا تستمر بلا نهاية.</p></details><details class="preview-property"><summary><strong>Effectiveness — قابلية التنفيذ</strong><span>خطوات بسيطة يمكن تنفيذها.</span></summary><p>كل خطوة عملية وقابلة للتنفيذ بالفعل.</p></details></div>
+            <p><strong>ملاحظة:</strong> دي الخصائص الأساسية لوصف الخوارزمية الجيدة، وقد تختلف طريقة عرضها أو تفصيلها بين المراجع.</p>
+            <h3>خوارزمية عملية: جمع رقمين</h3>
+            <div class="preview-grid"><article class="preview-card"><h4>المدخلات</h4><p>الرقم الأول والرقم الثاني.</p></article><article class="preview-card"><h4>المعالجة</h4><p>جمع الرقمين.</p></article><article class="preview-card"><h4>المخرجات</h4><p>مجموع الرقمين.</p></article></div>
+            <ol><li>ابدأ.</li><li>اقرأ الرقم الأول.</li><li>اقرأ الرقم الثاني.</li><li>احسب المجموع.</li><li>اعرض المجموع.</li><li>انتهِ.</li></ol>
+            <p>عند إدخال 15 و25، تكون النتيجة 40.</p>
+            <pre dir="ltr"><code>first_number = 15
+second_number = 25
+
+total = first_number + second_number
+print(total)</code></pre>
+            <h3>هل ممكن نحل المشكلة بأكتر من خوارزمية؟</h3>
+            <p>نعم. للبحث عن اسم في قائمة، يمكن مراجعة العناصر واحدًا واحدًا. وإذا كانت القائمة مرتبة، يمكن استخدام Binary Search. الطريقتان قد تصلان للنتيجة نفسها، لكن كفاءتهما تختلف بحسب البيانات. وده يقودنا لموضوع Algorithm Efficiency — كفاءة الخوارزميات.</p>
+            <h3>مثال: خوارزمية تسجيل الدخول</h3>
+            <ol><li>ابدأ واطلب اسم المستخدم.</li><li>اطلب كلمة المرور.</li><li>تحقق من صحة البيانات.</li><li>إذا كانت صحيحة، اسمح بالدخول؛ وإذا لم تكن صحيحة، اعرض رسالة مناسبة.</li><li>انتهِ.</li></ol>
+            <div class="preview-algorithm-flow" aria-label="تسلسل خوارزمية تسجيل الدخول"><details open><summary><span class="preview-flow-index">01</span>ابدأ واطلب اسم المستخدم</summary><p>ابدأ عملية تسجيل الدخول واستقبل اسم المستخدم.</p></details><span class="preview-flow-arrow" aria-hidden="true">↓</span><details><summary><span class="preview-flow-index">02</span>اطلب كلمة المرور</summary><p>استقبل كلمة المرور باستخدام طريقة إدخال مناسبة وآمنة.</p></details><span class="preview-flow-arrow" aria-hidden="true">↓</span><details><summary><span class="preview-flow-index">03</span>تحقق من البيانات</summary><p>تحقق من صحة بيانات الحساب بطريقة آمنة.</p></details><span class="preview-flow-arrow" aria-hidden="true">↓</span><details><summary><span class="preview-flow-index">04</span>اتخذ القرار</summary><p>اسمح بالدخول إذا كانت البيانات صحيحة، وإلا اعرض رسالة مناسبة.</p></details></div>
+            <p>في التطبيق الحقيقي، لازم نراعي حماية كلمات المرور والتحقق الآمن من الهوية والتعامل مع محاولات الدخول غير الناجحة.</p>
+            <h3>قاموس المصطلحات</h3>
+            <dl class="preview-glossary"><div class="preview-term"><dt>Algorithm</dt><dd>خوارزمية</dd></div><div class="preview-term"><dt>Program</dt><dd>برنامج</dd></div><div class="preview-term"><dt>Input</dt><dd>مدخلات</dd></div><div class="preview-term"><dt>Output</dt><dd>مخرجات</dd></div><div class="preview-term"><dt>Definiteness</dt><dd>الوضوح والتحديد</dd></div><div class="preview-term"><dt>Finiteness</dt><dd>الانتهاء في عدد محدود من الخطوات</dd></div><div class="preview-term"><dt>Effectiveness</dt><dd>قابلية تنفيذ الخطوات</dd></div><div class="preview-term"><dt>Algorithm Efficiency</dt><dd>كفاءة الخوارزمية</dd></div><div class="preview-term"><dt>Binary Search</dt><dd>البحث الثنائي</dd></div><div class="preview-term"><dt>Problem Solving</dt><dd>حل المشكلات</dd></div></dl>
+            <h3>ملخص الدرس</h3><p>الخوارزمية مجموعة خطوات منظمة لحل مشكلة. عرفنا الفرق بين Algorithm وProgram، وأهمية الخوارزميات وخصائصها، وكتبنا خوارزمية بسيطة، ورأينا أن للمشكلة الواحدة أكثر من حل.</p><p><strong>الخوارزمية هي خطة الحل، والبرنامج هو تنفيذ الخطة باستخدام لغة برمجة.</strong></p>
+            <h3>اختبر فهمك</h3><p id="algorithmQuizScore" aria-live="polite">أجب عن الأسئلة ثم تحقق من اختيارك.</p><div id="algorithmQuiz"></div>
+            <h3>التحدي العملي</h3><p>اكتب خوارزمية لحساب مساحة دائرة. حدد المدخلات والمخرجات والقانون، واكتب خطواتها باللغة العربية، ثم جرّب نصف قطر يساوي 5. استخدم مساحة الدائرة = π × نصف القطر × نصف القطر، وقيمة π التقريبية 3.14. لا تكتب كودًا؛ ركّز على خطوات الخوارزمية.</p>
+            <button class="preview-complete" type="button" id="algorithmComplete">تحديد الدرس كمكتمل</button><p id="algorithmSaveStatus" aria-live="polite"></p>
+          </article>
+        </div>
+      </section>
+      <section class="lesson-preview" id="representation-preview">
+        <div class="container"><article class="preview-lesson">
+          <p class="preview-kicker">الوحدة الثالثة: الخوارزميات · الدرس الثاني</p><h2>طرق تمثيل الخوارزميات</h2><p><strong>Algorithm Representation Methods</strong></p>
+          <p>بعد ما نحدد خطوات حل المشكلة، نحتاج طريقة واضحة لعرضها ومراجعتها ومشاركتها. تمثيل الخوارزمية يوضح ترتيب الخطوات قبل تحويلها إلى برنامج.</p>
+          <h3>مقارنة طرق التمثيل الأربع</h3>
+          <div class="preview-grid"><article class="preview-card"><h4>Natural Language — اللغة الطبيعية</h4><p>خطوات بلغة بشرية بسيطة مثل العربية أو الإنجليزية. سهلة القراءة، لكن قد تكون بعض العبارات غامضة.</p></article><article class="preview-card"><h4>Pseudocode — الشيفرة الوهمية</h4><p>صياغة منظمة تشبه الكود دون الالتزام بقواعد لغة محددة. قريبة من البرنامج لكنها لا تنفذ مباشرة.</p></article><article class="preview-card"><h4>Flowchart — المخطط الانسيابي</h4><p>رموز وأسهم تعرض مسار الخطوات والقرارات. بصري، لكنه قد يصبح مزدحمًا في الخوارزميات الكبيرة.</p></article><article class="preview-card"><h4>Programming Language — لغة البرمجة</h4><p>تعليمات بلغة محددة قابلة للتنفيذ والاختبار، وتتطلب الالتزام بقواعد اللغة وبيئة التشغيل.</p></article></div>
+          <h3>رموز Flowchart الأساسية</h3><div class="preview-symbol-grid"><article class="preview-symbol-card"><div class="preview-symbol terminator">Start / End</div><strong>البيضاوي</strong><p>بداية الخوارزمية أو نهايتها.</p></article><article class="preview-symbol-card"><div class="preview-symbol io">Input / Output</div><strong>متوازي الأضلاع</strong><p>قراءة مدخلات أو عرض مخرجات.</p></article><article class="preview-symbol-card"><div class="preview-symbol process">Process</div><strong>المستطيل</strong><p>تنفيذ عملية أو معالجة.</p></article><article class="preview-symbol-card"><div class="preview-symbol decision"><span>Decision</span></div><strong>المعين</strong><p>فحص شرط واختيار مسار مثل نعم أو لا.</p></article><article class="preview-symbol-card"><div class="preview-symbol flowline">↓</div><strong>السهم</strong><p>اتجاه الانتقال بين الخطوات.</p></article></div>
+          <h3>مثال جمع رقمين بالطرق الثلاث</h3>
+          <section class="preview-representation"><p class="preview-kicker">Natural Language — اللغة الطبيعية</p><ol><li>ابدأ.</li><li>اقرأ الرقم الأول.</li><li>اقرأ الرقم الثاني.</li><li>اجمع الرقمين.</li><li>اعرض الناتج.</li><li>انتهِ.</li></ol></section>
+          <section class="preview-representation"><p class="preview-kicker">Pseudocode — الشيفرة الوهمية</p><div class="preview-code-toolbar"><button class="preview-copy-button" type="button" data-preview-copy="BEGIN&#10;INPUT number1&#10;INPUT number2&#10;total ← number1 + number2&#10;OUTPUT total&#10;END">نسخ</button></div><pre class="preview-code-block"><code>BEGIN
+INPUT number1
+INPUT number2
+total ← number1 + number2
+OUTPUT total
+END</code></pre></section>
+          <section class="preview-representation"><p class="preview-kicker">Python — لغة برمجة</p><div class="preview-code-toolbar"><button class="preview-copy-button" type="button" data-preview-copy="number1 = 10&#10;number2 = 20&#10;&#10;total = number1 + number2&#10;print(total)">نسخ</button></div><pre class="preview-code-block"><code>number1 = 10
+number2 = 20
+
+total = number1 + number2
+print(total)</code></pre><p>الناتج: 30. الطرق الثلاث تعرض المنطق نفسه بصيغ مختلفة.</p></section>
+          <h3>Flowchart: هل الرقم موجب؟</h3><p>نستقبل رقمًا ونفحص الشرط <code dir="ltr">number &gt; 0</code>، ثم نعرض النتيجة المناسبة.</p>
+          <div class="preview-decision-flow"><details open><summary><span class="preview-flow-index">01</span>Start</summary><p>ابدأ الخوارزمية.</p></details><span class="preview-flow-arrow">↓</span><details><summary><span class="preview-flow-index">02</span>أدخل الرقم</summary><p>اقرأ قيمة الرقم من المستخدم.</p></details><span class="preview-flow-arrow">↓</span><details><summary><span class="preview-flow-index">03</span>هل الرقم أكبر من صفر؟</summary><p>رمز القرار يفحص الشرط <code dir="ltr">number &gt; 0</code>.</p></details><div class="preview-branches"><article><strong>نعم</strong><span>الرقم موجب</span></article><article><strong>لا</strong><span>الرقم صفر أو سالب</span></article></div><span class="preview-flow-arrow">↓</span><div class="preview-symbol terminator">End</div></div>
+          <h3>قاموس المصطلحات</h3><dl class="preview-glossary"><div class="preview-term"><dt>Natural Language</dt><dd>اللغة الطبيعية</dd></div><div class="preview-term"><dt>Pseudocode</dt><dd>الشيفرة الوهمية</dd></div><div class="preview-term"><dt>Flowchart</dt><dd>المخطط الانسيابي</dd></div><div class="preview-term"><dt>Programming Language</dt><dd>لغة البرمجة</dd></div><div class="preview-term"><dt>Terminator</dt><dd>رمز البداية أو النهاية</dd></div><div class="preview-term"><dt>Process</dt><dd>عملية أو معالجة</dd></div><div class="preview-term"><dt>Decision</dt><dd>قرار مبني على شرط</dd></div><div class="preview-term"><dt>Flow line</dt><dd>سهم اتجاه التنفيذ</dd></div></dl>
+          <h3>اختبر فهمك</h3><p id="representationQuizScore" aria-live="polite">أجب عن الأسئلة ثم تحقق من اختيارك.</p><div id="representationQuiz"></div>
+          <h3>التحدي العملي</h3><p>اختر مهمة بسيطة مثل حساب مجموع درجات مادتين. اكتب خطواتها باللغة الطبيعية، وحولها إلى Pseudocode، وارسم Flowchart يوضح المدخلات والمعالجة والمخرجات، ثم اكتب برنامجًا صغيرًا. تأكد أن الطرق الأربع تمثل المنطق نفسه.</p>
+          <nav class="hero-actions"><a class="secondary" href="#algorithms-preview">الدرس السابق</a><a class="secondary" href="#algorithm-properties-preview">الدرس التالي</a></nav>
+          <button class="preview-complete" type="button" id="representationComplete">تحديد الدرس كمكتمل</button><p id="representationSaveStatus" aria-live="polite"></p>
+        </article></div>
+      </section>
+      <section class="lesson-preview" id="algorithm-properties-preview">
+        <div class="container"><article class="preview-lesson">
+          <p class="preview-kicker">الوحدة الثالثة: الخوارزميات · الدرس الثالث</p><h2>خصائص الخوارزمية الجيدة</h2><p><strong>Characteristics of a Good Algorithm</strong></p>
+          <p>الخوارزمية الجيدة مش مجرد خطوات مكتوبة؛ لازم تكون مفهومة، تستقبل البيانات المناسبة، تنتج النتيجة المطلوبة، وتنتهي، وتكون خطواتها قابلة للتنفيذ وصحيحة للمشكلة. هنطبق الخصائص الست على مثال مساحة مستطيل.</p>
+          <h3>الخصائص الست</h3><div class="preview-property-grid"><details class="preview-property"><summary><strong>Definiteness — الوضوح والتحديد</strong><span>خطوات لا تحتمل تفسيرًا غامضًا.</span></summary><p>صحيح: اقرأ الطول والعرض ثم اضربهما. غير صحيح: نفّذ العملية المناسبة؛ لأن نوع العملية غير محدد.</p></details><details class="preview-property"><summary><strong>Input — المدخلات</strong><span>تحديد البيانات المطلوبة.</span></summary><p>مساحة المستطيل تحتاج إلى الطول والعرض. من دون تحديد كيفية توفير الأبعاد لا تكون المدخلات واضحة.</p></details><details class="preview-property"><summary><strong>Output — المخرجات</strong><span>النتيجة المطلوبة من الحل.</span></summary><p>المخرج هو قيمة المساحة. حسابها دون حفظها أو عرضها لا يحقق المطلوب بالكامل.</p></details><details class="preview-property"><summary><strong>Finiteness — الانتهاء</strong><span>عدد محدود من الخطوات.</span></summary><p>تحسب الخوارزمية المساحة مرة وتنتهي. التكرار بلا شرط توقف مثال غير صحيح.</p></details><details class="preview-property"><summary><strong>Effectiveness — قابلية التنفيذ</strong><span>كل خطوة عملية ويمكن تنفيذها.</span></summary><p>ضرب الطول في العرض قابل للتنفيذ. اطلب من الكمبيوتر معرفة الأبعاد من تلقاء نفسه دون مصدر بيانات مثال غير عملي.</p></details><details class="preview-property"><summary><strong>Correctness — الصحة</strong><span>إنتاج النتيجة الصحيحة لكل مدخل صالح.</span></summary><p>المساحة = الطول × العرض. استخدام الجمع يعطي نتيجة أخرى، لذلك الخوارزمية غير صحيحة حتى لو كانت الخطوات واضحة.</p></details></div>
+          <h3>الفرق بين الوضوح والصحة</h3><div class="preview-grid"><article class="preview-card"><h4>واضحة وصحيحة</h4><p>اقرأ الطول والعرض، احسب المساحة = الطول × العرض، ثم اعرضها.</p></article><article class="preview-card"><h4>واضحة لكنها غير صحيحة</h4><p>اقرأ الطول والعرض، احسب المساحة = الطول + العرض. الخطوات واضحة لكن القانون لا يحسب المساحة.</p></article><article class="preview-card"><h4>غير واضحة</h4><p>اقرأ الأبعاد ونفّذ الحساب المناسب. لم تحدد الخطوة أي حساب مطلوب.</p></article></div>
+          <h3>جدول تقييم خوارزمية مساحة المستطيل</h3><div class="preview-table-scroll"><table class="preview-table"><thead><tr><th>الخاصية</th><th>كيف تظهر في الخوارزمية؟</th><th>التقييم</th></tr></thead><tbody><tr><td>Definiteness</td><td>قراءة الطول والعرض ثم الضرب والعرض خطوات محددة.</td><td>متحققة</td></tr><tr><td>Input</td><td>تستقبل الطول والعرض.</td><td>متحققة</td></tr><tr><td>Output</td><td>تعرض قيمة المساحة.</td><td>متحققة</td></tr><tr><td>Finiteness</td><td>تنفذ عددًا محدودًا من الخطوات ثم تنتهي.</td><td>متحققة</td></tr><tr><td>Effectiveness</td><td>الضرب والعرض عمليتان قابلتان للتنفيذ.</td><td>متحققة</td></tr><tr><td>Correctness</td><td>تستخدم القانون: المساحة = الطول × العرض.</td><td>متحققة عند استخدام القانون والمدخلات الصحيحة</td></tr></tbody></table></div>
+          <h3>كيف تراجع خوارزميتك؟</h3><ol><li>حدد الهدف.</li><li>راجع وضوح كل خطوة.</li><li>تأكد من المدخلات والمخرجات.</li><li>تحقق من انتهاء الخوارزمية.</li><li>تأكد أن الخطوات قابلة للتنفيذ.</li><li>جرّب مدخلات معروفة وقارن النتيجة بالحساب اليدوي.</li></ol>
+          <h3>قاموس المصطلحات</h3><dl class="preview-glossary"><div class="preview-term"><dt>Definiteness</dt><dd>وضوح الخطوات</dd></div><div class="preview-term"><dt>Input</dt><dd>المدخلات</dd></div><div class="preview-term"><dt>Output</dt><dd>المخرجات</dd></div><div class="preview-term"><dt>Finiteness</dt><dd>الانتهاء بعد خطوات محدودة</dd></div><div class="preview-term"><dt>Effectiveness</dt><dd>قابلية التنفيذ</dd></div><div class="preview-term"><dt>Correctness</dt><dd>صحة الحل</dd></div><div class="preview-term"><dt>Rectangle Area</dt><dd>مساحة المستطيل</dd></div></dl>
+          <h3>اختبر فهمك</h3><p id="propertiesQuizScore" aria-live="polite">أجب عن الأسئلة ثم تحقق من اختيارك.</p><div id="propertiesQuiz"></div>
+          <h3>التحدي العملي: مساحة الدائرة</h3><p>اكتب خوارزمية لحساب مساحة دائرة باستخدام القانون: المساحة = π × نصف القطر × نصف القطر. استخدم π = 3.14 ونصف قطر يساوي 5. اكتب المدخل والمخرج والخطوات، ثم راجعها وفق الخصائص الست. تأكد أن الناتج 78.5، واكتب مثالًا لخوارزمية واضحة لكنها غير صحيحة واشرح الخطأ.</p>
+          <nav class="hero-actions"><a class="secondary" href="#representation-preview">الدرس السابق</a></nav>
+          <button class="preview-complete" type="button" id="propertiesComplete">تحديد الدرس كمكتمل</button><p id="propertiesSaveStatus" aria-live="polite"></p>
+        </article></div>
+      </section>
+      <section class="lesson-preview" id="algorithm-tracing-preview">
+        <div class="container"><article class="preview-lesson">
+          <p class="preview-kicker">الوحدة الثالثة: الخوارزميات · الدرس الرابع</p><h2>تتبّع تنفيذ الخوارزميات</h2><p><strong>Algorithm Tracing</strong></p>
+          <h3>مقدمة: يعني إيه تتبّع خوارزمية؟</h3><p>تخيل إن عندك خوارزمية بتستقبل رقمين، تجمعهم، وبعد كده تعرض الناتج. بدل ما تشغّل الكود وتستنى النتيجة، تقدر تمشي على الخطوات واحدة واحدة، وتتابع إيه اللي بيحصل داخل البرنامج. العملية دي اسمها Algorithm Tracing، يعني تتبّع تنفيذ الخوارزمية.</p>
+          <ul><li>تفهم البرنامج بينفذ إيه بالترتيب.</li><li>تعرف قيمة المتغيرات في كل خطوة.</li><li>تكتشف الأخطاء المنطقية.</li><li>تتوقع الناتج قبل تشغيل البرنامج.</li><li>تفهم الحلقات والشروط بشكل أفضل.</li></ul>
+          <h3>أولًا: يعني إيه Variable؟</h3><p>المتغير (Variable) مكان بنستخدمه لتخزين قيمة معينة أثناء تنفيذ البرنامج. في age = 18 خزّنا 18 في age؛ ولو أسندنا إليه 20 أصبحت هي القيمة الحالية. المتغير ممكن تتغير قيمته أثناء تنفيذ الخوارزمية، وده اللي لازم نتابعه.</p>
+          <h3>ثانيًا: Trace Table — جدول التتبّع</h3><p>نسجل في الجدول قيمة كل متغير بعد تنفيذ كل خطوة.</p><div class="preview-code-toolbar"><button class="preview-copy-button" type="button" data-preview-copy="START&#10;SET A = 5&#10;SET B = 3&#10;SET C = A + B&#10;OUTPUT C&#10;END">نسخ</button></div><pre class="preview-code-block"><code>START&#10;SET A = 5&#10;SET B = 3&#10;SET C = A + B&#10;OUTPUT C&#10;END</code></pre>
+          <div class="preview-table-scroll"><table class="preview-table"><thead><tr><th>الخطوة</th><th>A</th><th>B</th><th>C</th></tr></thead><tbody><tr><td>البداية</td><td>-</td><td>-</td><td>-</td></tr><tr><td>SET A = 5</td><td>5</td><td>-</td><td>-</td></tr><tr><td>SET B = 3</td><td>5</td><td>3</td><td>-</td></tr><tr><td>SET C = A + B</td><td>5</td><td>3</td><td>8</td></tr><tr><td>OUTPUT C</td><td>5</td><td>3</td><td>8</td></tr></tbody></table></div>
+          <section class="preview-trace-simulator" data-preview-trace-simulator><h4>جرّب التتبّع بنفسك</h4><p data-preview-trace-status aria-live="polite"></p><p data-preview-trace-description></p><div class="preview-table-scroll"><table class="preview-table"><thead><tr><th>المتغير</th><th>القيمة السابقة</th><th>القيمة الحالية</th></tr></thead><tbody data-preview-trace-values></tbody></table></div><div class="hero-actions"><button class="secondary" type="button" data-preview-trace="reset">من البداية</button><button class="secondary" type="button" data-preview-trace="previous">الخطوة السابقة</button><button class="btn" type="button" data-preview-trace="next">الخطوة التالية</button></div></section>
+          <p>الناتج النهائي 8. نحدّث المتغير الذي تغيرت قيمته ونحتفظ بباقي القيم زي ما هي.</p>
+          <h3>ثالثًا: تتبّع تغيير قيمة المتغير</h3><div class="preview-code-toolbar"><button class="preview-copy-button" type="button" data-preview-copy="SET X = 10&#10;SET X = X + 5&#10;SET X = X * 2&#10;OUTPUT X">نسخ</button></div><pre class="preview-code-block"><code>SET X = 10&#10;SET X = X + 5&#10;SET X = X * 2&#10;OUTPUT X</code></pre><div class="preview-table-scroll"><table class="preview-table"><thead><tr><th>الخطوة</th><th>قيمة X</th></tr></thead><tbody><tr><td>البداية</td><td>-</td></tr><tr><td>X = 10</td><td>10</td></tr><tr><td>X = X + 5</td><td>15</td></tr><tr><td>X = X * 2</td><td>30</td></tr></tbody></table></div><p>القيمة تتغير من 10 إلى 15 ثم 30. التعبير X = X + 5 يعني احسب الطرف اليمين وبعدها خزّن الناتج في X، مش مساواة رياضية بين الطرفين.</p>
+          <h3>رابعًا: تتبّع العمليات الحسابية</h3><pre class="preview-code-block"><code>A = 4&#10;B = 6&#10;C = A + B * 2</code></pre><p>الضرب يتنفذ قبل الجمع: B × 2 = 12، ثم A + 12 = 16. ولو استخدمنا الأقواس: C = (A + B) * 2، يكون الناتج 20.</p>
+          <h3>خامسًا: تتبّع الشروط</h3><pre class="preview-code-block"><code>X = 12&#10;IF X &gt; 10&#10;    OUTPUT "Large"&#10;ELSE&#10;    OUTPUT "Small"&#10;END IF</code></pre><ol><li>X تساوي 12.</li><li>نختبر هل 12 أكبر من 10؟</li><li>الإجابة True، فننفذ IF.</li><li>الناتج Large، وفرع ELSE لا يتنفذ.</li></ol>
+          <h3>سادسًا: تتبّع الحلقات</h3><pre class="preview-code-block"><code>Counter = 1&#10;WHILE Counter &lt;= 4&#10;    OUTPUT Counter&#10;    Counter = Counter + 1&#10;END WHILE</code></pre><div class="preview-table-scroll"><table class="preview-table"><thead><tr><th>التكرار</th><th>Counter قبل الطباعة</th><th>الشرط</th><th>الناتج</th></tr></thead><tbody><tr><td>1</td><td>1</td><td>True</td><td>1</td></tr><tr><td>2</td><td>2</td><td>True</td><td>2</td></tr><tr><td>3</td><td>3</td><td>True</td><td>3</td></tr><tr><td>4</td><td>4</td><td>True</td><td>4</td></tr><tr><td>5</td><td>5</td><td>False</td><td>تتوقف الحلقة</td></tr></tbody></table></div><p>الناتج النهائي: 1، 2، 3، 4. في التكرار الخامس أصبح الشرط False فتوقفت الحلقة.</p>
+          <h3>سابعًا: أخطاء شائعة أثناء التتبّع</h3><ol><li>نسيان تسجيل القيمة الجديدة بعد تحديث المتغير.</li><li>تنفيذ الخطوات بترتيب مختلف عن ترتيب الخوارزمية.</li><li>تجاهل أولوية العمليات والأقواس.</li><li>تنفيذ IF وELSE معًا بدل اختيار الفرع المناسب.</li><li>نسيان إعادة اختبار شرط الحلقة بعد كل تكرار.</li></ol>
+          <h3>ثامنًا: تتبّع الكود باستخدام Python</h3><div class="preview-code-toolbar"><button class="preview-copy-button" type="button" data-preview-copy="x = 5&#10;y = 2&#10;&#10;x = x + y&#10;y = x * 2&#10;&#10;print(x)&#10;print(y)">نسخ</button></div><pre class="preview-code-block"><code>x = 5&#10;y = 2&#10;&#10;x = x + y&#10;y = x * 2&#10;&#10;print(x)&#10;print(y)</code></pre><div class="preview-table-scroll"><table class="preview-table"><thead><tr><th>الخطوة</th><th>X</th><th>Y</th></tr></thead><tbody><tr><td>x = 5</td><td>5</td><td>-</td></tr><tr><td>y = 2</td><td>5</td><td>2</td></tr><tr><td>x = x + y</td><td>7</td><td>2</td></tr><tr><td>y = x * 2</td><td>7</td><td>14</td></tr></tbody></table></div><p>الناتج: 7 ثم 14.</p>
+          <h3>قاموس المصطلحات</h3><dl class="preview-glossary"><div class="preview-term"><dt>Algorithm Tracing</dt><dd>تتبّع الخوارزمية</dd></div><div class="preview-term"><dt>Trace Table</dt><dd>جدول التتبّع</dd></div><div class="preview-term"><dt>Variable</dt><dd>متغير</dd></div><div class="preview-term"><dt>Assignment</dt><dd>إسناد قيمة لمتغير</dd></div><div class="preview-term"><dt>Condition</dt><dd>شرط</dd></div><div class="preview-term"><dt>True / False</dt><dd>صحيح / خطأ</dd></div><div class="preview-term"><dt>Loop</dt><dd>حلقة تكرار</dd></div><div class="preview-term"><dt>Iteration</dt><dd>تكرار واحد</dd></div><div class="preview-term"><dt>Execution</dt><dd>تنفيذ</dd></div></dl>
+          <h3>ملخص الدرس</h3><ul><li>نتابع تنفيذ الخوارزمية بالترتيب.</li><li>نسجل قيم المتغيرات في Trace Table.</li><li>نراعي أولوية العمليات والشروط والحلقات.</li><li>يمكن توقع الناتج قبل تشغيل البرنامج.</li></ul>
+          <h3>اختبر فهمك</h3><p id="tracingQuizScore" aria-live="polite">أجب عن الأسئلة ثم تحقق من اختيارك.</p><div id="tracingQuiz"></div>
+          <h3>التحدي العملي</h3><p>تتبّع الخوارزمية التالية، وسجل A وB وC بعد كل خطوة، وحدد نتيجة الشرط، ثم اكتب المخرجات النهائية واشرح سببها.</p><pre class="preview-code-block"><code>SET A = 2&#10;SET B = 5&#10;SET C = A + B&#10;SET A = C * 2&#10;IF A &gt; 10&#10;    SET B = A - 3&#10;ELSE&#10;    SET B = A + 3&#10;END IF&#10;OUTPUT A&#10;OUTPUT B</code></pre><p><strong>متستخدمش الكمبيوتر في الحل الأول؛ حاول تتبّع الخوارزمية بنفسك على الورق.</strong></p>
+          <nav class="hero-actions"><a class="secondary" href="#algorithm-properties-preview">الدرس السابق</a></nav><button class="preview-complete" type="button" id="tracingComplete">تحديد الدرس كمكتمل</button><p id="tracingSaveStatus" aria-live="polite"></p>
+        </article></div>
+      </section>
+    </main>
+
+    <script type="application/json" id="pathsData">
+      [
+        {"slug":"logic","title":"أساسيات البرمجة والمنطق","tag":"Logic","icon":"◌","description":"تعرف على التفكير البرمجي، حل المشكلات، والأوامر الشرطية قبل الدخول إلى أي لغة برمجة.","level":"مبتدئ","lessons":13,"progress":18},
+        {"slug":"python","title":"Python","tag":"Python","icon":"P","description":"ابدأ بتعلم لغة Python بطريقة عملية وبسيطة مع أمثلة تطبيقية ونماذج مشاريع صغيرة.","level":"مبتدئ","lessons":8,"progress":24},
+        {"slug":"html","title":"HTML","tag":"HTML","icon":"H","description":"تعلم بناء هيكل الصفحات الإلكترونية، العناوين، الروابط، القوائم، الصور، والنماذج.","level":"مبتدئ","lessons":7,"progress":14},
+        {"slug":"css","title":"CSS","tag":"CSS","icon":"C","description":"اعرف كيفية تنسيق الصفحات، التحكم بالألوان، المسافات، الاستجابة، والهوية البصرية للموقع.","level":"مبتدئ","lessons":7,"progress":21},
+        {"slug":"javascript","title":"JavaScript","tag":"JS","icon":"J","description":"ثم انتقل إلى البرمجة التفاعلية. تعلم المتغيرات، الدوال، الأحداث، والـ DOM.","level":"متوسط","lessons":9,"progress":12},
+        {"slug":"sql","title":"SQL وقواعد البيانات","tag":"SQL","icon":"S","description":"تعلّم كيفية تخزين البيانات، استرجاعها، وربطها بأساسيات قواعد البيانات بطريقة منطقية.","level":"متوسط","lessons":6,"progress":9}
+      ]
+    </script>
+
+    <section id="decision-flowcharts-preview" class="section">
+      <div class="container">
+        <article class="preview-lesson">
+          <p class="preview-kicker">الوحدة الرابعة · الدرس الثالث</p>
+          <h2>رسم مخططات الانسياب باستخدام الشروط والقرارات</h2>
+          <p>معاينة مستقلة لتجربة مسارات القرارات والحالات الحدية وجدول الحقيقة.</p>
+          <div class="standalone-quiz" id="decisionPreview">
+            <fieldset><legend>تحديد النجاح والرسوب</legend><label>الدرجة <input id="previewGrade" type="number" value="50"></label><button class="btn" type="button" data-preview-run="grade">تشغيل</button><p data-preview-result="grade"></p></fieldset>
+            <fieldset><legend>تحديد موجب أو سالب أو صفر</legend><label>الرقم <input id="previewNumber" type="number" value="0"></label><button class="btn" type="button" data-preview-run="sign">تشغيل</button><p data-preview-result="sign"></p></fieldset>
+            <fieldset><legend>حساب الخصم</legend><label>قيمة الشراء <input id="previewTotal" type="number" value="1000"></label><button class="btn" type="button" data-preview-run="discount">تشغيل</button><p data-preview-result="discount"></p></fieldset>
+            <fieldset><legend>جدول الحقيقة AND / OR / NOT</legend><label>الأول <select id="previewFirst"><option value="true">True</option><option value="false">False</option></select></label><label>الثاني <select id="previewSecond"><option value="true">True</option><option value="false">False</option></select></label><button class="btn" type="button" data-preview-run="truth">تقييم</button><p data-preview-result="truth"></p></fieldset>
+          </div>
+        </article>
+      </div>
+    </section>
+    <section id="loop-flowcharts-preview" class="section">
+      <div class="container">
+        <article class="preview-lesson">
+          <p class="preview-kicker">الوحدة الرابعة · الدرس الرابع</p>
+          <h2>رسم مخططات الانسياب باستخدام الحلقات والتكرار</h2>
+          <p>معاينة مستقلة لتتبع عداد الحلقة وحساب المجموع.</p>
+          <div class="standalone-quiz" id="loopPreview">
+            <fieldset><legend>طباعة الأرقام من 1 إلى النهاية</legend><label>النهاية <input id="previewLoopLimit" type="number" min="1" value="5"></label><button class="btn" type="button" data-preview-run="loop-print">تشغيل</button><p data-preview-result="loop-print"></p></fieldset>
+            <fieldset><legend>حساب مجموع الأرقام</legend><label>النهاية <input id="previewSumLimit" type="number" min="1" value="5"></label><button class="btn" type="button" data-preview-run="loop-sum">تشغيل</button><p data-preview-result="loop-sum"></p></fieldset>
+          </div>
+        </article>
+      </div>
+    </section>
+    <style>.preview-code-comparison{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}.preview-code-comparison fieldset{min-width:0}.preview-code-comparison pre{direction:ltr;text-align:left;overflow:auto}@media(max-width:760px){.preview-code-comparison{grid-template-columns:1fr}}</style>
+    <section id="pseudocode-preview" class="section">
+      <div class="container">
+        <article class="preview-lesson">
+          <p class="preview-kicker">الوحدة الخامسة · الدرس الأول</p>
+          <h2>يعني إيه Pseudocode؟</h2>
+          <p>معاينة مستقلة لمثال كتابة خطوات جمع رقمين ومتوسط ثلاثة أرقام.</p>
+          <div class="standalone-quiz">
+            <div class="preview-code-comparison"><fieldset><legend>Pseudocode</legend><pre>START
+INPUT number1
+INPUT number2
+SET result = number1 + number2
+OUTPUT result
+END</pre><button class="btn" type="button" data-preview-run="pseudocode">إظهار الفكرة</button></fieldset><fieldset><legend>Python</legend><pre>number1 = int(input("First: "))
+number2 = int(input("Second: "))
+result = number1 + number2
+print(result)</pre></fieldset></div><p data-preview-result="pseudocode"></p>
+          </div>
+        </article>
+      </div>
+    </section>
+    <section id="pseudocode-syntax-preview" class="section">
+      <div class="container">
+        <article class="preview-lesson">
+          <p class="preview-kicker">الوحدة الخامسة · الدرس الثاني</p>
+          <h2>قواعد كتابة الـ Pseudocode وتنظيم التعليمات</h2>
+          <p>معاينة مستقلة للهيكل الأساسي، التعيين، الإدخال والإخراج، والتعليقات.</p>
+          <div class="preview-code-comparison">
+            <fieldset><legend>Structure</legend><pre>START
+    INPUT value
+    SET result = value
+    OUTPUT result
+END</pre><button class="btn" type="button" data-preview-run="syntax">إظهار الفكرة</button></fieldset>
+            <fieldset><legend>Comments and Indentation</legend><pre>IF grade &gt;= 50 THEN
+    // Show success
+    OUTPUT "Pass"
+ELSE
+    OUTPUT "Fail"
+END IF</pre></fieldset>
+          </div>
+          <p data-preview-result="syntax"></p>
+        </article>
+      </div>
+    </section>
+    <section id="variables-preview" class="section">
+      <div class="container">
+        <article class="preview-lesson">
+          <p class="preview-kicker">الوحدة الخامسة · الدرس الثالث</p>
+          <h2>المتغيرات وأنواع البيانات</h2>
+          <p>معاينة مستقلة لإنشاء متغيرات واختيار نوع البيانات المناسب.</p>
+          <div class="preview-code-comparison">
+            <fieldset><legend>Variables</legend><pre>SET student_name = "Ahmed"
+SET age = 18
+SET grade = 95</pre><button class="btn" type="button" data-preview-run="variables">إظهار الفكرة</button></fieldset>
+            <fieldset><legend>Data Types</legend><pre>Integer: 25
+Float: 25.75
+String: "Ahmed"
+Boolean: TRUE
+Character: 'A'</pre></fieldset>
+          </div>
+          <p data-preview-result="variables"></p>
+        </article>
+      </div>
+    </section>
+    <script>
+      document.querySelectorAll('[data-preview-run]').forEach((button) => button.addEventListener('click', () => {
+        const kind = button.dataset.previewRun; let text = '';
+        if (kind === 'grade') text = Number(document.getElementById('previewGrade').value) >= 50 ? 'True → ناجح (Pass)' : 'False → راسب (Fail)';
+        if (kind === 'sign') { const n=Number(document.getElementById('previewNumber').value); text=n>0?'True → موجب':n<0?'False ثم True → سالب':'False ثم False → صفر'; }
+        if (kind === 'discount') { const total=Number(document.getElementById('previewTotal').value); const discount=total>=1000?total*.1:0; text=`${total>=1000?'True':'False'} → السعر النهائي ${(total-discount).toFixed(2)}`; }
+        if (kind === 'truth') { const a=document.getElementById('previewFirst').value==='true'; const b=document.getElementById('previewSecond').value==='true'; text=`AND: ${a&&b} · OR: ${a||b} · NOT الأول: ${!a}`; }
+        if (kind === 'loop-print') { const limit=Math.max(1,Math.min(50,Number(document.getElementById('previewLoopLimit').value)||1)); text=`True: ${Array.from({length:limit},(_,i)=>i+1).join('، ')} · False عند counter=${limit+1}`; }
+        if (kind === 'loop-sum') { const limit=Math.max(1,Math.min(50,Number(document.getElementById('previewSumLimit').value)||1)); text=`sum = ${limit*(limit+1)/2} · False عند counter=${limit+1}`; }
+        if (kind === 'pseudocode') text = 'Pseudocode يصف المنطق قبل اختيار لغة البرمجة.';
+        if (kind === 'syntax') text = 'الترتيب والمسافات البادئة يوضحان منطق الخوارزمية.';
+        if (kind === 'variables') text = 'اختيار نوع البيانات والاسم الواضح يجعل التعامل مع القيمة أسهل.';
+        document.querySelector(`[data-preview-result="${kind}"]`).textContent=text;
+      }));
+    </script>
+    <script>
+      const data = JSON.parse(document.getElementById('pathsData').textContent);
+      const root = document.getElementById('pathGrid');
+      root.innerHTML = data.map((path) => `
+        <article class="path-card">
+          <div class="card-top">
+            <div class="path-icon">${path.icon}</div>
+            <span class="tag">${path.tag}</span>
+          </div>
+          <h3>${path.title}</h3>
+          <p>${path.description}</p>
+          <div class="meta">
+            <span>المستوى: ${path.level}</span>
+            <span>${path.lessons} دروس</span>
+          </div>
+          <div class="progress"><span style="width:${path.progress}%"></span></div>
+          <div class="progress-label"><span>التقدم</span><span>${path.progress}%</span></div>
+          <div class="actions">
+            <button type="button" class="link-btn">ابدأ التعلم</button>
+            <button type="button" class="ghost-btn">⟶</button>
+          </div>
+        </article>
+      `).join('');
+
+      const ipoSteps = [...document.querySelectorAll('[data-preview-ipo]')];
+      ipoSteps.forEach((step) => step.addEventListener('click', () => {
+        ipoSteps.forEach((item) => item.setAttribute('aria-pressed', String(item === step)));
+        document.getElementById('ipoDetail').textContent = step.dataset.description;
+      }));
+
+      const questions = [
+        { question: 'ما الهدف الأساسي من تحليل المشكلة؟', options: ['اختيار ألوان البرنامج', 'فهم المشكلة وتحديد المطلوب قبل التنفيذ', 'كتابة الكود مباشرة', 'شراء جهاز جديد'], answer: 1, explanation: 'تحليل المشكلة هدفه فهم المطلوب وتحديد تفاصيله.' },
+        { question: 'أي مما يلي متطلب وظيفي؟', options: ['سرعة الاستجابة', 'سهولة الاستخدام', 'إمكانية البحث عن كتاب', 'حماية البيانات'], answer: 2, explanation: 'البحث عن كتاب وظيفة مباشرة يقدمها النظام.' },
+        { question: 'حماية بيانات المستخدمين مثال على؟', options: ['Functional Requirement', 'Non-Functional Requirement', 'Input', 'Output'], answer: 1, explanation: 'حماية البيانات خاصية جودة وأمان للنظام.' },
+        { question: 'الميزانية والوقت المتاح للمشروع يُعتبران؟', options: ['Constraints', 'Outputs', 'Algorithms', 'Variables'], answer: 0, explanation: 'الميزانية والوقت من القيود التي تؤثر على المشروع.' },
+        { question: 'ما الترتيب الأنسب عند التعامل مع مشكلة برمجية؟', options: ['كتابة الكود ثم فهم المشكلة', 'اختيار اللغة ثم تجاهل المتطلبات', 'فهم المشكلة وتحليلها وتحديد المتطلبات ثم تصميم الحل', 'تنفيذ كل الوظائف مرة واحدة دون تقسيم'], answer: 2, explanation: 'لازم نفهم ونحلل قبل التصميم والتنفيذ.' }
+      ];
+      const quizRoot = document.getElementById('previewQuiz');
+      quizRoot.innerHTML = questions.map((item, index) => `
+        <fieldset class="preview-question" data-preview-question="${index}" data-answer="${item.answer}">
+          <legend>${index + 1}. ${item.question}</legend>
+          ${item.options.map((option, optionIndex) => `<label class="preview-option"><input type="radio" name="preview-q-${index}" value="${optionIndex}"> ${option}</label>`).join('')}
+          <button class="btn" type="button" data-preview-check="${index}">تحقق من الإجابة</button>
+          <p class="preview-feedback" data-preview-feedback aria-live="polite"></p>
+        </fieldset>
+      `).join('');
+      quizRoot.addEventListener('click', (event) => {
+        const check = event.target.closest('[data-preview-check]');
+        if (!check) return;
+        const questionIndex = Number(check.dataset.previewCheck);
+        const questionNode = check.closest('[data-preview-question]');
+        const selection = questionNode.querySelector('input:checked');
+        const feedback = questionNode.querySelector('[data-preview-feedback]');
+        if (!selection) {
+          feedback.textContent = 'اختر إجابة أولًا.';
+          return;
+        }
+        const item = questions[questionIndex];
+        const correct = Number(selection.value) === item.answer;
+        feedback.textContent = `${correct ? 'إجابة صحيحة.' : `إجابة غير صحيحة. الإجابة الصحيحة: ${item.options[item.answer]}.`} ${item.explanation}`;
+        questionNode.dataset.answered = 'true';
+        questionNode.dataset.correct = String(correct);
+        const answered = [...quizRoot.querySelectorAll('[data-preview-question][data-answered="true"]')];
+        const correctCount = answered.filter((node) => node.dataset.correct === 'true').length;
+        document.getElementById('previewQuizScore').textContent = `أجبت عن ${answered.length} من ${questions.length} أسئلة، منها ${correctCount} صحيحة.`;
+      });
+
+      const storageKey = 'efhama_programming_paths';
+      const saveStatus = document.getElementById('previewSaveStatus');
+      const readCompletion = () => {
+        try {
+          const state = JSON.parse(localStorage.getItem(storageKey) || '{}');
+          return (state.logic?.completed || []).includes('logic-6');
+        } catch (error) {
+          return false;
+        }
+      };
+      const completeButton = document.getElementById('previewComplete');
+      const updateCompletionLabel = () => {
+        const completed = readCompletion();
+        completeButton.textContent = completed ? 'إلغاء إكمال الدرس' : 'تحديد الدرس كمكتمل';
+        saveStatus.textContent = completed ? 'تم حفظ إكمال الدرس على هذا المتصفح.' : 'تقدمك محفوظ محليًا على هذا المتصفح.';
+      };
+      completeButton.addEventListener('click', () => {
+        try {
+          const state = JSON.parse(localStorage.getItem(storageKey) || '{}');
+          const pathState = state.logic || { lastLesson: '', completed: [] };
+          const completed = new Set(pathState.completed || []);
+          if (completed.has('logic-6')) completed.delete('logic-6');
+          else completed.add('logic-6');
+          pathState.completed = [...completed];
+          pathState.lastLesson = 'logic-6';
+          state.logic = pathState;
+          localStorage.setItem(storageKey, JSON.stringify(state));
+          updateCompletionLabel();
+        } catch (error) {
+          saveStatus.textContent = 'تعذر حفظ التقدم في هذا المتصفح.';
+        }
+      });
+      updateCompletionLabel();
+    </script>
+    <script>
+      (() => {
+        const ipoSteps = [...document.querySelectorAll('[data-step-ipo]')];
+        ipoSteps.forEach((step) => step.addEventListener('click', () => {
+          ipoSteps.forEach((item) => item.setAttribute('aria-pressed', String(item === step)));
+          document.getElementById('stepIpoDescription').textContent = step.dataset.stepDescription;
+        }));
+
+        document.getElementById('averageDemo').addEventListener('submit', (event) => {
+          event.preventDefault();
+          const form = event.currentTarget;
+          const values = ['grade1', 'grade2', 'grade3'].map((name) => Number(form.elements[name].value));
+          const result = document.getElementById('averageResult');
+          result.classList.remove('error');
+          if (values.some((value, index) => form.elements[['grade1', 'grade2', 'grade3'][index]].value.trim() === '' || !Number.isFinite(value) || value < 0 || value > 100)) {
+            result.textContent = 'أدخل كل الدرجات بين 0 و100.';
+            result.classList.add('error');
+            return;
+          }
+          const total = values.reduce((sum, value) => sum + value, 0);
+          result.textContent = `المجموع ${total} ÷ 3 = المتوسط ${Number((total / 3).toFixed(2))}.`;
+        });
+
+        document.getElementById('divisionDemo').addEventListener('submit', (event) => {
+          event.preventDefault();
+          const form = event.currentTarget;
+          const numerator = Number(form.elements.numerator.value);
+          const denominator = Number(form.elements.denominator.value);
+          const result = document.getElementById('divisionResult');
+          result.classList.remove('error');
+          if (form.elements.denominator.value.trim() === '' || denominator === 0) {
+            result.textContent = 'لا يمكن القسمة على صفر. تحقّق من المقسوم عليه قبل تنفيذ العملية.';
+            result.classList.add('error');
+          } else if (!Number.isFinite(numerator) || !Number.isFinite(denominator)) {
+            result.textContent = 'أدخل قيمًا رقمية صالحة.';
+            result.classList.add('error');
+          } else {
+            result.textContent = `${numerator} ÷ ${denominator} = ${Number((numerator / denominator).toFixed(4))}.`;
+          }
+        });
+
+        const quizQuestions = [
+          { question: 'في نموذج IPO، ما المقصود بـ Processing؟', options: ['البيانات التي ندخلها', 'العمليات التي ينفذها البرنامج على البيانات', 'النتيجة التي يعرضها', 'اسم البرنامج'], answer: 1, explanation: 'Processing هي المعالجة التي تحول المدخلات إلى مخرجات.' },
+          { question: 'إذا كانت الدرجات 80 و90 و70، فما المتوسط؟', options: ['70', '75', '80', '90'], answer: 2, explanation: 'مجموع الدرجات 240، وبقسمته على 3 يكون المتوسط 80.' },
+          { question: 'لماذا نتحقق من أن عدد القيم أكبر من صفر قبل حساب المتوسط؟', options: ['لمنع القسمة على صفر', 'لتغيير شكل النتيجة', 'لتقليل عدد المدخلات', 'لزيادة المجموع'], answer: 0, explanation: 'لا يمكن حساب المتوسط إذا كان عدد القيم صفرًا لأن ذلك يؤدي إلى القسمة على صفر.' },
+          { question: 'ما فائدة حالات الاختبار؟', options: ['كتابة الكود بدلًا من التحليل', 'التحقق من أن البرنامج يعطي النتائج المتوقعة لمدخلات مختلفة', 'اختيار اسم البرنامج', 'حذف المدخلات'], answer: 1, explanation: 'حالات الاختبار تكشف أخطاء الحل وتتحقق من سلوكه في أوضاع مختلفة.' },
+          { question: 'ماذا ينبغي أن يفعل البرنامج إذا أدخل المستخدم درجة أقل من صفر؟', options: ['يقبلها دائمًا', 'يتجاهل كل الدرجات', 'يتحقق من صحة القيمة ويطلب تصحيحها أو يرفضها', 'يقسمها على صفر'], answer: 2, explanation: 'التحقق من نطاق المدخلات يمنع استخدام قيم غير صالحة.' }
+        ];
+        const quizRoot = document.getElementById('stepQuiz');
+        quizRoot.innerHTML = quizQuestions.map((item, index) => `
+          <fieldset class="preview-question" data-step-question="${index}">
+            <legend>${index + 1}. ${item.question}</legend>
+            ${item.options.map((option, optionIndex) => `<label class="preview-option"><input type="radio" name="step-q-${index}" value="${optionIndex}"> ${option}</label>`).join('')}
+            <button class="btn" type="button" data-step-check="${index}">تحقق من الإجابة</button>
+            <p class="preview-feedback" data-step-feedback aria-live="polite"></p>
+          </fieldset>
+        `).join('');
+        quizRoot.addEventListener('click', (event) => {
+          const check = event.target.closest('[data-step-check]');
+          if (!check) return;
+          const index = Number(check.dataset.stepCheck);
+          const questionNode = check.closest('[data-step-question]');
+          const selected = questionNode.querySelector('input:checked');
+          const feedback = questionNode.querySelector('[data-step-feedback]');
+          if (!selected) {
+            feedback.textContent = 'اختر إجابة أولًا.';
+            return;
+          }
+          const question = quizQuestions[index];
+          const correct = Number(selected.value) === question.answer;
+          feedback.textContent = `${correct ? 'إجابة صحيحة.' : `إجابة غير صحيحة. الإجابة الصحيحة: ${question.options[question.answer]}.`} ${question.explanation}`;
+          questionNode.dataset.answered = 'true';
+          questionNode.dataset.correct = String(correct);
+          const answered = [...quizRoot.querySelectorAll('[data-step-question][data-answered="true"]')];
+          const correctCount = answered.filter((node) => node.dataset.correct === 'true').length;
+          document.getElementById('stepQuizScore').textContent = `أجبت عن ${answered.length} من ${quizQuestions.length} أسئلة، منها ${correctCount} صحيحة.`;
+        });
+
+        const storageKey = 'efhama_programming_paths';
+        const completionButton = document.getElementById('stepComplete');
+        const saveStatus = document.getElementById('stepSaveStatus');
+        const readComplete = () => {
+          try {
+            const state = JSON.parse(localStorage.getItem(storageKey) || '{}');
+            return (state.logic?.completed || []).includes('logic-7');
+          } catch (error) {
+            return false;
+          }
+        };
+        const updateCompleteLabel = () => {
+          const complete = readComplete();
+          completionButton.textContent = complete ? 'إلغاء إكمال الدرس' : 'تحديد الدرس كمكتمل';
+          saveStatus.textContent = complete ? 'تم حفظ إكمال الدرس على هذا المتصفح.' : 'تقدمك محفوظ محليًا على هذا المتصفح.';
+        };
+        completionButton.addEventListener('click', () => {
+          try {
+            const state = JSON.parse(localStorage.getItem(storageKey) || '{}');
+            const pathState = state.logic || { lastLesson: '', completed: [] };
+            const completed = new Set(pathState.completed || []);
+            if (completed.has('logic-7')) completed.delete('logic-7');
+            else completed.add('logic-7');
+            pathState.completed = [...completed];
+            pathState.lastLesson = 'logic-7';
+            state.logic = pathState;
+            localStorage.setItem(storageKey, JSON.stringify(state));
+            updateCompleteLabel();
+          } catch (error) {
+            saveStatus.textContent = 'تعذر حفظ التقدم في هذا المتصفح.';
+          }
+        });
+        updateCompleteLabel();
+      })();
+    </script>
+    <script>
+      (() => {
+        document.getElementById('discountPreviewForm').addEventListener('submit', (event) => {
+          event.preventDefault();
+          const form = event.currentTarget;
+          const priceText = form.elements.price.value.trim();
+          const percentageText = form.elements.percentage.value.trim();
+          const price = Number(priceText);
+          const percentage = Number(percentageText);
+          const result = document.getElementById('discountPreviewResult');
+          result.classList.remove('error');
+          if (!priceText || !percentageText || !Number.isFinite(price) || !Number.isFinite(percentage) || price < 0 || percentage < 0 || percentage > 100) {
+            result.textContent = 'أدخل سعرًا لا يقل عن صفر ونسبة خصم بين 0 و100.';
+            result.classList.add('error');
+            return;
+          }
+          const discount = price * percentage / 100;
+          result.textContent = `قيمة الخصم ${Number(discount.toFixed(2))}، والسعر النهائي ${Number((price - discount).toFixed(2))}.`;
+        });
+
+        const questions = [
+          { question: 'برنامج يعمل دون توقف لكنه يحسب السعر بعد الخصم بطريقة خاطئة. ما نوع الخطأ؟', options: ['Syntax Error', 'Runtime Error', 'Logical Error', 'Network Error'], answer: 2, explanation: 'البرنامج ينفذ لكن منطقه يعطي نتيجة غير صحيحة.' },
+          { question: 'أي خطأ قد يحدث عند محاولة القسمة على صفر أثناء التنفيذ؟', options: ['Runtime Error', 'Logical Error فقط', 'Syntax Error دائمًا', 'لا يحدث خطأ'], answer: 0, explanation: 'العملية غير الصالحة تحدث وقت تشغيل البرنامج.' },
+          { question: 'إذا كان السعر 250 ونسبة الخصم 20%، فما السعر النهائي؟', options: ['200', '250', '300', '50'], answer: 0, explanation: 'قيمة الخصم 50، والسعر النهائي 250 − 50 = 200.' },
+          { question: 'ما وظيفة Debugging؟', options: ['تصميم واجهة البرنامج', 'تتبع سبب الخطأ وإصلاحه', 'كتابة المتطلبات فقط', 'حذف حالات الاختبار'], answer: 1, explanation: 'Debugging هو تتبع المشكلة لمعرفة سببها ثم إصلاحها.' },
+          { question: 'ما الحالة المناسبة لاختبار نسبة الخصم؟', options: ['اختبار نسبة 0% و100% ونسبة خارج النطاق', 'تجربة السعر نفسه مرة واحدة فقط', 'تجاهل القيم المدخلة', 'تغيير اسم المتغير'], answer: 0, explanation: 'اختبار الحدود والقيم غير الصالحة يساعد على كشف الأخطاء.' }
+        ];
+        const quizRoot = document.getElementById('logicalQuiz');
+        quizRoot.innerHTML = questions.map((item, index) => `
+          <fieldset class="preview-question" data-logical-question="${index}">
+            <legend>${index + 1}. ${item.question}</legend>
+            ${item.options.map((option, optionIndex) => `<label class="preview-option"><input type="radio" name="logical-q-${index}" value="${optionIndex}"> ${option}</label>`).join('')}
+            <button class="btn" type="button" data-logical-check="${index}">تحقق من الإجابة</button>
+            <p class="preview-feedback" data-logical-feedback aria-live="polite"></p>
+          </fieldset>
+        `).join('');
+        quizRoot.addEventListener('click', (event) => {
+          const check = event.target.closest('[data-logical-check]');
+          if (!check) return;
+          const index = Number(check.dataset.logicalCheck);
+          const questionNode = check.closest('[data-logical-question]');
+          const selected = questionNode.querySelector('input:checked');
+          const feedback = questionNode.querySelector('[data-logical-feedback]');
+          if (!selected) {
+            feedback.textContent = 'اختر إجابة أولًا.';
+            return;
+          }
+          const item = questions[index];
+          const correct = Number(selected.value) === item.answer;
+          feedback.textContent = `${correct ? 'إجابة صحيحة.' : `إجابة غير صحيحة. الإجابة الصحيحة: ${item.options[item.answer]}.`} ${item.explanation}`;
+          questionNode.dataset.answered = 'true';
+          questionNode.dataset.correct = String(correct);
+          const answered = [...quizRoot.querySelectorAll('[data-logical-question][data-answered="true"]')];
+          const correctCount = answered.filter((node) => node.dataset.correct === 'true').length;
+          document.getElementById('logicalQuizScore').textContent = `أجبت عن ${answered.length} من ${questions.length} أسئلة، منها ${correctCount} صحيحة.`;
+        });
+
+        const storageKey = 'efhama_programming_paths';
+        const completeButton = document.getElementById('logicalComplete');
+        const saveStatus = document.getElementById('logicalSaveStatus');
+        const readComplete = () => {
+          try {
+            const state = JSON.parse(localStorage.getItem(storageKey) || '{}');
+            return (state.logic?.completed || []).includes('logic-8');
+          } catch (error) {
+            return false;
+          }
+        };
+        const updateCompleteLabel = () => {
+          const complete = readComplete();
+          completeButton.textContent = complete ? 'إلغاء إكمال الدرس' : 'تحديد الدرس كمكتمل';
+          saveStatus.textContent = complete ? 'تم حفظ إكمال الدرس على هذا المتصفح.' : 'تقدمك محفوظ محليًا على هذا المتصفح.';
+        };
+        completeButton.addEventListener('click', () => {
+          try {
+            const state = JSON.parse(localStorage.getItem(storageKey) || '{}');
+            const pathState = state.logic || { lastLesson: '', completed: [] };
+            const completed = new Set(pathState.completed || []);
+            if (completed.has('logic-8')) completed.delete('logic-8');
+            else completed.add('logic-8');
+            pathState.completed = [...completed];
+            pathState.lastLesson = 'logic-8';
+            state.logic = pathState;
+            localStorage.setItem(storageKey, JSON.stringify(state));
+            updateCompleteLabel();
+          } catch (error) {
+            saveStatus.textContent = 'تعذر حفظ التقدم في هذا المتصفح.';
+          }
+        });
+        updateCompleteLabel();
+      })();
+    </script>
+    <script>
+      (() => {
+        const questions = [
+          { question: 'ما المقصود بـ Test Case؟', options: ['لغة برمجة جديدة', 'مجموعة بيانات وخطوات لاختبار وظيفة معينة', 'تصميم واجهة البرنامج', 'قاعدة بيانات'], answer: 1, explanation: 'حالة الاختبار بتحدد المدخلات والخطوات والنتيجة المتوقعة.' },
+          { question: 'اختبار دالة مسؤولة عن جمع رقمين يُعتبر؟', options: ['System Testing', 'Acceptance Testing', 'Unit Testing', 'Integration Testing'], answer: 2, explanation: 'لأننا بنختبر وظيفة صغيرة ومستقلة.' },
+          { question: 'لو النظام يسمح بدرجات من 0 إلى 100، اختبار الدرجة 100 يُعتبر؟', options: ['Boundary Case', 'Invalid Input', 'Syntax Error', 'Integration Testing'], answer: 0, explanation: 'لأننا بنختبر قيمة عند الحد الأعلى المسموح.' },
+          { question: 'اختبار تعاون أجزاء مختلفة من النظام يُسمى؟', options: ['Unit Testing', 'Integration Testing', 'Debugging', 'Abstraction'], answer: 1, explanation: 'Integration Testing بيختبر التعاون بين أجزاء النظام.' },
+          { question: 'في أسلوب TDD، إيه اللي بيحصل في مرحلة Red؟', options: ['تحسين شكل واجهة المستخدم', 'كتابة الاختبار والتحقق من فشله في البداية', 'حذف الاختبارات', 'نشر البرنامج'], answer: 1, explanation: 'في مرحلة Red بنكتب الاختبار المطلوب ونتأكد إنه بيفشل قبل تنفيذ الوظيفة.' }
+        ];
+        const quizRoot = document.getElementById('testingQuiz');
+        quizRoot.innerHTML = questions.map((item, index) => `
+          <fieldset class="preview-question" data-testing-question="${index}">
+            <legend>${index + 1}. ${item.question}</legend>
+            ${item.options.map((option, optionIndex) => `<label class="preview-option"><input type="radio" name="testing-q-${index}" value="${optionIndex}"> ${option}</label>`).join('')}
+            <button class="btn" type="button" data-testing-check="${index}">تحقق من الإجابة</button>
+            <p class="preview-feedback" data-testing-feedback aria-live="polite"></p>
+          </fieldset>
+        `).join('');
+        quizRoot.addEventListener('click', (event) => {
+          const check = event.target.closest('[data-testing-check]');
+          if (!check) return;
+          const index = Number(check.dataset.testingCheck);
+          const questionNode = check.closest('[data-testing-question]');
+          const selected = questionNode.querySelector('input:checked');
+          const feedback = questionNode.querySelector('[data-testing-feedback]');
+          if (!selected) {
+            feedback.textContent = 'اختر إجابة أولًا.';
+            return;
+          }
+          const item = questions[index];
+          const correct = Number(selected.value) === item.answer;
+          feedback.textContent = `${correct ? 'إجابة صحيحة.' : `إجابة غير صحيحة. الإجابة الصحيحة: ${item.options[item.answer]}.`} ${item.explanation}`;
+          questionNode.dataset.answered = 'true';
+          questionNode.dataset.correct = String(correct);
+          const answered = [...quizRoot.querySelectorAll('[data-testing-question][data-answered="true"]')];
+          const correctCount = answered.filter((node) => node.dataset.correct === 'true').length;
+          document.getElementById('testingQuizScore').textContent = `أجبت عن ${answered.length} من ${questions.length} أسئلة، منها ${correctCount} صحيحة.`;
+        });
+
+        const storageKey = 'efhama_programming_paths';
+        const completeButton = document.getElementById('testingComplete');
+        const saveStatus = document.getElementById('testingSaveStatus');
+        const readComplete = () => {
+          try {
+            const state = JSON.parse(localStorage.getItem(storageKey) || '{}');
+            return (state.logic?.completed || []).includes('logic-9');
+          } catch (error) {
+            return false;
+          }
+        };
+        const updateCompleteLabel = () => {
+          const complete = readComplete();
+          completeButton.textContent = complete ? 'إلغاء إكمال الدرس' : 'تحديد الدرس كمكتمل';
+          saveStatus.textContent = complete ? 'تم حفظ إكمال الدرس على هذا المتصفح.' : 'تقدمك محفوظ محليًا على هذا المتصفح.';
+        };
+        completeButton.addEventListener('click', () => {
+          try {
+            const state = JSON.parse(localStorage.getItem(storageKey) || '{}');
+            const pathState = state.logic || { lastLesson: '', completed: [] };
+            const completed = new Set(pathState.completed || []);
+            if (completed.has('logic-9')) completed.delete('logic-9');
+            else completed.add('logic-9');
+            pathState.completed = [...completed];
+            pathState.lastLesson = 'logic-9';
+            state.logic = pathState;
+            localStorage.setItem(storageKey, JSON.stringify(state));
+            updateCompleteLabel();
+          } catch (error) {
+            saveStatus.textContent = 'تعذر حفظ التقدم في هذا المتصفح.';
+          }
+        });
+        updateCompleteLabel();
+      })();
+    </script>
+    <script>
+      (() => {
+        const questions = [
+          { question: 'ما المقصود بالخوارزمية؟', options: ['لغة برمجة', 'مجموعة خطوات منظمة لحل مشكلة', 'جهاز إلكتروني', 'قاعدة بيانات'], answer: 1, explanation: 'الخوارزمية خطوات منظمة لحل مشكلة.' },
+          { question: 'ما الفرق الأساسي بين Algorithm وProgram؟', options: ['الاتنين نفس المعنى تمامًا', 'الخوارزمية هي خطوات الحل، والبرنامج هو تنفيذها بلغة برمجة', 'البرنامج لا يحتاج إلى خوارزمية', 'الخوارزمية لا تحتوي على خطوات'], answer: 1, explanation: 'الخوارزمية بتحدد الحل، والبرنامج بينفذه بلغة برمجة.' },
+          { question: 'أي خاصية تعني أن الخوارزمية لازم تنتهي بعد عدد محدود من الخطوات؟', options: ['Input', 'Output', 'Finiteness', 'Storage'], answer: 2, explanation: 'Finiteness معناها إن الخوارزمية تنتهي بعد عدد محدود من الخطوات.' },
+          { question: 'أي مما يلي مثال على Input في خوارزمية جمع رقمين؟', options: ['ناتج الجمع', 'الرقم الأول والثاني', 'شاشة البرنامج', 'اسم لغة البرمجة'], answer: 1, explanation: 'الرقمين هما البيانات اللي الخوارزمية بتستقبلها.' },
+          { question: 'هل يمكن استخدام أكثر من خوارزمية لحل نفس المشكلة؟', options: ['لا، مستحيل', 'نعم، ممكن توجد طرق مختلفة للحل', 'فقط في لغة Python', 'فقط في البرامج الكبيرة'], answer: 1, explanation: 'ممكن نستخدم طرق مختلفة لحل نفس المشكلة، وتختلف في الكفاءة.' }
+        ];
+        const quizRoot = document.getElementById('algorithmQuiz');
+        quizRoot.innerHTML = questions.map((item, index) => `
+          <fieldset class="preview-question" data-algorithm-question="${index}">
+            <legend>${index + 1}. ${item.question}</legend>
+            ${item.options.map((option, optionIndex) => `<label class="preview-option"><input type="radio" name="algorithm-q-${index}" value="${optionIndex}"> ${option}</label>`).join('')}
+            <button class="btn" type="button" data-algorithm-check="${index}">تحقق من الإجابة</button>
+            <p class="preview-feedback" data-algorithm-feedback aria-live="polite"></p>
+          </fieldset>
+        `).join('');
+        quizRoot.addEventListener('click', (event) => {
+          const check = event.target.closest('[data-algorithm-check]');
+          if (!check) return;
+          const index = Number(check.dataset.algorithmCheck);
+          const questionNode = check.closest('[data-algorithm-question]');
+          const selected = questionNode.querySelector('input:checked');
+          const feedback = questionNode.querySelector('[data-algorithm-feedback]');
+          if (!selected) {
+            feedback.textContent = 'اختر إجابة أولًا.';
+            return;
+          }
+          const item = questions[index];
+          const correct = Number(selected.value) === item.answer;
+          feedback.textContent = `${correct ? 'إجابة صحيحة.' : `إجابة غير صحيحة. الإجابة الصحيحة: ${item.options[item.answer]}.`} ${item.explanation}`;
+          questionNode.dataset.answered = 'true';
+          questionNode.dataset.correct = String(correct);
+          const answered = [...quizRoot.querySelectorAll('[data-algorithm-question][data-answered="true"]')];
+          const correctCount = answered.filter((node) => node.dataset.correct === 'true').length;
+          document.getElementById('algorithmQuizScore').textContent = `أجبت عن ${answered.length} من ${questions.length} أسئلة، منها ${correctCount} صحيحة.`;
+        });
+
+        const storageKey = 'efhama_programming_paths';
+        const completeButton = document.getElementById('algorithmComplete');
+        const saveStatus = document.getElementById('algorithmSaveStatus');
+        const readComplete = () => {
+          try {
+            const state = JSON.parse(localStorage.getItem(storageKey) || '{}');
+            return (state.logic?.completed || []).includes('logic-10');
+          } catch (error) {
+            return false;
+          }
+        };
+        const updateCompleteLabel = () => {
+          const complete = readComplete();
+          completeButton.textContent = complete ? 'إلغاء إكمال الدرس' : 'تحديد الدرس كمكتمل';
+          saveStatus.textContent = complete ? 'تم حفظ إكمال الدرس على هذا المتصفح.' : 'تقدمك محفوظ محليًا على هذا المتصفح.';
+        };
+        completeButton.addEventListener('click', () => {
+          try {
+            const state = JSON.parse(localStorage.getItem(storageKey) || '{}');
+            const pathState = state.logic || { lastLesson: '', completed: [] };
+            const completed = new Set(pathState.completed || []);
+            if (completed.has('logic-10')) completed.delete('logic-10');
+            else completed.add('logic-10');
+            pathState.completed = [...completed];
+            pathState.lastLesson = 'logic-10';
+            state.logic = pathState;
+            localStorage.setItem(storageKey, JSON.stringify(state));
+            updateCompleteLabel();
+          } catch (error) {
+            saveStatus.textContent = 'تعذر حفظ التقدم في هذا المتصفح.';
+          }
+        });
+        updateCompleteLabel();
+      })();
+    </script>
+    <script>
+      (() => {
+        const mountQuiz = ({ rootId, scoreId, questions, lessonId, completeId, statusId, questionAttribute, checkAttribute, feedbackAttribute }) => {
+          const root = document.getElementById(rootId);
+          const completeButton = document.getElementById(completeId);
+          const status = document.getElementById(statusId);
+          root.innerHTML = questions.map((item, index) => `
+            <fieldset class="preview-question" ${questionAttribute}="${index}">
+              <legend>${index + 1}. ${item.question}</legend>
+              ${item.options.map((option, optionIndex) => `<label class="preview-option"><input type="radio" name="${rootId}-q-${index}" value="${optionIndex}"> ${option}</label>`).join('')}
+              <button class="btn" type="button" ${checkAttribute}="${index}">تحقق من الإجابة</button>
+              <p class="preview-feedback" ${feedbackAttribute} aria-live="polite"></p>
+            </fieldset>
+          `).join('');
+
+          root.addEventListener('click', (event) => {
+            const check = event.target.closest(`[${checkAttribute}]`);
+            if (!check) return;
+            const index = Number(check.getAttribute(checkAttribute));
+            const questionNode = check.closest(`[${questionAttribute}]`);
+            const selected = questionNode.querySelector('input:checked');
+            const feedback = questionNode.querySelector(`[${feedbackAttribute}]`);
+            if (!selected) {
+              feedback.textContent = 'اختر إجابة أولًا.';
+              return;
+            }
+            const item = questions[index];
+            const correct = Number(selected.value) === item.answer;
+            feedback.textContent = `${correct ? 'إجابة صحيحة.' : `إجابة غير صحيحة. الإجابة الصحيحة: ${item.options[item.answer]}.`} ${item.explanation}`;
+            questionNode.dataset.answered = 'true';
+            questionNode.dataset.correct = String(correct);
+            const answered = [...root.querySelectorAll(`[${questionAttribute}][data-answered="true"]`)];
+            const correctCount = answered.filter((node) => node.dataset.correct === 'true').length;
+            document.getElementById(scoreId).textContent = `أجبت عن ${answered.length} من ${questions.length} أسئلة، منها ${correctCount} صحيحة.`;
+          });
+
+          const readComplete = () => {
+            try {
+              const state = JSON.parse(localStorage.getItem('efhama_programming_paths') || '{}');
+              return (state.logic?.completed || []).includes(lessonId);
+            } catch (error) {
+              return false;
+            }
+          };
+          const updateLabel = () => {
+            const complete = readComplete();
+            completeButton.textContent = complete ? 'إلغاء إكمال الدرس' : 'تحديد الدرس كمكتمل';
+            status.textContent = complete ? 'تم حفظ إكمال الدرس على هذا المتصفح.' : 'تقدمك محفوظ محليًا على هذا المتصفح.';
+          };
+          completeButton.addEventListener('click', () => {
+            try {
+              const state = JSON.parse(localStorage.getItem('efhama_programming_paths') || '{}');
+              const pathState = state.logic || { lastLesson: '', completed: [] };
+              const completed = new Set(pathState.completed || []);
+              if (completed.has(lessonId)) completed.delete(lessonId);
+              else completed.add(lessonId);
+              pathState.completed = [...completed];
+              pathState.lastLesson = lessonId;
+              state.logic = pathState;
+              localStorage.setItem('efhama_programming_paths', JSON.stringify(state));
+              updateLabel();
+            } catch (error) {
+              status.textContent = 'تعذر حفظ التقدم في هذا المتصفح.';
+            }
+          });
+          updateLabel();
+        };
+
+        mountQuiz({
+          rootId: 'representationQuiz', scoreId: 'representationQuizScore', lessonId: 'logic-11', completeId: 'representationComplete', statusId: 'representationSaveStatus',
+          questionAttribute: 'data-representation-question', checkAttribute: 'data-representation-check', feedbackAttribute: 'data-representation-feedback',
+          questions: [
+            { question: 'أي طريقة تستخدم رموزًا وأسهمًا لعرض خطوات الحل؟', options: ['Natural Language', 'Flowchart', 'Python', 'Glossary'], answer: 1, explanation: 'Flowchart يستخدم أشكالًا وأسهمًا لعرض التتابع والقرارات.' },
+            { question: 'أي تمثيل يشبه الكود لكنه غير مرتبط بقواعد لغة محددة؟', options: ['Pseudocode', 'Flow line', 'Output', 'Program'], answer: 0, explanation: 'Pseudocode يصف المنطق بصيغة قريبة من الكود دون أن يكون قابلًا للتنفيذ مباشرة.' },
+            { question: 'ما الرمز الذي يمثل اتخاذ قرار في Flowchart؟', options: ['المستطيل', 'البيضاوي', 'المُعين', 'السهم'], answer: 2, explanation: 'المُعين يمثل شرطًا تتفرع عنه مسارات مثل نعم ولا.' },
+            { question: 'أي طريقة تحول الخوارزمية إلى تعليمات قابلة للتنفيذ؟', options: ['Natural Language', 'Programming Language', 'Flowchart فقط', 'عنوان الدرس'], answer: 1, explanation: 'نكتب البرنامج بلغة برمجة ليُنفّذ على الكمبيوتر.' },
+            { question: 'هل يمكن تمثيل الخوارزمية نفسها بأكثر من طريقة؟', options: ['لا', 'نعم، مع الحفاظ على منطق الحل', 'فقط باستخدام Flowchart', 'فقط في Python'], answer: 1, explanation: 'تختلف طريقة العرض، لكن يمكن أن تظل خطوات الحل والمنطق واحدًا.' }
+          ]
+        });
+        mountQuiz({
+          rootId: 'propertiesQuiz', scoreId: 'propertiesQuizScore', lessonId: 'logic-12', completeId: 'propertiesComplete', statusId: 'propertiesSaveStatus',
+          questionAttribute: 'data-properties-question', checkAttribute: 'data-properties-check', feedbackAttribute: 'data-properties-feedback',
+          questions: [
+            { question: 'أي خاصية تعني أن خطوات الخوارزمية محددة ولا تحتمل الغموض؟', options: ['Output', 'Definiteness', 'Finiteness', 'Input'], answer: 1, explanation: 'Definiteness هي وضوح كل خطوة وتحديدها.' },
+            { question: 'خوارزمية مساحة مستطيل تستقبل الطول والعرض لكنها لا تعرض المساحة. أي جانب ينقصها؟', options: ['Input', 'Finiteness', 'Output', 'Effectiveness'], answer: 2, explanation: 'يجب أن تحدد الخوارزمية النتيجة المطلوبة وتنتجها.' },
+            { question: 'خوارزمية واضحة تستخدم الجمع بدل الضرب لحساب مساحة المستطيل. ما الوصف الأدق؟', options: ['واضحة وصحيحة', 'واضحة لكنها غير صحيحة', 'غير منتهية', 'ليس لها مدخلات'], answer: 1, explanation: 'الخطوات مفهومة لكن القانون المستخدم لا يحسب المساحة.' },
+            { question: 'أي خاصية تتأكد منها عندما تراجع أن الخوارزمية تنتهي؟', options: ['Finiteness', 'Input', 'Output', 'Correctness'], answer: 0, explanation: 'Finiteness تعني انتهاء الخوارزمية بعد عدد محدود من الخطوات.' },
+            { question: 'ما أفضل طريقة للتحقق من صحة خوارزمية مساحة مستطيل؟', options: ['التأكد من أن اسمها واضح فقط', 'تجربتها على أبعاد معروفة ومقارنة الناتج بالحساب اليدوي', 'حذف خطوة عرض النتيجة', 'زيادة عدد الخطوات دون اختبار'], answer: 1, explanation: 'تجربة مدخلات معروفة ومقارنة الناتج تساعد على التحقق من Correctness.' }
+          ]
+        });
+
+        document.querySelectorAll('[data-preview-copy]').forEach((button) => {
+          button.addEventListener('click', async () => {
+            const text = button.dataset.previewCopy || '';
+            try {
+              await navigator.clipboard.writeText(text);
+              button.textContent = 'تم النسخ';
+            } catch (error) {
+              const textarea = document.createElement('textarea');
+              textarea.value = text;
+              textarea.style.position = 'fixed';
+              textarea.style.opacity = '0';
+              document.body.append(textarea);
+              textarea.select();
+              const copied = document.execCommand('copy');
+              textarea.remove();
+              button.textContent = copied ? 'تم النسخ' : 'تعذر النسخ';
+            }
+          });
+        });
+      })();
+    </script>
+    <script>
+      (() => {
+        const questions = [
+          { question: 'إذا كانت X = 5 ثم نفذنا X = X + 3، ما قيمة X؟', options: ['5', '3', '8', '15'], answer: 2, explanation: 'أضفنا 3 إلى القيمة القديمة للمتغير X، فأصبحت 8.' },
+          { question: 'إذا A = 4 وB = 3، فما قيمة C = A + B * 2؟', options: ['14', '10', '11', '20'], answer: 1, explanation: 'الضرب يسبق الجمع: 4 + (3 × 2) = 10.' },
+          { question: 'إذا كان شرط IF يساوي False، ماذا يحدث؟', options: ['يتوقف البرنامج دائمًا', 'ينفذ فرع IF دائمًا', 'يتخطى IF وينفذ ELSE إن وُجد', 'ينفذ الفرعين'], answer: 2, explanation: 'ينفذ البرنامج المسار المطابق لنتيجة الشرط.' },
+          { question: 'حلقة تبدأ Counter من 1 وتستمر طالما Counter <= 3، ثم تزيده واحدًا. كم مرة تطبع؟', options: ['مرتين', '3 مرات', '4 مرات', 'مرة واحدة'], answer: 1, explanation: 'تطبع عند 1 و2 و3، ثم يصبح الشرط False.' },
+          { question: 'ما فائدة Trace Table؟', options: ['تصميم الواجهة', 'تخزين الملفات', 'متابعة قيم المتغيرات أثناء التنفيذ', 'تحويل Python إلى HTML'], answer: 2, explanation: 'يسجل جدول التتبّع حالة المتغيرات بعد كل خطوة.' }
+        ];
+        const root = document.getElementById('tracingQuiz');
+        root.innerHTML = questions.map((item, index) => `
+          <fieldset class="preview-question" data-tracing-question="${index}">
+            <legend>${index + 1}. ${item.question}</legend>
+            ${item.options.map((option, optionIndex) => `<label class="preview-option"><input type="radio" name="tracing-q-${index}" value="${optionIndex}"> ${option}</label>`).join('')}
+            <button class="btn" type="button" data-tracing-check="${index}">تحقق من الإجابة</button>
+            <p class="preview-feedback" data-tracing-feedback aria-live="polite"></p>
+          </fieldset>
+        `).join('');
+        root.addEventListener('click', (event) => {
+          const button = event.target.closest('[data-tracing-check]');
+          if (!button) return;
+          const index = Number(button.dataset.tracingCheck);
+          const questionNode = button.closest('[data-tracing-question]');
+          const selected = questionNode.querySelector('input:checked');
+          const feedback = questionNode.querySelector('[data-tracing-feedback]');
+          if (!selected) {
+            feedback.textContent = 'اختر إجابة أولًا.';
+            return;
+          }
+          const item = questions[index];
+          const correct = Number(selected.value) === item.answer;
+          feedback.textContent = `${correct ? 'إجابة صحيحة.' : `إجابة غير صحيحة. الإجابة الصحيحة: ${item.options[item.answer]}.`} ${item.explanation}`;
+          questionNode.dataset.answered = 'true';
+          questionNode.dataset.correct = String(correct);
+          const answered = [...root.querySelectorAll('[data-tracing-question][data-answered="true"]')];
+          const correctCount = answered.filter((node) => node.dataset.correct === 'true').length;
+          document.getElementById('tracingQuizScore').textContent = `أجبت عن ${answered.length} من ${questions.length} أسئلة، منها ${correctCount} صحيحة.`;
+        });
+
+        const completeButton = document.getElementById('tracingComplete');
+        const saveStatus = document.getElementById('tracingSaveStatus');
+        const readComplete = () => {
+          try {
+            const state = JSON.parse(localStorage.getItem('efhama_programming_paths') || '{}');
+            return (state.logic?.completed || []).includes('logic-13');
+          } catch (error) {
+            return false;
+          }
+        };
+        const updateComplete = () => {
+          const complete = readComplete();
+          completeButton.textContent = complete ? 'إلغاء إكمال الدرس' : 'تحديد الدرس كمكتمل';
+          saveStatus.textContent = complete ? 'تم حفظ إكمال الدرس على هذا المتصفح.' : 'تقدمك محفوظ محليًا على هذا المتصفح.';
+        };
+        completeButton.addEventListener('click', () => {
+          try {
+            const state = JSON.parse(localStorage.getItem('efhama_programming_paths') || '{}');
+            const pathState = state.logic || { lastLesson: '', completed: [] };
+            const completed = new Set(pathState.completed || []);
+            if (completed.has('logic-13')) completed.delete('logic-13');
+            else completed.add('logic-13');
+            pathState.completed = [...completed];
+            pathState.lastLesson = 'logic-13';
+            state.logic = pathState;
+            localStorage.setItem('efhama_programming_paths', JSON.stringify(state));
+            updateComplete();
+          } catch (error) {
+            saveStatus.textContent = 'تعذر حفظ التقدم في هذا المتصفح.';
+          }
+        });
+        updateComplete();
+      })();
+    </script>
+    <script>
+      (() => {
+        const simulator = document.querySelector('[data-preview-trace-simulator]');
+        if (!simulator) return;
+        const variables = ['A', 'B', 'C'];
+        const steps = [
+          { label: 'البداية', values: { A: '-', B: '-', C: '-' }, description: 'لم تُسند قيم للمتغيرات بعد.' },
+          { label: 'SET A = 5', values: { A: '5', B: '-', C: '-' }, description: 'أسندنا 5 إلى A؛ تغيّرت A من - إلى 5.' },
+          { label: 'SET B = 3', values: { A: '5', B: '3', C: '-' }, description: 'أسندنا 3 إلى B؛ تغيّرت B من - إلى 3.' },
+          { label: 'SET C = A + B', values: { A: '5', B: '3', C: '8' }, description: 'جمعنا A وB؛ تغيّرت C من - إلى 8.' },
+          { label: 'OUTPUT C', values: { A: '5', B: '3', C: '8' }, description: 'عرضنا قيمة C وهي 8. لم تتغير قيم المتغيرات في خطوة الإخراج.' }
+        ];
+        const valuesNode = simulator.querySelector('[data-preview-trace-values]');
+        const statusNode = simulator.querySelector('[data-preview-trace-status]');
+        const descriptionNode = simulator.querySelector('[data-preview-trace-description]');
+        let currentIndex = 0;
+        const renderStep = () => {
+          const current = steps[currentIndex];
+          const previous = currentIndex > 0 ? steps[currentIndex - 1] : { values: {} };
+          statusNode.textContent = `الخطوة ${currentIndex + 1} من ${steps.length}: ${current.label}`;
+          descriptionNode.textContent = current.description;
+          valuesNode.innerHTML = variables.map((variable) => {
+            const oldValue = previous.values[variable] || '-';
+            const newValue = current.values[variable] || '-';
+            const changed = oldValue !== newValue;
+            return `<tr class="${changed ? 'preview-trace-changed' : ''}"><th>${variable}</th><td>${changed ? `<span class="preview-trace-old">${oldValue}</span>` : oldValue}</td><td>${changed ? `<strong class="preview-trace-new">${newValue}</strong>` : newValue}</td></tr>`;
+          }).join('');
+          simulator.querySelector('[data-preview-trace="previous"]').disabled = currentIndex === 0;
+          simulator.querySelector('[data-preview-trace="next"]').disabled = currentIndex === steps.length - 1;
+        };
+        simulator.addEventListener('click', (event) => {
+          const button = event.target.closest('[data-preview-trace]');
+          if (!button) return;
+          if (button.dataset.previewTrace === 'reset') currentIndex = 0;
+          else if (button.dataset.previewTrace === 'previous') currentIndex -= 1;
+          else currentIndex += 1;
+          currentIndex = Math.max(0, Math.min(currentIndex, steps.length - 1));
+          renderStep();
+        });
+        renderStep();
+      })();
+    </script>
+    <section id="flowchart-symbols-preview" class="section">
+      <div class="container">
+        <article class="preview-lesson">
+          <p class="preview-kicker">الوحدة الرابعة: مخططات الانسياب · الدرس الثاني</p>
+          <h2>رموز مخططات الانسياب ووظيفة كل رمز</h2>
+          <p>معاينة مستقلة تعمل دون سيرفر: الرموز التالية رسومات SVG هندسية فعلية، اضغط على أي بطاقة لعرض الوظيفة والمثال.</p>
+          <style>
+            .standalone-symbols{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:12px;margin:18px 0}.standalone-symbol{border:1px solid var(--border);border-radius:14px;background:#fff;padding:10px;text-align:right;cursor:pointer}.standalone-symbol.active{border-color:var(--primary);box-shadow:0 8px 20px rgba(60,74,232,.16)}.standalone-symbol svg{width:100%;height:90px;color:var(--text)}.standalone-symbol svg text{fill:currentColor;font:700 11px Arial}.standalone-symbol span,.standalone-symbol em{display:block;color:var(--muted);line-height:1.6;font-size:.85rem}.standalone-symbol em{display:none;color:var(--text);font-style:normal}.standalone-symbol.active em{display:block}.standalone-flow{overflow:auto;background:#fff;border:1px solid var(--border);border-radius:14px;margin:18px 0}.standalone-flow svg{display:block;min-width:700px;width:100%;max-width:920px;margin:auto}.standalone-flow text{fill:var(--text);font:700 15px Arial;text-anchor:middle;dominant-baseline:middle}.standalone-flow .line{fill:none;stroke:var(--primary);stroke-width:3}.standalone-flow .node{fill:#fff;stroke:var(--primary);stroke-width:3}.standalone-quiz{display:grid;gap:12px}.standalone-quiz label{display:block;padding:10px;border:1px solid var(--border);border-radius:10px;margin-top:6px}.standalone-quiz fieldset{border:1px solid var(--border);border-radius:12px;background:#f7f8fc}.standalone-quiz button{margin:8px 0;padding:9px 14px;border:0;border-radius:9px;background:var(--primary);color:#fff;font-weight:700;cursor:pointer}
+          </style>
+          <h3>الرموز الهندسية الثمانية</h3>
+          <div class="standalone-symbols" id="standaloneSymbols">
+            <button class="standalone-symbol active"><svg viewBox="0 0 180 100"><ellipse class="node" cx="90" cy="50" rx="68" ry="28"/><text x="90" y="54" text-anchor="middle">Start / End</text></svg><strong>Terminator</strong><span>بداية ونهاية الخوارزمية.</span><em>مثال: Start في البداية وEnd في النهاية.</em></button>
+            <button class="standalone-symbol"><svg viewBox="0 0 180 100"><rect class="node" x="25" y="22" width="130" height="56" rx="4"/><text x="90" y="54">Process</text></svg><strong>Process</strong><span>تنفيذ عملية أو تعليمة.</span><em>مثال: Sum = A + B.</em></button>
+            <button class="standalone-symbol"><svg viewBox="0 0 180 100"><polygon class="node" points="42,22 160,22 138,78 20,78"/><text x="90" y="54">Input / Output</text></svg><strong>Input / Output</strong><span>إدخال البيانات أو عرض النتائج.</span><em>مثال: Input Grade أو Output Result.</em></button>
+            <button class="standalone-symbol"><svg viewBox="0 0 180 100"><polygon class="node" points="90,12 158,50 90,88 22,50"/><text x="90" y="54">Condition?</text></svg><strong>Decision</strong><span>اختبار شرط وتحديد مسار.</span><em>مثال: Grade &gt;= 50? بمساري Yes وNo.</em></button>
+            <button class="standalone-symbol"><svg viewBox="0 0 180 100"><defs><marker id="standaloneArrow" markerWidth="8" markerHeight="8" refX="7" refY="3" orient="auto"><path d="M0,0 L0,6 L8,3z" fill="#3C4AE8"/></marker></defs><path d="M20 50 H155" stroke="#3C4AE8" stroke-width="4" marker-end="url(#standaloneArrow)"/></svg><strong>Flow Line</strong><span>اتجاه التنفيذ.</span><em>مثال: سهم ينقل التنفيذ من Process إلى Output.</em></button>
+            <button class="standalone-symbol"><svg viewBox="0 0 180 100"><circle class="node" cx="90" cy="50" r="30"/><text x="90" y="54">A</text></svg><strong>Connector</strong><span>ربط أجزاء المخطط.</span><em>مثال: دائرة A للانتقال إلى جزء آخر دون تقاطع خطوط.</em></button>
+            <button class="standalone-symbol"><svg viewBox="0 0 180 100"><rect class="node" x="25" y="22" width="130" height="56"/><path d="M38 22v56M142 22v56" stroke="#3C4AE8" stroke-width="3"/><text x="90" y="54">Function</text></svg><strong>Predefined Process</strong><span>عملية فرعية أو دالة.</span><em>مثال: Calculate Average.</em></button>
+            <button class="standalone-symbol"><svg viewBox="0 0 180 100"><path class="node" d="M25 22h130v43q-15 17-30 0q-15 17-30 0q-15 17-30 0q-15 17-40 0z"/><text x="90" y="48">Report</text></svg><strong>Document</strong><span>مستند أو تقرير.</span><em>مثال: تقرير درجات الطلاب أو فاتورة.</em></button>
+          </div>
+          <h3>مثال بصري: حساب متوسط درجات طالب</h3>
+          <div class="standalone-flow" aria-label="مخطط انسياب لحساب متوسط درجات طالب">
+            <svg viewBox="0 0 920 760">
+              <defs><marker id="previewFlowArrow" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto"><path d="M0,0L0,6L9,3z" fill="#3C4AE8"/></marker></defs>
+              <g class="line" marker-end="url(#previewFlowArrow)"><path d="M460 76V120M460 190V238M460 314V370M460 446V500H220V548M460 446V500H700V548M220 618V676H460V710M700 618V676H460V710"/></g>
+              <text x="275" y="492">Yes / نعم</text><text x="630" y="492">No / لا</text>
+              <ellipse class="node" cx="460" cy="48" rx="96" ry="28"/><text x="460" y="48">Start / بداية</text>
+              <polygon class="node" points="365,120 555,120 535,190 345,190"/><text x="450" y="155">إدخال 3 درجات</text>
+              <rect class="node" x="345" y="238" width="210" height="76" rx="5"/><text x="450" y="276">حساب المتوسط</text>
+              <polygon class="node" points="460,370 565,408 460,446 355,408"/><text x="460" y="408">المتوسط &gt;= 50؟</text>
+              <polygon class="node" points="125,548 315,548 295,618 105,618"/><text x="210" y="583">ناجح / Pass</text>
+              <polygon class="node" points="605,548 795,548 775,618 585,618"/><text x="690" y="583">راسب / Fail</text>
+              <ellipse class="node" cx="460" cy="710" rx="96" ry="28"/><text x="460" y="710">End / نهاية</text>
+            </svg>
+          </div>
+          <h3>اختبر فهمك</h3>
+          <div class="standalone-quiz" id="standaloneQuiz">
+            <fieldset data-answer="2"><legend>1. أنهي رمز للبداية والنهاية؟</legend><label><input type="radio" name="p1" value="1"> Rectangle</label><label><input type="radio" name="p1" value="2"> Terminator</label><button type="button">تحقق</button><p></p></fieldset>
+            <fieldset data-answer="1"><legend>2. رمز حساب مجموع رقمين؟</legend><label><input type="radio" name="p2" value="1"> Process</label><label><input type="radio" name="p2" value="2"> Decision</label><button type="button">تحقق</button><p></p></fieldset>
+            <fieldset data-answer="2"><legend>3. رمز استقبال رقم من المستخدم؟</legend><label><input type="radio" name="p3" value="1"> Process</label><label><input type="radio" name="p3" value="2"> Input / Output</label><button type="button">تحقق</button><p></p></fieldset>
+            <fieldset data-answer="2"><legend>4. رمز اختبار الرقم الأكبر من 10؟</legend><label><input type="radio" name="p4" value="1"> Rectangle</label><label><input type="radio" name="p4" value="2"> Diamond</label><button type="button">تحقق</button><p></p></fieldset>
+            <fieldset data-answer="2"><legend>5. وظيفة Flow Line؟</legend><label><input type="radio" name="p5" value="1"> حساب الأرقام</label><label><input type="radio" name="p5" value="2"> تحديد اتجاه التنفيذ</label><button type="button">تحقق</button><p></p></fieldset>
+          </div>
+          <h3>التحدي العملي</h3><p>صمم مخطط انسياب لخوارزمية تسجيل دخول: ابدأ، اطلب اسم المستخدم وكلمة المرور، اختبر صحة البيانات، اعرض رسالة النجاح أو الخطأ، ثم انتهِ. استخدم Decision لمساري True وFalse، وFlow Line لتوضيح الاتجاه.</p>
+        </article>
+      </div>
+    </section>
+    <script>
+      document.querySelectorAll('#standaloneSymbols .standalone-symbol').forEach((card) => card.addEventListener('click', () => {
+        document.querySelectorAll('#standaloneSymbols .standalone-symbol').forEach((item) => item.classList.toggle('active', item === card));
+      }));
+      document.querySelectorAll('#standaloneQuiz fieldset').forEach((fieldset) => fieldset.querySelector('button').addEventListener('click', () => {
+        const selected = fieldset.querySelector('input:checked'); const result = fieldset.querySelector('p');
+        result.textContent = selected && selected.value === fieldset.dataset.answer ? 'إجابة صحيحة. الرمز مناسب لوظيفته في مخطط الانسياب.' : 'إجابة غير صحيحة. راجع وظيفة الرمز ثم حاول مرة أخرى.';
+      }));
+    </script>
+  </body>
+</html>

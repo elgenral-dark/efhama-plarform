@@ -1,0 +1,25 @@
+# Render Blueprint: الباك اند فقط (الواجهة على Vercel)
+services:
+  - type: web
+    name: efhama-backend
+    runtime: node
+    rootDir: backend
+    plan: free
+    buildCommand: npm install
+    startCommand: npm start
+    healthCheckPath: /api/health
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: TRUST_PROXY
+        value: "true"
+      - key: ALLOW_REGISTRATION
+        value: "true"
+      - key: JWT_SECRET
+        generateValue: true
+      - key: DATABASE_URL
+        sync: false   # ضعي رابط Neon هنا من لوحة Render (لا يُكتب في الكود)
+      - key: ADMIN_EMAIL
+        sync: false
+      - key: ADMIN_PASSWORD
+        sync: false

@@ -1,0 +1,82 @@
+{
+  "slug": "html",
+  "title": "HTML",
+  "titleAr": "أساسيات HTML",
+  "titleEn": "HTML",
+  "icon": "HTML",
+  "accentColor": "#E34F26",
+  "tag": "HTML",
+  "description": "تعلم بناء هيكل الصفحات الإلكترونية، العناوين، الروابط، القوائم، الصور، والنماذج.",
+  "difficulty": "مبتدئ",
+  "levelCode": "Beginner",
+  "contentStatus": "outline",
+  "levels": [
+    {
+      "id": "html-unit-01",
+      "name": "أساسيات الهيكل",
+      "description": "تعلّم كيفية بناء الصفحة من خلال العناصر الأساسية.",
+      "lessons": [
+        { "id": "html-1", "title": "أساسيات HTML", "summary": "تتعرف على هيكل الملف HTML، والوسوم الأساسية، وكيفية تنظيم الصفحة.", "duration": "10 دقيقة",
+        "content": [
+          {"type":"diagram","visualType":"diagram","title":"توضيح بصري: أساسيات HTML","description":"تتعرف على هيكل الملف HTML، والوسوم الأساسية، وكيفية تنظيم الصفحة.","image":"assets/images/lessons/html/html-1.svg","alt":"رسم يوضح أساسيات HTML: Document، html، head، body"},
+          {
+            "type": "html-css-playground",
+            "id": "html-structure-practice",
+            "title": "جرّب بناء محتوى الصفحة",
+            "description": "أضف عناصر HTML وشاهد كيف تتحول إلى محتوى مرئي.",
+            "instructions": "داخل البطاقة، أضف عنوانًا باستخدام <h1> وفقرة باستخدام <p> تصف ما يتعلمه زائر الصفحة.",
+            "expectedOutput": "تظهر بطاقة تحتوي عنوانًا وفقرة أسفلهما.",
+            "html": "<main class=\"profile-card\">\n  <!-- أضف عنوانًا وفقرة هنا -->\n</main>",
+            "css": "body {\n  font-family: Arial, sans-serif;\n  background: #f3f5ff;\n}\n.profile-card {\n  max-width: 420px;\n  margin: 32px auto;\n  padding: 24px;\n  background: white;\n  border-radius: 16px;\n}",
+            "checks": [
+              {"editor":"html","includes":"<h1","message":"أضف عنوانًا باستخدام وسم h1"},
+              {"editor":"html","includes":"<p","message":"أضف فقرة باستخدام وسم p"}
+            ],
+            "solution": {
+              "html": "<main class=\"profile-card\">\n  <h1>أتعلم HTML</h1>\n  <p>أبني محتوى صفحات الويب باستخدام العناصر.</p>\n</main>",
+              "css": "body {\n  font-family: Arial, sans-serif;\n  background: #f3f5ff;\n}\n.profile-card {\n  max-width: 420px;\n  margin: 32px auto;\n  padding: 24px;\n  background: white;\n  border-radius: 16px;\n}"
+            }
+          }
+        ] },
+        { "id": "html-2", "title": "العناصر والتسميات", "summary": "تتعلم كتابة العناوين، الفقرات، والقوائم والروابط داخل الصفحة.", "duration": "12 دقيقة",
+        "content": [
+          {"type":"diagram","visualType":"diagram","title":"توضيح بصري: العناصر والتسميات","description":"تتعلم كتابة العناوين، الفقرات، والقوائم والروابط داخل الصفحة.","image":"assets/images/lessons/html/html-2.svg","alt":"رسم يوضح العناصر والتسميات: Page Structure، Heading، Paragraph، Link"}
+        ] }
+      ]
+    },
+    {
+      "id": "html-unit-02",
+      "name": "الوسائط والمحتوى",
+      "description": "أضف الصور، الجداول، والوسائط لتجعل الصفحة أكثر فائدة وجمالاً.",
+      "lessons": [
+        { "id": "html-3", "title": "القوائم والجداول", "summary": "تستخدم الجداول والقوائم لتنسيق المحتوى بشكل منظم وواضح.", "duration": "14 دقيقة",
+        "content": [
+          {"type":"diagram","visualType":"infographic","title":"توضيح بصري: القوائم والجداول","description":"تستخدم الجداول والقوائم لتنسيق المحتوى بشكل منظم وواضح.","image":"assets/images/lessons/html/html-3.svg","alt":"رسم يوضح القوائم والجداول: ul List، ol List، Table Rows، Choose Structure"}
+        ] },
+        { "id": "html-4", "title": "الصور والوسائط", "summary": "تعرف كيف تُدرج الصور، الفيديوهات، والأصول البصرية في الصفحات.", "duration": "13 دقيقة",
+        "content": [
+          {"type":"diagram","visualType":"step-by-step","title":"توضيح بصري: الصور والوسائط","description":"تعرف كيف تُدرج الصور، الفيديوهات، والأصول البصرية في الصفحات.","image":"assets/images/lessons/html/html-4.svg","alt":"رسم يوضح الصور والوسائط: Choose Asset، src Path، alt Text، Render Media"}
+        ] }
+      ]
+    },
+    {
+      "id": "html-unit-03",
+      "name": "النماذج والمشاريع",
+      "description": "تعلّم إنشاء النماذج البسيطة وربطها بمشاريعك الفعلية.",
+      "lessons": [
+        { "id": "html-5", "title": "النماذج وتفاعل المستخدم", "summary": "تتعرف على حقول الإدخال، زر الإرسال، والنماذج الإلكترونية.", "duration": "15 دقيقة",
+        "content": [
+          {"type":"diagram","visualType":"flowchart","title":"توضيح بصري: النماذج وتفاعل المستخدم","description":"تتعرف على حقول الإدخال، زر الإرسال، والنماذج الإلكترونية.","image":"assets/images/lessons/html/html-5.svg","alt":"رسم يوضح النماذج وتفاعل المستخدم: Enter Data، Type and Range Valid?، Submit Form، Retry Input"}
+        ] },
+        { "id": "html-6", "title": "الأكواد الجاهزة", "summary": "تراجع أساليب تنظيم الصفحة وكتابة شفراتHTML نظيفة وسهلة القراءة.", "duration": "12 دقيقة",
+        "content": [
+          {"type":"diagram","visualType":"code-visualization","title":"توضيح بصري: الأكواد الجاهزة","description":"تراجع أساليب تنظيم الصفحة وكتابة شفراتHTML نظيفة وسهلة القراءة.","image":"assets/images/lessons/html/html-6.svg","alt":"رسم يوضح الأكواد الجاهزة: Indent Structure، Semantic Tags، Readable Code، Rendered Page"}
+        ] },
+        { "id": "html-7", "title": "مشروع HTML بسيط", "summary": "تطبق كل ما تعلمته على تصميم صفحة ويب بسيطة بالكامل.", "duration": "20 دقيقة",
+        "content": [
+          {"type":"diagram","visualType":"step-by-step","title":"توضيح بصري: مشروع HTML بسيط","description":"تطبق كل ما تعلمته على تصميم صفحة ويب بسيطة بالكامل.","image":"assets/images/lessons/html/html-7.svg","alt":"رسم يوضح مشروع HTML بسيط: Create File، Add Content، Link Assets، Preview Page"}
+        ] }
+      ]
+    }
+  ]
+}
