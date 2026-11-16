@@ -1,0 +1,42 @@
+.admin-dashboard-content { max-width: 1440px; }
+.admin-top-title { display: flex; flex-direction: column; min-width: 0; }
+.admin-top-title .sub { color: var(--muted); font-size: 12px; }
+.header-actions { display: flex; align-items: center; gap: 8px; }
+.admin-nav-icon { width: 20px; text-align: center; font-size: 18px; }
+.admin-quick-actions { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 16px; }
+.admin-notice.is-error { color: var(--danger); }
+.admin-dashboard-content [data-dashboard-panel] > .panel { margin-bottom: 18px; }
+.admin-dashboard-content .admin-extra,
+.admin-dashboard-content .announcement-management { margin-bottom: 0; }
+.admin-dashboard-content .admin-toolbar { margin-top: 8px; }
+.admin-dashboard-content .announcement-form { border-color: var(--border); }
+.announcement-form > label { color: var(--text); }
+.announcement-roles legend { padding-inline: 5px; }
+.announcement-roles[hidden] { display: none; }
+.announcement-message,
+.announcement-roles,
+.announcement-submit-row { grid-column: 1 / -1; }
+.request-details,
+.managed-user,
+.device-attempt,
+.announcement-entry { overflow-wrap: anywhere; }
+.admin-dashboard-content .request-list { margin-top: 8px; }
+.admin-stat-icon { font-size: 22px; font-weight: 700; }
+.admin-dashboard-content .grid-2 { margin-top: 18px; }
+.admin-dashboard-content .panel-pad > h2 { margin-bottom: 6px; }
+
+@media (max-width: 900px) {
+  .side { position: fixed; inset-block: 0; inset-inline-start: 0; z-index: 60; width: 280px; height: 100dvh; transform: translateX(110%); transition: transform .2s ease; }
+  [dir="ltr"] .side { transform: translateX(-110%); }
+  .side.open { transform: none; }
+  .admin-dashboard-content { padding: 18px; }
+  .top { padding: 10px 16px; }
+  .admin-top-title { margin-inline-start: 2px; }
+}
+
+@media (max-width: 560px) {
+  .admin-dashboard-content { padding: 14px; }
+  .admin-dashboard-content .page-head { align-items: center; }
+  .admin-quick-actions { display: grid; }
+  .admin-quick-actions .btn { width: 100%; }
+}

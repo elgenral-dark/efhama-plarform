@@ -1,81 +1,87 @@
-# E-learning Platform
+# افهمها — الباك اند والفرونت اند (مقسّمين)
 
-## Architecture
+```
+efhama/
+  backend/    Express + Postgres (Neon) — API، المحتوى المدفوع، الاختبارات
+  frontend/   صفحات HTML/CSS/JS + حارس الصفحات + vercel.json + middleware.js
+  docs/       تقارير قديمة وملف README الأصلي
+  render.yaml نشر الباك اند على Render
+```
 
-- `backend/` is a Node.js 22+ Express API. It uses PostgreSQL (`pg`) in production and SQLite (`node:sqlite`) for local development and tests.
-- `frontend/` is a static HTML/CSS/JavaScript site, served locally by Express and deployed as static assets on Vercel. It is not a Next.js application.
-- Python exercises run in browser-side Pyodide and isolated Node workers; there is no Python backend service.
-- Course data is served through authenticated backend routes. The build excludes the duplicate `frontend/public/data/` files so static hosting cannot bypass backend access checks.
-
-## Local development
-
-Use two PowerShell terminals. Node.js 22.13 or newer is required.
-
-Backend:
+## التشغيل المحلي
+افتحي طرفيتين:
 
 ```powershell
+# الباك اند (منفذ 4000)
 cd backend
 npm install
 npm start
-```
 
-Frontend:
-
-```powershell
+# الواجهة (منفذ 8000 — هذا ما تفتحينه في المتصفح)
 cd frontend
 npm install
-$env:BACKEND_URL = "http://localhost:4000"
+$env:BACKEND_URL="http://localhost:4000"
 npm start
 ```
 
-Open `http://localhost:8000`. Copy the `.env.example` templates when using local environment files; the npm start scripts load `.env`. Never commit credentials.
+بدون `DATABASE_URL` يستخدم الباك اند SQLite محليًا (`backend/data/efhama.db`).
 
-Without `DATABASE_URL`, the backend uses `backend/data/efhama.db`. SQLite uses Node's synchronous driver and is for development only; production should use PostgreSQL.
-
-## Tests
-
+## الاختبارات
 ```powershell
-cd backend
-npm test
+# الباك اند على SQLite (الافتراضي)
+cd backend ; npm test
 
-cd ..\frontend
-npm test
+# الباك اند على Postgres محلي (انظري backend/scripts-test-postgres.md)
+cd backend ; docker compose up -d ; npm test   # مع TEST_DATABASE_URL و PGSSL=false
+
+# الواجهة
+cd frontend ; npm test
+
+# اختبار تحميل محلي معزول بقاعدة SQLite داخل الذاكرة (10 إلى 500 مستخدم افتراضي)
+cd backend ; npm run load-test
 ```
+اختبار التحميل ينشئ خدمة وقاعدة بيانات مؤقتتين داخل العملية نفسها، يستخدم بيانات المحتوى الحقيقية المزروعة، ولا يتصل بقاعدة بيانات أو خادم خارجي.
+نتائجه تقيس بيئة التطوير المحلية فقط ولا تثبت سعة الإنتاج.
+`npm test` في الباك اند يتوقع فشل اختبارين (11 و21) إذا كانت نسخة Node لا تدعم `setAuthorizer` في `node:sqlite`. تحققي بالأمر:
+`node -e "console.log(typeof require('node:sqlite').DatabaseSync.prototype.setAuthorizer)"` — يجب أن تكون النتيجة `function`.
 
-Backend tests use an in-memory SQLite database unless `TEST_DATABASE_URL` is set. **Only use a disposable test database** when setting that variable: the PostgreSQL test setup drops and recreates its `public` schema.
+## الإشعارات
+- تستخدم الإشعارات قاعدة البيانات الحالية (SQLite محليًا أو PostgreSQL في النشر)، وتُنشأ جداولها وفهارسها عند تشغيل الباك اند؛ لا يلزم تثبيت خدمة إضافية أو تنفيذ ترحيل يدوي.
+- جميع المسارات محمية بكوكي الجلسة الحالية وتعمل تحت `/api/notifications`:
+  - `GET /` مع `limit` و`offset` ومرشحي `category` و`read` والبحث `q`.
+  - `GET /unread-count` و`GET /:id`.
+  - `PATCH /:id/read` و`PATCH /read-all`.
+  - `DELETE /:id` و`DELETE /` لحذف إشعارات المستخدم فقط.
+  - للمسؤول فقط: `POST /` لإرسال إعلان إلى مستخدمين أو أدوار أو جميع الحسابات النشطة، و`GET /announcements` لسجل الإعلانات وإحصاءات التسليم والقراءة. يقبل POST ترويسة `Idempotency-Key` لمنع تكرار الإرسال عند إعادة المحاولة.
+- تُنشأ الإشعارات ضمن معاملات أحداث التسجيل وطلبات الاشتراك ومراجعتها (موافقة/رفض) وتسليم نتيجة الاختبار. لا توجد حاليًا كيانات تسجيل بالدورات أو معلمون أو مزود دفع في هذا المشروع؛ لم تُنشأ إشعارات وهمية لهذه الأحداث.
+- يحدّث الجرس العدد كل 30 ثانية أثناء ظهور الصفحة، ويتوقف عند إخفائها؛ يمكن ضبط `window.EFHAMA_NOTIFICATION_POLL_MS` قبل تحميل `js/navigation.js` (الحد المسموح 10–300 ثانية). لا يوجد وسيط WebSocket/SSE مشترك ضمن البنية الحالية، لذا يُستخدم الاستطلاع.
+- صفحة المستخدم هي `/notifications.html`، وإدارة الإعلانات مدمجة في لوحة مراجعة الاشتراكات.
 
-## Notifications
+## لوحة الإدارة الكاملة
+- تفتح لوحة الإدارة من `/admin-dashboard.html`، وتنتقل أقسامها داخل الصفحة عبر مسارات `#/...` دون إعادة تحميل.
+- تعديلات نموذج محتوى لوحة الـ ZIP تُحفظ في جدول قاعدة المنصة (`admin_dashboard/main`) مع رقم إصدار يمنع الكتابة فوق تعديل أحدث؛ لا تُحوَّل تلقائيًا إلى منهج الموقع الحالي لأن شكل بيانات المنهجين مختلف.
+- الدخول والحفظ محميان بجلسة المسؤول الحالية. ملفات قاعدة البيانات والنسخ الاحتياطية الموجودة في حزمة لوحة الـ ZIP لا تُنشر كملفات عامة.
+- بعض أقسام اللوحة الأصلية (مثل إدارة المستخدمين المستقلة، سجلاتها، وخدمات AI/الطلاب) تعتمد على API خاص بالحزمة وغير موجود في باك اند المنصة؛ واجهتها موجودة، لكن عملياتها لا تُفعّل تلقائيًا أو تُحاكى.
 
-The backend creates the `notifications` and `notification_broadcasts` tables at startup. Notifications are scoped to their owner and have a unique per-user event key to prevent duplicate event delivery. Authenticated users can use:
+## النشر
+### 1) Neon (قاعدة البيانات)
+أنشئي مشروعًا في Neon وانسخي رابط الاتصال (`postgres://...?sslmode=require`).
 
-- `GET /api/notifications?limit=20&offset=0&type=subscription&unread=true` for a paginated, newest-first list.
-- `GET /api/notifications/unread-count` for the badge count.
-- `PATCH /api/notifications/:id/read` and `PATCH /api/notifications/read-all` to mark notifications read.
-- `DELETE /api/notifications/:id` and `DELETE /api/notifications` to delete one or all of their notifications.
+### 2) Render (الباك اند)
+- New → Blueprint → اختاري هذا المستودع (يقرأ `render.yaml`).
+- في الإعدادات ضعي: `DATABASE_URL` (رابط Neon)، `ADMIN_EMAIL`، `ADMIN_PASSWORD`.
+- بعد النشر انسخي عنوان الخدمة (مثل `https://efhama-backend.onrender.com`).
+- الخطة المجانية تنام بعد فترة، فأول طلب قد يتأخر 30–50 ثانية.
 
-Subscription request receipts, administrator approvals/rejections and account-status changes, lesson/quiz publishing, and subscription expiry reminders are generated by backend events. Expiry reminders are checked at startup and every six hours. The notification bell polls its unread count once per minute while the page is visible.
+### 3) Vercel (الواجهة)
+- استوردي المستودع واضبطي **Root Directory = `frontend`**.
+- في `frontend/vercel.json` استبدلي `REPLACE-WITH-RENDER-HOST.onrender.com` بعنوان Render الفعلي (في الـ rewrites، مرتين).
+- أضيفي متغير البيئة `BACKEND_URL` = عنوان Render (يستخدمه `middleware.js` للتحقق من الجلسة).
+- للواجهة المحلية، اضبطي `BACKEND_URL` على عنوان الباك اند؛ لا توجد استجابات مستخدم وهمية عند غياب الباك اند.
+- Build Command تُقرأ من `vercel.json` (تنسخ Pyodide إلى `public/vendor`).
 
-Administrators can send notifications and view the send log through `POST /api/admin/notifications` and `GET /api/admin/notifications`. The audience can be a specific user, all active approved accounts, students, subscribed students, or administrators. Send requests support the `Idempotency-Key` header. No extra service or environment variable is required.
-
-## Controlled local load test
-
-```powershell
-cd backend
-npm run load-test
-```
-
-The harness always starts an in-memory SQLite backend on loopback and progressively sends concurrent one-request bursts of 10, 50, 100, 300, 500, and 1,000 requests. It also exercises login, registration with a payment-proof image, subscription-proof upload, and exam submission with small local cohorts. It does not accept a remote target. CPU and memory figures include both the API and load generator in the same Node process; this is a local baseline, not a production-capacity claim.
-
-## Scaling limitations
-
-- SQLite uses Node's synchronous driver and is for development/tests only; production should use PostgreSQL.
-- Rate-limit counters, TTS caching/queueing, and the password worker queue are process-local. Horizontal deployments need a shared rate-limit store and externally coordinated caching/queueing where cross-instance consistency is required.
-- Payment-proof images are capped at 5 MiB but are sent as base64 JSON and buffered in memory. Move large uploads to object storage with direct uploads before accepting larger media. Video delivery was not load-tested.
-- Vercel deployment and edge middleware behavior must be verified in the target project. The static build excludes course data copies; protected content must continue to be served through the backend `/data` routes.
-
-## Deployment
-
-1. Provision PostgreSQL and configure `DATABASE_URL` for the backend. Set `JWT_SECRET`, `ADMIN_EMAIL`, and `ADMIN_PASSWORD` as secrets in the hosting provider.
-2. Deploy `backend/` on Render using `render.yaml`. `/api/health` checks both the API process and its database connection. Set `PG_POOL_MAX` to a value within the database provider's connection limit.
-3. Deploy `frontend/` on Vercel. Update the `/api` and `/data` rewrite destinations in `frontend/vercel.json` to the backend host, and set `BACKEND_URL` to that same backend origin.
-4. The Vercel build writes `frontend/dist/`, copies Pyodide there, and omits the duplicate course files under `public/data/`. Keep the `/data` rewrite enabled so authenticated content is served by the backend.
+### ملاحظات مهمة للنشر
+- الدومين الواحد: المتصفح يكلم Vercel فقط، وVercel يمرر `/api` و`/data` إلى Render، فكوكي الجلسة تشتغل.
+- بعد النشر تأكدي من: تسجيل الدخول يعمل، وصفحة `index.html` تفتح بعد الاشتراك، وصفحة Python تحمّل Pyodide.
+- الحارس على Vercel هو `frontend/middleware.js`، ويستخدم نفس منطق `lib/guard.js` المحلي.
+- اتصالات Postgres تستخدم pool افتراضيًا بحجم 5 لكل نسخة؛ اضبطي `PG_POOL_MAX` وفق حد اتصالات قاعدة البيانات وعدد النسخ، مع مهلات قابلة للضبط عبر `PG_CONNECTION_TIMEOUT_MS` و`PG_IDLE_TIMEOUT_MS` و`PG_STATEMENT_TIMEOUT_MS`.

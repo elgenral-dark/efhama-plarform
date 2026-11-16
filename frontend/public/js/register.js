@@ -14,6 +14,7 @@
   var confirmInput = document.getElementById("confirmPassword");
   var proofInput = document.getElementById("proof");
   var proofPreview = document.getElementById("proofPreview");
+  proofPreview.dataset.themeImage = "photo";
   var fileName = document.getElementById("fileName");
   var button = document.getElementById("registerBtn");
   var checkRequestButton = document.getElementById("checkRequestBtn");
@@ -254,10 +255,9 @@
     });
   });
 
-  /* تم تعطيل طلبات التحقق من الخادم لتشغيل الصفحة بدون باك اند */
-  var user = Auth.user();
-  if (user && user.email) {
-    accountKnown = true;
-    setAccountFields(user);
-  }
+  Auth.check().then(function (user) {
+    if (user && user.email) setAccountFields(user);
+  }).catch(function (error) {
+    console.error("Unable to check the current account:", error);
+  });
 })();

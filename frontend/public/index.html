@@ -17,6 +17,7 @@
 <link rel="manifest" href="manifest.json">
 <meta name="theme-color" content="#3C4AE8">
 <link rel="stylesheet" href="css/styles.css">
+<link rel="stylesheet" href="css/design-refresh.css">
 </head>
 <body>
 
@@ -67,12 +68,22 @@
     <div class="container hero-inner">
       <div class="hero-text">
         <span class="hero-badge">الصف الثاني الثانوي • البرمجة والذكاء الاصطناعي</span>
+        <div class="student-greeting" id="studentGreeting" hidden>
+          <span class="student-avatar" id="studentAvatar" aria-hidden="true">ا</span>
+          <span id="studentGreetingText">أهلًا بعودتك إلى رحلة التعلم</span>
+        </div>
         <h1>أهلًا بك في <span class="brand">افهمها</span></h1>
         <p class="slogan">«مش هنحفظك المنهج.. هنفهمهولك.»</p>
         <p class="hero-desc">
           منصة تعليمية مجانية تبسّط لك منهج البرمجة والذكاء الاصطناعي:
           شروحات مرتبة، أمثلة تطبيقية، اختبارات تفاعلية، وتقدمك محفوظ على جهازك.
         </p>
+        <form class="hero-search" action="search.html" method="get" role="search">
+          <input type="search" name="q" placeholder="ابحث عن درس أو مفهوم..." aria-label="ابحث في الدروس والمفاهيم">
+          <button type="submit" aria-label="بحث">
+            <svg viewBox="0 0 24 24" width="21" height="21" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-4-4"/></svg>
+          </button>
+        </form>
         <div class="hero-actions">
           <a href="#curriculum" class="btn">ابدأ التعلم</a>
           <a href="quiz.html?mode=practice" class="btn btn-outline">تدريب عشوائي</a>

@@ -15,15 +15,10 @@
   ];
   var isPublicPage = publicPages.indexOf(pageName) > -1;
 
-  if (typeof Auth !== "undefined" && !isPublicPage) {
-    Auth.check().then(function (user) {
-      if (!user) {
-        var target = encodeURIComponent(pageName + location.search);
-        window.location.replace("login.html?next=" + target);
-      }
-    }).catch(function (error) {
-      console.error("Unable to verify the current account:", error);
-    });
+  if (typeof Auth !== "undefined" && !Auth.isLoggedIn() && !isPublicPage) {
+    var target = encodeURIComponent(pageName + location.search);
+    window.location.replace("login.html?next=" + target);
+    return;
   }
 
   /* تهريب HTML + إبراز الكلمات المطابقة */
@@ -81,10 +76,10 @@
   }
 
   /* ---- تحديث حالة زر الهيدر (دخول / خروج) ---- */
-  function mountHeader(user) {
+  function mountHeader() {
     var btn = document.querySelector(".btn-start");
     if (!btn || typeof Auth === "undefined") return;
-    if (user) {
+    if (Auth.isLoggedIn()) {
       btn.textContent = "خروج";
       btn.href = "#";
       btn.title = "تسجيل الخروج من الحساب";
@@ -98,10 +93,8 @@
       btn.title = "تسجيل الدخول إلى حسابك";
     }
   }
-  Auth.check().then(mountHeader).catch(function (error) {
-    console.error("Unable to load the account for the header:", error);
-    mountHeader(null);
-  });
+  if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", mountHeader);
+  else mountHeader();
 
   /* ---- البحث العام مع اقتراحات ---- */
   var INDEX_CACHE = null;

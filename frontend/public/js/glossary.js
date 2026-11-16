@@ -17,27 +17,28 @@
   /* تجميع المصطلحات من كل الدروس */
   function collect() {
     return loadData().then(function (data) {
-      var terms = [];
-      var chain = Promise.resolve();
+      var requests = [];
       data.chapters.forEach(function (ch) {
         ch.lessons.forEach(function (lesson) {
-          chain = chain.then(function () {
-            return loadLesson(lesson.id).then(function (d) {
-              (d.terms || []).forEach(function (t) {
-                terms.push({
+          requests.push(loadLesson(lesson.id).then(function (d) {
+            return (d.terms || []).map(function (t) {
+              return {
                   id: t.id,
                   term: t.term,
                   definition: t.definition,
                   lesson: lesson.id,
                   lessonTitle: lesson.title,
                   chapter: ch.id
-                });
-              });
+                };
             });
-          });
+          }).catch(function () { return null; }));
         });
       });
-      return chain.then(function () { return terms; });
+      return Promise.all(requests).then(function (results) {
+        var loaded = results.filter(function (terms) { return terms !== null; });
+        if (requests.length && !loaded.length) throw new Error('تعذر تحميل الدروس');
+        return [].concat.apply([], loaded);
+      });
     });
   }
 

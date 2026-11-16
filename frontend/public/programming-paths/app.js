@@ -442,51 +442,7 @@ const isSafeLessonVisualPath = (image) => (
   && !image.split(/[\\/]/).some((segment) => segment === '.' || segment === '..')
 );
 
-const darkLessonVisuals = new Map();
 let lessonVisualThemeRevision = 0;
-
-const createDarkLessonVisual = async (imagePath) => {
-  const response = await fetch(imagePath);
-  if (!response.ok) throw new Error(`Unable to load lesson visual (${response.status}): ${imagePath}`);
-
-  const source = await response.text();
-  const parsed = new DOMParser().parseFromString(source, 'image/svg+xml');
-  const svg = parsed.documentElement;
-  const viewBox = (svg.getAttribute('viewBox') || '').trim().split(/[ ,]+/).map(Number);
-  if (svg.localName !== 'svg' || parsed.querySelector('parsererror') || viewBox.length !== 4 || viewBox.some((value) => !Number.isFinite(value))) {
-    throw new Error(`Invalid lesson SVG: ${imagePath}`);
-  }
-
-  const [viewX, viewY, viewWidth, viewHeight] = viewBox;
-  let backgroundUpdated = false;
-  svg.querySelectorAll('rect').forEach((rect) => {
-    const fill = (rect.getAttribute('fill') || '').toLowerCase();
-    const x = Number(rect.getAttribute('x') || 0);
-    const y = Number(rect.getAttribute('y') || 0);
-    const width = Number(rect.getAttribute('width'));
-    const height = Number(rect.getAttribute('height'));
-    if (x === viewX && y === viewY && width >= viewWidth && height >= viewHeight && ['#fff', '#ffffff', 'white'].includes(fill)) {
-      rect.setAttribute('fill', '#171b24');
-      backgroundUpdated = true;
-    }
-  });
-  if (!backgroundUpdated) throw new Error(`Lesson SVG has no recognized canvas background: ${imagePath}`);
-
-  const darkTextColors = new Map([
-    ['#26324a', '#e5e7eb'],
-    ['#27324a', '#e5e7eb'],
-    ['#172033', '#e5e7eb'],
-    ['#0f172a', '#e5e7eb'],
-    ['#6b7280', '#a8b1c3'],
-    ['#5f6b85', '#a8b1c3']
-  ]);
-  svg.querySelectorAll('text[fill]').forEach((text) => {
-    const fill = text.getAttribute('fill').toLowerCase();
-    if (darkTextColors.has(fill)) text.setAttribute('fill', darkTextColors.get(fill));
-  });
-
-  return `data:image/svg+xml;charset=utf-8,${encodeURIComponent(new XMLSerializer().serializeToString(svg))}`;
-};
 
 const updateLessonVisualTheme = (root) => {
   if (!root) return;
@@ -496,19 +452,33 @@ const updateLessonVisualTheme = (root) => {
   images.forEach((image) => {
     const originalPath = image.dataset.originalSrc;
     if (!originalPath) return;
+    image.dataset.themeImage = 'educational';
     if (!dark) {
-      image.src = originalPath;
+      if (image.getAttribute('src') !== originalPath) image.src = originalPath;
+      image.dataset.themeReady = 'true';
       return;
     }
-    if (!darkLessonVisuals.has(originalPath)) {
-      darkLessonVisuals.set(originalPath, createDarkLessonVisual(originalPath));
+    if (!/\.svg(?:$|[?#])/i.test(originalPath)) {
+      image.dataset.themeReady = 'true';
+      return;
     }
-    darkLessonVisuals.get(originalPath).then((darkSource) => {
-      if (revision === lessonVisualThemeRevision && document.body.getAttribute('data-theme') === 'dark' && image.dataset.originalSrc === originalPath) {
+    if (image.dataset.themeDarkSource === originalPath && image.getAttribute('src')?.startsWith('data:image/svg+xml')) {
+      image.dataset.themeReady = 'true';
+      return;
+    }
+    image.dataset.themeReady = 'false';
+    const currentRevision = revision;
+    window.EfhamaImageTheme.darkSource(originalPath).then((darkSource) => {
+      if (currentRevision === lessonVisualThemeRevision && document.body.getAttribute('data-theme') === 'dark' && image.dataset.originalSrc === originalPath) {
         image.src = darkSource;
+        image.dataset.themeDarkSource = originalPath;
+        image.dataset.themeReady = 'true';
       }
     }).catch((error) => {
       console.error('Unable to adapt lesson visual for dark mode:', error);
+      if (currentRevision === lessonVisualThemeRevision && image.dataset.originalSrc === originalPath) {
+        image.dataset.themeReady = 'true';
+      }
     });
   });
 };
@@ -529,7 +499,7 @@ const renderLessonVisualBlock = (block, lesson) => {
       ${block.description ? `<p>${escapeHtml(block.description)}</p>` : ''}
     </figcaption>
     <button class="lesson-visual-open" type="button" data-visual-open data-visual-image="${escapeHtml(imagePath)}" data-visual-alt="${escapeHtml(block.alt || visualTitle)}" data-visual-description="${escapeHtml(block.description || '')}" data-visual-title="${escapeHtml(visualTitle)}" aria-label="تكبير الرسمة: ${escapeHtml(visualTitle)}">
-      <img src="${escapeHtml(imagePath)}" data-original-src="${escapeHtml(imagePath)}" alt="${escapeHtml(block.alt || visualTitle)}" loading="lazy" decoding="async" data-lesson-visual-image>
+      <img src="${escapeHtml(imagePath)}" data-original-src="${escapeHtml(imagePath)}" data-theme-image="educational" alt="${escapeHtml(block.alt || visualTitle)}" loading="lazy" decoding="async" data-lesson-visual-image>
       <span class="lesson-visual-zoom-hint" aria-hidden="true">اضغط للتكبير</span>
     </button>
     <div class="lesson-visual-download-row">
@@ -885,7 +855,7 @@ const renderLessonContent = (lesson, fallbackLanguage = 'pseudocode', pathSlug =
           <button class="lesson-visual-close" type="button" data-visual-close aria-label="إغلاق العرض المكبّر">إغلاق</button>
         </div>
       </div>
-      <img data-visual-lightbox-image alt="" decoding="async">
+      <img data-theme-image="educational" data-visual-lightbox-image alt="" decoding="async">
       <p id="visual-lightbox-description" data-visual-lightbox-description></p>
     </dialog>
   `;
@@ -984,6 +954,7 @@ const renderLessonContent = (lesson, fallbackLanguage = 'pseudocode', pathSlug =
       const image = dialog.querySelector('[data-visual-lightbox-image]');
       image.style.width = '100%';
       image.dataset.originalSrc = visualButton.dataset.visualImage;
+      image.dataset.themeReady = 'false';
       image.src = image.dataset.originalSrc;
       updateLessonVisualTheme(contentNode);
       image.alt = visualButton.dataset.visualAlt;

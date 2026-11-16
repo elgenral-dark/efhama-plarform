@@ -1,61 +1,47 @@
-const OPEN_PAGES = new Set([
-  "/login.html",
-  "/register.html",
-  "/offline.html",
-  "/faq.html",
-  "/glossary.html",
-]);
+import { decide, hasSubscription, currentUser } from "./lib/guard.js";
 
 export const config = {
   matcher: [
     "/",
-    "/((?!api/|vendor/|assets/|css/|js/|_next/).*\\.html)",
+    "/((?!api/|data/|vendor/|assets/|css/|js/|_next/).*\\.html)",
     "/programming-paths/:path*",
-    "/data/:path*",
   ],
 };
 
-function redirect(request, path) {
-  return Response.redirect(new URL(path, request.url), 302);
-}
-
 export default async function middleware(request) {
   const { pathname } = new URL(request.url);
-  if (OPEN_PAGES.has(pathname)) return undefined;
+  const backendUrl = process.env.BACKEND_URL || "";
 
-  const backendUrl = process.env.BACKEND_URL;
-  if (!backendUrl)
-    return new Response("Authentication service is unavailable.", { status: 503 });
-
-  let response;
-  try {
-    response = await fetch(`${backendUrl.replace(/\/+$/, "")}/api/auth/me`, {
-      headers: request.headers.get("cookie") ? { cookie: request.headers.get("cookie") } : {},
-      cache: "no-store",
-      signal: AbortSignal.timeout(3000),
-    });
-  } catch (error) {
-    console.error("Page authorization failed:", error.message);
-    return new Response("Authentication service is unavailable.", { status: 503 });
+  if (pathname === "/") {
+    try {
+      if (!backendUrl) return Response.redirect(new URL("/explore/", request.url));
+      const user = await currentUser({
+        backendUrl,
+        cookie: request.headers.get("cookie") || "",
+      });
+      if (user && hasSubscription(user)) return undefined;
+    } catch {
+      return Response.redirect(new URL("/explore/", request.url));
+    }
+    return Response.redirect(new URL("/explore/", request.url));
   }
-  if (response.status === 401)
-    return pathname === "/" ? redirect(request, "/register.html") : redirect(request, "/login.html");
-  if (!response.ok)
-    return new Response("Authentication service is unavailable.", { status: 503 });
 
-  const body = await response.json();
-  const user = body.user;
-  if (pathname === "/")
-    return redirect(request, user && (user.role === "admin" || user.subscriptionStatus === "active")
-      ? "/index.html"
-      : "/register.html");
-  if (!user) return redirect(request, "/login.html");
-  if (pathname.startsWith("/admin") && user.role !== "admin")
-    return new Response("Forbidden.", { status: 403 });
-  if (pathname === "/notifications.html") return undefined;
-  if (user.role !== "admin" && user.subscriptionStatus !== "active")
-    return pathname.endsWith(".html")
-      ? redirect(request, "/register.html?subscription=required")
-      : new Response("Subscription required.", { status: 403 });
-  return undefined;
+  const result = await decide({
+    path: pathname,
+    backendUrl,
+    cookie: request.headers.get("cookie") || "",
+  });
+  if (result.action === "next") return undefined;
+  if (result.action === "unavailable")
+    return new Response("تعذر التحقق من صلاحيات الحساب.", { status: 503 });
+  if (result.action === "forbidden")
+    return new Response("صلاحيات المسؤول مطلوبة.", { status: 403 });
+  if (result.action === "subscription")
+    return Response.redirect(new URL("/register.html", request.url));
+  if (pathname.startsWith("/programming-paths/"))
+    return new Response(JSON.stringify({ error: "unauthorized" }), {
+      status: 401,
+      headers: { "content-type": "application/json; charset=utf-8" },
+    });
+  return Response.redirect(new URL("/login.html", request.url));
 }

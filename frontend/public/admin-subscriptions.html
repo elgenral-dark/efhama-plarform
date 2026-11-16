@@ -9,6 +9,8 @@
 <link rel="apple-touch-icon" href="assets/icons/icon-192.png">
 <link rel="stylesheet" href="css/styles.css">
 <link rel="stylesheet" href="css/admin-subscriptions.css">
+<link rel="stylesheet" href="css/design-refresh.css">
+<script src="js/navigation.js" defer></script>
 </head>
 <body>
 <header class="site-header">
@@ -26,47 +28,50 @@
     </a>
     <div class="admin-heading"><h1>مراجعة طلبات الاشتراك</h1><p class="muted small">مراجعة إثباتات الدفع وتفعيل الاشتراكات السنوية</p></div>
     <div class="header-actions">
-      <button class="theme-toggle" id="themeToggle" type="button" aria-label="تبديل الوضع الليلي والنهاري">
-        <span class="icon-moon" aria-hidden="true">☾</span><span class="icon-sun hidden" aria-hidden="true">☀</span>
-      </button>
       <button class="btn btn-ghost btn-sm" id="adminLogout" type="button">تسجيل الخروج</button>
     </div>
   </div>
 </header>
 <main class="container admin-subscriptions">
-  <section class="admin-extra notification-admin">
-    <h2>إرسال إشعار</h2>
-    <p class="muted small">تُحفظ الرسالة وتُرسل من الخادم إلى الفئة المحددة. لا يمكن للمستخدمين العاديين استخدام هذه الوظيفة.</p>
-    <form id="notificationBroadcastForm" class="notification-broadcast-form">
-      <label>الفئة المستهدفة
-        <select id="notificationAudience" name="audience" required>
-          <option value="all-active">كل الحسابات المعتمدة النشطة</option>
-          <option value="subscribed">الطلاب ذوو الاشتراك النشط</option>
-          <option value="students">كل الطلاب المعتمدين النشطين</option>
-          <option value="admins">المسؤولون النشطون</option>
-          <option value="user">مستخدم محدد</option>
+  <section class="admin-extra announcement-management">
+    <h2>إرسال إعلان أو إشعار</h2>
+    <p class="muted small">يُحفظ كل إعلان في السجل ويُرسل مرة واحدة لكل مستلم نشط. لا تُرسل بيانات حساسة ضمن الإشعار.</p>
+    <form id="announcementForm" class="announcement-form">
+      <label>العنوان<input id="announcementTitle" maxlength="160" required></label>
+      <label>التصنيف
+        <select id="announcementCategory">
+          <option value="system">إعلان نظام</option><option value="general">عام</option>
+          <option value="course">دورة</option><option value="lesson">درس</option>
+          <option value="exam">اختبار</option><option value="assignment">واجب</option>
+          <option value="grade">درجة</option><option value="subscription">اشتراك</option>
+          <option value="payment">دفع</option><option value="account">حساب</option>
+          <option value="teacher">المعلم</option><option value="admin">الإدارة</option>
         </select>
       </label>
-      <label id="notificationTargetLabel" hidden>البريد الإلكتروني للمستخدم
-        <input id="notificationTargetEmail" type="email" autocomplete="off" maxlength="254">
-      </label>
-      <label>نوع الإشعار
-        <select id="notificationBroadcastType" name="type">
-          <option value="general">عام</option><option value="account">الحساب</option>
-          <option value="subscription">الاشتراك</option><option value="education">التعليم</option>
+      <label class="announcement-message">الرسالة<textarea id="announcementMessage" maxlength="2000" rows="3" required></textarea></label>
+      <label>نطاق الإرسال
+        <select id="announcementScope">
+          <option value="all">جميع المستخدمين النشطين</option>
+          <option value="roles">أدوار محددة</option>
+          <option value="users">مستخدمون محددون</option>
         </select>
       </label>
-      <label>العنوان<input id="notificationBroadcastTitle" maxlength="120" required></label>
-      <label>المحتوى<textarea id="notificationBroadcastMessage" maxlength="2000" rows="3" required></textarea></label>
-      <label>رابط داخلي اختياري<input id="notificationBroadcastUrl" maxlength="300" placeholder="/chapters.html"></label>
-      <button class="btn" id="sendNotificationBroadcast" type="submit">إرسال الإشعار</button>
+      <fieldset id="announcementRoles" class="announcement-roles" hidden>
+        <legend>الأدوار</legend>
+        <label><input type="checkbox" value="student" checked> الطلاب</label>
+        <label><input type="checkbox" value="admin"> المسؤولون</label>
+      </fieldset>
+      <label id="announcementUsersField" hidden>معرّفات المستخدمين (أرقام مفصولة بفواصل)
+        <input id="announcementUsers" inputmode="numeric" placeholder="12, 24, 35">
+      </label>
+      <label>رابط داخلي اختياري<input id="announcementActionUrl" maxlength="500" placeholder="/chapters.html"></label>
+      <div class="announcement-submit-row">
+        <button class="btn" id="sendAnnouncement" type="submit">إرسال الإعلان</button>
+        <span id="announcementStatus" class="muted small" role="status" aria-live="polite"></span>
+      </div>
     </form>
-    <p id="notificationBroadcastStatus" class="admin-notice" role="status" aria-live="polite"></p>
-    <div class="notification-broadcast-history-heading">
-      <h3>سجل الإشعارات المرسلة</h3>
-      <button class="btn btn-outline btn-sm" id="refreshNotificationBroadcasts" type="button">تحديث السجل</button>
-    </div>
-    <div id="notificationBroadcastHistory" class="notification-broadcast-history" aria-live="polite"></div>
+    <h3>سجل الإعلانات</h3>
+    <div id="announcementHistory" class="announcement-history" aria-live="polite"></div>
   </section>
   <section class="admin-extra">
     <h2>الحسابات واعتماد الأدمن</h2>
@@ -108,7 +113,7 @@
       <p class="request-subscription"></p>
       <p class="request-rejection"></p>
     </div>
-    <div class="request-proof"><img class="proof-image" alt="إثبات دفع المشترك"></div>
+    <div class="request-proof"><img class="proof-image" data-theme-image="photo" alt="إثبات دفع المشترك"></div>
     <div class="request-actions">
       <button class="btn approve-button" type="button">الموافقة وتفعيل سنة</button>
       <label class="reject-reason-label">سبب الرفض<textarea class="reject-reason" maxlength="1000" rows="2" placeholder="اكتب سببًا واضحًا ليظهر للمستخدم"></textarea></label>
@@ -118,6 +123,5 @@
 </template>
 <script src="js/auth.js"></script>
 <script src="js/admin-subscriptions.js"></script>
-<script src="js/navigation.js"></script>
 </body>
 </html>

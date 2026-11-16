@@ -14,11 +14,9 @@ const app = createFrontendApp({
   trustProxy: process.env.TRUST_PROXY === "true",
 });
 
-const server = app.listen(PORT, () => {
+app.listen(PORT, () => {
   console.log(`منصة افهمها (الواجهة) تعمل على http://localhost:${PORT}`);
   console.log(process.env.BACKEND_URL
-    ? `طلبات API والمحتوى تمر عبر ${process.env.BACKEND_URL}.`
-    : "BACKEND_URL غير مضبوط؛ ستُرفض طلبات API والمحتوى حتى لا تُعرض بيانات وهمية.");
+    ? "الاتصال بالباك اند مفعل."
+    : "BACKEND_URL غير مضبوط؛ واجهات API والصفحات المحمية غير متاحة.");
 });
-server.requestTimeout = 30_000;
-server.headersTimeout = 15_000;

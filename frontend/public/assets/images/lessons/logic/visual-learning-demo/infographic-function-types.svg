@@ -1,9 +1,9 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="1000" height="460" viewBox="0 0 1000 460" role="img" aria-labelledby="title desc">
+<svg xmlns="http://www.w3.org/2000/svg" width="1000" height="460" viewBox="0 0 1000 460" role="img" aria-labelledby="title desc" preserveAspectRatio="xMidYMid meet">
   <title id="title">ملخص أنواع الدوال حسب دورها</title>
   <desc id="desc">الدوال تستقبل مدخلات وتعالجها وقد تعيد نتيجة، ويمكن أن تكون جاهزة أو يكتبها المبرمج.</desc>
   <rect width="1000" height="460" rx="28" fill="#fff"/>
-  <text x="500" y="58" fill="#172033" font-family="Arial,sans-serif" font-size="30" font-weight="700" text-anchor="middle">الدوال: فكرة واحدة واستخدامات متعددة</text>
-  <g font-family="Arial,sans-serif" text-anchor="middle">
+  <text x="500" y="58" fill="#172033" font-family="'Cairo', system-ui, -apple-system, sans-serif" font-size="30" font-weight="700" text-anchor="middle">الدوال: فكرة واحدة واستخدامات متعددة</text>
+  <g font-family="'Cairo', system-ui, -apple-system, sans-serif" text-anchor="middle">
     <rect x="70" y="120" width="390" height="120" rx="20" fill="#eef0ff" stroke="#3C4AE8" stroke-width="4"/>
     <text x="265" y="168" fill="#3C4AE8" font-size="26" font-weight="700">Built-in</text>
     <text x="265" y="208" fill="#27324a" font-size="21">دوال جاهزة مثل len() وsum()</text>

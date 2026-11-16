@@ -44,7 +44,6 @@
   };
 
   const pathUrl = `path.html?slug=${encodeURIComponent(slug)}`;
-  document.querySelector("[data-path-link]").href = pathUrl;
   document.querySelector("[data-back-link]").href = pathUrl;
 
   const readDraft = () => {

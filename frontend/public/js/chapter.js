@@ -8,22 +8,6 @@
 
   /* الوضع الليلي/النهاري موحد ويُدار مركزيًا من ui.js / navigation.js */
 
-  /* ================= قائمة الموبايل ================= */
-  var navToggle = document.getElementById("navToggle");
-  var mainNav = document.getElementById("mainNav");
-  if (navToggle && mainNav) {
-    navToggle.addEventListener("click", function () {
-      var open = mainNav.classList.toggle("open");
-      navToggle.setAttribute("aria-expanded", String(open));
-    });
-    mainNav.querySelectorAll("a").forEach(function (a) {
-      a.addEventListener("click", function () {
-        mainNav.classList.remove("open");
-        navToggle.setAttribute("aria-expanded", "false");
-      });
-    });
-  }
-
   /* ================= مفاتيح التخزين (موحدة مع باقي الصفحات) ================= */
   var COMPLETED_KEY = "efhama_completed";
   var STARTED_KEY = "efhama_started";

@@ -8,22 +8,6 @@
 
   /* الوضع الليلي/النهاري موحد ويُدار مركزيًا من ui.js / navigation.js */
 
-  /* ================= قائمة الموبايل ================= */
-  var navToggle = document.getElementById("navToggle");
-  var mainNav = document.getElementById("mainNav");
-  if (navToggle && mainNav) {
-    navToggle.addEventListener("click", function () {
-      var open = mainNav.classList.toggle("open");
-      navToggle.setAttribute("aria-expanded", String(open));
-    });
-    mainNav.querySelectorAll("a").forEach(function (a) {
-      a.addEventListener("click", function () {
-        mainNav.classList.remove("open");
-        navToggle.setAttribute("aria-expanded", "false");
-      });
-    });
-  }
-
   /* ================= تقدم الطالب (نفس مفتاح الرئيسية) ================= */
   var progressKey = "efhama_completed";
   function getCompleted() {
@@ -58,6 +42,20 @@
     if (pct > 0) return '<span class="chapter-state doing">قيد الدراسة</span>';
     return '<span class="chapter-state">لم يبدأ</span>';
   }
+
+  function renderStudentGreeting() {
+    var greeting = document.getElementById("studentGreeting");
+    if (!greeting || !window.Auth || typeof window.Auth.user !== "function") return;
+    var user = window.Auth.user();
+    if (!user || typeof user.name !== "string" || !user.name.trim()) return;
+    var name = user.name.trim();
+    var avatar = document.getElementById("studentAvatar");
+    var text = document.getElementById("studentGreetingText");
+    if (avatar) avatar.textContent = Array.from(name)[0];
+    if (text) text.textContent = "أهلًا بعودتك، " + name;
+    greeting.hidden = false;
+  }
+  renderStudentGreeting();
 
   /* ================= شريط الملخص العلوي ================= */
   function renderSummary() {

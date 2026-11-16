@@ -10,10 +10,16 @@
   var nextPage = document.getElementById("nextPage");
   var managedUsers = document.getElementById("managedUsers");
   var sessionTransfers = document.getElementById("sessionTransfers");
-  var broadcastHistory = document.getElementById("notificationBroadcastHistory");
-  var broadcastStatus = document.getElementById("notificationBroadcastStatus");
+  var announcementForm = document.getElementById("announcementForm");
+  var announcementHistory = document.getElementById("announcementHistory");
+  var announcementStatus = document.getElementById("announcementStatus");
+  var announcementScope = document.getElementById("announcementScope");
+  var announcementRoles = document.getElementById("announcementRoles");
+  var announcementUsersField = document.getElementById("announcementUsersField");
   var pageSize = 50;
   var offset = 0;
+  var pendingAnnouncementKey = "";
+  var pendingAnnouncementFingerprint = "";
 
   function setNotice(message, error) {
     notice.textContent = message || "";
@@ -25,10 +31,12 @@
   }
 
   function api(url, method, body, extraHeaders) {
+    var headers = body ? { "Content-Type": "application/json" } : {};
+    Object.keys(extraHeaders || {}).forEach(function (key) { headers[key] = extraHeaders[key]; });
     return fetch(url, {
       method: method || "GET",
       credentials: "same-origin",
-      headers: Object.assign(body ? { "Content-Type": "application/json" } : {}, extraHeaders || {}),
+      headers: headers,
       body: body ? JSON.stringify(body) : undefined,
       cache: "no-store"
     }).then(function (response) {
@@ -153,7 +161,6 @@
         sessionTransfers.textContent = "لا توجد محاولات نقل جلسة.";
         return;
       }
-
       data.attempts.forEach(function (attempt) {
         var row = document.createElement("article");
         row.className = "device-attempt";
@@ -185,57 +192,6 @@
     }).catch(function (error) { sessionTransfers.textContent = error.message; });
   }
 
-  function loadNotificationBroadcasts() {
-    broadcastHistory.replaceChildren();
-    return api("/api/admin/notifications?limit=30").then(function (data) {
-      if (!data.broadcasts.length) {
-        var empty = document.createElement("p");
-        empty.className = "admin-empty";
-        empty.textContent = "لم يتم إرسال إشعارات إدارية بعد.";
-        broadcastHistory.appendChild(empty);
-        return;
-      }
-      var audienceLabels = {
-        "all-active": "كل الحسابات المعتمدة النشطة",
-        subscribed: "الطلاب ذوو الاشتراك النشط",
-        students: "الطلاب المعتمدون النشطون",
-        admins: "المسؤولون النشطون",
-        user: "مستخدم محدد"
-      };
-      var typeLabels = { account: "الحساب", subscription: "الاشتراك", education: "التعليم", general: "عام" };
-      data.broadcasts.forEach(function (item) {
-        var row = document.createElement("article");
-        row.className = "notification-broadcast-row";
-        var heading = document.createElement("strong");
-        heading.textContent = item.title;
-        var message = document.createElement("p");
-        message.textContent = item.message;
-        var details = document.createElement("span");
-        details.textContent = "الفئة: " + (audienceLabels[item.audience] || item.audience)
-          + " — المستلمون: " + item.recipientCount
-          + " — النوع: " + (typeLabels[item.type] || item.type) + " — " + formatDate(item.createdAt)
-          + " — أرسله: " + (item.senderName || item.senderEmail);
-        row.append(heading, message, details);
-        broadcastHistory.appendChild(row);
-      });
-    }).catch(function (error) {
-      broadcastHistory.textContent = error.message;
-    });
-  }
-
-  function setBroadcastStatus(message, isError) {
-    broadcastStatus.textContent = message || "";
-    broadcastStatus.style.color = isError ? "#B91C1C" : "var(--text-muted)";
-  }
-
-  function createIdempotencyKey() {
-    return window.crypto && typeof window.crypto.randomUUID === "function"
-      ? window.crypto.randomUUID()
-      : "notice-" + Date.now() + "-" + Math.random().toString(36).slice(2);
-  }
-
-  var broadcastIdempotencyKey = createIdempotencyKey();
-
   function loadRequests() {
     setNotice("جارٍ تحميل الطلبات…");
     list.replaceChildren();
@@ -265,6 +221,107 @@
       });
   }
 
+  function announcementTargetLabel(target) {
+    if (target.all) return "جميع المستخدمين";
+    if (target.roles) return "الأدوار: " + target.roles.join("، ");
+    return "المستخدمون: " + (target.recipientUserIds || []).join("، ");
+  }
+
+  function loadAnnouncements() {
+    announcementHistory.textContent = "جارٍ تحميل السجل…";
+    return api("/api/notifications/announcements?limit=20&offset=0").then(function (data) {
+      announcementHistory.replaceChildren();
+      if (!data.announcements.length) {
+        var empty = document.createElement("p");
+        empty.className = "announcement-empty";
+        empty.textContent = "لا توجد إعلانات بعد.";
+        announcementHistory.appendChild(empty);
+        return;
+      }
+      data.announcements.forEach(function (announcement) {
+        var entry = document.createElement("article");
+        entry.className = "announcement-entry";
+        var details = document.createElement("div");
+        var title = document.createElement("h4");
+        title.textContent = announcement.title;
+        var message = document.createElement("p");
+        message.textContent = announcement.message;
+        var target = document.createElement("small");
+        target.textContent = announcementTargetLabel(announcement.target);
+        var stats = document.createElement("small");
+        stats.textContent = "التسليم: " + announcement.deliveredCount + "/" + announcement.recipientCount
+          + " · مقروء: " + announcement.readCount + " · " + formatDate(announcement.createdAt);
+        details.append(title, message, target, stats);
+        var category = document.createElement("span");
+        category.className = "request-status-badge";
+        category.textContent = announcement.category;
+        entry.append(details, category);
+        announcementHistory.appendChild(entry);
+      });
+    }).catch(function (error) {
+      announcementHistory.textContent = error.message || "تعذر تحميل سجل الإعلانات.";
+      throw error;
+    });
+  }
+
+  function createAnnouncementKey() {
+    if (window.crypto && typeof window.crypto.randomUUID === "function") return window.crypto.randomUUID();
+    return Date.now().toString(36) + "-" + Math.random().toString(36).slice(2);
+  }
+
+  announcementScope.addEventListener("change", function () {
+    announcementRoles.hidden = announcementScope.value !== "roles";
+    announcementUsersField.hidden = announcementScope.value !== "users";
+  });
+  announcementForm.addEventListener("submit", function (event) {
+    event.preventDefault();
+    var payload = {
+      title: document.getElementById("announcementTitle").value.trim(),
+      message: document.getElementById("announcementMessage").value.trim(),
+      category: document.getElementById("announcementCategory").value,
+      actionUrl: document.getElementById("announcementActionUrl").value.trim() || null
+    };
+    if (announcementScope.value === "all") {
+      payload.all = true;
+    } else if (announcementScope.value === "roles") {
+      payload.roles = Array.from(announcementRoles.querySelectorAll("input:checked")).map(function (input) { return input.value; });
+      if (!payload.roles.length) {
+        announcementStatus.textContent = "اختر دورًا واحدًا على الأقل.";
+        return;
+      }
+    } else {
+      var rawIds = document.getElementById("announcementUsers").value.split(",").map(function (value) { return value.trim(); }).filter(Boolean);
+      if (!rawIds.length || rawIds.some(function (value) { return !/^\d+$/.test(value) || !Number.isSafeInteger(Number(value)) || Number(value) < 1; })) {
+        announcementStatus.textContent = "أدخل معرّفات مستخدمين صحيحة مفصولة بفواصل.";
+        return;
+      }
+      payload.recipientUserIds = Array.from(new Set(rawIds.map(Number)));
+    }
+
+    var fingerprint = JSON.stringify(payload);
+    if (pendingAnnouncementFingerprint !== fingerprint) {
+      pendingAnnouncementFingerprint = fingerprint;
+      pendingAnnouncementKey = createAnnouncementKey();
+    }
+    var sendButton = document.getElementById("sendAnnouncement");
+    sendButton.disabled = true;
+    announcementStatus.textContent = "جارٍ إرسال الإعلان…";
+    api("/api/notifications", "POST", payload, { "Idempotency-Key": pendingAnnouncementKey })
+      .then(function (result) {
+        pendingAnnouncementKey = "";
+        pendingAnnouncementFingerprint = "";
+        announcementStatus.textContent = "تم تسليم الإعلان إلى " + result.delivered + " مستخدمًا.";
+        announcementForm.reset();
+        announcementRoles.hidden = true;
+        announcementUsersField.hidden = true;
+        return loadAnnouncements();
+      })
+      .catch(function (error) {
+        announcementStatus.textContent = error.message || "تعذر إرسال الإعلان.";
+      })
+      .finally(function () { sendButton.disabled = false; });
+  });
+
   Auth.check().then(function (user) {
     if (!user || user.role !== "admin") {
       window.location.replace(user ? "register.html" : "login.html");
@@ -273,7 +330,9 @@
     loadRequests();
     loadUsers();
     loadSessionTransfers();
-    loadNotificationBroadcasts();
+    loadAnnouncements().catch(function (error) {
+      console.error("Unable to load notification announcement history:", error);
+    });
   }).catch(function () {
     setNotice("تعذر التحقق من صلاحيات المسؤول. سجّل الدخول مجددًا.", true);
   });
@@ -285,38 +344,4 @@
   previousPage.addEventListener("click", function () { offset = Math.max(0, offset - pageSize); loadRequests(); });
   nextPage.addEventListener("click", function () { offset += pageSize; loadRequests(); });
   document.getElementById("adminLogout").addEventListener("click", Auth.logout);
-  var audience = document.getElementById("notificationAudience");
-  var targetLabel = document.getElementById("notificationTargetLabel");
-  var targetEmail = document.getElementById("notificationTargetEmail");
-  audience.addEventListener("change", function () {
-    var targeted = audience.value === "user";
-    targetLabel.hidden = !targeted;
-    targetEmail.required = targeted;
-  });
-  document.getElementById("refreshNotificationBroadcasts").addEventListener("click", loadNotificationBroadcasts);
-  document.getElementById("notificationBroadcastForm").addEventListener("submit", function (event) {
-    event.preventDefault();
-    var submit = document.getElementById("sendNotificationBroadcast");
-    var body = {
-      audience: audience.value,
-      type: document.getElementById("notificationBroadcastType").value,
-      title: document.getElementById("notificationBroadcastTitle").value,
-      message: document.getElementById("notificationBroadcastMessage").value,
-      actionUrl: document.getElementById("notificationBroadcastUrl").value
-    };
-    if (audience.value === "user") body.userEmail = targetEmail.value;
-    submit.disabled = true;
-    setBroadcastStatus("جارٍ إرسال الإشعار…");
-    api("/api/admin/notifications", "POST", body, { "Idempotency-Key": broadcastIdempotencyKey })
-      .then(function (result) {
-        broadcastIdempotencyKey = createIdempotencyKey();
-        document.getElementById("notificationBroadcastTitle").value = "";
-        document.getElementById("notificationBroadcastMessage").value = "";
-        document.getElementById("notificationBroadcastUrl").value = "";
-        setBroadcastStatus("تم إرسال الإشعار إلى " + result.recipientCount + " مستخدم.");
-        loadNotificationBroadcasts();
-      })
-      .catch(function (error) { setBroadcastStatus(error.message, true); })
-      .finally(function () { submit.disabled = false; });
-  });
 })();

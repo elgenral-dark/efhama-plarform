@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>معاينة الرسوم البيانية المتجاوبة — افهمها</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --brand: #3C4AE8;
+      --bg: #f8fafc;
+      --surface: #ffffff;
+      --border: #e2e8f0;
+      --text: #0f172a;
+      --muted: #64748b;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Cairo', system-ui, -apple-system, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      padding: 30px 20px;
+      line-height: 1.6;
+    }
+    .header {
+      max-width: 1200px;
+      margin: 0 auto 30px;
+      text-align: center;
+    }
+    .header h1 {
+      font-size: 2rem;
+      font-weight: 800;
+      color: #1e1b4b;
+      margin-bottom: 8px;
+    }
+    .header p {
+      color: var(--muted);
+      font-size: 1.05rem;
+    }
+    .badge {
+      display: inline-block;
+      padding: 4px 12px;
+      border-radius: 999px;
+      background: #eef0ff;
+      color: var(--brand);
+      font-weight: 700;
+      font-size: 0.85rem;
+      margin-bottom: 12px;
+    }
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(360px, 1fr));
+      gap: 24px;
+      max-width: 1200px;
+      margin: 0 auto 40px;
+    }
+    .card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      overflow: hidden;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.04);
+      display: flex;
+      flex-direction: column;
+    }
+    .card-header {
+      padding: 16px 20px;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .card-title {
+      font-weight: 700;
+      font-size: 1.05rem;
+    }
+    .tag {
+      font-size: 0.78rem;
+      padding: 3px 8px;
+      border-radius: 6px;
+      font-weight: 700;
+    }
+    .tag-before { background: #fee2e2; color: #b91c1c; }
+    .tag-after { background: #dcfce7; color: #15803d; }
+    .media-box {
+      position: relative;
+      background: linear-gradient(135deg, #e7f6f1, #e6f0ff);
+      padding: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 220px;
+    }
+    .media-index {
+      position: absolute;
+      top: 14px;
+      left: 14px;
+      width: 32px;
+      height: 32px;
+      border-radius: 10px;
+      background: rgba(255,255,255,0.85);
+      border: 1px solid rgba(75,75,221,0.12);
+      color: #4338ca;
+      font-weight: 800;
+      font-size: 0.78rem;
+      display: grid;
+      place-items: center;
+      font-family: monospace;
+    }
+    .diagram-img {
+      width: 100%;
+      height: auto;
+      max-width: 500px;
+      aspect-ratio: 960 / 420;
+      object-fit: contain;
+      border-radius: 14px;
+      box-shadow: 0 4px 16px rgba(15, 23, 42, 0.05);
+      display: block;
+    }
+    .card-body {
+      padding: 18px 20px;
+      font-size: 0.92rem;
+      color: var(--muted);
+    }
+    .card-body ul {
+      padding-right: 20px;
+      margin-top: 8px;
+    }
+    .card-body li {
+      margin-bottom: 4px;
+    }
+
+    /* Device responsive showcase */
+    .showcase-section {
+      max-width: 1200px;
+      margin: 0 auto;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 24px;
+      padding: 30px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.04);
+    }
+    .showcase-header {
+      margin-bottom: 24px;
+      text-align: center;
+    }
+    .devices-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 30px;
+    }
+    @media (max-width: 900px) {
+      .devices-grid { grid-template-columns: 1fr; }
+    }
+    .device-frame {
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 16px;
+      background: #f1f5f9;
+    }
+    .device-label {
+      font-weight: 700;
+      font-size: 0.9rem;
+      color: #475569;
+      margin-bottom: 10px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .device-phone {
+      max-width: 340px;
+      margin: 0 auto;
+    }
+  </style>
+</head>
+<body>
+  <div class="header">
+    <span class="badge">تحديث التصميم والتجاوب</span>
+    <h1>الرسوم التوضيحية أصبحت متناسقة، واضحة، ومتجاوبة تمامًا</h1>
+    <p>حل مشكلة تداخل الأسهم والكتل وتعديل كافة رسوم المنصة لتظهر بأعلى جودة على الهاتف والآيباد والحاسوب</p>
+  </div>
+
+  <div class="grid">
+    <!-- Before -->
+    <div class="card">
+      <div class="card-header">
+        <span class="card-title">الرسم السابق (مشكلة التداخل والأسهم الضخمة)</span>
+        <span class="tag tag-before">قبل التعديل</span>
+      </div>
+      <div class="media-box">
+        <span class="media-index">02</span>
+        <!-- Old broken svg simulation for comparison -->
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 420" class="diagram-img" direction="rtl">
+          <defs>
+            <!-- The old broken marker that scaled 5x (60px huge triangle) -->
+            <marker id="old-arrow" markerWidth="12" markerHeight="12" refX="10" refY="6" orient="auto">
+              <path d="M0 0 12 6 0 12z" fill="#3C4AE8"/>
+            </marker>
+          </defs>
+          <rect width="960" height="420" rx="26" fill="#fff"/>
+          <text x="480" y="405" text-anchor="middle" fill="#6b7280" font-family="Arial,sans-serif" font-size="15">EFHAMHA · VISUAL LEARNING</text>
+          <rect x="645" y="160" width="220" height="112" rx="18" fill="#eef0ff" stroke="#3C4AE8" stroke-width="3"/>
+          <text x="755" y="210" text-anchor="middle" direction="ltr" fill="#26324a" font-family="Arial,sans-serif" font-size="20" font-weight="700">Application</text>
+          <path d="M641 216L594 216" stroke="#3C4AE8" stroke-width="5" marker-end="url(#old-arrow)"/>
+          <rect x="370" y="160" width="220" height="112" rx="18" fill="#fff7e6" stroke="#d58b18" stroke-width="3"/>
+          <text x="480" y="210" text-anchor="middle" direction="ltr" fill="#26324a" font-family="Arial,sans-serif" font-size="20" font-weight="700">Database</text>
+          <path d="M366 216L319 216" stroke="#3C4AE8" stroke-width="5" marker-end="url(#old-arrow)"/>
+          <rect x="95" y="160" width="220" height="112" rx="18" fill="#edfff5" stroke="#20a36a" stroke-width="3"/>
+          <text x="205" y="210" text-anchor="middle" direction="ltr" fill="#26324a" font-family="Arial,sans-serif" font-size="20" font-weight="700">Tables</text>
+        </svg>
+      </div>
+      <div class="card-body">
+        <ul>
+          <li>السهم كان عبارة عن مثلث أزرق ضخم يبتلع المسافة بين الصناديق.</li>
+          <li>رأس السهم يخترق الصندوق المستهدف وقاعدته تلتصق بالصندوق المصدر.</li>
+          <li>خط Arial عادي غير متناسق مع خط المنصة.</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- After -->
+    <div class="card">
+      <div class="card-header">
+        <span class="card-title">الرسم بعد التحديث الشامل (الرسم الفعلي بالمنصة الآن)</span>
+        <span class="tag tag-after">بعد التعديل</span>
+      </div>
+      <div class="media-box">
+        <span class="media-index">02</span>
+        <img src="/assets/images/lessons/sql/sql-1.svg" class="diagram-img" alt="SQL Diagram Updated">
+      </div>
+      <div class="card-body">
+        <ul>
+          <li>أسهم رشيقة ودقيقة بقياسات متناسقة ونهايات دائرية ناعمة.</li>
+          <li>مسافات أمان كافية بين الصناديق بدون أي تداخل أو تلاصق مشوه.</li>
+          <li>خط عربي وإنجليزي موحد ومتناسق (Cairo / System UI).</li>
+          <li>تجاوب كامل مع الحفاظ على الأبعاد والوضوح العالي.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="showcase-section">
+    <div class="showcase-header">
+      <h2>محاكاة التجاوب على مختلف الأجهزة</h2>
+      <p>الرسم يتكيف تلقائيًا بنقاء فائق سواء على شاشة الهاتف، الآيباد، أو شاشة الحاسوب</p>
+    </div>
+    <div class="devices-grid">
+      <div class="device-frame device-phone">
+        <div class="device-label">📱 شاشة هاتف محمول (عرض 320px - 380px)</div>
+        <div class="media-box" style="padding: 10px; min-height: 160px;">
+          <img src="/assets/images/lessons/sql/sql-1.svg" class="diagram-img" alt="Mobile View">
+        </div>
+      </div>
+      <div class="device-frame">
+        <div class="device-label">💻 شاشة آيباد ولابتوب (عرض واسع)</div>
+        <div class="media-box">
+          <img src="/assets/images/lessons/sql/sql-1.svg" class="diagram-img" alt="Tablet & Laptop View">
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

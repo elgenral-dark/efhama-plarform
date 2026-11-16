@@ -57,8 +57,11 @@
     if (result.ok) {
       label.textContent = "تم التحقق — جارٍ التحويل…";
       var nextParam = new URLSearchParams(location.search).get("next");
-      var defaultTarget = result.user.role === "admin" ? "admin-subscriptions.html" : "index.html";
-      window.location.replace(nextParam ? decodeURIComponent(nextParam) : defaultTarget);
+      var defaultTarget = result.user.role === "admin" ? "admin-dashboard.html" : "index.html";
+      var safeTarget = nextParam && !nextParam.startsWith("//") && !nextParam.startsWith("/\\")
+        && !/[\\\u0000-\u001f\u007f]/.test(nextParam) && !/^[a-z][a-z0-9+.-]*:/i.test(nextParam)
+        ? nextParam : defaultTarget;
+      window.location.replace(safeTarget);
       return;
     }
     setLoading(false);
@@ -98,6 +101,13 @@
       cancelTransferButton.disabled = false;
       confirmTransfer.textContent = "نعم، تسجيل الخروج من الجهاز الآخر والدخول من الجهاز الحالي";
       finishLogin(result);
+    }).catch(function (error) {
+      transferDialog.close();
+      confirmTransfer.disabled = false;
+      cancelTransferButton.disabled = false;
+      confirmTransfer.textContent = "نعم، تسجيل الخروج من الجهاز الآخر والدخول من الجهاز الحالي";
+      setLoading(false);
+      showLoginError(error.message || "تعذر الاتصال بالخادم. حاول مجددًا.");
     });
   });
 
@@ -129,6 +139,9 @@
         return;
       }
       finishLogin(res);
+    }).catch(function (error) {
+      setLoading(false);
+      showLoginError(error.message || "تعذر الاتصال بالخادم. حاول مجددًا.");
     });
   });
 })();

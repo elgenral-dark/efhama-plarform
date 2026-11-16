@@ -1,11 +1,12 @@
 /* Service Worker — تخزين مؤقت: شبكة أولًا مع كاش احتياطي */
-var CACHE = "efhama-v9";
+var CACHE = "efhama-v10";
 /* الهيكل الثابت فقط. ملفات المحتوى (data/) تتطلب تسجيل الدخول فتُخزَّن عند أول طلب ناجح */
 var CORE = [
   "login.html", "register.html", "offline.html",
-  "css/styles.css", "css/login.css", "manifest.json",
+  "css/styles.css", "css/login.css", "css/whatsapp-support.css", "manifest.json",
+  "js/whatsapp-support.js",
   "assets/icons/icon-192.png", "assets/icons/icon-512.png",
-  "css/register.css", "css/notifications.css", "js/auth.js", "js/ui.js", "js/data.js", "js/navigation.js", "js/notifications.js", "js/login.js", "js/payment-config.js", "js/register.js",
+  "css/register.css", "js/auth.js", "js/ui.js", "js/navigation.js", "js/notifications-page.js", "js/data.js", "js/login.js", "js/payment-config.js", "js/register.js",
   "js/chapters.js", "js/chapter.js", "js/lesson.js",
   "js/quiz.js", "js/glossary.js", "js/search-page.js", "js/assistant.js"
 ];

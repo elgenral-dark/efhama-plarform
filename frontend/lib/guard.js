@@ -2,53 +2,46 @@ export const OPEN_PAGES = new Set([
   "/login.html",
   "/register.html",
   "/offline.html",
-  "/faq.html",
-  "/glossary.html",
+  "/explore/index.html",
+  "/explore/chapters.html",
+  "/explore/paths.html",
+  "/explore/projects.html",
 ]);
 
 export function isGuardedPath(path) {
-  return path === "/"
-    || path.startsWith("/programming-paths/")
-    || path.startsWith("/data/")
-    || (path.endsWith(".html") && !OPEN_PAGES.has(path));
+  if (typeof path !== "string" || OPEN_PAGES.has(path)) return false;
+  return path.startsWith("/programming-paths/") || /\.html$/i.test(path);
 }
 
 export function hasSubscription(user) {
-  return user?.role === "admin" || user?.subscriptionStatus === "active";
+  return !!user && (user.role === "admin" || user.subscriptionStatus === "active");
 }
 
-export async function currentUser({ backendUrl, cookie } = {}) {
-  if (!backendUrl) throw new Error("BACKEND_URL is required to authorize protected pages");
-  const response = await fetch(`${backendUrl.replace(/\/+$/, "")}/api/auth/me`, {
+export async function currentUser({ backendUrl, cookie, fetchImpl = fetch } = {}) {
+  if (!backendUrl) throw new Error("Backend URL is not configured");
+  const response = await fetchImpl(`${backendUrl.replace(/\/+$/, "")}/api/auth/me`, {
     headers: cookie ? { cookie } : {},
-    cache: "no-store",
-    signal: AbortSignal.timeout(3000),
+    signal: AbortSignal.timeout(5000),
   });
   if (response.status === 401) return null;
-  if (!response.ok) throw new Error(`Authentication backend returned ${response.status}`);
-  const body = await response.json();
-  return body.user || null;
+  if (!response.ok) throw new Error(`Backend auth check failed with status ${response.status}`);
+  const result = await response.json();
+  return result.user || null;
 }
 
-export async function decide({ path, backendUrl, cookie } = {}) {
-  if (OPEN_PAGES.has(path) || !isGuardedPath(path)) return { action: "next" };
+export async function decide({ path, backendUrl, cookie, fetchImpl = fetch } = {}) {
+  if (!isGuardedPath(path)) return { action: "next" };
 
-  const user = await currentUser({ backendUrl, cookie });
-  const isHtml = path.endsWith(".html") || path === "/";
-  if (path === "/")
-    return { action: "redirect", location: user && hasSubscription(user) ? "/index.html" : "/register.html" };
-  if (!user) {
-    return isHtml
-      ? { action: "redirect", location: "/login.html" }
-      : { action: "unauthorized", status: 401 };
+  let user;
+  try {
+    user = await currentUser({ backendUrl, cookie, fetchImpl });
+  } catch {
+    return { action: "unavailable" };
   }
-  if (path.startsWith("/admin") && user.role !== "admin")
-    return { action: "forbidden", status: 403 };
-  if (path === "/notifications.html") return { action: "next" };
-  if (!hasSubscription(user)) {
-    return isHtml
-      ? { action: "redirect", location: "/register.html?subscription=required" }
-      : { action: "subscription_required", status: 403 };
-  }
-  return { action: "next" };
+  if (!user) return { action: "login" };
+  if ((["/admin-subscriptions.html", "/admin-dashboard.html"].includes(path) || path.startsWith("/dashboard/"))
+    && user.role !== "admin")
+    return { action: "forbidden" };
+  if (!hasSubscription(user)) return { action: "subscription" };
+  return { action: "next", user };
 }
