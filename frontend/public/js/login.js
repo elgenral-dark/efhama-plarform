@@ -57,7 +57,8 @@
     if (result.ok) {
       label.textContent = "تم التحقق — جارٍ التحويل…";
       var nextParam = new URLSearchParams(location.search).get("next");
-      var defaultTarget = result.user.role === "admin" ? "admin-dashboard.html" : "index.html";
+      var isStaff = ["admin", "instructor", "content_manager", "analyst", "support", "super_admin"].includes(result.user.role);
+      var defaultTarget = result.redirectUrl || (isStaff ? "/admin/" : "index.html");
       var safeTarget = nextParam && !nextParam.startsWith("//") && !nextParam.startsWith("/\\")
         && !/[\\\u0000-\u001f\u007f]/.test(nextParam) && !/^[a-z][a-z0-9+.-]*:/i.test(nextParam)
         ? nextParam : defaultTarget;
@@ -115,8 +116,8 @@
   function validate() {
     var ok = true;
     var em = email.value.trim();
-    if (!em) { fieldError(emailErr, "أدخل البريد الإلكتروني."); ok = false; }
-    else if (!EMAIL_RE.test(em)) { fieldError(emailErr, "صيغة البريد الإلكتروني غير صحيحة."); ok = false; }
+    if (!em) { fieldError(emailErr, "أدخل البريد الإلكتروني أو اسم المستخدم."); ok = false; }
+    else if (!EMAIL_RE.test(em) && !/^[A-Za-z0-9._-]{3,32}$/.test(em)) { fieldError(emailErr, "أدخل بريدًا إلكترونيًا أو اسم مستخدم صحيحًا."); ok = false; }
     if (!pass.value) { fieldError(passErr, "أدخل كلمة المرور."); ok = false; }
     return ok;
   }

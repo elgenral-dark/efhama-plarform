@@ -56,63 +56,7 @@ const copy = {
   qrShareFailed: "تعذرت مشاركة الرابط. يمكنك نسخه بدلًا من ذلك.",
   qrDownloadFailed: "تعذر تنزيل رمز QR. حاول مجددًا.",
   },
-  en: {
-    skip: "Skip to content", menuOpen: "Open menu", menuClose: "Close menu",
-    navHome: "Home", navChapters: "Chapters", navPaths: "Learning paths", navProjects: "Projects",
-    subscribe: "Get started", heroEyebrow: "Programming & AI curriculum — Grade 11",
-    heroTitle: "Learn by understanding,<br><span class=\"gradient-text\">not memorizing.</span>",
-    heroDescription: "A learning journey that makes ideas clear, connects them to everyday life, and turns knowledge into real skills and projects.",
-    exploreChapters: "Explore chapters", explorePaths: "Explore learning paths",
-    heroProof: "Learn step by step, from idea to application",
-    welcomeLead: "Welcome to", welcomeBrand: "Efhama, learn with understanding",
-    floatConcept: "Clear concepts", floatProject: "Hands-on practice", trustUnderstand: "Understand before you code",
-    trustPractice: "Learn by doing", trustProgress: "Follow a clear path",
-    discoverEyebrow: "A complete learning experience", discoverTitle: "Everything you need to get started",
-    discoverText: "Explore the curriculum, find a path that fits, and see how knowledge turns into progress.",
-    featureChapters: "Chapters that make ideas click", featureChaptersText: "Organized topics connect programming and AI to the world around you.",
-    featurePaths: "Paths that build your skills", featurePathsText: "Move from fundamentals to the languages and tools used to build for the web.",
-    featureProjects: "Projects that put learning to work", featureProjectsText: "Small hands-on ideas help you practice new skills one step at a time.",
-    browse: "Explore more", ctaEyebrow: "Your next step starts here", ctaTitle: "Ready to learn with understanding?",
-    ctaText: "Start your Efhama journey and unlock the full learning experience.", footerText: "Learn to understand. Understand to create.",
-    chaptersEyebrow: "The curriculum", chaptersTitle: "Chapters that open <span class=\"gradient-text\">new perspectives</span>",
-    chaptersIntro: "Preview the topics you'll explore, from technology's impact to building for the web.",
-    previewOnly: "Public preview", chapterListEyebrow: "Programming & artificial intelligence",
-    chapterListTitle: "What will you discover?", chapterListText: "Browse the topics and lesson previews. Full learning content is available to subscribers.",
-    chapterCtaTitle: "Turn curiosity into understanding", pathsEyebrow: "A clear path to progress",
-    pathsTitle: "Build new skills <span class=\"gradient-text\">one step at a time</span>",
-    pathsIntro: "Start with logic, then explore the tools and languages that help you bring ideas to life.",
-    learningJourney: "Your learning journey", pathListEyebrow: "From idea to skill",
-    roadmapLogic: "Programming Logic", roadmapCode: "Code & Web", roadmapProjects: "Real Projects", roadmapBadge: "Step-by-step Journey",
-    pathListTitle: "Choose your next step", pathListText: "Explore each path's goals, skills, and expected outcomes before you begin.",
-    pathCtaTitle: "Start building a new skill", projectsEyebrow: "Learn it. Try it. Build it.",
-    projectsTitle: "Small ideas, <span class=\"gradient-text\">real achievements</span>",
-    projectsIntro: "Explore learning projects that bring together logical thinking and programming skills.",
-    projectReady: "Ready to build", projectListEyebrow: "Practice makes progress",
-    projectListTitle: "What could you build?",
-    projectListText: "Project previews are open to everyone. Starting a project and hands-on practice require a subscription.",
-    projectCtaTitle: "Make your idea your first project", lessonsLabel: "Lesson previews",
-    previewLabel: "Overview", protectedLabel: "Full content for subscribers",
-    openLessons: "Start learning", startPath: "Start this path", startProject: "Start this project",
-    goalLabel: "Path goal", skillsLabel: "Skills you'll build", outcomeLabel: "Expected outcome",
-    outcome: "Apply the skill in a short exercise or project.", projectOutcome: "A guided project where you put the idea into practice.",
-    beginner: "Beginner", intermediate: "Intermediate", chapterUnit: "chapter", chapterUnits: "chapters",
-    pathsPageTitle: "Learning paths — Efhama | efhamha", chaptersPageTitle: "Chapters — Efhama | efhamha",
-    projectsPageTitle: "Projects — Efhama | efhamha", homePageTitle: "Efhama | Learn by understanding and doing",
-    homeMetaDescription: "Learn programming and artificial intelligence by understanding and doing with Efhama.",
-    chaptersMetaDescription: "Explore the programming and artificial intelligence chapters on Efhama.",
-    pathsMetaDescription: "Discover learning paths for programming and web development on Efhama.",
-    projectsMetaDescription: "Explore hands-on projects that turn knowledge into practical skills.",
-    menuLabel: "Primary navigation", brandHome: "Efhama home", heroArtLabel: "A welcome message from Efhama", trustLabel: "Learning experience highlights", themeLabel: "Toggle theme", languageLabel: "التبديل إلى العربية",
-  qrEyebrow: "Share Efhama", qrTitle: "Share Efhama with a scan",
-  qrDescription: "Scan the QR code to open Efhama on your phone, or copy and share the link.",
-  qrOpen: "Open Efhama", qrCopy: "Copy link", qrShare: "Share Efhama",
-  qrDownload: "Download QR as PNG", qrPending: "Creating your QR code…",
-  qrReady: "Scan the code to open Efhama on your device.",
-  qrUnavailable: "A QR code is available when you open the site using its secure production URL (HTTPS).",
-  qrCopied: "Efhama link copied.", qrCopyFailed: "Could not copy the link. Check browser permissions and try again.",
-  qrShareFailed: "Could not share the link. You can copy it instead.",
-  qrDownloadFailed: "Could not download the QR code. Please try again.",
-  },
+  
 };
 
 const chapters = [
@@ -161,15 +105,16 @@ const projects = [
 ];
 
 const page = document.body.dataset.page;
-const savedLanguage = localStorage.getItem("efhama_public_language");
-let language = savedLanguage === "en" ? "en" : "ar";
+// Language is always Arabic — no toggle
+const language = "ar";
+localStorage.setItem("efhama_public_language", "ar");
 const savedTheme = localStorage.getItem("efhama_theme");
 if (savedTheme === "light" || savedTheme === "dark") {
   document.documentElement.dataset.theme = savedTheme;
 }
 
 function text(value) {
-  return value[language === "en" ? 1 : 0];
+  return value[0];
 }
 
 function add(parent, tag, className, value) {
@@ -311,8 +256,8 @@ function updateEducationalImages() {
 }
 
 function render() {
-  document.documentElement.lang = language;
-  document.documentElement.dir = language === "ar" ? "rtl" : "ltr";
+  document.documentElement.lang = "ar";
+  document.documentElement.dir = "rtl";
   document.querySelectorAll("[data-copy]").forEach((node) => {
     const value = copy[language][node.dataset.copy];
     if (value !== undefined) node.innerHTML = value;
@@ -329,10 +274,7 @@ function render() {
   document.querySelectorAll("[data-theme-toggle]").forEach((node) => {
     node.setAttribute("aria-label", copy[language].themeLabel);
   });
-  document.querySelectorAll("[data-language-toggle]").forEach((node) => {
-    node.textContent = language === "ar" ? "EN" : "ع";
-    node.setAttribute("aria-label", copy[language].languageLabel);
-  });
+
   document.querySelectorAll("[data-nav]").forEach((node) => {
     if (node.dataset.nav === page) node.setAttribute("aria-current", "page");
     else node.removeAttribute("aria-current");
@@ -363,11 +305,6 @@ function render() {
   updateEducationalImages();
 }
 
-document.querySelector("[data-language-toggle]")?.addEventListener("click", () => {
-  language = language === "ar" ? "en" : "ar";
-  localStorage.setItem("efhama_public_language", language);
-  render();
-});
 
 document.querySelector("[data-theme-toggle]")?.addEventListener("click", () => {
   const root = document.documentElement;
@@ -377,13 +314,18 @@ document.querySelector("[data-theme-toggle]")?.addEventListener("click", () => {
   updateEducationalImages();
 });
 
+const ICON_MENU = `<svg width="18" height="14" viewBox="0 0 18 14" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><rect y="0" width="18" height="2" rx="1" fill="currentColor"/><rect y="6" width="14" height="2" rx="1" fill="currentColor"/><rect y="12" width="10" height="2" rx="1" fill="currentColor"/></svg>`;
+const ICON_CLOSE = `<svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M1 1L13 13M13 1L1 13" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>`;
+
 const menuToggle = document.querySelector(".menu-toggle");
+if (menuToggle) menuToggle.innerHTML = ICON_MENU;
+
 menuToggle?.addEventListener("click", () => {
   const open = menuToggle.getAttribute("aria-expanded") !== "true";
   menuToggle.setAttribute("aria-expanded", String(open));
   document.querySelector(".primary-nav").classList.toggle("nav-open", open);
-  menuToggle.textContent = open ? "×" : "☰";
-  menuToggle.setAttribute("aria-label", copy[language][open ? "menuClose" : "menuOpen"]);
+  menuToggle.innerHTML = open ? ICON_CLOSE : ICON_MENU;
+  menuToggle.setAttribute("aria-label", copy["ar"][open ? "menuClose" : "menuOpen"]);
 });
 
 document.querySelector(".primary-nav")?.addEventListener("click", (event) => {
@@ -391,8 +333,8 @@ document.querySelector(".primary-nav")?.addEventListener("click", (event) => {
   document.querySelector(".primary-nav").classList.remove("nav-open");
   menuToggle?.setAttribute("aria-expanded", "false");
   if (menuToggle) {
-    menuToggle.textContent = "☰";
-    menuToggle.setAttribute("aria-label", copy[language].menuOpen);
+    menuToggle.innerHTML = ICON_MENU;
+    menuToggle.setAttribute("aria-label", copy["ar"].menuOpen);
   }
 });
 
@@ -523,5 +465,125 @@ function initializeQrShare() {
   }
 }
 
+function initializeHeroTypewriter() {
+  const container = document.getElementById("heroCodeBody");
+  if (!container) return;
+
+  const codeData = [
+    { ln: 1, tokens: [{ text: "# ", cls: "tok-comment" }, { text: "البرمجة تفكير وتطبيق مش مجرد سطور", cls: "tok-comment", isBdi: true }] },
+    { ln: 2, tokens: [{ text: "def", cls: "tok-kw" }, { text: " " }, { text: "efhamha", cls: "tok-fn" }, { text: "(" }, { text: "concept", cls: "tok-param" }, { text: "):" }] },
+    { ln: 3, tokens: [{ text: "  " }, { text: "skills", cls: "tok-var" }, { text: " = [" }, { text: '"Logic"', cls: "tok-str" }, { text: ", " }, { text: '"Python"', cls: "tok-str" }, { text: ", " }, { text: '"AI"', cls: "tok-str" }, { text: "]" }] },
+    { ln: 4, tokens: [{ text: "  " }, { text: "if", cls: "tok-kw" }, { text: " " }, { text: "understand", cls: "tok-fn" }, { text: "(" }, { text: "concept", cls: "tok-param" }, { text: "):" }] },
+    { ln: 5, tokens: [{ text: "    " }, { text: "return", cls: "tok-kw" }, { text: ' "' }, { text: "تفكير منطقي وحل مشكلات", cls: "tok-str", isBdi: true }, { text: '"', cls: "tok-str" }] },
+    { ln: 6, tokens: [] },
+    { ln: 7, tokens: [{ text: "print", cls: "tok-kw" }, { text: "(" }, { text: "efhamha", cls: "tok-fn" }, { text: "(" }, { text: '"Logic"', cls: "tok-str" }, { text: "))" }], active: true }
+  ];
+
+  const terminalText = "تفكير منطقي وحل مشكلات — النتيجة: إتقان حقيقي";
+
+  if (window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+    return;
+  }
+
+  let activeTimeout = null;
+
+  function runTypewriter() {
+    container.innerHTML = "";
+
+    const lineElements = codeData.map((line) => {
+      const lineDiv = document.createElement("div");
+      lineDiv.className = "code-line";
+
+      const lnSpan = document.createElement("span");
+      lnSpan.className = "code-ln";
+      lnSpan.textContent = String(line.ln);
+
+      const textDiv = document.createElement("div");
+      textDiv.className = "code-text";
+
+      lineDiv.append(lnSpan, textDiv);
+      container.append(lineDiv);
+      return { lineDiv, textDiv, lineData: line };
+    });
+
+    const terminalDiv = document.createElement("div");
+    terminalDiv.className = "code-terminal";
+    terminalDiv.innerHTML = `<span class="terminal-prompt">❯</span><span class="terminal-result"><bdi>${terminalText}</bdi></span>`;
+    container.append(terminalDiv);
+
+    const cursor = document.createElement("span");
+    cursor.className = "type-cursor";
+
+    let currentLineIndex = 0;
+    let currentTokenIndex = 0;
+    let currentCharIndex = 0;
+
+    function typeNextChar() {
+      if (currentLineIndex >= lineElements.length) {
+        const lastLine = lineElements[lineElements.length - 1];
+        lastLine.lineDiv.classList.add("code-active");
+        terminalDiv.classList.add("visible");
+
+        activeTimeout = setTimeout(() => {
+          container.style.transition = "opacity 0.4s ease";
+          container.style.opacity = "0";
+          setTimeout(() => {
+            container.style.opacity = "1";
+            runTypewriter();
+          }, 450);
+        }, 5000);
+        return;
+      }
+
+      const { textDiv, lineData } = lineElements[currentLineIndex];
+
+      if (!lineData.tokens || lineData.tokens.length === 0) {
+        currentLineIndex++;
+        activeTimeout = setTimeout(typeNextChar, 100);
+        return;
+      }
+
+      const token = lineData.tokens[currentTokenIndex];
+
+      if (!cursor.parentNode || cursor.parentNode !== textDiv) {
+        textDiv.append(cursor);
+      }
+
+      let tokenSpan = textDiv.querySelector(`[data-tok="${currentTokenIndex}"]`);
+      if (!tokenSpan) {
+        tokenSpan = token.isBdi ? document.createElement("bdi") : document.createElement("span");
+        if (token.cls) tokenSpan.className = token.cls;
+        tokenSpan.dataset.tok = String(currentTokenIndex);
+        cursor.before(tokenSpan);
+      }
+
+      tokenSpan.textContent += token.text[currentCharIndex];
+      currentCharIndex++;
+
+      if (currentCharIndex >= token.text.length) {
+        currentTokenIndex++;
+        currentCharIndex = 0;
+
+        if (currentTokenIndex >= lineData.tokens.length) {
+          currentLineIndex++;
+          currentTokenIndex = 0;
+          cursor.remove();
+          activeTimeout = setTimeout(typeNextChar, 130);
+          return;
+        }
+      }
+
+      const isSpace = token.text[currentCharIndex] === " ";
+      const delay = isSpace ? 15 : (Math.random() * 16 + 22);
+      activeTimeout = setTimeout(typeNextChar, delay);
+    }
+
+    activeTimeout = setTimeout(typeNextChar, 350);
+  }
+
+  runTypewriter();
+}
+
 render();
+initializeHeroTypewriter();
 initializeQrShare();

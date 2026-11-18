@@ -1,0 +1,22 @@
+:root{--brand:#3C4AE8;--ink:#181B3B;--muted:#5C6188;--line:#E0E2EF;font-family:"IBM Plex Sans Arabic","Segoe UI",Tahoma,sans-serif}
+*{box-sizing:border-box}body{margin:0;background:#EFF0F7;color:var(--ink);min-height:100vh}
+.bar{display:flex;justify-content:center;padding:14px}.bar button{background:var(--brand);color:#fff;border:0;border-radius:8px;padding:10px 20px;font:inherit;font-weight:600;cursor:pointer;min-height:44px}
+.cbanner{max-width:1000px;margin:0 auto 10px;padding:10px 16px;border-radius:8px;text-align:center;font-weight:600}
+.cbanner.bad{background:#FCE8E9;color:#C62A32}.cbanner.warn{background:#FFF1D6;color:#9A5B00}
+.cert{width:min(100%,1000px);aspect-ratio:1.414/1;margin:0 auto 24px;background:#fff;padding:18px;box-shadow:0 6px 30px rgba(24,27,59,.15)}
+.frame{height:100%;border:6px solid var(--brand);outline:2px solid var(--brand);outline-offset:-14px;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:4% 6%;gap:.5em}
+.logo{max-height:64px;max-width:220px;object-fit:contain}.logo-text{font-weight:700;font-size:28px;color:var(--brand)}
+.cert h1{margin:.2em 0;font-size:clamp(26px,5vw,46px);color:var(--brand)}
+.lead{margin:0;color:var(--muted);font-size:clamp(14px,2vw,20px)}
+.student{margin:.2em 0;font-size:clamp(26px,5vw,48px);border-bottom:2px solid var(--line);padding:0 .8em .1em}
+.path{margin:.1em 0;font-size:clamp(20px,3.4vw,34px)}
+.meta{display:flex;gap:40px;margin-top:1em;flex-wrap:wrap;justify-content:center}.meta small{display:block;color:var(--muted)}.meta b{font-size:clamp(13px,1.8vw,17px)}
+.verify{margin:.6em 0 0;color:var(--muted);font-size:clamp(11px,1.4vw,14px);word-break:break-all}
+.vwrap{display:grid;place-items:center;min-height:100vh;padding:16px}
+.vcard{background:#fff;border-radius:16px;padding:28px;max-width:480px;width:100%;box-shadow:0 6px 30px rgba(24,27,59,.12);text-align:center}
+.vcard .mark{width:64px;height:64px;border-radius:50%;display:grid;place-items:center;font-size:32px;margin:0 auto 10px;color:#fff}
+.vcard.ok .mark{background:#0F7A57}.vcard.bad .mark{background:#C62A32}.vcard.warn .mark{background:#9A5B00}
+.vcard dl{text-align:start;margin:16px 0}.vcard dt{color:var(--muted);font-size:13px;margin-top:10px}.vcard dd{margin:2px 0 0;font-weight:600}
+a{color:var(--brand)}
+@page{size:A4 landscape;margin:0}
+@media print{body{background:#fff}.noprint{display:none!important}.cert{width:297mm;height:210mm;aspect-ratio:auto;margin:0;box-shadow:none;padding:8mm;break-inside:avoid}}

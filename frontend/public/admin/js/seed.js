@@ -1,0 +1,153 @@
+/* مولَّد تلقائيًا — لا تعدّله يدويًا. شغّل: node server/build-seed.js */
+window.EFHAMA_SEED = {
+  "schemaVersion": 1,
+  "rev": 3,
+  "updatedAt": "2026-11-11T21:19:23.106Z",
+  "settings": {
+    "name": "Efhamha",
+    "tagline": "Learn to code, stage by stage",
+    "description": "منصة عربية لتعلّم البرمجة بالفهم لا بالحفظ.",
+    "logo": "",
+    "icon": "",
+    "colors": {
+      "primary": "#1E6BFF",
+      "light": {
+        "background": "#F4F7FC",
+        "surface": "#FFFFFF",
+        "text": "#0B1220"
+      },
+      "dark": {
+        "background": "#0B1220",
+        "surface": "#111A2E",
+        "text": "#F4F7FC"
+      }
+    },
+    "theme": {
+      "default": "system",
+      "allowToggle": true
+    },
+    "social": {
+      "x": "",
+      "facebook": "",
+      "instagram": "",
+      "youtube": "",
+      "linkedin": "",
+      "github": "",
+      "telegram": "",
+      "whatsapp": ""
+    },
+    "contact": {
+      "email": "",
+      "phone": "",
+      "address": ""
+    },
+    "pwa": {
+      "name": "Efhamha",
+      "shortName": "Efhamha",
+      "themeColor": "#1E6BFF",
+      "backgroundColor": "#FFFFFF",
+      "display": "standalone",
+      "startUrl": "/",
+      "icon192": "",
+      "icon512": ""
+    },
+    "home": {
+      "heroTitle": "مش هنحفظك المنهج.. هنفهمهولك.",
+      "heroSubtitle": "",
+      "welcomeMessage": "",
+      "showPaths": true,
+      "showProgress": true,
+      "showAchievements": true
+    },
+    "pathsDisplay": {
+      "layout": "grid",
+      "showLevel": true,
+      "showCounts": true,
+      "showOrderNumbers": false
+    }
+  },
+  "paths": [
+    {
+      "id": "p_logic",
+      "name": "Programming Logic",
+      "description": "أساسيات التفكير البرمجي: المتغيرات والشروط والتكرار وحل المشكلات.",
+      "icon": "🧠",
+      "image": "",
+      "level": "beginner",
+      "order": 1,
+      "visible": true
+    },
+    {
+      "id": "p_python",
+      "name": "Python",
+      "description": "تعلّم لغة بايثون من الصفر وحتى كتابة برامج كاملة.",
+      "icon": "🐍",
+      "image": "",
+      "level": "beginner",
+      "order": 2,
+      "visible": true
+    },
+    {
+      "id": "p_html",
+      "name": "HTML",
+      "description": "بناء هيكل صفحات الويب بعناصر HTML الصحيحة.",
+      "icon": "🌐",
+      "image": "",
+      "level": "beginner",
+      "order": 3,
+      "visible": true
+    },
+    {
+      "id": "p_css",
+      "name": "CSS",
+      "description": "تنسيق الصفحات وتصميمها وجعلها متجاوبة.",
+      "icon": "🎨",
+      "image": "",
+      "level": "beginner",
+      "order": 4,
+      "visible": true
+    },
+    {
+      "id": "p_js",
+      "name": "JavaScript",
+      "description": "إضافة التفاعل والمنطق إلى صفحات الويب.",
+      "icon": "⚡",
+      "image": "",
+      "level": "intermediate",
+      "order": 5,
+      "visible": true
+    },
+    {
+      "id": "p_sql",
+      "name": "SQL & Databases",
+      "description": "تصميم قواعد البيانات والاستعلام عنها بلغة SQL.",
+      "icon": "🗄️",
+      "image": "",
+      "level": "intermediate",
+      "order": 6,
+      "visible": true
+    }
+  ],
+  "modules": [],
+  "lessons": [],
+  "questions": [],
+  "quizzes": [],
+  "projects": [],
+  "assets": [],
+  "glossary": [],
+  "gamification": {
+    "xpRules": [],
+    "levels": [],
+    "badges": [],
+    "encouragements": [],
+    "dailyChallenges": [],
+    "rules": {
+      "dailyXpCap": null
+    }
+  },
+  "usage": {
+    "completions": [],
+    "quizResults": [],
+    "achievements": []
+  }
+};

@@ -180,16 +180,47 @@ var Auth = {
   },
   verify: function () {
     return Auth.check().then(function (user) {
-      if (user) return user;
-      var page = (window.location.pathname.split("/").pop() || "index.html").toLowerCase();
-      if (!["", "index.html", "chapters.html", "glossary.html", "login.html", "register.html", "offline.html"].includes(page)) {
-        var target = window.location.pathname.slice(1) + window.location.search;
-        window.location.replace("/login.html?next=" + encodeURIComponent(target));
+      var pathname = window.location.pathname;
+      var page = (pathname.split("/").pop() || "index.html").toLowerCase();
+      var isExplore = pathname.startsWith("/explore/") || pathname === "/explore";
+      var isOpen = isExplore || ["login.html", "register.html", "offline.html"].includes(page);
+
+      if (!user) {
+        if (!isOpen) {
+          var target = window.location.pathname.replace(/^\/+/, "") + window.location.search;
+          window.location.replace("/login.html?next=" + encodeURIComponent(target));
+        }
+        return null;
       }
-      return null;
+
+      var hasSub = user.role === "admin" || user.subscriptionStatus === "active";
+      if (!hasSub && !isOpen && !["admin", "super_admin", "instructor"].includes(user.role)) {
+        window.location.replace("/register.html");
+        return null;
+      }
+
+      return user;
     });
   }
 };
+
+// تفعيل التحقق التلقائي والفوري من تسجيل الدخول والاشتراك للصفحات المحمية
+(function () {
+  var pathname = window.location.pathname;
+  var page = (pathname.split("/").pop() || "index.html").toLowerCase();
+  var isExplore = pathname.startsWith("/explore/") || pathname === "/explore";
+  var isOpen = isExplore || ["login.html", "register.html", "offline.html"].includes(page);
+  var isAdmin = pathname.startsWith("/admin");
+
+  if (!isOpen && !isAdmin) {
+    if (!Auth.isLoggedIn()) {
+      var target = window.location.pathname.replace(/^\/+/, "") + window.location.search;
+      window.location.replace("/login.html?next=" + encodeURIComponent(target));
+      return;
+    }
+    Auth.verify();
+  }
+})();
 
 var whatsappSupportScript = document.createElement("script");
 whatsappSupportScript.src = "/js/whatsapp-support.js";

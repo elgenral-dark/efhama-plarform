@@ -4,7 +4,7 @@ import compression from "compression";
 import { createRequire } from "node:module";
 import { Readable } from "node:stream";
 import { pipeline } from "node:stream/promises";
-import { decide, hasSubscription, isGuardedPath, currentUser } from "./guard.js";
+import { decide, hasSubscription, isGuardedPath, currentUser, STAFF_ROLES } from "./guard.js";
 
 const HOP_BY_HOP_HEADERS = new Set([
   "connection", "keep-alive", "proxy-authenticate", "proxy-authorization",
@@ -31,12 +31,16 @@ async function proxyRequest(req, res, backendUrl) {
   const abortOnDisconnect = () => controller.abort();
   req.once("aborted", abortOnDisconnect);
   try {
-    const hasBody = !["GET", "HEAD"].includes(req.method);
+    let bodyData;
+    if (!["GET", "HEAD"].includes(req.method)) {
+      const chunks = [];
+      for await (const chunk of req) chunks.push(chunk);
+      bodyData = Buffer.concat(chunks);
+    }
     const upstream = await fetch(`${backendUrl.replace(/\/+$/, "")}${req.originalUrl}`, {
       method: req.method,
       headers,
-      body: hasBody ? req : undefined,
-      ...(hasBody ? { duplex: "half" } : {}),
+      body: bodyData,
       signal: controller.signal,
       redirect: "manual",
     });
@@ -53,6 +57,7 @@ async function proxyRequest(req, res, backendUrl) {
     if (!upstream.body) return res.end();
     await pipeline(Readable.fromWeb(upstream.body), res);
   } catch (error) {
+    console.error("proxyRequest error:", error);
     if (res.destroyed || req.aborted) return;
     if (res.headersSent) return res.destroy(error);
     const timedOut = controller.signal.aborted;
@@ -103,7 +108,7 @@ export function createFrontendApp({
     });
   });
 
-  app.use(["/api", "/data"], (req, res) => proxyRequest(req, res, backendUrl));
+  app.use(["/api", "/data", "/uploads", "/public/efhama-data.json"], (req, res) => proxyRequest(req, res, backendUrl));
 
   app.get("/", async (req, res, next) => {
     if (!backendUrl) return res.redirect("/explore/");
@@ -116,20 +121,41 @@ export function createFrontendApp({
     return res.redirect("/explore/");
   });
 
-  app.get("/admin-subscriptions.html", (_req, res) => res.redirect(302, "/admin-dashboard.html"));
+  app.use((req, res, next) => {
+    if (req.path === "/admin") return res.redirect(301, "/admin/");
+    next();
+  });
+  app.get(["/admin-subscriptions.html", "/admin-dashboard.html"], (_req, res) => res.redirect(302, "/admin/"));
 
+  // حماية مسارات المنصة الأساسية ومسارات التعلم ولوحة التحكم
   app.use(async (req, res, next) => {
-    if (!isGuardedPath(req.path)) return next();
+    if (!backendUrl) return next();
+    const isAdmin = req.path === "/admin" || req.path.startsWith("/admin/");
+    if (!isAdmin && !isGuardedPath(req.path)) return next();
     const result = await decide({ path: req.path, backendUrl, cookie: req.headers.cookie });
     if (result.action === "next") return next();
+    if (isAdmin) {
+      if (result.action === "forbidden") return res.redirect("/login.html");
+      return next();
+    }
     if (result.action === "unavailable")
       return res.status(503).type("text/plain").send("تعذر التحقق من صلاحيات الحساب.");
     if (result.action === "forbidden")
       return res.status(403).type("text/plain").send("صلاحيات المسؤول مطلوبة.");
-    if (result.action === "subscription") return res.redirect("/register.html");
-    if (req.path.startsWith("/programming-paths/"))
+
+    const isApiOrFetch = req.xhr || (req.headers.accept && req.headers.accept.includes("application/json") && !req.headers.accept.includes("text/html"));
+
+    if (result.action === "subscription") {
+      if (isApiOrFetch) return res.status(403).json({ error: "subscription_required", message: "الاشتراك غير مفعّل" });
+      return res.redirect("/register.html");
+    }
+
+    if (isApiOrFetch) {
       return res.status(401).json({ error: "unauthorized", message: "يجب تسجيل الدخول" });
-    return res.redirect("/login.html");
+    }
+
+    const targetUrl = encodeURIComponent(req.originalUrl || req.path);
+    return res.redirect(`/login.html?next=${targetUrl}`);
   });
 
   app.use(express.json({ limit: "7mb" }));
@@ -171,7 +197,7 @@ export function createFrontendApp({
   // الملفات الثابتة (بما فيها /data/ المنسوخة)
   app.use(express.static(publicDir, {
     setHeaders(res, file) {
-      if (/service-worker\.js$|\.html$/.test(file)) res.setHeader("Cache-Control", "no-cache");
+      if (/service-worker\.js$|\.html$|\.js$|\.css$|\.svg$/.test(file)) res.setHeader("Cache-Control", "no-cache");
     },
   }));
 

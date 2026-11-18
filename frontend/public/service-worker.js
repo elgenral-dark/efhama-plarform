@@ -28,6 +28,8 @@ self.addEventListener("fetch", function (e) {
   /* لا نخزن صفحات أو بيانات مدفوعة؛ يجب أن يقرر الخادم صلاحية الاشتراك في كل طلب. */
   if (url.pathname.indexOf("/api/") === 0
     || url.pathname.indexOf("/data/") === 0
+    || url.pathname.indexOf("/admin") === 0
+    || url.pathname.indexOf("/dashboard") === 0
     || url.pathname.indexOf("/programming-paths/") === 0
     || (url.pathname.endsWith(".html") && !["/login.html", "/register.html", "/offline.html"].includes(url.pathname))
     || url.pathname === "/") return;

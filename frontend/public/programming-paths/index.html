@@ -60,26 +60,68 @@
               <button class="secondary-btn" type="button" onclick="document.getElementById('paths').scrollIntoView({behavior:'smooth'})">استعرض المسارات</button>
             </div>
           </div>
-          <div class="hero-art" aria-hidden="true">
-            <div class="art-card">
-              <div class="dashboard-mini">
-                <div class="mini-stat">
-                  <strong data-path-count>—</strong>
-                  <span>مسارات</span>
-                </div>
-                <div class="mini-stat">
-                  <strong data-lesson-count>—</strong>
-                  <span>دروس</span>
-                </div>
-                <div class="mini-stat">
-                  <strong data-average-progress>—</strong>
-                  <span>متوسط الإنجاز</span>
-                </div>
-                <div class="mini-stat">
-                  <strong data-active-paths>—</strong>
-                  <span>مسارات نشطة</span>
-                </div>
+          <div class="hero-art path-hero-art" aria-label="خريطة مسارات التعلم">
+            <div class="roadmap-glow" aria-hidden="true"></div>
+            <svg class="roadmap-svg" viewBox="0 0 460 280" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+              <defs>
+                <linearGradient id="roadmapGrad" x1="365" y1="218" x2="95" y2="50" gradientUnits="userSpaceOnUse">
+                  <stop offset="0%" stop-color="#1E6BFF"/>
+                  <stop offset="50%" stop-color="#7c3aed"/>
+                  <stop offset="100%" stop-color="#10b981"/>
+                </linearGradient>
+              </defs>
+              <path d="M 425 218 C 345 218, 310 134, 230 134 C 150 134, 115 50, 35 50" 
+                    stroke="rgba(30, 107, 255, 0.12)" stroke-width="8" stroke-linecap="round"/>
+              <path class="roadmap-track" d="M 425 218 C 345 218, 310 134, 230 134 C 150 134, 115 50, 35 50" 
+                    stroke="url(#roadmapGrad)" stroke-width="3.5" stroke-linecap="round" stroke-dasharray="7 5"/>
+              <circle cx="363" cy="218" r="14" fill="rgba(30, 107, 255, 0.18)" stroke="#1E6BFF" stroke-width="2"/>
+              <circle cx="363" cy="218" r="5" fill="#1E6BFF"/>
+              <circle cx="230" cy="134" r="14" fill="rgba(124, 58, 237, 0.18)" stroke="#7c3aed" stroke-width="2"/>
+              <circle cx="230" cy="134" r="5" fill="#7c3aed"/>
+              <circle cx="97" cy="50" r="14" fill="rgba(16, 185, 129, 0.18)" stroke="#10b981" stroke-width="2"/>
+              <circle cx="97" cy="50" r="5" fill="#10b981"/>
+            </svg>
+
+            <div class="roadmap-node node-step-1">
+              <div class="node-avatar bg-indigo">
+                <span class="node-icon">◎</span>
+                <span class="node-idx">01</span>
               </div>
+              <div class="node-meta">
+                <strong>المنطق البرمجي</strong>
+                <small>Logic &amp; Algorithms</small>
+              </div>
+            </div>
+
+            <div class="roadmap-node node-step-2">
+              <div class="node-avatar bg-purple">
+                <span class="node-icon">&lt;/&gt;</span>
+                <span class="node-idx">02</span>
+              </div>
+              <div class="node-meta">
+                <strong>البرمجة والويب</strong>
+                <small>Python • JS • HTML</small>
+              </div>
+            </div>
+
+            <div class="roadmap-node node-step-3">
+              <div class="node-avatar bg-emerald">
+                <span class="node-icon">★</span>
+                <span class="node-idx">03</span>
+              </div>
+              <div class="node-meta">
+                <strong>بناء المشروعات</strong>
+                <small>Real Applications</small>
+              </div>
+            </div>
+
+            <div class="roadmap-chip chip-accent">
+              <span class="chip-pulse"></span>
+              <span>مسار عملي متكامل</span>
+            </div>
+
+            <div class="roadmap-chip chip-tech">
+              <span>رحلتك التعليمية</span>
             </div>
           </div>
         </div>
@@ -128,7 +170,7 @@
     <script src="./code-block.js"></script>
     <script src="./gamification-config.js"></script>
     <script src="./gamification.js"></script>
-    <script src="../js/image-theme.js"></script>
+    <script src="../js/image-theme.js?v=204"></script>
     <script src="./app.js"></script>
     <script src="../js/auth.js"></script>
   </body>

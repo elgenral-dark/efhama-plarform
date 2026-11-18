@@ -1,0 +1,20 @@
+:root{--efhama-primary:#3C4AE8;--bg:#fff;--fg:#181B3B;--muted:#5C6188;--line:#E0E2EF;--soft:#F5F6FA;--brand-soft:#E9EBFD;--danger:#C62A32;--success:#0F7A57;--warn:#9A5B00;font-family:"IBM Plex Sans Arabic",system-ui,sans-serif}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--fg);line-height:1.7}
+.ribbon{background:#FFF1D6;color:#5a3600;padding:8px 16px;font-size:13px;text-align:center}
+header{display:flex;gap:12px;align-items:center;padding:14px 20px;border-bottom:1px solid var(--line)}
+header img{width:40px;height:40px;object-fit:contain}header b{font-size:18px}header small{display:block;color:var(--muted)}
+header nav{margin-inline-start:auto;display:flex;gap:6px;flex-wrap:wrap}
+header nav a{padding:6px 12px;border-radius:999px;text-decoration:none;color:var(--fg)}header nav a.on{background:var(--efhama-primary);color:#fff}
+main{max-width:900px;margin:0 auto;padding:24px 16px}
+h1{font-size:26px}.cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:14px}
+.card{border:1px solid var(--line);border-radius:12px;padding:16px;text-decoration:none;color:inherit;display:block}.card:hover{border-color:var(--efhama-primary)}
+.card .ic{font-size:28px}.card h3{margin:6px 0 4px}.card p{color:var(--muted);font-size:14px;margin:0}
+.pill{display:inline-block;padding:1px 10px;border-radius:999px;background:var(--brand-soft);font-size:12px;margin-inline-end:4px}
+ul.lessons{list-style:none;padding:0}ul.lessons li a{display:block;padding:12px 14px;border:1px solid var(--line);border-radius:10px;margin-bottom:8px;text-decoration:none;color:inherit}
+.empty{padding:30px;text-align:center;color:var(--muted);border:1px dashed var(--line);border-radius:12px}
+.efhama-lesson pre{background:#14162E;color:#E8EAFF;padding:14px;border-radius:10px;overflow-x:auto}
+.efhama-lesson code{background:var(--soft);padding:1px 6px;border-radius:5px}.efhama-lesson pre code{background:none}
+.efhama-figure img{max-width:100%}.efhama-table{border-collapse:collapse;width:100%}.efhama-table th,.efhama-table td{border:1px solid var(--line);padding:6px 10px}
+.efhama-note{border-inline-start:4px solid var(--efhama-primary);background:var(--brand-soft);padding:8px 14px;border-radius:8px}
+.efhama-q{border:1px solid var(--line);border-radius:10px;padding:12px 16px;margin:12px 0}
+a.back{display:inline-block;margin-bottom:12px;color:var(--efhama-primary)}

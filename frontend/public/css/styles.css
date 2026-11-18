@@ -1,39 +1,45 @@
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap');
+
 :root {
-  --primary: #3C4AE8;
-  --primary-dark: #2F3BC4;
-  --primary-light: #EEF0FF;
-  --bg: #FFFFFF;
-  --bg-soft: #F6F7FB;
+  --primary: #1E6BFF;
+  --primary-dark: #1352CA;
+  --primary-light: #EBF2FF;
+  --accent: #7AB3FF;
+  --bg: #F4F7FC;
+  --bg-soft: #E9EFF9;
   --surface: #FFFFFF;
-  --text: #111111;
-  --text-muted: #6B7280;
-  --border: #E5E7EF;
+  --text: #0B1220;
+  --text-muted: #5B6B85;
+  --border: #E2E7F1;
   --success: #16A34A;
   --warning: #D97706;
-  --shadow: 0 4px 20px rgba(17, 17, 17, .07);
+  --shadow: 0 4px 20px rgba(11, 18, 32, .06);
   --radius: 14px;
-  --font: "Segoe UI", Tahoma, "Noto Kufi Arabic", "Noto Sans Arabic", Arial, sans-serif;
+  --font: "IBM Plex Sans Arabic", "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
   /* Logo colors — light mode */
   --logo-bracket: #1E6BFF;
-  --logo-dot-1: #3D8BFF;
-  --logo-dot-2: #1E6BFF;
+  --logo-dot-1: #1E6BFF;
+  --logo-dot-2: #7AB3FF;
   --logo-dot-3: #0B1220;
   --logo-name-color: #0B1220;
   --btn-start-bg: #0B1220;
 }
 [data-theme="dark"] {
-  --bg: #0F1117;
-  --bg-soft: #161A23;
-  --surface: #1C2130;
-  --text: #E8EAF2;
-  --text-muted: #9AA1B5;
-  --border: #2C3347;
-  --primary-light: #232A4D;
-  --shadow: 0 4px 20px rgba(0, 0, 0, .4);
+  --primary: #1E6BFF;
+  --primary-dark: #1352CA;
+  --primary-light: rgba(30, 107, 255, 0.15);
+  --accent: #7AB3FF;
+  --bg: #0B1220;
+  --bg-soft: #111A2E;
+  --surface: #131C2E;
+  --text: #F4F7FC;
+  --text-muted: #8FA0BE;
+  --border: #1E2B45;
+  --shadow: 0 4px 20px rgba(0, 0, 0, .45);
   /* Logo colors — dark mode */
   --logo-bracket: #1E6BFF;
-  --logo-dot-1: #7AB3FF;
-  --logo-dot-2: #B5D2FF;
+  --logo-dot-1: #1E6BFF;
+  --logo-dot-2: #7AB3FF;
   --logo-dot-3: #FFFFFF;
   --logo-name-color: #FFFFFF;
   --btn-start-bg: #1E6BFF;
@@ -75,7 +81,7 @@ svg { display: inline-block; vertical-align: middle; }
 .efhamha-logo-icon circle { transition: fill .25s; }
 .efhamha-logo-name {
   font-family: "Inter", "Segoe UI", system-ui, sans-serif;
-  font-weight: 500; font-size: 24px; letter-spacing: 0.5px;
+  font-weight: 700; font-size: 24px; letter-spacing: 0.5px;
   color: var(--logo-name-color); line-height: 1; white-space: nowrap;
   transition: color .25s;
 }
@@ -84,10 +90,16 @@ svg { display: inline-block; vertical-align: middle; }
 .footer-logo .efhamha-logo-icon { width: 32px; height: 29px; flex-basis: 32px; }
 .footer-logo .efhamha-logo-name { font-size: 18px; }
 @media (max-width: 639px) {
-  .efhamha-logo-name { display: none; }
-  .efhamha-logo { gap: 0; }
-  .footer-logo.efhamha-logo .efhamha-logo-name { display: block; } /* اظهرها في الفوتر حتى على الموبايل */
+  .efhamha-logo { gap: 8px; }
+  .efhamha-logo-icon { width: 34px; height: 30px; flex-basis: 34px; }
+  .efhamha-logo-name { font-size: 20px; display: inline-block !important; }
+  .footer-logo.efhamha-logo .efhamha-logo-name { font-size: 17px; }
   .login-logo.efhamha-logo .efhamha-logo-name { display: inline-block !important; }
+}
+@media (max-width: 360px) {
+  .efhamha-logo { gap: 6px; }
+  .efhamha-logo-icon { width: 30px; height: 27px; flex-basis: 30px; }
+  .efhamha-logo-name { font-size: 18px; }
 }
 
 /* ---------- Header ---------- */
@@ -226,26 +238,26 @@ svg { display: inline-block; vertical-align: middle; }
 /* ---------- Buttons ---------- */
 .btn {
   display: inline-flex; align-items: center; justify-content: center;
-  background: var(--primary); color: #fff; border: none; border-radius: 12px;
-  padding: .75rem 1.8rem; font-family: inherit; font-size: 1rem; font-weight: 700;
-  cursor: pointer; transition: .2s;
+  background: var(--primary); color: #fff; border: 1.5px solid transparent; border-radius: 9999px;
+  padding: .7rem 1.8rem; font-family: inherit; font-size: 1rem; font-weight: 600;
+  cursor: pointer; transition: background .18s, color .18s, border-color .18s, transform .18s, box-shadow .18s;
 }
-.btn:hover { background: var(--primary-dark); text-decoration: none; }
-.btn-outline { background: transparent; color: var(--primary); border: 1.5px solid var(--primary); }
+.btn:hover { background: var(--primary-dark); color: #fff; text-decoration: none; transform: translateY(-1px); }
+.btn-outline { background: transparent; color: var(--primary); border: 1.5px solid var(--primary); border-radius: 9999px; }
 .btn-outline:hover { background: var(--primary-light); color: var(--primary); }
-.btn-ghost { background: transparent; border: 1.5px solid var(--border); color: var(--text-muted); }
+.btn-ghost { background: transparent; border: 1.5px solid var(--border); color: var(--text-muted); border-radius: 9999px; }
 .btn-ghost:hover { border-color: var(--primary); color: var(--primary); background: transparent; }
-.btn-sm { padding: .45rem 1rem; font-size: .85rem; }
+.btn-sm { padding: .45rem 1.15rem; font-size: .85rem; border-radius: 9999px; }
 /* زر Start — pill shape */
 .btn-start {
-  border-radius: 999px; height: 32px; padding: 0 1.15rem;
-  font-size: .86rem; font-weight: 700;
+  border-radius: 9999px; height: 38px; padding: 0 1.25rem;
+  font-size: .9rem; font-weight: 600;
   background: var(--btn-start-bg, #0B1220); color: #fff;
   border: none; display: inline-flex; align-items: center; justify-content: center;
-  cursor: pointer; transition: opacity .18s, background .18s;
+  cursor: pointer; transition: opacity .18s, background .18s, transform .18s;
   white-space: nowrap;
 }
-.btn-start:hover { opacity: .88; text-decoration: none; color: #fff; }
+.btn-start:hover { opacity: .9; text-decoration: none; color: #fff; transform: translateY(-1px); }
 
 /* ---------- Hero ---------- */
 .hero { padding: 4.5rem 0 3.5rem; background: linear-gradient(180deg, var(--primary-light), transparent 72%); }
@@ -378,16 +390,98 @@ svg { display: inline-block; vertical-align: middle; }
 
 /* ---------- Responsive ---------- */
 @media (max-width: 1140px) {
-  .header-inner { flex-wrap: wrap; min-height: 56px; padding: .4rem 0; }
-  .main-nav {
-    display: none; width: 100%; order: 4; flex-direction: column;
-    padding: .8rem 0; gap: .3rem; border-top: 1px solid var(--border);
-    margin-top: .4rem;
-  }
-  .main-nav.open { display: flex; }
-  .main-nav a { min-height: 42px; padding: .6rem 1rem; border-radius: 12px; width: 100%; }
+  .header-inner { min-height: 60px; padding: .5rem 0; position: relative; }
   .header-actions { order: 2; margin-inline-start: auto; gap: .5rem; }
-  .nav-toggle { display: inline-flex; }
+  .nav-toggle {
+    display: inline-flex !important;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    border-radius: 12px;
+    border: 1.5px solid var(--border);
+    background: var(--surface);
+    color: var(--text);
+    cursor: pointer;
+    transition: background .18s, border-color .18s, color .18s, transform .18s;
+  }
+  .nav-toggle:hover { border-color: var(--primary); color: var(--primary); }
+  .nav-toggle[aria-expanded="true"] {
+    background: var(--primary-light);
+    border-color: var(--primary);
+    color: var(--primary);
+  }
+  .nav-toggle svg { transition: transform 0.2s ease; }
+  .nav-toggle[aria-expanded="true"] svg { transform: rotate(90deg); }
+  .main-nav {
+    display: none;
+    position: absolute;
+    top: calc(100% + 8px);
+    inset-inline: 0;
+    z-index: 120;
+    width: 100%;
+    flex-direction: column;
+    padding: 10px;
+    gap: 4px;
+    border: 1.5px solid var(--border);
+    border-radius: 18px;
+    background: color-mix(in srgb, var(--surface) 96%, transparent);
+    backdrop-filter: blur(24px) saturate(180%);
+    -webkit-backdrop-filter: blur(24px) saturate(180%);
+    box-shadow: 0 16px 40px rgba(0, 0, 0, 0.25);
+    max-height: calc(100vh - 84px);
+    overflow-y: auto;
+    scrollbar-width: thin;
+    animation: navDrop .22s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  }
+  @keyframes navDrop {
+    from { opacity: 0; transform: translateY(-8px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  .main-nav.open { display: flex !important; }
+  .main-nav a {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    width: 100%;
+    min-height: 44px;
+    padding: 10px 14px;
+    border-radius: 12px;
+    font-size: 0.95rem;
+    font-weight: 500;
+    color: var(--text);
+    text-decoration: none;
+    transition: background .15s ease, color .15s ease, padding-inline-start .15s ease;
+  }
+  .main-nav a::before {
+    content: '';
+    display: inline-block;
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--border);
+    flex-shrink: 0;
+    transition: background 0.15s, transform 0.15s;
+  }
+  .main-nav a:hover,
+  .main-nav a:active {
+    background: var(--bg-soft);
+    color: var(--primary);
+    padding-inline-start: 18px;
+  }
+  .main-nav a:hover::before {
+    background: var(--primary);
+    transform: scale(1.3);
+  }
+  .main-nav a.active {
+    background: var(--primary-light);
+    color: var(--primary);
+    font-weight: 700;
+  }
+  .main-nav a.active::before {
+    background: var(--primary);
+    transform: scale(1.3);
+  }
 }
 @media (max-width: 860px) {
   .hero { padding: 3rem 0 2.5rem; }

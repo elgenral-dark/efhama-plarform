@@ -7,6 +7,10 @@
 <link rel="apple-touch-icon" href="assets/icons/icon-192.png">
 <link rel="manifest" href="manifest.json">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#1E6BFF">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap">
 <title>تسجيل الدخول — افهمها | efhamha</title>
 <script>
 /* تطبيق الثيم المحفوظ قبل الرسم لتجنب الوميض */
@@ -76,10 +80,10 @@
       </div>
 
       <div class="field">
-        <label for="email">البريد الإلكتروني</label>
+        <label for="email">البريد الإلكتروني أو اسم المستخدم</label>
         <div class="input-wrap">
           <span class="input-icon" aria-hidden="true"><svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg></span>
-          <input type="email" id="email" placeholder="example@mail.com" autocomplete="username" inputmode="email">
+          <input type="text" id="email" placeholder="example@mail.com أو admin" autocomplete="username">
         </div>
         <p class="field-error" id="emailError" hidden></p>
       </div>
