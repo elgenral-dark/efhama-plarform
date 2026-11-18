@@ -1,25 +1,20 @@
 {
   "name": "efhama-backend",
   "version": "1.0.0",
-  "description": "افهمها — الباك اند (API + قاعدة البيانات + المحتوى المدفوع)",
+  "description": "افهمها — الواجهة (صفحات HTML/CSS/JS) + خادم يحمي الصفحات ويمرّر /api و /data للباك اند",
   "private": true,
-  "type": "commonjs",
   "main": "src/index.js",
   "scripts": {
-    "start": "node --env-file-if-exists=.env src/index.js",
-    "dev": "node --env-file-if-exists=.env --watch src/index.js",
-    "seed": "node --env-file-if-exists=.env src/seed.js",
+    "start": "node src/index.js",
+    "dev": "node --watch src/index.js",
     "test": "node --test test/api.test.js",
-    "load-test": "node scripts/load-test.js",
-    "reset-admin": "powershell.exe -NoProfile -ExecutionPolicy Bypass -File .\\src\\reset-admin.ps1",
-    "reset-admin-node": "node --env-file-if-exists=.env src/reset-admin.js",
-    "setup-windows": "powershell.exe -NoProfile -ExecutionPolicy Bypass -File .\\SETUP-WINDOWS.ps1"
+    "load-test": "node scripts/load-test.js"
   },
   "engines": {
     "node": ">=22.13.0"
   },
   "dependencies": {
-    "bcryptjs": "^3.0.3",
+    "bcrypt": "^6.0.0",
     "compression": "^1.8.2",
     "cookie-parser": "^1.4.7",
     "express": "^5.3.0",
