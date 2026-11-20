@@ -1,6 +1,6 @@
 (function () {
   'use strict';
-  var E = window.Efhama, esc = E.esc, Store = E.Store;
+  var E = window.Efhamha, esc = E.esc, Store = E.Store;
 
   function show(v, suffix) { return v === null || v === '' || v === undefined ? '<span class="t-sub">غير محدد</span>' : '<b dir="auto">' + esc(v) + (suffix ? ' ' + esc(suffix) : '') + '</b>'; }
 
@@ -236,7 +236,7 @@
           '</div>' +
           '<section class="panel panel-pad" style="margin-top:16px">' +
             '<h3>كيف تصل القيم للموقع؟</h3>' +
-            '<p class="sub" style="margin-top:6px">تُحفظ في قاعدة البيانات (مصدر واحد) وتُنشر تلقائيًا في <code dir="ltr">/public/efhama-data.json</code> تحت المفتاح <code dir="ltr">subscription</code>. اقرأها في صفحات الاشتراك والدفع من هناك بدل كتابتها داخل الملفات.</p>' +
+            '<p class="sub" style="margin-top:6px">تُحفظ في قاعدة البيانات (مصدر واحد) وتُنشر تلقائيًا في <code dir="ltr">/public/efhamha-data.json</code> تحت المفتاح <code dir="ltr">subscription</code>. اقرأها في صفحات الاشتراك والدفع من هناك بدل كتابتها داخل الملفات.</p>' +
           '</section>';
 
         if (canEdit) {

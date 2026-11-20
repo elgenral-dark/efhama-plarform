@@ -1,13 +1,13 @@
 /*
- * Efhama Tracker — يُضاف إلى الموقع التعليمي لإرسال أحداث حقيقية للوحة التحليلات.
+ * Efhamha Tracker — يُضاف إلى الموقع التعليمي لإرسال أحداث حقيقية للوحة التحليلات.
  *
- *   <script src="/dashboard/integration/efhama-tracker.js"></script>
+ *   <script src="/dashboard/integration/efhamha-tracker.js"></script>
  *   <script>
- *     EfhamaTracker.init({ endpoint: '/api/track', studentId: '<id الطالب أو external_id>' });
- *     EfhamaTracker.lessonOpen(lessonId);        // عند فتح درس
- *     EfhamaTracker.lessonComplete(lessonId);    // عند إكماله
- *     EfhamaTracker.quizAttempt({quizId, score, passed, answers:[{questionId, correct}]});
- *     EfhamaTracker.bindVideos(document);        // يربط كل <video data-efhama-video="..."> تلقائيًا
+ *     EfhamhaTracker.init({ endpoint: '/api/track', studentId: '<id الطالب أو external_id>' });
+ *     EfhamhaTracker.lessonOpen(lessonId);        // عند فتح درس
+ *     EfhamhaTracker.lessonComplete(lessonId);    // عند إكماله
+ *     EfhamhaTracker.quizAttempt({quizId, score, passed, answers:[{questionId, correct}]});
+ *     EfhamhaTracker.bindVideos(document);        // يربط كل <video data-efhamha-video="..."> تلقائيًا
  *   </script>
  *
  * الفيديو: لا يُحتسب فتح الصفحة مشاهدة. يُرسل التقدم فقط عند play/pause/ended/مغادرة الصفحة
@@ -38,7 +38,7 @@
   }
   function leaveView() { if (view) { push({ type: 'lesson_leave', viewId: view.id, seconds: activeSec - view.start }); view = null; } }
 
-  var T = root.EfhamaTracker = {
+  var T = root.EfhamhaTracker = {
     init: function (c) {
       if (cfg) return; cfg = { endpoint: c.endpoint || '/api/track', studentId: String(c.studentId || '') };
       if (!cfg.studentId) { cfg = null; return; }
@@ -55,9 +55,9 @@
     quizAttempt: function (a) { if (cfg) push({ type: 'quiz_attempt', quizId: a.quizId, score: a.score, passed: !!a.passed, answers: a.answers || [] }); },
     flush: function () { flush(); },
     bindVideos: function (scope) {
-      (scope || document).querySelectorAll('video[data-efhama-video]').forEach(function (v) {
+      (scope || document).querySelectorAll('video[data-efhamha-video]').forEach(function (v) {
         if (v.__efh) return; v.__efh = true;
-        var id = v.getAttribute('data-efhama-video'), lessonId = v.getAttribute('data-efhama-lesson') || '';
+        var id = v.getAttribute('data-efhamha-video'), lessonId = v.getAttribute('data-efhamha-lesson') || '';
         var watched = 0, lastT = null, sinceSend = 0;
         function report(state) {
           if (!cfg) return;

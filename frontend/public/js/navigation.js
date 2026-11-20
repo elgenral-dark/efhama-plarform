@@ -30,7 +30,7 @@
 
   /* ================= الوضع الداكن / الفاتح الموحد ================= */
   function setupTheme() {
-    const themeKey = 'efhama_theme';
+    const themeKey = 'efhamha_theme';
     const apply = (theme) => {
       document.documentElement.setAttribute('data-theme', theme);
       if (document.body) {
@@ -122,7 +122,7 @@
       let interval = null;
       let inFlight = false;
       let queuedItems = false;
-      const pollingInterval = Math.max(10000, Math.min(Number(window.EFHAMA_NOTIFICATION_POLL_MS) || 30000, 300000));
+      const pollingInterval = Math.max(10000, Math.min(Number(window.EFHAMHA_NOTIFICATION_POLL_MS) || 30000, 300000));
       function fetchJson(url, method) {
         return fetch(url, { method: method || 'GET', credentials: 'same-origin', cache: 'no-store' })
           .then((response) => response.json().catch(() => ({})).then((data) => {
@@ -140,7 +140,7 @@
         badge.hidden = total < 1;
         bell.setAttribute('aria-label', total ? 'الإشعارات، غير المقروء ' + total : 'الإشعارات');
       }
-      window.addEventListener('efhama:notifications-updated', (event) => {
+      window.addEventListener('efhamha:notifications-updated', (event) => {
         updateCount(event.detail && event.detail.unreadCount);
       });
       function formatTime(timestamp) {

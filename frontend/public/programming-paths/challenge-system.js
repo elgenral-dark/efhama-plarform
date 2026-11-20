@@ -1,6 +1,6 @@
 (() => {
-  const STATE_PREFIX = 'efhama_challenge_';
-  const PYTHON_CHANNEL = 'efhama-python-playground';
+  const STATE_PREFIX = 'efhamha_challenge_';
+  const PYTHON_CHANNEL = 'efhamha-python-playground';
   const CODE_TYPES = new Set(['complete-code', 'write-code', 'practical-challenge', 'debugging-challenge']);
   const difficultyLabels = { easy: 'سهل', medium: 'متوسط', hard: 'متقدم' };
   const typeLabels = {
@@ -164,10 +164,10 @@
 
   const completeAttempt = (card, challenge, score, message, passedCount, totalCount) => {
     const record = saveAttempt(challenge, score);
-    if (score === 100 && record.persisted && window.EfhamaGamification) {
-      window.EfhamaGamification.recordActivity('challenge', challenge.id);
-      if (Object.keys(window.EfhamaGamification.getState().rewards).some((key) => key.startsWith('challenge:'))) {
-        window.EfhamaGamification.unlockBadge('first-challenge');
+    if (score === 100 && record.persisted && window.EfhamhaGamification) {
+      window.EfhamhaGamification.recordActivity('challenge', challenge.id);
+      if (Object.keys(window.EfhamhaGamification.getState().rewards).some((key) => key.startsWith('challenge:'))) {
+        window.EfhamhaGamification.unlockBadge('first-challenge');
       }
     }
     setBusy(card, false);
@@ -199,37 +199,37 @@
       return;
     }
     const prefix = `
-      const __efhamaDeny = () => { throw new Error("الاتصال بالشبكة غير متاح في هذا التحدي."); };
+      const __efhamhaDeny = () => { throw new Error("الاتصال بالشبكة غير متاح في هذا التحدي."); };
       for (const __name of ["fetch","XMLHttpRequest","WebSocket","EventSource","importScripts","Worker","SharedWorker","BroadcastChannel","indexedDB","caches","WebTransport","RTCPeerConnection","WebSocketStream"]) {
         try {
-          Object.defineProperty(self, __name, { configurable: false, writable: false, value: __name === "fetch" ? __efhamaDeny : undefined });
-        } catch (__efhamaSecurityError) {
+          Object.defineProperty(self, __name, { configurable: false, writable: false, value: __name === "fetch" ? __efhamhaDeny : undefined });
+        } catch (__efhamhaSecurityError) {
           throw new Error("تعذر تعطيل واجهة اتصال غير لازمة: " + __name);
         }
       }
-      let __efhamaOutput = "";
-      Object.defineProperty(self, "console", { configurable: false, writable: false, value: Object.freeze({ log: (...items) => { __efhamaOutput = (__efhamaOutput + items.map(String).join(" ") + "\\\\n").slice(0, 4000); }, warn: () => {}, error: () => {} }) });
+      let __efhamhaOutput = "";
+      Object.defineProperty(self, "console", { configurable: false, writable: false, value: Object.freeze({ log: (...items) => { __efhamhaOutput = (__efhamhaOutput + items.map(String).join(" ") + "\\\\n").slice(0, 4000); }, warn: () => {}, error: () => {} }) });
     `;
     const testHarness = `
       ;(() => {
-        const __efhamaCases = ${safeJson(challenge.tests)};
-        const __efhamaTarget = typeof ${functionName} === "function" ? ${functionName} : null;
-      const __efhamaNormalize = (value) => {
-        if (Array.isArray(value)) return value.map(__efhamaNormalize);
-        if (value && typeof value === "object") return Object.fromEntries(Object.keys(value).sort().map((key) => [key, __efhamaNormalize(value[key])]));
+        const __efhamhaCases = ${safeJson(challenge.tests)};
+        const __efhamhaTarget = typeof ${functionName} === "function" ? ${functionName} : null;
+      const __efhamhaNormalize = (value) => {
+        if (Array.isArray(value)) return value.map(__efhamhaNormalize);
+        if (value && typeof value === "object") return Object.fromEntries(Object.keys(value).sort().map((key) => [key, __efhamhaNormalize(value[key])]));
         return value;
       };
-      let __efhamaPassed = 0;
-      let __efhamaError = "";
-      for (let __efhamaIndex = 0; __efhamaIndex < __efhamaCases.length; __efhamaIndex += 1) {
+      let __efhamhaPassed = 0;
+      let __efhamhaError = "";
+      for (let __efhamhaIndex = 0; __efhamhaIndex < __efhamhaCases.length; __efhamhaIndex += 1) {
         try {
-          if (!__efhamaTarget) throw new Error("اكتب دالة ${functionName}.");
-          const __efhamaActual = __efhamaTarget(...__efhamaCases[__efhamaIndex].input);
-          if (JSON.stringify(__efhamaNormalize(__efhamaActual)) !== JSON.stringify(__efhamaNormalize(__efhamaCases[__efhamaIndex].expected))) throw new Error("قيمة غير متوقعة");
-            __efhamaPassed += 1;
-          } catch (__efhamaTestError) { __efhamaError = String(__efhamaTestError && __efhamaTestError.message || __efhamaTestError); }
+          if (!__efhamhaTarget) throw new Error("اكتب دالة ${functionName}.");
+          const __efhamhaActual = __efhamhaTarget(...__efhamhaCases[__efhamhaIndex].input);
+          if (JSON.stringify(__efhamhaNormalize(__efhamhaActual)) !== JSON.stringify(__efhamhaNormalize(__efhamhaCases[__efhamhaIndex].expected))) throw new Error("قيمة غير متوقعة");
+            __efhamhaPassed += 1;
+          } catch (__efhamhaTestError) { __efhamhaError = String(__efhamhaTestError && __efhamhaTestError.message || __efhamhaTestError); }
         }
-        self.postMessage({ type: "tests", passed: __efhamaPassed, total: __efhamaCases.length, error: __efhamaError, output: __efhamaOutput });
+        self.postMessage({ type: "tests", passed: __efhamhaPassed, total: __efhamhaCases.length, error: __efhamhaError, output: __efhamhaOutput });
       })();
     `;
     const workerSource = `${prefix}\n${code}\n${testHarness}`;
@@ -281,20 +281,20 @@
     let harness;
     try {
       harness = `
-__efhama_cases = ${pythonLiteral(challenge.tests)}
-__efhama_function = globals().get(${pythonLiteral(functionName)})
-__efhama_passed = 0
-__efhama_error = ""
-if callable(__efhama_function):
-    for __efhama_case in __efhama_cases:
+__efhamha_cases = ${pythonLiteral(challenge.tests)}
+__efhamha_function = globals().get(${pythonLiteral(functionName)})
+__efhamha_passed = 0
+__efhamha_error = ""
+if callable(__efhamha_function):
+    for __efhamha_case in __efhamha_cases:
         try:
-            if __efhama_function(*__efhama_case["input"]) == __efhama_case["expected"]:
-                __efhama_passed += 1
+            if __efhamha_function(*__efhamha_case["input"]) == __efhamha_case["expected"]:
+                __efhamha_passed += 1
             else:
-                __efhama_error = "راجع نتيجة الدالة لإحدى حالات الاختبار."
-        except Exception as __efhama_exception:
-            __efhama_error = type(__efhama_exception).__name__
-print("__EFHAMA_SCORE__" + str(__efhama_passed) + "/" + str(len(__efhama_cases)))
+                __efhamha_error = "راجع نتيجة الدالة لإحدى حالات الاختبار."
+        except Exception as __efhamha_exception:
+            __efhamha_error = type(__efhamha_exception).__name__
+print("__EFHAMHA_SCORE__" + str(__efhamha_passed) + "/" + str(len(__efhamha_cases)))
 `;
     } catch (error) {
       callback({ score: 0, message: 'تعذر تجهيز بيانات الاختبار.' });
@@ -584,7 +584,7 @@ print("__EFHAMA_SCORE__" + str(__efhama_passed) + "/" + str(len(__efhama_cases))
         const pending = pendingPython;
         pendingPython = null;
         const output = String(data.stdout || '');
-        const match = output.match(/__EFHAMA_SCORE__(\d+)\/(\d+)/);
+        const match = output.match(/__EFHAMHA_SCORE__(\d+)\/(\d+)/);
         if (!match) {
           pending.callback({ score: 0, message: data.error?.message || 'لم تكتمل حالات الاختبار. راجع الكود وحاول مجددًا.' });
           return;
@@ -611,5 +611,5 @@ print("__EFHAMA_SCORE__" + str(__efhama_passed) + "/" + str(len(__efhama_cases))
     return !!input && input.closest('.challenge-code-input')?.textContent.toLowerCase().includes(language);
   };
 
-  window.EfhamaChallengeSystem = Object.freeze({ render });
+  window.EfhamhaChallengeSystem = Object.freeze({ render });
 })();

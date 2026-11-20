@@ -106,9 +106,9 @@ const ok = (n, c, extra='') => { results.push([c?'PASS':'FAIL', n, extra]); };
   ok('navigation guard on unsaved lesson', (await page.$$('.modal.sm')).length===1);
   await page.keyboard.press('Escape'); await page.waitForTimeout(150);
   // preview
-  await page.click('[data-a=preview]'); await page.waitForSelector('.modal .efhama-lesson');
-  const pv = await page.$eval('.modal .efhama-lesson', e=>e.innerHTML);
-  ok('lesson preview renders blocks', pv.includes('<strong>صندوق</strong>') && pv.includes('print(x)') && pv.includes('efhama-table') && pv.includes('efhama-q'));
+  await page.click('[data-a=preview]'); await page.waitForSelector('.modal .efhamha-lesson');
+  const pv = await page.$eval('.modal .efhamha-lesson', e=>e.innerHTML);
+  ok('lesson preview renders blocks', pv.includes('<strong>صندوق</strong>') && pv.includes('print(x)') && pv.includes('efhamha-table') && pv.includes('efhamha-q'));
   await page.click('.modal-foot .btn');
   // save + publish
   await page.click('[data-a=publish]'); await page.waitForSelector('.toast.success');
@@ -116,13 +116,13 @@ const ok = (n, c, extra='') => { results.push([c?'PASS':'FAIL', n, extra]); };
   ok('lesson publish -> edit route', true);
   await page.waitForFunction(()=>document.querySelector('#status').textContent.includes('محفوظ'));
   // check public json
-  const pub = await (await page.request.get('http://localhost:8787/public/efhama-data.json')).json();
+  const pub = await (await page.request.get('http://localhost:8787/public/efhamha-data.json')).json();
   ok('published lesson appears in public JSON', pub.lessons.length===1 && pub.lessons[0].title==='درس المتغيرات');
   ok('glossary linking only via published lesson', pub.glossary.length===1);
   // draft lesson hidden
   await page.click('.nav a[data-page=lessons]');
   await page.click('tr:has-text("درس المتغيرات") [data-dup]'); await page.waitForTimeout(800);
-  const pub2 = await (await page.request.get('http://localhost:8787/public/efhama-data.json')).json();
+  const pub2 = await (await page.request.get('http://localhost:8787/public/efhamha-data.json')).json();
   ok('draft copy NOT in public JSON', pub2.lessons.length===1);
   // project
   await page.click('.nav a[data-page=projects]'); await page.click('[data-act=add]');
@@ -135,7 +135,7 @@ const ok = (n, c, extra='') => { results.push([c?'PASS':'FAIL', n, extra]); };
   await page.click('.nav a[data-page=quizzes]'); await page.click('[data-act=add]');
   await page.fill('.modal input[type=text] >> nth=0', 'اختبار 1');
   await page.click('.modal [data-add]');
-  await page.click('.modal-foot .push'); await page.waitForSelector('.modal .efhama-q');
+  await page.click('.modal-foot .push'); await page.waitForSelector('.modal .efhamha-q');
   ok('quiz preview', true);
   await page.locator('.modal-back').last().locator('.modal-foot .btn').first().click();
   await page.click('.modal .primary'); await page.waitForSelector('tr:has-text("اختبار 1")');
@@ -155,11 +155,11 @@ const ok = (n, c, extra='') => { results.push([c?'PASS':'FAIL', n, extra]); };
   ok('fake image rejected by server', (await page.$$('.asset')).length===1);
   // settings
   await page.click('.nav a[data-page=settings]');
-  await page.fill('[data-secs] section:first-child input[type=text] >> nth=0', 'Efhama Edu');
+  await page.fill('[data-secs] section:first-child input[type=text] >> nth=0', 'Efhamha Edu');
   await page.click('[data-save]'); await page.waitForSelector('.toast.success');
   await page.waitForTimeout(800);
-  const pub3 = await (await page.request.get('http://localhost:8787/public/efhama-data.json')).json();
-  ok('settings name change reflected in public JSON', pub3.settings.name==='Efhama Edu' && pub3.paths.length===6);
+  const pub3 = await (await page.request.get('http://localhost:8787/public/efhamha-data.json')).json();
+  ok('settings name change reflected in public JSON', pub3.settings.name==='Efhamha Edu' && pub3.paths.length===6);
   // theme
   await page.click('#theme-btn'); const th = await page.getAttribute('html','data-theme');
   ok('theme toggle', th==='dark', th);
@@ -183,7 +183,7 @@ const ok = (n, c, extra='') => { results.push([c?'PASS':'FAIL', n, extra]); };
   await page.setInputFiles('#content input[type=file]', '/tmp/e2e/good.json'); await page.waitForSelector('.modal .primary');
   await page.click('.modal .primary'); await page.waitForSelector('.toast.success');
   await page.waitForTimeout(800);
-  const pub4 = await (await page.request.get('http://localhost:8787/public/efhama-data.json')).json();
+  const pub4 = await (await page.request.get('http://localhost:8787/public/efhamha-data.json')).json();
   ok('import replace -> title reflected publicly', pub4.lessons.some(l=>l.title==='عنوان معدّل'));
   await page.click('.nav a[data-page=overview]'); await page.waitForSelector('.hero');
   const bars = await page.$$eval('.bar-row', e=>e.length); const svgLine = await page.$$('svg.line-chart');

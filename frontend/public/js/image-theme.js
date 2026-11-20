@@ -175,7 +175,7 @@
     return `data:image/svg+xml;charset=utf-8,${encodeURIComponent(new XMLSerializer().serializeToString(svg))}`;
   };
 
-  window.EfhamaImageTheme = Object.freeze({
+  window.EfhamhaImageTheme = Object.freeze({
     darkSource(imagePath) {
       if (!/\.svg(?:$|[?#])/i.test(imagePath)) {
         return Promise.reject(new Error(`Dark adaptation is only supported for educational SVGs: ${imagePath}`));

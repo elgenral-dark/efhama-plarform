@@ -1,1 +1,1 @@
-window.EFHAMA_SITE_URL = "";
+window.EFHAMHA_SITE_URL = "";

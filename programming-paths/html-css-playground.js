@@ -99,7 +99,7 @@
         html: typeof config.html === 'string' ? config.html : '',
         css: typeof config.css === 'string' ? config.css : ''
       };
-      const key = `efhama_playground_${slug}_${lessonId}_${config.id || 'default'}`;
+      const key = `efhamha_playground_${slug}_${lessonId}_${config.id || 'default'}`;
       const preview = playground.querySelector('[data-playground-preview]');
       const previewStatus = playground.querySelector('[data-playground-preview-status]');
       const saveStatus = playground.querySelector('[data-playground-save-status]');
@@ -113,7 +113,7 @@
         const highlighted = stage.querySelector('.playground-highlight code');
         const gutter = stage.querySelector('.playground-gutter');
         const lines = editor.value.split('\n');
-        const source = window.EfhamaCodeBlocks.highlight(editor.value, language);
+        const source = window.EfhamhaCodeBlocks.highlight(editor.value, language);
         highlighted.innerHTML = source || '&#8203;';
         gutter.textContent = Array.from({ length: lines.length }, (_, index) => index + 1).join('\n');
         stage.style.setProperty('--editor-line-count', String(lines.length));
@@ -285,5 +285,5 @@
     });
   };
 
-  window.EfhamaHtmlCssPlayground = Object.freeze({ render, initialize });
+  window.EfhamhaHtmlCssPlayground = Object.freeze({ render, initialize });
 })();

@@ -1,6 +1,6 @@
 (function () {
   'use strict';
-  var E = window.Efhama, esc = E.esc, Store = E.Store, CH = E.charts;
+  var E = window.Efhamha, esc = E.esc, Store = E.Store, CH = E.charts;
   var DAY = 86400000;
   var iso = function (d) { return new Date(d).toISOString().slice(0, 10); };
   var mins = function (s) { return s == null ? '—' : s >= 3600 ? (s / 3600).toFixed(1) + ' ساعة' : s >= 60 ? Math.round(s / 60) + ' دقيقة' : s + ' ثانية'; };
@@ -83,7 +83,7 @@
           ['اشتراكات جديدة', d.cards.newSubs, delta(d.cards.newSubs, pv.newSubs), 'wallet', 'subs-done']
         ];
         var h = '';
-        if (noData) h += '<div class="banner modern-banner" role="note"><div class="banner-icon">' + E.icon('alert') + '</div><div><b>لا توجد بيانات تتبع في هذه الفترة حتى الآن</b><p class="banner-desc">تظهر الإحصائيات الحية عندما يتفاعل الطلاب مع الموقع ويتم إرسال الأحداث عبر <code dir="ltr">efhama-tracker.js</code>. (إجمالي الطلاب المسجلين بالمنصة: ' + E.num(a.totalStudents) + ' طالب).</p></div></div>';
+        if (noData) h += '<div class="banner modern-banner" role="note"><div class="banner-icon">' + E.icon('alert') + '</div><div><b>لا توجد بيانات تتبع في هذه الفترة حتى الآن</b><p class="banner-desc">تظهر الإحصائيات الحية عندما يتفاعل الطلاب مع الموقع ويتم إرسال الأحداث عبر <code dir="ltr">efhamha-tracker.js</code>. (إجمالي الطلاب المسجلين بالمنصة: ' + E.num(a.totalStudents) + ' طالب).</p></div></div>';
         if (d.previous) h += '<div class="notice-pill">' + E.icon('history') + ' مقارنة بالفترة السابقة: ' + esc(d.previous.range.from) + ' ← ' + esc(d.previous.range.to) + '</div>';
         
         h += '<div class="section-title"><h3>المؤشرات الرئيسية للأداء</h3></div>';

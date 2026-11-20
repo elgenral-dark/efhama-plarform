@@ -1,5 +1,5 @@
 {
-  "name": "efhama-frontend",
+  "name": "efhamha-frontend",
   "version": "1.0.0",
   "description": "افهمها — الواجهة (صفحات HTML/CSS/JS) + خادم يحمي الصفحات ويمرّر /api و /data للباك اند",
   "private": true,

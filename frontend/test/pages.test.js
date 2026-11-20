@@ -152,7 +152,7 @@ test("المحتوى المدفوع للأدمن: الصفحة الرئيسية 
   assert.equal((await c("GET", "/dashboard/js/pages-content.js")).status, 200);
   assert.equal((await c("GET", "/dashboard/js/bridge.js")).status, 200);
   assert.equal((await c("GET", "/dashboard/")).status, 404);
-  assert.equal((await c("GET", "/dashboard/data/efhama.db")).status, 404);
+  assert.equal((await c("GET", "/dashboard/data/efhamha.db")).status, 404);
   const dashboardStats = await c("GET", "/api/admin/stats");
   assert.equal(dashboardStats.status, 200);
   assert.equal(typeof dashboardStats.json.students, "number");
@@ -180,7 +180,7 @@ test("المحتوى المدفوع للأدمن: الصفحة الرئيسية 
 
 test("التصدير العام يضم أسئلة المحتوى المنشور دون مفاتيح الإجابة", () => {
     const module = { exports: {} };
-    const source = fs.readFileSync(path.join(frontendRoot, "public", "dashboard", "integration", "efhama-data.js"), "utf8");
+    const source = fs.readFileSync(path.join(frontendRoot, "public", "dashboard", "integration", "efhamha-data.js"), "utf8");
     vm.runInNewContext(source, { module, self: {} });
     const data = module.exports.publicView({
       paths: [{ id: "p1", visible: true }, { id: "hidden", visible: false }],

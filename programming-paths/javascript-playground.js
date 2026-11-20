@@ -84,8 +84,8 @@
           if (handlers && handlers.length < 20) handlers.push(callback);
         },
         appendChild(child) {
-          if (child && child.__efhamaNode) {
-            send('mutate', { id: node.id, operation: 'append', child: child.__efhamaNode });
+          if (child && child.__efhamhaNode) {
+            send('mutate', { id: node.id, operation: 'append', child: child.__efhamhaNode });
           }
           return child;
         },
@@ -113,7 +113,7 @@
         remove: (...names) => send('mutate', { id: node.id, operation: 'classList', action: 'remove', names: names.map(String).slice(0, 20) }),
         toggle: (name, force) => send('mutate', { id: node.id, operation: 'classList', action: 'toggle', name: String(name), force })
       });
-      Object.defineProperty(wrapper, '__efhamaNode', { value: node.id });
+      Object.defineProperty(wrapper, '__efhamhaNode', { value: node.id });
       return wrapper;
     }
 
@@ -266,7 +266,7 @@
   }
 
   function iframeRunner(config, token, workerRuntimeSource) {
-    const channel = 'efhama-js-playground';
+    const channel = 'efhamha-js-playground';
     const elementMap = new Map();
     const listeners = new Set();
     let worker = null;
@@ -301,7 +301,7 @@
       const elements = [document.body, ...document.body.querySelectorAll('*')].filter((element) => !['SCRIPT', 'STYLE', 'IFRAME', 'OBJECT', 'EMBED'].includes(element.tagName));
       return elements.slice(0, 300).map((element) => {
         const id = `node-${++nodeCounter}`;
-        element.setAttribute('data-efhama-node', id);
+        element.setAttribute('data-efhamha-node', id);
         elementMap.set(id, element);
         const attributes = {};
         ['id', 'class', 'type', 'value', 'aria-label'].forEach((name) => {
@@ -376,7 +376,7 @@
             queryError = error?.message || 'محدد DOM غير صالح.';
           }
           const result = found.map((element) => {
-            const id = element.getAttribute('data-efhama-node');
+            const id = element.getAttribute('data-efhamha-node');
             return elementMap.has(id) ? {
               id,
               tagName: element.tagName.toLowerCase(),
@@ -396,8 +396,8 @@
           if (!listeners.has(key) && ['click', 'input', 'change', 'submit', 'keydown'].includes(data.eventName)) {
             listeners.add(key);
             document.addEventListener(data.eventName, (domEvent) => {
-              const target = domEvent.target?.closest?.('[data-efhama-node]');
-              const targetId = target?.getAttribute('data-efhama-node');
+              const target = domEvent.target?.closest?.('[data-efhamha-node]');
+              const targetId = target?.getAttribute('data-efhamha-node');
               if (data.id !== 'document' && targetId !== data.id) return;
               if (data.eventName === 'submit' || target?.tagName === 'A') domEvent.preventDefault();
               clearTimeout(taskTimer);
@@ -411,7 +411,7 @@
           const tagName = String(data.tagName).toLowerCase();
           const id = String(data.id).slice(0, 40);
           const element = document.createElement(allowedTags.has(tagName) ? tagName : 'div');
-          element.setAttribute('data-efhama-node', id);
+          element.setAttribute('data-efhamha-node', id);
           elementMap.set(id, element);
         } else if (data.type === 'done') {
           clearTimeout(runTimer);
@@ -559,12 +559,12 @@
       const token = makeToken();
       const defaults = typeof config.code === 'string' ? config.code : '';
       const hasPreview = config.preview === true || typeof config.previewHtml === 'string';
-      const key = `efhama_js_playground_${slug}_${lessonId}_${config.id || 'default'}`;
+      const key = `efhamha_js_playground_${slug}_${lessonId}_${config.id || 'default'}`;
       let runnerReady = false;
       let pendingRun = false;
 
       const updateEditor = () => {
-        highlighted.innerHTML = window.EfhamaCodeBlocks.highlight(editor.value, 'javascript') || '&#8203;';
+        highlighted.innerHTML = window.EfhamhaCodeBlocks.highlight(editor.value, 'javascript') || '&#8203;';
         gutter.textContent = Array.from({ length: editor.value.split('\n').length }, (_, index) => index + 1).join('\n');
         stage.classList.toggle('has-long-lines', editor.value.split('\n').some((line) => line.length > 100));
       };
@@ -596,7 +596,7 @@
         }
       };
       const sendToRunner = (command, details = {}) => {
-        runner.contentWindow?.postMessage({ channel: 'efhama-js-playground', token, command, ...details }, '*');
+        runner.contentWindow?.postMessage({ channel: 'efhamha-js-playground', token, command, ...details }, '*');
       };
       const run = () => {
         if (editor.value.length > 20000) {
@@ -640,7 +640,7 @@
         }
       });
       window.addEventListener('message', (event) => {
-        if (event.source !== runner.contentWindow || event.data?.channel !== 'efhama-js-playground' || event.data?.token !== token) return;
+        if (event.source !== runner.contentWindow || event.data?.channel !== 'efhamha-js-playground' || event.data?.token !== token) return;
         const data = event.data;
         if (data.type === 'ready') {
           runnerReady = true;
@@ -753,5 +753,5 @@
     });
   };
 
-  window.EfhamaJavaScriptPlayground = Object.freeze({ render, initialize });
+  window.EfhamhaJavaScriptPlayground = Object.freeze({ render, initialize });
 })();

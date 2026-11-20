@@ -31,7 +31,7 @@ export function isGuardedPath(path) {
 }
 
 export function hasSubscription(user) {
-  return !!user && (user.role === "admin" || user.subscriptionStatus === "active");
+  return !!user && (STAFF_ROLES.has(user.role) || user.subscriptionStatus === "active");
 }
 
 export async function currentUser({ backendUrl, cookie, fetchImpl = fetch } = {}) {
@@ -49,7 +49,7 @@ export async function currentUser({ backendUrl, cookie, fetchImpl = fetch } = {}
 export async function decide({ path, backendUrl, cookie, fetchImpl = fetch } = {}) {
   // حماية مسارات لوحة التحكم (الداشبورد): تمنع الطلاب صراحة وتسمح للإداريين أو لغير المسجلين لرؤية شاشة الدخول
   if (path === "/admin" || path.startsWith("/admin/")) {
-    if (!cookie) return { action: "next" };
+    if (!cookie) return { action: "login" };
     try {
       const user = await currentUser({ backendUrl, cookie, fetchImpl });
       if (user && !STAFF_ROLES.has(user.role)) {

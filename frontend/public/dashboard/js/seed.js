@@ -1,5 +1,5 @@
 /* مولَّد تلقائيًا — لا تعدّله يدويًا. شغّل: node server/build-seed.js */
-window.EFHAMA_SEED = {
+window.EFHAMHA_SEED = {
   "schemaVersion": 1,
   "rev": 0,
   "updatedAt": null,

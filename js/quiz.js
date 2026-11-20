@@ -5,9 +5,9 @@
 
   /* الوضع الليلي/النهاري موحد ويُدار مركزيًا من ui.js / navigation.js */
 
-  var RESULTS_KEY = "efhama_quiz_results";
-  var BEST_KEY = "efhama_quiz_best";
-  var MISTAKES_KEY = "efhama_mistakes";
+  var RESULTS_KEY = "efhamha_quiz_results";
+  var BEST_KEY = "efhamha_quiz_best";
+  var MISTAKES_KEY = "efhamha_mistakes";
   var EXAM_SECONDS = 600;
 
   function readJSON(k, d) { try { return JSON.parse(localStorage.getItem(k)) || d; } catch (e) { return d; } }

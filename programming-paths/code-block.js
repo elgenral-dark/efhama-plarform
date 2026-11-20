@@ -198,5 +198,5 @@
     return `<div class="lesson-code-example">${options.description ? `<p class="lesson-code-description">${escapeHtml(options.description)}</p>` : ''}<div class="lesson-code-block">${toolbar}<pre${lineNumbers ? ' class="has-line-numbers"' : ''} tabindex="0" dir="ltr"><code class="language-${resolvedLanguage}">${codeHtml}</code></pre></div>${noteHtml}${options.commonError ? `<p class="lesson-code-error-note"><strong>خطأ شائع:</strong> ${escapeHtml(options.commonError)}</p>` : ''}</div>`;
   };
 
-  window.EfhamaCodeBlocks = Object.freeze({ render, highlight: highlightCode, resolveLanguage });
+  window.EfhamhaCodeBlocks = Object.freeze({ render, highlight: highlightCode, resolveLanguage });
 })();

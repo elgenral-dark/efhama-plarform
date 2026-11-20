@@ -1,5 +1,5 @@
 /* Service Worker — تخزين مؤقت: شبكة أولًا مع كاش احتياطي */
-var CACHE = "efhama-v10";
+var CACHE = "efhamha-v10";
 /* الهيكل الثابت فقط. ملفات المحتوى (data/) تتطلب تسجيل الدخول فتُخزَّن عند أول طلب ناجح */
 var CORE = [
   "login.html", "register.html", "offline.html",

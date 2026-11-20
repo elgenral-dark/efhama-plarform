@@ -1,8 +1,11 @@
-const { spawn } = require("child_process");
-const path = require("path");
+import { spawn } from "child_process";
+import { dirname, join } from "path";
+import { fileURLToPath } from "url";
+
+const __dirname = dirname(fileURLToPath(import.meta.url));
 
 const backend = spawn(process.execPath, ["src/index.js"], {
-  cwd: path.join(__dirname, "backend"),
+  cwd: join(__dirname, "backend"),
   stdio: "inherit",
 });
 
@@ -13,7 +16,7 @@ backend.on("exit", (code) => {
 });
 
 const frontend = spawn(process.execPath, ["server.js"], {
-  cwd: path.join(__dirname, "frontend"),
+  cwd: join(__dirname, "frontend"),
   env: Object.assign({}, process.env, { BACKEND_URL: "http://localhost:4000" }),
   stdio: "inherit",
 });

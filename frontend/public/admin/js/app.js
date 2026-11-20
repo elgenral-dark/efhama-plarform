@@ -1,6 +1,6 @@
 (function () {
   'use strict';
-  var E = window.Efhama, esc = E.esc, Store = E.Store;
+  var E = window.Efhamha, esc = E.esc, Store = E.Store;
 
   var NAV = [
     ['overview', 'نظرة عامة', 'home'], '-',
@@ -22,7 +22,7 @@
     }).join('');
   }
 
-  var SIDEBAR_KEY = 'efhama:sidebar';
+  var SIDEBAR_KEY = 'efhamha:sidebar';
   function isMobile() { return window.matchMedia('(max-width: 900px)').matches; }
 
   function doLogout() {
@@ -134,10 +134,10 @@
   }
 
   function localBanner() {
-    if (Store.mode === 'server' || sessionStorage.getItem('efhama:hide-banner')) return;
+    if (Store.mode === 'server' || sessionStorage.getItem('efhamha:hide-banner')) return;
     var c = E.$('#content');
     var b = E.el('<div class="banner" role="note">' + E.icon('alert') + '<div><b>الوضع المحلي — غير محمي</b><br>البيانات محفوظة في هذا المتصفح فقط، ولا يوجد تسجيل دخول أو حماية حقيقية، ولا تظهر التعديلات في الموقع إلا بعد تصدير الملف أو تشغيل الخادم المرفق. لا تنشر هذه الواجهة للعامة بهذا الشكل.</div><button class="btn sm" type="button">إخفاء</button></div>');
-    E.$('button', b).onclick = function () { sessionStorage.setItem('efhama:hide-banner', '1'); b.remove(); };
+    E.$('button', b).onclick = function () { sessionStorage.setItem('efhamha:hide-banner', '1'); b.remove(); };
     c.parentNode.insertBefore(b, c);
   }
 
@@ -162,84 +162,7 @@
 
   /* ---------- login (وضع الخادم) ---------- */
   E.showLogin = function () {
-    if (E.$('.login')) return;
-    var d = E.el(
-      '<div class="login">' +
-        '<div class="login-backdrop-glow"></div>' +
-        '<div class="login-box">' +
-          '<div class="login-brand">' +
-            '<div class="login-logo-wrap">' +
-              '<img src="/assets/icons/favicon.svg" alt="efhamha" class="login-logo">' +
-            '</div>' +
-            '<h1 class="login-title">efhamha</h1>' +
-            '<span class="login-badge">لوحة الإدارة</span>' +
-            '<p class="login-desc">سجّل الدخول للوصول إلى أدوات التحكم وإدارة المحتوى والطلاب</p>' +
-          '</div>' +
-          '<form class="login-form">' +
-            '<div class="field login-field">' +
-              '<label for="un">اسم المستخدم</label>' +
-              '<div class="input-wrap">' +
-                E.icon('user') +
-                '<input type="text" id="un" autocomplete="username" placeholder="admin" required>' +
-              '</div>' +
-            '</div>' +
-            '<div class="field login-field">' +
-              '<label for="pw">كلمة المرور</label>' +
-              '<div class="input-wrap has-toggle">' +
-                E.icon('lock') +
-                '<input type="password" id="pw" autocomplete="current-password" placeholder="••••••••••••" required>' +
-                '<button type="button" class="pw-toggle-btn" id="pw-toggle" aria-label="إظهار كلمة المرور" tabindex="-1">' +
-                  E.icon('eye') +
-                '</button>' +
-              '</div>' +
-            '</div>' +
-            '<div class="err login-err" role="alert"></div>' +
-            '<button class="btn primary login-submit-btn" type="submit">' +
-              '<span>تسجيل الدخول</span>' +
-              '<svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>' +
-            '</button>' +
-          '</form>' +
-          '<div class="login-foot">' +
-            '<span>Learn to code, stage by stage</span>' +
-          '</div>' +
-        '</div>' +
-      '</div>'
-    );
-    document.body.appendChild(d);
-    var f = E.$('form', d), pw = E.$('#pw', d), err = E.$('.err', d), toggle = E.$('#pw-toggle', d);
-    E.$('#un', d).focus();
-    if (toggle && pw) {
-      toggle.addEventListener('click', function () {
-        var isText = pw.type === 'text';
-        pw.type = isText ? 'password' : 'text';
-        toggle.setAttribute('aria-label', isText ? 'إظهار كلمة المرور' : 'إخفاء كلمة المرور');
-        toggle.innerHTML = E.icon(isText ? 'eye' : 'eyeOff');
-        pw.focus();
-      });
-    }
-    f.addEventListener('submit', function (e) {
-      e.preventDefault(); err.textContent = '';
-      var b = E.$('button[type="submit"]', f); b.disabled = true;
-      b.classList.add('loading');
-      var uname = E.$('#un', d).value.trim();
-      var pwval = pw.value;
-      Store.api('POST', '/login', { username: uname, password: pwval }).then(function (resp) {
-        Store.authenticated = true; d.remove();
-        // في حال كان المستخدم ليس من فريق العمل (admin/instructor/etc) → أعد عرض رسالة
-        return Store.loadMe().then(function () {
-          return Store.load();
-        }).then(function () {
-          boot(true);
-        });
-      }).catch(function (er) {
-        err.textContent = er.message || 'تعذر تسجيل الدخول';
-        pw.value = '';
-        pw.focus();
-      }).finally(function () {
-        b.disabled = false;
-        b.classList.remove('loading');
-      });
-    });
+    location.replace('/login.html?next=' + encodeURIComponent(location.pathname + location.search));
   };
 
   var started = false;
@@ -272,5 +195,5 @@
         '</div></div>';
     });
   });
-  function ED_inject() { window.EfhamaData.injectStyles(); }
+  function ED_inject() { window.EfhamhaData.injectStyles(); }
 })();

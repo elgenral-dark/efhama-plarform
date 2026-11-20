@@ -31,7 +31,7 @@ const { launch, login, api, ok, overflow, report, BASE } = require('./helper');
   await page.click('.modal .primary'); await page.waitForSelector('.toast.success');
   await page.waitForTimeout(300);
   ok('subscription: shows new value after save', (await page.textContent('.kv')).includes('250'));
-  let pub = await (await page.request.get(BASE + '/public/efhama-data.json')).json();
+  let pub = await (await page.request.get(BASE + '/public/efhamha-data.json')).json();
   ok('subscription reflected in public JSON', pub.subscription.price === 250);
   // failure message
   const inputs = await page.$$('[data-form] input[type=text]');
@@ -95,18 +95,18 @@ const { launch, login, api, ok, overflow, report, BASE } = require('./helper');
   ok('AI terms added to glossary & linked', d.glossary.some(t => t.en === 'variable' && t.lessonIds.includes(les.id)));
   ok('AI review questions added to bank (valid only)', d.questions.filter(q => q.lessonId === les.id).length === 2);
   ok('AI code block preserved', les.blocks.some(b => b.type === 'code' && b.code.includes('x = 5')));
-  pub = await (await page.request.get(BASE + '/public/efhama-data.json')).json();
+  pub = await (await page.request.get(BASE + '/public/efhamha-data.json')).json();
   ok('draft AI lesson NOT in public JSON', !pub.lessons.some(l => l.id === les.id));
   await page.click('[data-a=publish]'); await page.waitForSelector('.modal.sm');
   await page.locator('.modal.sm .switch').click(); await page.click('.modal.sm .primary');
   await page.waitForSelector('.toast.success'); await page.waitForTimeout(900);
-  pub = await (await page.request.get(BASE + '/public/efhama-data.json')).json();
+  pub = await (await page.request.get(BASE + '/public/efhamha-data.json')).json();
   ok('published after explicit approval -> in public JSON', pub.lessons.some(l => l.id === les.id));
   d = (await api(page, 'GET', '/api/data')).body;
   ok('approval recorded (reviewed=true)', d.lessons.find(l => l.id === les.id).aiMeta.reviewed === true);
   // preview of AI lesson
-  await page.click('[data-a=preview]'); await page.waitForSelector('.modal .efhama-lesson');
-  ok('lesson preview renders AI lesson', (await page.textContent('.modal .efhama-lesson')).includes('x = 5'));
+  await page.click('[data-a=preview]'); await page.waitForSelector('.modal .efhamha-lesson');
+  ok('lesson preview renders AI lesson', (await page.textContent('.modal .efhamha-lesson')).includes('x = 5'));
   await page.keyboard.press('Escape');
 
   // E) logs

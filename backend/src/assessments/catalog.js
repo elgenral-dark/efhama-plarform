@@ -68,7 +68,7 @@ const PRACTICAL_QUESTIONS = {
     lessonId: "python-2",
     type: "true-false",
     skill: "أنواع البيانات",
-    prompt: "القيمة \"Efhama\" من النوع str في Python.",
+    prompt: "القيمة \"Efhamha\" من النوع str في Python.",
     options: [{ id: "a", text: "صح" }, { id: "b", text: "خطأ" }],
     correctOption: "a",
     explanation: "النصوص في Python تكون من النوع str."

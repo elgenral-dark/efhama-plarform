@@ -148,10 +148,10 @@ function pgBind(sec, wrap) {
   /* الوضع الليلي/النهاري موحد ويُدار مركزيًا من ui.js / navigation.js */
 
   /* ================= مفاتيح التخزين (موحدة مع الصفحات السابقة) ================= */
-  var COMPLETED_KEY = "efhama_completed";
-  var STARTED_KEY = "efhama_started";
-  var POS_PREFIX = "efhama_pos_";
-  var FONT_KEY = "efhama_fontsize";
+  var COMPLETED_KEY = "efhamha_completed";
+  var STARTED_KEY = "efhamha_started";
+  var POS_PREFIX = "efhamha_pos_";
+  var FONT_KEY = "efhamha_fontsize";
 
   function readList(key) {
     try { return JSON.parse(localStorage.getItem(key)) || []; }
@@ -403,7 +403,7 @@ function pgBind(sec, wrap) {
     if (lesson.demo) document.getElementById("demoNote").hidden = false;
 
     /* حفظ «آخر درس» لمتابعة التعلم من الرئيسية */
-    localStorage.setItem("efhama_last_lesson", JSON.stringify({ id: lessonId, at: Date.now() }));
+    localStorage.setItem("efhamha_last_lesson", JSON.stringify({ id: lessonId, at: Date.now() }));
 
     /* فتح الدرس = تسجيله كـ«قيد الدراسة» */
     if (!inList(COMPLETED_KEY, lessonId)) addToList(STARTED_KEY, lessonId);
@@ -713,7 +713,7 @@ function pgBind(sec, wrap) {
       var box = document.getElementById("rateStars");
       if (!box) return;
       var msg = document.getElementById("rateMsg");
-      var KEY = "efhama_rating_" + lessonId;
+      var KEY = "efhamha_rating_" + lessonId;
       function paint(n) {
         box.querySelectorAll(".rate-star").forEach(function (b) {
           b.classList.toggle("on", Number(b.dataset.v) <= n);

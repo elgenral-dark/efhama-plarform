@@ -1,6 +1,6 @@
 (function () {
   'use strict';
-  var E = window.Efhama, esc = E.esc, Store = E.Store;
+  var E = window.Efhamha, esc = E.esc, Store = E.Store;
 
   function show(v, suffix) { return v === null || v === '' || v === undefined ? '<span class="t-sub">غير محدد</span>' : '<b dir="auto">' + esc(v) + (suffix ? ' ' + esc(suffix) : '') + '</b>'; }
 
@@ -219,14 +219,33 @@
 
           // 3. Subscription Settings Section (Kept exact for backwards compatibility & tests)
           '<div class="grid-2">' +
-            '<section class="panel panel-pad">' +
-              '<h2 style="margin-bottom:12px">القيم الحالية</h2>' +
-              '<dl class="kv">' +
-                '<dt>سعر الاشتراك</dt><dd>' + show(cur.price, cur.currencyLabel) + '</dd>' +
-                '<dt>رقم الكاش لاستقبال المدفوعات</dt><dd dir="ltr" style="text-align:start">' + show(cur.cashNumber) + '</dd>' +
-                '<dt>رقم WhatsApp للتواصل والاشتراكات</dt><dd dir="ltr" style="text-align:start">' + show(cur.whatsapp) + '</dd>' +
-              '</dl>' +
-              '<p class="hint" style="margin-top:12px">' + (cur.updatedAt ? 'آخر تعديل: ' + esc(E.fmtDate(cur.updatedAt)) + ' ' + esc(E.fmtTime(cur.updatedAt)) + ' بواسطة ' + esc(cur.updatedBy || '') : 'لم تُحفظ أي قيم بعد.') + '</p>' +
+            '<section class="panel panel-pad subscription-summary-card">' +
+              '<div class="subscription-summary-head">' +
+                '<div>' +
+                  '<span class="subscription-summary-label">القيم الحالية للاشتراك</span>' +
+                  '<h2>حزمة الاشتراك المفعّلة</h2>' +
+                '</div>' +
+                '<span class="badge ok">مفعّلة</span>' +
+              '</div>' +
+              '<div class="subscription-price-block">' +
+                '<span>سعر الاشتراك</span>' +
+                '<strong dir="auto">' + (cur.price == null || cur.price === '' ? 'غير محدد' : esc(cur.price)) +
+                  (cur.currencyLabel ? ' <small>' + esc(cur.currencyLabel) + '</small>' : '') +
+                '</strong>' +
+              '</div>' +
+              '<div class="subscription-contact-grid">' +
+                '<div class="subscription-contact-item">' +
+                  '<span class="subscription-contact-icon">' + E.icon('wallet') + '</span>' +
+                  '<div><span>رقم الكاش</span><b dir="ltr">' + (cur.cashNumber ? esc(cur.cashNumber) : 'غير محدد') + '</b></div>' +
+                  (cur.cashNumber ? '<button type="button" class="icon-btn subscription-copy" data-copy="' + esc(cur.cashNumber) + '" aria-label="نسخ رقم الكاش" title="نسخ">' + E.icon('copy') + '</button>' : '') +
+                '</div>' +
+                '<div class="subscription-contact-item">' +
+                  '<span class="subscription-contact-icon">' + E.icon('phone') + '</span>' +
+                  '<div><span>رقم WhatsApp</span><b dir="ltr">' + (cur.whatsapp ? esc(cur.whatsapp) : 'غير محدد') + '</b></div>' +
+                  (cur.whatsapp ? '<button type="button" class="icon-btn subscription-copy" data-copy="' + esc(cur.whatsapp) + '" aria-label="نسخ رقم واتساب" title="نسخ">' + E.icon('copy') + '</button>' : '') +
+                '</div>' +
+              '</div>' +
+              '<p class="subscription-updated">' + E.icon('clock') + '<span>' + (cur.updatedAt ? 'آخر تعديل: ' + esc(E.fmtDate(cur.updatedAt)) + ' ' + esc(E.fmtTime(cur.updatedAt)) + ' بواسطة ' + esc(cur.updatedBy || '') : 'لم تُحفظ أي قيم بعد') + '</span></p>' +
             '</section>' +
             '<section class="panel panel-pad">' +
               '<h2 style="margin-bottom:12px">' + (canEdit ? 'تعديل الإعدادات' : 'عرض فقط') + '</h2>' +
@@ -236,7 +255,7 @@
           '</div>' +
           '<section class="panel panel-pad" style="margin-top:16px">' +
             '<h3>كيف تصل القيم للموقع؟</h3>' +
-            '<p class="sub" style="margin-top:6px">تُحفظ في قاعدة البيانات (مصدر واحد) وتُنشر تلقائيًا في <code dir="ltr">/public/efhama-data.json</code> تحت المفتاح <code dir="ltr">subscription</code>. اقرأها في صفحات الاشتراك والدفع من هناك بدل كتابتها داخل الملفات.</p>' +
+            '<p class="sub" style="margin-top:6px">تُحفظ في قاعدة البيانات (مصدر واحد) وتُنشر تلقائيًا في <code dir="ltr">/public/efhamha-data.json</code> تحت المفتاح <code dir="ltr">subscription</code>. اقرأها في صفحات الاشتراك والدفع من هناك بدل كتابتها داخل الملفات.</p>' +
           '</section>';
 
         if (canEdit) {
@@ -574,6 +593,26 @@
           }
         });
       }
+
+      body.querySelectorAll('[data-copy]').forEach(function (button) {
+        button.addEventListener('click', function () {
+          var value = button.dataset.copy || '';
+          if (!value) return;
+          if (navigator.clipboard && navigator.clipboard.writeText) {
+            navigator.clipboard.writeText(value).then(function () {
+              E.toast('تم نسخ الرقم', { type: 'success' });
+            }).catch(function () { E.toast('تعذر نسخ الرقم', { type: 'error' }); });
+          } else {
+            var input = document.createElement('input');
+            input.value = value;
+            document.body.appendChild(input);
+            input.select();
+            document.execCommand('copy');
+            input.remove();
+            E.toast('تم نسخ الرقم', { type: 'success' });
+          }
+        });
+      });
 
       var refreshAllBtn = E.$('[data-refresh-all]', c);
       if (refreshAllBtn) {

@@ -23,7 +23,7 @@
   var paymentNumber = document.getElementById("paymentNumber");
   var copyPaymentNumber = document.getElementById("copyPaymentNumber");
   var paymentCopyStatus = document.getElementById("paymentCopyStatus");
-  var paymentConfig = window.EFHAMA_PAYMENT_CONFIG;
+  var paymentConfig = window.EFHAMHA_PAYMENT_CONFIG;
   var authenticated = false;
   var initialRequest = null;
   var accountKnown = false;

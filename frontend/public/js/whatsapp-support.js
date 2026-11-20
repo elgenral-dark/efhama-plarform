@@ -1,5 +1,5 @@
 (() => {
-  if (document.getElementById("efhama-whatsapp-support")) return;
+  if (document.getElementById("efhamha-whatsapp-support")) return;
 
   const stylesheet = document.createElement("link");
   stylesheet.rel = "stylesheet";
@@ -10,7 +10,7 @@
   const label = isEnglish ? "Contact technical support" : "تواصل مع الدعم الفني";
   const message = "مرحباً، أحتاج إلى المساعدة بخصوص منصة افهمها بسهولة.";
   const link = document.createElement("a");
-  link.id = "efhama-whatsapp-support";
+  link.id = "efhamha-whatsapp-support";
   link.className = "whatsapp-support-button";
   link.href = "https://wa.me/201287288506?text=" + encodeURIComponent(message);
   link.target = "_blank";

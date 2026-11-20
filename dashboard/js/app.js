@@ -1,6 +1,6 @@
 (function () {
   'use strict';
-  var E = window.Efhama, esc = E.esc, Store = E.Store;
+  var E = window.Efhamha, esc = E.esc, Store = E.Store;
 
   var NAV = [
     ['overview', 'نظرة عامة', 'home'], '-',
@@ -22,7 +22,7 @@
     }).join('');
   }
 
-  var SIDEBAR_KEY = 'efhama:sidebar';
+  var SIDEBAR_KEY = 'efhamha:sidebar';
   function isMobile() { return window.matchMedia('(max-width: 900px)').matches; }
 
   function doLogout() {
@@ -134,10 +134,10 @@
   }
 
   function localBanner() {
-    if (Store.mode === 'server' || sessionStorage.getItem('efhama:hide-banner')) return;
+    if (Store.mode === 'server' || sessionStorage.getItem('efhamha:hide-banner')) return;
     var c = E.$('#content');
     var b = E.el('<div class="banner" role="note">' + E.icon('alert') + '<div><b>الوضع المحلي — غير محمي</b><br>البيانات محفوظة في هذا المتصفح فقط، ولا يوجد تسجيل دخول أو حماية حقيقية، ولا تظهر التعديلات في الموقع إلا بعد تصدير الملف أو تشغيل الخادم المرفق. لا تنشر هذه الواجهة للعامة بهذا الشكل.</div><button class="btn sm" type="button">إخفاء</button></div>');
-    E.$('button', b).onclick = function () { sessionStorage.setItem('efhama:hide-banner', '1'); b.remove(); };
+    E.$('button', b).onclick = function () { sessionStorage.setItem('efhamha:hide-banner', '1'); b.remove(); };
     c.parentNode.insertBefore(b, c);
   }
 
@@ -272,5 +272,5 @@
         '</div></div>';
     });
   });
-  function ED_inject() { window.EfhamaData.injectStyles(); }
+  function ED_inject() { window.EfhamhaData.injectStyles(); }
 })();

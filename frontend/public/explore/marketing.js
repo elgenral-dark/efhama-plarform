@@ -107,8 +107,8 @@ const projects = [
 const page = document.body.dataset.page;
 // Language is always Arabic — no toggle
 const language = "ar";
-localStorage.setItem("efhama_public_language", "ar");
-const savedTheme = localStorage.getItem("efhama_theme");
+localStorage.setItem("efhamha_public_language", "ar");
+const savedTheme = localStorage.getItem("efhamha_theme");
 if (savedTheme === "light" || savedTheme === "dark") {
   document.documentElement.dataset.theme = savedTheme;
 }
@@ -238,7 +238,7 @@ function updateEducationalImages() {
       return;
     }
     image.dataset.themeReady = "false";
-    window.EfhamaImageTheme.darkSource(originalPath).then((darkSource) => {
+    window.EfhamhaImageTheme.darkSource(originalPath).then((darkSource) => {
       if (image.dataset.themeRequest === String(request)
         && document.documentElement.dataset.theme === "dark"
         && image.dataset.originalSrc === originalPath) {
@@ -310,7 +310,7 @@ document.querySelector("[data-theme-toggle]")?.addEventListener("click", () => {
   const root = document.documentElement;
   const theme = root.dataset.theme === "dark" ? "light" : "dark";
   root.dataset.theme = theme;
-  localStorage.setItem("efhama_theme", theme);
+  localStorage.setItem("efhamha_theme", theme);
   updateEducationalImages();
 });
 
@@ -393,7 +393,7 @@ function initializeQrShare() {
 
   let siteUrl;
   try {
-    const configuredUrl = typeof window.EFHAMA_SITE_URL === "string" ? window.EFHAMA_SITE_URL.trim() : "";
+    const configuredUrl = typeof window.EFHAMHA_SITE_URL === "string" ? window.EFHAMHA_SITE_URL.trim() : "";
     const parsedUrl = new URL(configuredUrl || window.location.origin);
     const hostname = parsedUrl.hostname.toLowerCase();
     const isLocalHost = hostname === "localhost" || hostname.endsWith(".localhost")
@@ -404,7 +404,7 @@ function initializeQrShare() {
       || parsedUrl.search || parsedUrl.hash) throw new Error("A secure production URL is required.");
     siteUrl = parsedUrl.href.replace(/\/+$/, "");
   } catch (error) {
-    console.error("Unable to configure the Efhama QR code:", error);
+    console.error("Unable to configure the Efhamha QR code:", error);
     setStatus(localized("qrUnavailable"), true);
     return;
   }
@@ -428,19 +428,19 @@ function initializeQrShare() {
         await copyUrl(siteUrl);
         setStatus(localized("qrCopied"));
       } catch (error) {
-        console.error("Unable to copy the Efhama URL:", error);
+        console.error("Unable to copy the Efhamha URL:", error);
         setStatus(localized("qrCopyFailed"), true);
       }
     });
 
     shareButton.addEventListener("click", async () => {
       try {
-        if (navigator.share) await navigator.share({ title: "Efhama", url: siteUrl });
+        if (navigator.share) await navigator.share({ title: "Efhamha", url: siteUrl });
         else await copyUrl(siteUrl);
         setStatus(localized("qrCopied"));
       } catch (error) {
         if (error.name === "AbortError") return;
-        console.error("Unable to share the Efhama URL:", error);
+        console.error("Unable to share the Efhamha URL:", error);
         setStatus(localized("qrShareFailed"), true);
       }
     });
@@ -452,15 +452,15 @@ function initializeQrShare() {
         downloadQr.make();
         const downloadLink = document.createElement("a");
         downloadLink.href = createQrPng(downloadQr, 16);
-        downloadLink.download = "efhama-qr-code.png";
+        downloadLink.download = "efhamha-qr-code.png";
         downloadLink.click();
       } catch (error) {
-        console.error("Unable to download the Efhama QR code:", error);
+        console.error("Unable to download the Efhamha QR code:", error);
         setStatus(localized("qrDownloadFailed"), true);
       }
     });
   } catch (error) {
-    console.error("Unable to generate the Efhama QR code:", error);
+    console.error("Unable to generate the Efhamha QR code:", error);
     setStatus(localized("qrUnavailable"), true);
   }
 }

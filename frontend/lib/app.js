@@ -108,7 +108,7 @@ export function createFrontendApp({
     });
   });
 
-  app.use(["/api", "/data", "/uploads", "/public/efhama-data.json"], (req, res) => proxyRequest(req, res, backendUrl));
+  app.use(["/api", "/data", "/uploads", "/public/efhamha-data.json"], (req, res) => proxyRequest(req, res, backendUrl));
 
   app.get("/", async (req, res, next) => {
     if (!backendUrl) return res.redirect("/explore/");
@@ -136,6 +136,10 @@ export function createFrontendApp({
     if (result.action === "next") return next();
     if (isAdmin) {
       if (result.action === "forbidden") return res.redirect("/login.html");
+      if (result.action === "login") {
+        const targetUrl = encodeURIComponent(req.originalUrl || req.path);
+        return res.redirect(`/login.html?next=${targetUrl}`);
+      }
       return next();
     }
     if (result.action === "unavailable")

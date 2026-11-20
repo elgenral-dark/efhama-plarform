@@ -1,4 +1,4 @@
-const STORAGE_KEY = 'efhama_programming_paths';
+const STORAGE_KEY = 'efhamha_programming_paths';
 
 const readState = () => {
   try {
@@ -394,7 +394,7 @@ const renderPathDetail = async () => {
       openLesson(slug, button.dataset.lessonId);
     });
   });
-  await window.EfhamaChallengeSystem.render(slug, detail);
+  await window.EfhamhaChallengeSystem.render(slug, detail);
 };
 
 const escapeHtml = (value = '') => String(value)
@@ -404,7 +404,7 @@ const escapeHtml = (value = '') => String(value)
   .replace(/"/g, '&quot;')
   .replace(/'/g, '&#039;');
 
-const { render: renderCodeBlock, highlight: highlightCode } = window.EfhamaCodeBlocks;
+const { render: renderCodeBlock, highlight: highlightCode } = window.EfhamhaCodeBlocks;
 
 const lessonVisualTypes = {
   concept: 'Concept Illustration — رسم مفاهيمي',
@@ -468,7 +468,7 @@ const updateLessonVisualTheme = (root) => {
     }
     image.dataset.themeReady = 'false';
     const currentRevision = revision;
-    window.EfhamaImageTheme.darkSource(originalPath).then((darkSource) => {
+    window.EfhamhaImageTheme.darkSource(originalPath).then((darkSource) => {
       if (currentRevision === lessonVisualThemeRevision && document.body.getAttribute('data-theme') === 'dark' && image.dataset.originalSrc === originalPath) {
         image.src = darkSource;
         image.dataset.themeDarkSource = originalPath;
@@ -574,11 +574,11 @@ const renderLessonContent = (lesson, fallbackLanguage = 'pseudocode', pathSlug =
       case 'code':
         return renderCodeBlock(block.code, block.title, block.language, fallbackLanguage, block);
       case 'html-css-playground':
-        return window.EfhamaHtmlCssPlayground.render(block);
+        return window.EfhamhaHtmlCssPlayground.render(block);
       case 'javascript-playground':
-        return window.EfhamaJavaScriptPlayground.render(block);
+        return window.EfhamhaJavaScriptPlayground.render(block);
       case 'python-playground':
-        return window.EfhamaPythonPlayground.render(block);
+        return window.EfhamhaPythonPlayground.render(block);
       case 'diagram':
       case 'visual':
       case 'concept':
@@ -860,9 +860,9 @@ const renderLessonContent = (lesson, fallbackLanguage = 'pseudocode', pathSlug =
     </dialog>
   `;
   updateLessonVisualTheme(contentNode);
-  window.EfhamaHtmlCssPlayground.initialize(contentNode, pathSlug, lesson.id);
-  window.EfhamaJavaScriptPlayground.initialize(contentNode, pathSlug, lesson.id);
-  window.EfhamaPythonPlayground.initialize(contentNode, pathSlug, lesson.id);
+  window.EfhamhaHtmlCssPlayground.initialize(contentNode, pathSlug, lesson.id);
+  window.EfhamhaJavaScriptPlayground.initialize(contentNode, pathSlug, lesson.id);
+  window.EfhamhaPythonPlayground.initialize(contentNode, pathSlug, lesson.id);
   if (!contentNode.dataset.visualErrorBound) {
     contentNode.addEventListener('error', (event) => {
       if (!event.target.matches('[data-lesson-visual-image]')) return;
@@ -913,7 +913,7 @@ const renderLessonContent = (lesson, fallbackLanguage = 'pseudocode', pathSlug =
         .replace(/[^\p{L}\p{N}-]+/gu, '-')
         .replace(/-+/g, '-')
         .replace(/^-+|-+$/g, '')
-        .slice(0, 120) || 'efhama-lesson-image';
+        .slice(0, 120) || 'efhamha-lesson-image';
       if (!extension) {
         status.textContent = 'تعذر تحميل الصورة: صيغة الملف غير مدعومة.';
         return;
@@ -1193,7 +1193,7 @@ const initializeLessonReadingExperience = (slug, lesson) => {
     };
   }
 
-  const storageKey = `efhama_reading_${slug}_${lesson.id}`;
+  const storageKey = `efhamha_reading_${slug}_${lesson.id}`;
   const savedProgress = Math.max(0, Math.min(100, Number(localStorage.getItem(storageKey)) || 0));
   const updateProgress = () => {
     const scrollable = document.documentElement.scrollHeight - window.innerHeight;
@@ -1218,7 +1218,7 @@ const initializeLessonReadingExperience = (slug, lesson) => {
   window.addEventListener('scroll', updateProgress, { passive: true });
   window.addEventListener('resize', updateProgress);
 
-  const scaleKey = 'efhama_lesson_font_scale';
+  const scaleKey = 'efhamha_lesson_font_scale';
   const fontScale = () => Math.min(1.25, Math.max(0.85, Number(localStorage.getItem(scaleKey)) || 1));
   const updateFontScale = (scale) => {
     const normalized = Math.round(Math.min(1.25, Math.max(0.85, scale)) * 100) / 100;
@@ -1733,12 +1733,12 @@ const renderLessonPage = async () => {
       isCompleted = nextCompleted;
       toggleBtn.textContent = nextCompleted ? 'إلغاء الإكمال' : 'تحديد كمكتمل';
       if (resumeNode) resumeNode.textContent = nextCompleted ? 'تم حفظ هذا الدرس كـ مكتمل.' : 'تم تحديث آخر نقطة دراسية.';
-      if (next && nextCompleted && window.EfhamaGamification) {
-        window.EfhamaGamification.recordActivity('lesson', `${slug}:${lesson.id}`);
+      if (next && nextCompleted && window.EfhamhaGamification) {
+        window.EfhamhaGamification.recordActivity('lesson', `${slug}:${lesson.id}`);
         const unitLessons = flatLessons.filter((item) => item.unitId === lesson.unitId);
         const completedLessons = new Set(refreshed.completed || []);
         if (unitLessons.length && unitLessons.every((item) => completedLessons.has(item.id))) {
-          window.EfhamaGamification.recordActivity('unit', `${slug}:${lesson.unitId}`);
+          window.EfhamhaGamification.recordActivity('unit', `${slug}:${lesson.unitId}`);
           if (lesson.unitOrder === 1) {
             const badgeByPath = {
               python: 'python-beginner',
@@ -1746,20 +1746,20 @@ const renderLessonPage = async () => {
               css: 'css-designer',
               javascript: 'javascript-starter'
             };
-            if (badgeByPath[slug]) window.EfhamaGamification.unlockBadge(badgeByPath[slug]);
+            if (badgeByPath[slug]) window.EfhamhaGamification.unlockBadge(badgeByPath[slug]);
           }
         }
       }
     };
   }
   if (resumeNode) {
-    const readingProgress = Math.max(0, Math.min(100, Number(localStorage.getItem(`efhama_reading_${slug}_${lesson.id}`)) || 0));
+    const readingProgress = Math.max(0, Math.min(100, Number(localStorage.getItem(`efhamha_reading_${slug}_${lesson.id}`)) || 0));
     resumeNode.textContent = readingProgress ? `تقدم القراءة المحفوظ: ${readingProgress}%` : `آخر نقطة: ${state.lastLesson || lesson.id}`;
   }
 };
 
 const applyTheme = () => {
-  const savedTheme = localStorage.getItem('efhama_theme') || 'light';
+  const savedTheme = localStorage.getItem('efhamha_theme') || 'light';
   document.body.setAttribute('data-theme', savedTheme);
   const button = document.querySelector('[data-theme-toggle]');
   if (button) {
@@ -1770,7 +1770,7 @@ const applyTheme = () => {
 
 const toggleTheme = () => {
   const current = document.body.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
-  localStorage.setItem('efhama_theme', current);
+  localStorage.setItem('efhamha_theme', current);
   applyTheme();
 };
 

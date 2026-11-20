@@ -1,5 +1,5 @@
-/* Efhama Dashboard — Design System v3
-   هوية Efhama: اللون الأساسي Electric Blue #1E6BFF، الخلفية الداكنة Ink #0B1220، الفاتحة Mist #F4F7FC. */
+/* Efhamha Dashboard — Design System v3
+   هوية Efhamha: اللون الأساسي Electric Blue #1E6BFF، الخلفية الداكنة Ink #0B1220، الفاتحة Mist #F4F7FC. */
 :root {
   --brand: #1E6BFF;
   --brand-ink: #1E6BFF;
@@ -429,7 +429,7 @@ input:focus, select:focus, textarea:focus { border-color: var(--brand); box-shad
 /* ---------- lesson preview & reader typography ---------- */
 .preview-pane { max-width: 820px; margin-inline: auto; padding: 4px; }
 
-.efhama-lesson {
+.efhamha-lesson {
   line-height: 1.85;
   color: var(--text);
   font-family: inherit;
@@ -437,7 +437,7 @@ input:focus, select:focus, textarea:focus { border-color: var(--brand); box-shad
 }
 
 /* هيدر الدرس المطور */
-.efhama-header {
+.efhamha-header {
   background: linear-gradient(180deg, color-mix(in srgb, var(--brand-soft) 45%, var(--surface)) 0%, var(--surface) 100%);
   border: 1px solid color-mix(in srgb, var(--border) 80%, transparent);
   border-radius: 20px;
@@ -447,7 +447,7 @@ input:focus, select:focus, textarea:focus { border-color: var(--brand); box-shad
   position: relative;
   overflow: hidden;
 }
-.efhama-header::before {
+.efhamha-header::before {
   content: "";
   position: absolute;
   top: 0;
@@ -456,7 +456,7 @@ input:focus, select:focus, textarea:focus { border-color: var(--brand); box-shad
   background: linear-gradient(90deg, var(--brand) 0%, #7682F5 100%);
 }
 
-.efhama-breadcrumb {
+.efhamha-breadcrumb {
   display: flex;
   align-items: center;
   gap: 8px;
@@ -465,7 +465,7 @@ input:focus, select:focus, textarea:focus { border-color: var(--brand); box-shad
   margin-bottom: 12px;
   flex-wrap: wrap;
 }
-.efhama-crumb {
+.efhamha-crumb {
   display: inline-flex;
   align-items: center;
   gap: 5px;
@@ -475,9 +475,9 @@ input:focus, select:focus, textarea:focus { border-color: var(--brand); box-shad
   border: 1px solid var(--border);
   font-weight: 500;
 }
-.efhama-crumb-sep { color: var(--muted); opacity: .7; font-weight: bold; }
+.efhamha-crumb-sep { color: var(--muted); opacity: .7; font-weight: bold; }
 
-.efhama-title {
+.efhamha-title {
   font-size: 26px;
   font-weight: 800;
   line-height: 1.35;
@@ -486,7 +486,7 @@ input:focus, select:focus, textarea:focus { border-color: var(--brand); box-shad
   letter-spacing: -0.015em;
 }
 
-.efhama-meta {
+.efhamha-meta {
   display: flex;
   flex-wrap: wrap;
   gap: 8px;
@@ -494,7 +494,7 @@ input:focus, select:focus, textarea:focus { border-color: var(--brand); box-shad
   margin: 0 0 14px 0;
 }
 
-.efhama-chip {
+.efhamha-chip {
   display: inline-flex;
   align-items: center;
   gap: 6px;
@@ -506,23 +506,23 @@ input:focus, select:focus, textarea:focus { border-color: var(--brand); box-shad
   border: 1px solid var(--border);
   color: var(--text);
 }
-.efhama-chip-dot {
+.efhamha-chip-dot {
   width: 7px;
   height: 7px;
   border-radius: 50%;
   background: currentColor;
 }
-.efhama-chip-ico { width: 14px; height: 14px; flex-shrink: 0; }
+.efhamha-chip-ico { width: 14px; height: 14px; flex-shrink: 0; }
 
-.efhama-chip-level.is-beginner { background: rgba(16, 185, 129, 0.12); color: #059669; border-color: rgba(16, 185, 129, 0.28); }
-.efhama-chip-level.is-intermediate { background: rgba(59, 130, 246, 0.12); color: #2563eb; border-color: rgba(59, 130, 246, 0.28); }
-.efhama-chip-level.is-advanced { background: rgba(139, 92, 246, 0.12); color: #7c3aed; border-color: rgba(139, 92, 246, 0.28); }
+.efhamha-chip-level.is-beginner { background: rgba(16, 185, 129, 0.12); color: #059669; border-color: rgba(16, 185, 129, 0.28); }
+.efhamha-chip-level.is-intermediate { background: rgba(59, 130, 246, 0.12); color: #2563eb; border-color: rgba(59, 130, 246, 0.28); }
+.efhamha-chip-level.is-advanced { background: rgba(139, 92, 246, 0.12); color: #7c3aed; border-color: rgba(139, 92, 246, 0.28); }
 
-.efhama-chip-status.is-published { background: var(--success-soft); color: var(--success); border-color: color-mix(in srgb, var(--success) 35%, transparent); }
-.efhama-chip-status.is-draft { background: var(--warn-soft); color: var(--warn); border-color: color-mix(in srgb, var(--warn) 35%, transparent); }
-.efhama-chip-duration, .efhama-chip-count { color: var(--muted); }
+.efhamha-chip-status.is-published { background: var(--success-soft); color: var(--success); border-color: color-mix(in srgb, var(--success) 35%, transparent); }
+.efhamha-chip-status.is-draft { background: var(--warn-soft); color: var(--warn); border-color: color-mix(in srgb, var(--warn) 35%, transparent); }
+.efhamha-chip-duration, .efhamha-chip-count { color: var(--muted); }
 
-.efhama-lead {
+.efhamha-lead {
   font-size: 15.5px;
   line-height: 1.8;
   color: color-mix(in srgb, var(--text) 88%, transparent);
@@ -532,7 +532,7 @@ input:focus, select:focus, textarea:focus { border-color: var(--brand); box-shad
 }
 
 /* بطاقات أهداف الدرس والمتطلبات والقاموس والخلاصة */
-.efhama-objectives, .efhama-prereq, .efhama-summary, .efhama-terms {
+.efhamha-objectives, .efhamha-prereq, .efhamha-summary, .efhamha-terms {
   background: var(--surface);
   border: 1px solid var(--border);
   border-radius: 18px;
@@ -541,7 +541,7 @@ input:focus, select:focus, textarea:focus { border-color: var(--brand); box-shad
   box-shadow: var(--shadow-sm);
 }
 
-.efhama-sec-head {
+.efhamha-sec-head {
   display: flex;
   align-items: center;
   gap: 12px;
@@ -549,13 +549,13 @@ input:focus, select:focus, textarea:focus { border-color: var(--brand); box-shad
   padding-bottom: 12px;
   border-bottom: 1px solid color-mix(in srgb, var(--border) 60%, transparent);
 }
-.efhama-sec-head h3 {
+.efhamha-sec-head h3 {
   font-size: 16.5px;
   font-weight: 700;
   color: var(--text);
   margin: 0;
 }
-.efhama-sec-badge {
+.efhamha-sec-badge {
   width: 34px;
   height: 34px;
   border-radius: 10px;
@@ -563,15 +563,15 @@ input:focus, select:focus, textarea:focus { border-color: var(--brand); box-shad
   place-items: center;
   flex-shrink: 0;
 }
-.efhama-sec-badge svg { width: 18px; height: 18px; }
+.efhamha-sec-badge svg { width: 18px; height: 18px; }
 
-.efhama-badge-goals { background: rgba(16, 185, 129, 0.14); color: #10b981; }
-.efhama-badge-prereq { background: rgba(245, 158, 11, 0.14); color: #f59e0b; }
-.efhama-badge-summary { background: rgba(99, 102, 241, 0.14); color: #6366f1; }
-.efhama-badge-terms { background: var(--brand-soft); color: var(--brand-ink); }
+.efhamha-badge-goals { background: rgba(16, 185, 129, 0.14); color: #10b981; }
+.efhamha-badge-prereq { background: rgba(245, 158, 11, 0.14); color: #f59e0b; }
+.efhamha-badge-summary { background: rgba(99, 102, 241, 0.14); color: #6366f1; }
+.efhamha-badge-terms { background: var(--brand-soft); color: var(--brand-ink); }
 
 /* قائمة الأهداف */
-.efhama-goals-list {
+.efhamha-goals-list {
   list-style: none;
   padding: 0;
   margin: 0;
@@ -579,7 +579,7 @@ input:focus, select:focus, textarea:focus { border-color: var(--brand); box-shad
   flex-direction: column;
   gap: 10px;
 }
-.efhama-goals-list li {
+.efhamha-goals-list li {
   display: flex;
   align-items: flex-start;
   gap: 12px;
@@ -591,7 +591,7 @@ input:focus, select:focus, textarea:focus { border-color: var(--brand); box-shad
   border-radius: 12px;
   border: 1px solid color-mix(in srgb, var(--border) 50%, transparent);
 }
-.efhama-check-ico {
+.efhamha-check-ico {
   width: 20px;
   height: 20px;
   border-radius: 50%;
@@ -602,10 +602,10 @@ input:focus, select:focus, textarea:focus { border-color: var(--brand); box-shad
   flex-shrink: 0;
   margin-top: 2px;
 }
-.efhama-check-ico svg { width: 12px; height: 12px; }
+.efhamha-check-ico svg { width: 12px; height: 12px; }
 
 /* قائمة المتطلبات */
-.efhama-prereq-list {
+.efhamha-prereq-list {
   list-style: none;
   padding: 0;
   margin: 0;
@@ -613,7 +613,7 @@ input:focus, select:focus, textarea:focus { border-color: var(--brand); box-shad
   flex-wrap: wrap;
   gap: 8px;
 }
-.efhama-prereq-pill {
+.efhamha-prereq-pill {
   display: inline-flex;
   align-items: center;
   gap: 8px;
@@ -625,10 +625,10 @@ input:focus, select:focus, textarea:focus { border-color: var(--brand); box-shad
   font-weight: 600;
   color: var(--text);
 }
-.efhama-prereq-pill svg { width: 16px; height: 16px; color: var(--warn); }
+.efhamha-prereq-pill svg { width: 16px; height: 16px; color: var(--warn); }
 
 /* الخلاصة */
-.efhama-summary-list {
+.efhamha-summary-list {
   list-style: none;
   padding: 0;
   margin: 0;
@@ -636,7 +636,7 @@ input:focus, select:focus, textarea:focus { border-color: var(--brand); box-shad
   flex-direction: column;
   gap: 10px;
 }
-.efhama-summary-list li {
+.efhamha-summary-list li {
   display: flex;
   align-items: flex-start;
   gap: 10px;
@@ -647,22 +647,22 @@ input:focus, select:focus, textarea:focus { border-color: var(--brand); box-shad
   border-radius: 12px;
   border-inline-start: 4px solid var(--brand);
 }
-.efhama-summary-star { color: var(--brand); font-size: 15px; font-weight: bold; flex-shrink: 0; }
+.efhamha-summary-star { color: var(--brand); font-size: 15px; font-weight: bold; flex-shrink: 0; }
 
 /* القاموس والمصطلحات */
-.efhama-terms-grid {
+.efhamha-terms-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
   gap: 12px;
   margin: 0;
 }
-.efhama-term-card {
+.efhamha-term-card {
   background: var(--surface-2);
   border: 1px solid var(--border);
   border-radius: 14px;
   padding: 12px 16px;
 }
-.efhama-term-card dt {
+.efhamha-term-card dt {
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -672,7 +672,7 @@ input:focus, select:focus, textarea:focus { border-color: var(--brand); box-shad
   font-size: 14.5px;
   color: var(--text);
 }
-.efhama-term-card .term-en {
+.efhamha-term-card .term-en {
   font-family: var(--mono);
   font-size: 11.5px;
   padding: 2px 8px;
@@ -681,7 +681,7 @@ input:focus, select:focus, textarea:focus { border-color: var(--brand); box-shad
   color: var(--brand-ink);
   font-weight: 600;
 }
-.efhama-term-card dd {
+.efhamha-term-card dd {
   margin: 0;
   font-size: 13.5px;
   line-height: 1.6;
@@ -689,39 +689,39 @@ input:focus, select:focus, textarea:focus { border-color: var(--brand); box-shad
 }
 
 /* عناصر محتوى الدرس الداخلية */
-.efhama-body { margin: 24px 0; }
+.efhamha-body { margin: 24px 0; }
 
-.efhama-heading, .efhama-lesson h2, .efhama-lesson h3, .efhama-lesson h4 {
+.efhamha-heading, .efhamha-lesson h2, .efhamha-lesson h3, .efhamha-lesson h4 {
   color: var(--text);
   font-weight: 700;
   margin-top: 32px;
   margin-bottom: 12px;
 }
-.efhama-lesson h2 {
+.efhamha-lesson h2 {
   font-size: 21px;
   padding-bottom: 8px;
   border-bottom: 2px solid color-mix(in srgb, var(--brand) 25%, transparent);
 }
-.efhama-lesson h3 { font-size: 18px; }
-.efhama-lesson h4 { font-size: 15.5px; }
+.efhamha-lesson h3 { font-size: 18px; }
+.efhamha-lesson h4 { font-size: 15.5px; }
 
-.efhama-lesson p {
+.efhamha-lesson p {
   font-size: 15.5px;
   line-height: 1.85;
   margin: 0 0 16px 0;
   color: var(--text);
 }
-.efhama-lesson ul, .efhama-lesson ol {
+.efhamha-lesson ul, .efhamha-lesson ol {
   padding-inline-start: 24px;
   margin: 0 0 18px 0;
 }
-.efhama-lesson li {
+.efhamha-lesson li {
   margin-bottom: 8px;
   font-size: 15px;
   line-height: 1.75;
 }
 
-.efhama-lesson code {
+.efhamha-lesson code {
   font-family: var(--mono);
   background: color-mix(in srgb, var(--brand-soft) 70%, transparent);
   color: var(--brand-ink);
@@ -732,7 +732,7 @@ input:focus, select:focus, textarea:focus { border-color: var(--brand); box-shad
 }
 
 /* كود البرمجة المطور */
-.efhama-codeblock {
+.efhamha-codeblock {
   margin: 22px 0;
   border-radius: 16px;
   overflow: hidden;
@@ -740,7 +740,7 @@ input:focus, select:focus, textarea:focus { border-color: var(--brand); box-shad
   border: 1px solid #23274E;
   box-shadow: 0 10px 28px rgba(0,0,0,0.25);
 }
-.efhama-code-head {
+.efhamha-code-head {
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -748,20 +748,20 @@ input:focus, select:focus, textarea:focus { border-color: var(--brand); box-shad
   background: #161936;
   border-bottom: 1px solid #23274E;
 }
-.efhama-code-dots {
+.efhamha-code-dots {
   display: flex;
   gap: 6px;
 }
-.efhama-code-dots .dot {
+.efhamha-code-dots .dot {
   width: 10px;
   height: 10px;
   border-radius: 50%;
 }
-.efhama-code-dots .dot.red { background: #FF5F56; }
-.efhama-code-dots .dot.yellow { background: #FFBD2E; }
-.efhama-code-dots .dot.green { background: #27C93F; }
+.efhamha-code-dots .dot.red { background: #FF5F56; }
+.efhamha-code-dots .dot.yellow { background: #FFBD2E; }
+.efhamha-code-dots .dot.green { background: #27C93F; }
 
-.efhama-code-lang {
+.efhamha-code-lang {
   font-family: var(--mono);
   font-size: 11.5px;
   font-weight: 700;
@@ -769,7 +769,7 @@ input:focus, select:focus, textarea:focus { border-color: var(--brand); box-shad
   text-transform: uppercase;
   letter-spacing: 0.06em;
 }
-.efhama-code-copy {
+.efhamha-code-copy {
   background: rgba(255,255,255,0.08);
   border: 1px solid rgba(255,255,255,0.14);
   color: #C5CBF0;
@@ -780,20 +780,20 @@ input:focus, select:focus, textarea:focus { border-color: var(--brand); box-shad
   transition: all .15s;
   font-family: inherit;
 }
-.efhama-code-copy:hover {
+.efhamha-code-copy:hover {
   background: rgba(255,255,255,0.18);
   color: #fff;
 }
-.efhama-code-copy.copied {
+.efhamha-code-copy.copied {
   background: #10B981;
   color: #fff;
   border-color: #10B981;
 }
-.efhama-code-copy .copied-lbl { display: none; }
-.efhama-code-copy.copied .copy-lbl { display: none; }
-.efhama-code-copy.copied .copied-lbl { display: inline; }
+.efhamha-code-copy .copied-lbl { display: none; }
+.efhamha-code-copy.copied .copy-lbl { display: none; }
+.efhamha-code-copy.copied .copied-lbl { display: inline; }
 
-.efhama-lesson pre {
+.efhamha-lesson pre {
   background: #0E1024;
   color: #E8EAFF;
   padding: 16px 18px;
@@ -806,13 +806,13 @@ input:focus, select:focus, textarea:focus { border-color: var(--brand); box-shad
   direction: ltr;
   text-align: left;
 }
-.efhama-lesson pre code {
+.efhamha-lesson pre code {
   background: none;
   padding: 0;
   border: none;
   color: inherit;
 }
-.efhama-codeblock figcaption {
+.efhamha-codeblock figcaption {
   padding: 8px 16px;
   background: rgba(0,0,0,0.25);
   color: #8F97C6;
@@ -822,7 +822,7 @@ input:focus, select:focus, textarea:focus { border-color: var(--brand); box-shad
 }
 
 /* الملاحظات والتنبيهات */
-.efhama-note {
+.efhamha-note {
   display: flex;
   flex-direction: column;
   gap: 8px;
@@ -832,36 +832,36 @@ input:focus, select:focus, textarea:focus { border-color: var(--brand); box-shad
   border-inline-start: 5px solid;
   box-shadow: var(--shadow-sm);
 }
-.efhama-note-head {
+.efhamha-note-head {
   display: flex;
   align-items: center;
   gap: 8px;
   font-size: 14.5px;
   font-weight: 700;
 }
-.efhama-note-ico { width: 20px; height: 20px; flex-shrink: 0; }
-.efhama-note-content p { margin: 0; font-size: 14px; line-height: 1.7; color: var(--text); }
+.efhamha-note-ico { width: 20px; height: 20px; flex-shrink: 0; }
+.efhamha-note-content p { margin: 0; font-size: 14px; line-height: 1.7; color: var(--text); }
 
-.efhama-note.is-info {
+.efhamha-note.is-info {
   border-color: #3C4AE8;
   background: color-mix(in srgb, #3C4AE8 10%, var(--surface));
 }
-.efhama-note.is-info .efhama-note-head { color: #3C4AE8; }
+.efhamha-note.is-info .efhamha-note-head { color: #3C4AE8; }
 
-.efhama-note.is-tip {
+.efhamha-note.is-tip {
   border-color: #10B981;
   background: color-mix(in srgb, #10B981 10%, var(--surface));
 }
-.efhama-note.is-tip .efhama-note-head { color: #059669; }
+.efhamha-note.is-tip .efhamha-note-head { color: #059669; }
 
-.efhama-note.is-warning {
+.efhamha-note.is-warning {
   border-color: #F59E0B;
   background: color-mix(in srgb, #F59E0B 10%, var(--surface));
 }
-.efhama-note.is-warning .efhama-note-head { color: #D97706; }
+.efhamha-note.is-warning .efhamha-note-head { color: #D97706; }
 
 /* الصور والرسوم البيانية */
-.efhama-figure {
+.efhamha-figure {
   margin: 24px 0;
   border: 1px solid var(--border);
   border-radius: 18px;
@@ -872,7 +872,7 @@ input:focus, select:focus, textarea:focus { border-color: var(--brand); box-shad
   box-shadow: var(--shadow-sm);
   position: relative;
 }
-.efhama-figure img {
+.efhamha-figure img {
   max-width: 100%;
   height: auto;
   border-radius: 10px;
@@ -880,11 +880,11 @@ input:focus, select:focus, textarea:focus { border-color: var(--brand); box-shad
   margin: 0 auto;
   box-shadow: 0 4px 14px rgba(0,0,0,0.06);
 }
-.efhama-figure.is-diagram {
+.efhamha-figure.is-diagram {
   background: repeating-conic-gradient(var(--surface-2) 0 25%, var(--surface) 0 50%) 0 0 / 22px 22px;
   border-color: color-mix(in srgb, var(--brand) 40%, var(--border));
 }
-.efhama-fig-badge {
+.efhamha-fig-badge {
   display: inline-block;
   padding: 3px 12px;
   border-radius: 999px;
@@ -894,7 +894,7 @@ input:focus, select:focus, textarea:focus { border-color: var(--brand); box-shad
   font-weight: 600;
   margin-bottom: 10px;
 }
-.efhama-figure figcaption {
+.efhamha-figure figcaption {
   color: var(--muted);
   font-size: 13.5px;
   margin-top: 10px;
@@ -902,34 +902,34 @@ input:focus, select:focus, textarea:focus { border-color: var(--brand); box-shad
 }
 
 /* الجداول */
-.efhama-table-wrap {
+.efhamha-table-wrap {
   overflow-x: auto;
   margin: 20px 0;
   border: 1px solid var(--border);
   border-radius: 14px;
   box-shadow: var(--shadow-sm);
 }
-.efhama-table {
+.efhamha-table {
   border-collapse: collapse;
   width: 100%;
 }
-.efhama-table th, .efhama-table td {
+.efhamha-table th, .efhamha-table td {
   padding: 12px 16px;
   text-align: start;
   border-bottom: 1px solid color-mix(in srgb, var(--border) 70%, transparent);
 }
-.efhama-table th {
+.efhamha-table th {
   background: color-mix(in srgb, var(--brand-soft) 40%, var(--surface-2));
   color: var(--text);
   font-weight: 700;
   font-size: 13.5px;
   border-bottom: 2px solid var(--border);
 }
-.efhama-table tr:last-child td { border-bottom: none; }
-.efhama-table tbody tr:hover { background: color-mix(in srgb, var(--brand-soft) 30%, transparent); }
+.efhamha-table tr:last-child td { border-bottom: none; }
+.efhamha-table tbody tr:hover { background: color-mix(in srgb, var(--brand-soft) 30%, transparent); }
 
 /* الأسئلة والكويز */
-.efhama-q {
+.efhamha-q {
   background: var(--surface);
   border: 1px solid var(--border);
   border-radius: 18px;
@@ -937,13 +937,13 @@ input:focus, select:focus, textarea:focus { border-color: var(--brand); box-shad
   margin: 22px 0;
   box-shadow: var(--shadow-sm);
 }
-.efhama-q-head {
+.efhamha-q-head {
   display: flex;
   align-items: center;
   justify-content: space-between;
   margin-bottom: 12px;
 }
-.efhama-q-type-badge {
+.efhamha-q-type-badge {
   padding: 3px 10px;
   border-radius: 8px;
   background: var(--brand-soft);
@@ -951,7 +951,7 @@ input:focus, select:focus, textarea:focus { border-color: var(--brand); box-shad
   font-size: 12px;
   font-weight: 600;
 }
-.efhama-q-pts {
+.efhamha-q-pts {
   display: inline-flex;
   align-items: center;
   gap: 5px;
@@ -963,14 +963,14 @@ input:focus, select:focus, textarea:focus { border-color: var(--brand); box-shad
   font-weight: 600;
   margin-inline-start: 8px;
 }
-.efhama-q-text {
+.efhamha-q-text {
   font-size: 15.5px;
   font-weight: 600;
   color: var(--text);
   margin: 0 0 14px 0;
   line-height: 1.6;
 }
-.efhama-q-options {
+.efhamha-q-options {
   list-style: none;
   padding: 0;
   margin: 0 0 14px 0;
@@ -978,7 +978,7 @@ input:focus, select:focus, textarea:focus { border-color: var(--brand); box-shad
   flex-direction: column;
   gap: 8px;
 }
-.efhama-q-options li {
+.efhamha-q-options li {
   display: flex;
   align-items: center;
   gap: 12px;
@@ -989,7 +989,7 @@ input:focus, select:focus, textarea:focus { border-color: var(--brand); box-shad
   font-size: 14.5px;
   transition: all .15s;
 }
-.efhama-q-options .opt-idx {
+.efhamha-q-options .opt-idx {
   width: 26px;
   height: 26px;
   border-radius: 50%;
@@ -1001,24 +1001,24 @@ input:focus, select:focus, textarea:focus { border-color: var(--brand); box-shad
   color: var(--muted);
   flex-shrink: 0;
 }
-.efhama-q-options li.is-correct {
+.efhamha-q-options li.is-correct {
   border-color: #10B981;
   background: rgba(16, 185, 129, 0.08);
   color: #047857;
   font-weight: 600;
 }
-.efhama-q-options li.is-correct .opt-idx {
+.efhamha-q-options li.is-correct .opt-idx {
   background: #10B981;
   color: #fff;
 }
-.efhama-q-options .efhama-tick {
+.efhamha-q-options .efhamha-tick {
   margin-inline-start: auto;
   font-size: 12.5px;
   font-weight: 700;
   color: #10B981;
 }
 
-.efhama-q-answer {
+.efhamha-q-answer {
   background: rgba(16, 185, 129, 0.08);
   border: 1px solid rgba(16, 185, 129, 0.25);
   border-radius: 12px;
@@ -1026,10 +1026,10 @@ input:focus, select:focus, textarea:focus { border-color: var(--brand); box-shad
   margin-top: 12px;
   font-size: 13.5px;
 }
-.efhama-q-answer strong { color: #047857; display: block; margin-bottom: 6px; }
-.efhama-q-answer pre { margin: 0; font-family: var(--font); white-space: pre-wrap; color: var(--text); background: transparent; padding: 0; }
+.efhamha-q-answer strong { color: #047857; display: block; margin-bottom: 6px; }
+.efhamha-q-answer pre { margin: 0; font-family: var(--font); white-space: pre-wrap; color: var(--text); background: transparent; padding: 0; }
 
-.efhama-q-explain {
+.efhamha-q-explain {
   background: var(--surface-2);
   border: 1px solid var(--border);
   border-radius: 12px;
@@ -1037,35 +1037,35 @@ input:focus, select:focus, textarea:focus { border-color: var(--brand); box-shad
   margin-top: 12px;
   font-size: 13.5px;
 }
-.efhama-q-explain strong { color: var(--text); display: block; margin-bottom: 4px; }
-.efhama-q-explain p { margin: 0; color: var(--muted); line-height: 1.6; }
+.efhamha-q-explain strong { color: var(--text); display: block; margin-bottom: 4px; }
+.efhamha-q-explain p { margin: 0; color: var(--muted); line-height: 1.6; }
 
-.efhama-q-hints {
+.efhamha-q-hints {
   margin-top: 12px;
   border: 1px dashed var(--border);
   border-radius: 12px;
   padding: 10px 14px;
   font-size: 13.5px;
 }
-.efhama-q-hints summary { cursor: pointer; font-weight: 600; color: var(--brand-ink); }
+.efhamha-q-hints summary { cursor: pointer; font-weight: 600; color: var(--brand-ink); }
 
 /* تكييف الوضع الليلي لمعاينة الدروس */
-:root[data-theme="dark"] .efhama-header {
+:root[data-theme="dark"] .efhamha-header {
   background: linear-gradient(180deg, color-mix(in srgb, var(--brand-soft) 30%, var(--surface)) 0%, var(--surface) 100%);
 }
-:root[data-theme="dark"] .efhama-chip-level.is-beginner { color: #34D399; background: rgba(52, 211, 153, 0.14); border-color: rgba(52, 211, 153, 0.28); }
-:root[data-theme="dark"] .efhama-chip-level.is-intermediate { color: #60A5FA; background: rgba(96, 165, 250, 0.14); border-color: rgba(96, 165, 250, 0.28); }
-:root[data-theme="dark"] .efhama-chip-level.is-advanced { color: #A78BFA; background: rgba(167, 139, 250, 0.14); border-color: rgba(167, 139, 250, 0.28); }
-:root[data-theme="dark"] .efhama-q-options li.is-correct { color: #34D399; background: rgba(52, 211, 153, 0.12); border-color: #059669; }
-:root[data-theme="dark"] .efhama-q-answer { background: rgba(52, 211, 153, 0.12); border-color: rgba(52, 211, 153, 0.28); }
-:root[data-theme="dark"] .efhama-q-answer strong { color: #34D399; }
-:root[data-theme="dark"] .efhama-note.is-info { background: color-mix(in srgb, #3C4AE8 15%, var(--surface)); }
-:root[data-theme="dark"] .efhama-note.is-info .efhama-note-head { color: #8F99F3; }
-:root[data-theme="dark"] .efhama-note.is-tip { background: color-mix(in srgb, #10B981 15%, var(--surface)); }
-:root[data-theme="dark"] .efhama-note.is-tip .efhama-note-head { color: #34D399; }
-:root[data-theme="dark"] .efhama-note.is-warning { background: color-mix(in srgb, #F59E0B 15%, var(--surface)); }
-:root[data-theme="dark"] .efhama-note.is-warning .efhama-note-head { color: #FBBF24; }
-:root[data-theme="dark"] .efhama-q-pts { background: rgba(251, 191, 36, 0.16); color: #FBBF24; }
+:root[data-theme="dark"] .efhamha-chip-level.is-beginner { color: #34D399; background: rgba(52, 211, 153, 0.14); border-color: rgba(52, 211, 153, 0.28); }
+:root[data-theme="dark"] .efhamha-chip-level.is-intermediate { color: #60A5FA; background: rgba(96, 165, 250, 0.14); border-color: rgba(96, 165, 250, 0.28); }
+:root[data-theme="dark"] .efhamha-chip-level.is-advanced { color: #A78BFA; background: rgba(167, 139, 250, 0.14); border-color: rgba(167, 139, 250, 0.28); }
+:root[data-theme="dark"] .efhamha-q-options li.is-correct { color: #34D399; background: rgba(52, 211, 153, 0.12); border-color: #059669; }
+:root[data-theme="dark"] .efhamha-q-answer { background: rgba(52, 211, 153, 0.12); border-color: rgba(52, 211, 153, 0.28); }
+:root[data-theme="dark"] .efhamha-q-answer strong { color: #34D399; }
+:root[data-theme="dark"] .efhamha-note.is-info { background: color-mix(in srgb, #3C4AE8 15%, var(--surface)); }
+:root[data-theme="dark"] .efhamha-note.is-info .efhamha-note-head { color: #8F99F3; }
+:root[data-theme="dark"] .efhamha-note.is-tip { background: color-mix(in srgb, #10B981 15%, var(--surface)); }
+:root[data-theme="dark"] .efhamha-note.is-tip .efhamha-note-head { color: #34D399; }
+:root[data-theme="dark"] .efhamha-note.is-warning { background: color-mix(in srgb, #F59E0B 15%, var(--surface)); }
+:root[data-theme="dark"] .efhamha-note.is-warning .efhamha-note-head { color: #FBBF24; }
+:root[data-theme="dark"] .efhamha-q-pts { background: rgba(251, 191, 36, 0.16); color: #FBBF24; }
 
 /* ---------- assets ---------- */
 .assets-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(190px, 1fr)); gap: 14px; padding: 16px; }
@@ -1489,7 +1489,7 @@ pre.json { background: var(--surface-2); border: 1px solid var(--border); border
 .ai-panel h3 { display: flex; align-items: center; gap: 8px; margin-bottom: 6px; }
 .ai-panel details { margin-top: 8px; }
 .ai-panel summary { cursor: pointer; font-weight: 500; min-height: 36px; display: flex; align-items: center; }
-.efhama-video {
+.efhamha-video {
   margin: 24px 0;
   border-radius: 18px;
   overflow: hidden;
@@ -1497,8 +1497,8 @@ pre.json { background: var(--surface-2); border: 1px solid var(--border); border
   background: #000;
   box-shadow: var(--shadow-sm);
 }
-.efhama-video video { width: 100%; max-height: 440px; display: block; border-radius: 0; background: #000; }
-.efhama-video .efhama-iframe-wrap {
+.efhamha-video video { width: 100%; max-height: 440px; display: block; border-radius: 0; background: #000; }
+.efhamha-video .efhamha-iframe-wrap {
   position: relative;
   width: 100%;
   aspect-ratio: 16 / 9;
@@ -1506,7 +1506,7 @@ pre.json { background: var(--surface-2); border: 1px solid var(--border); border
   overflow: hidden;
   background: #000;
 }
-.efhama-video .efhama-iframe-wrap iframe {
+.efhamha-video .efhamha-iframe-wrap iframe {
   position: absolute;
   top: 0;
   left: 0;
@@ -1514,7 +1514,7 @@ pre.json { background: var(--surface-2); border: 1px solid var(--border); border
   height: 100%;
   border: 0;
 }
-.efhama-lesson .efhama-video figcaption {
+.efhamha-lesson .efhamha-video figcaption {
   background: var(--surface-2);
   color: var(--muted);
   font-size: 13.5px;

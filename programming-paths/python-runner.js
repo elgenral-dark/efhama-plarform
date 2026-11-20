@@ -1,6 +1,6 @@
 (() => {
   const VERSION = '314.0.7';
-  const CHANNEL = 'efhama-python-playground';
+  const CHANNEL = 'efhamha-python-playground';
   const token = window.location.hash.slice(1);
   const assetsUrl = new URL(`/vendor/pyodide/v${VERSION}/`, window.location.href).href;
   let worker = null;
@@ -79,10 +79,10 @@ self.addEventListener("message", async (event) => {
   let result;
   try {
     globals = pyodide.toPy({});
-    globals.set("_efhama_source", String(data.code || ""));
+    globals.set("_efhamha_source", String(data.code || ""));
     result = await pyodide.runPythonAsync([
       "import contextlib, io, traceback",
-      "class _EfhamaWriter(io.StringIO):",
+      "class _EfhamhaWriter(io.StringIO):",
       "    def __init__(self):",
       "        super().__init__()",
       "        self.size = 0",
@@ -96,22 +96,22 @@ self.addEventListener("message", async (event) => {
       "        if len(text) > remaining:",
       "            self.truncated = True",
       "        return len(text)",
-      "_efhama_stdout = _EfhamaWriter()",
-      "_efhama_stderr = _EfhamaWriter()",
-      "_efhama_error = None",
+      "_efhamha_stdout = _EfhamhaWriter()",
+      "_efhamha_stderr = _EfhamhaWriter()",
+      "_efhamha_error = None",
       "try:",
-      "    with contextlib.redirect_stdout(_efhama_stdout), contextlib.redirect_stderr(_efhama_stderr):",
-      "        exec(compile(_efhama_source, '<student>', 'exec'), {})",
-      "except BaseException as _efhama_exception:",
-      "    _efhama_error = {",
-      "        'name': type(_efhama_exception).__name__,",
-      "        'message': ''.join(traceback.format_exception(_efhama_exception))[-12000:]",
+      "    with contextlib.redirect_stdout(_efhamha_stdout), contextlib.redirect_stderr(_efhamha_stderr):",
+      "        exec(compile(_efhamha_source, '<student>', 'exec'), {})",
+      "except BaseException as _efhamha_exception:",
+      "    _efhamha_error = {",
+      "        'name': type(_efhamha_exception).__name__,",
+      "        'message': ''.join(traceback.format_exception(_efhamha_exception))[-12000:]",
       "    }",
       "{",
-      "    'stdout': _efhama_stdout.getvalue(),",
-      "    'stderr': _efhama_stderr.getvalue(),",
-      "    'error': _efhama_error,",
-      "    'truncated': _efhama_stdout.truncated or _efhama_stderr.truncated",
+      "    'stdout': _efhamha_stdout.getvalue(),",
+      "    'stderr': _efhamha_stderr.getvalue(),",
+      "    'error': _efhamha_error,",
+      "    'truncated': _efhamha_stdout.truncated or _efhamha_stderr.truncated",
       "}"
     ].join("\\n"), { globals });
     const output = result.toJs({ dict_converter: Object.fromEntries });

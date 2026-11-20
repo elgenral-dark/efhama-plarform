@@ -1,7 +1,7 @@
 (function () {
   'use strict';
-  var E = window.Efhama, esc = E.esc;
-  /* درجات الأزرق (هوية Efhama) */
+  var E = window.Efhamha, esc = E.esc;
+  /* درجات الأزرق (هوية Efhamha) */
   var COLORS = ['#3C4AE8', '#6671EE', '#939BF3', '#2430B8', '#5B64D6', '#BDC2F8', '#1F2899', '#8C95EE'];
 
   E.charts = {

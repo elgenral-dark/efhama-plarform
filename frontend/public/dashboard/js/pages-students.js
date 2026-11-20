@@ -1,6 +1,6 @@
 (function () {
   'use strict';
-  var E = window.Efhama, esc = E.esc, Store = E.Store;
+  var E = window.Efhamha, esc = E.esc, Store = E.Store;
   var SUB = [{ v: 'none', l: 'بدون اشتراك' }, { v: 'pending', l: 'معلّق' }, { v: 'active', l: 'نشط' }, { v: 'expired', l: 'منتهي' }];
   var SUBCLS = { none: '', pending: 'warn', active: 'ok', expired: 'err' };
   var CERT = { valid: ['سارية', 'ok'], revoked: ['ملغاة', 'err'], replaced: ['مستبدلة', 'warn'] };

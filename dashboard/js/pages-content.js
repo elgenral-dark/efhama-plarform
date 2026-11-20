@@ -1,6 +1,6 @@
 (function () {
   'use strict';
-  var E = window.Efhama, esc = E.esc, Store = E.Store, ED = window.EfhamaData, C = E.cell;
+  var E = window.Efhamha, esc = E.esc, Store = E.Store, ED = window.EfhamhaData, C = E.cell;
 
   var DIFF = [{ v: 'easy', l: 'سهل' }, { v: 'medium', l: 'متوسط' }, { v: 'hard', l: 'صعب' }];
   var QT = Object.keys(ED.QTYPES).map(function (k) { return { v: k, l: ED.QTYPES[k] }; });
@@ -187,8 +187,8 @@
   }
   function previewQuiz(v) {
     var qs = (v.questionIds || []).map(function (id) { return Store.byId('questions', id); }).filter(Boolean);
-    var body = E.el('<div class="preview-pane"><div class="efhama-meta"><span>' + (v.duration ? v.duration + ' دقيقة' : 'بدون مدة') + '</span><span>النجاح من ' + (v.passScore || 0) + '%</span><span>' + (v.attempts ? v.attempts + ' محاولات' : 'محاولات غير محدودة') + '</span><span>' + (v.shuffle === 'random' ? 'ترتيب عشوائي' : 'ترتيب ثابت') + '</span></div>' +
-      '<label class="switch"><input type="checkbox" data-ans><span class="track"></span><span>إظهار الإجابات الصحيحة</span></label><div class="efhama-lesson" data-qs></div></div>');
+    var body = E.el('<div class="preview-pane"><div class="efhamha-meta"><span>' + (v.duration ? v.duration + ' دقيقة' : 'بدون مدة') + '</span><span>النجاح من ' + (v.passScore || 0) + '%</span><span>' + (v.attempts ? v.attempts + ' محاولات' : 'محاولات غير محدودة') + '</span><span>' + (v.shuffle === 'random' ? 'ترتيب عشوائي' : 'ترتيب ثابت') + '</span></div>' +
+      '<label class="switch"><input type="checkbox" data-ans><span class="track"></span><span>إظهار الإجابات الصحيحة</span></label><div class="efhamha-lesson" data-qs></div></div>');
     function draw() {
       var show = E.$('[data-ans]', body).checked;
       E.$('[data-qs]', body).innerHTML = qs.length ? qs.map(function (q, i) { return '<h3>سؤال ' + (i + 1) + '</h3>' + ED.renderQuestion(Store.data, q, { showAnswer: show, showHints: true }); }).join('') : '<div class="empty-chart">لا توجد أسئلة في هذا الاختبار.</div>';

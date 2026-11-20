@@ -5,7 +5,7 @@ const ok = (n, c, x = '') => results.push([c ? 'PASS' : 'FAIL', n, c ? '' : Stri
 class Client {
   constructor() { this.cookie = ''; }
   async req(method, p, body, headers = {}) {
-    const h = Object.assign({ 'X-Requested-With': 'efhama' }, headers);
+    const h = Object.assign({ 'X-Requested-With': 'efhamha' }, headers);
     if (this.cookie) h.cookie = this.cookie;
     if (body !== undefined) h['content-type'] = 'application/json';
     const r = await fetch(BASE + p, { method, headers: h, body: body === undefined ? undefined : JSON.stringify(body) });
@@ -68,10 +68,10 @@ class Client {
   ok('cm cannot change price (403)', (await cm.req('PUT', '/api/subscription', { confirmed: true, price: 1 })).status === 403);
   r = await admin.req('PUT', '/api/subscription', { confirmed: true, price: 199.5, currencyLabel: 'جنيه / شهريًا', cashNumber: '01011112222', whatsapp: '+201001234567' });
   ok('admin updates subscription', r.status === 200 && r.body.changed.length === 4, JSON.stringify(r.body));
-  let pub = await (await fetch(BASE + '/public/efhama-data.json')).json();
+  let pub = await (await fetch(BASE + '/public/efhamha-data.json')).json();
   ok('subscription reflected in public JSON (central source)', pub.subscription.price === 199.5 && pub.subscription.cashNumber === '01011112222' && pub.subscription.whatsapp === '+201001234567');
   await admin.req('PUT', '/api/subscription', { confirmed: true, price: 199.5, currencyLabel: 'جنيه / شهريًا', cashNumber: '01011112222', whatsapp: '+201009998888' });
-  pub = await (await fetch(BASE + '/public/efhama-data.json')).json();
+  pub = await (await fetch(BASE + '/public/efhamha-data.json')).json();
   ok('whatsapp change reflected', pub.subscription.whatsapp === '+201009998888');
   ok('no subscription data hardcoded in dashboard/ site files', !/01011112222|199\.5/.test(fs.readFileSync(require('path').join(__dirname, '../preview/site-preview.js'), 'utf8')));
 
@@ -154,7 +154,7 @@ class Client {
   const vp = await (await fetch(BASE + '/verify/' + num)).text();
   ok('verify page shows name & no email', vp.includes('شهادة صحيحة') && vp.includes('أحمد علي محمد') && !vp.includes('ahmed@example.com'));
   const cp = await fetch(BASE + '/certificate/' + num); const cph = await cp.text();
-  ok('certificate page: name, path, number, verify link, platform', cph.includes('أحمد علي محمد') && cph.includes('Python') && cph.includes(num) && cph.includes('/verify/' + num) && cph.includes('Efhama'));
+  ok('certificate page: name, path, number, verify link, platform', cph.includes('أحمد علي محمد') && cph.includes('Python') && cph.includes(num) && cph.includes('/verify/' + num) && cph.includes('Efhamha'));
   ok('certificate frameable only same-origin', cp.headers.get('x-frame-options') === 'SAMEORIGIN');
   ok('fake certificate number -> not found', (await (await fetch(BASE + '/api/verify/EFH-2026-AAAAA-BBBBB')).json()).found === false);
   ok('support cannot revoke (403)', (await sup.req('POST', `/api/certificates/${num}/revoke`, { reason: 'x' })).status === 403);
@@ -234,7 +234,7 @@ class Client {
   ok('logs: no write endpoints (PUT/DELETE/POST => 404)', (await admin.req('DELETE', '/api/logs/1')).status === 404 && (await admin.req('PUT', '/api/logs/1', {})).status === 404 && (await admin.req('POST', '/api/logs', {})).status === 404);
   ok('log chain verifies', (await admin.req('GET', '/api/logs/verify')).body.ok === true);
   // DB-level append-only
-  const { DatabaseSync } = require('node:sqlite'); const dbx = new DatabaseSync((process.env.DATA_DIR || '/tmp/efdata') + '/efhama.db');
+  const { DatabaseSync } = require('node:sqlite'); const dbx = new DatabaseSync((process.env.DATA_DIR || '/tmp/efdata') + '/efhamha.db');
   let blocked = 0; for (const q of ["UPDATE audit_log SET username='x' WHERE id=1", 'DELETE FROM audit_log WHERE id=1']) { try { dbx.exec(q); } catch (e) { if (/append-only/.test(e.message)) blocked++; } }
   dbx.close();
   ok('DB triggers block UPDATE/DELETE of audit_log', blocked === 2);
@@ -254,7 +254,7 @@ class Client {
   ok('disabled user cannot log in', (await new Client().login('anal', 'Passw0rd-anal')).status === 401);
   ok('permission change logged', (await admin.req('GET', '/api/logs?action=permissions')).body.total >= 1);
   // protected static
-  ok('server code & DB not downloadable', (await fetch(BASE + '/server/server.js')).status === 404 && (await fetch(BASE + '/data/efhama.db')).status === 404);
+  ok('server code & DB not downloadable', (await fetch(BASE + '/server/server.js')).status === 404 && (await fetch(BASE + '/data/efhamha.db')).status === 404);
 
   console.log(results.map(r => r.join(' | ')).join('\n'));
   console.log('TOTAL', results.length, 'FAILS', results.filter(r => r[0] === 'FAIL').length);

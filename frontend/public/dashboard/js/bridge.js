@@ -1,7 +1,7 @@
 (function () {
   "use strict";
 
-  var E = window.Efhama;
+  var E = window.Efhamha;
   var Store = E.Store;
   var dashboardSections = [
     "paths", "modules", "lessons", "questions", "quizzes", "projects", "assets",

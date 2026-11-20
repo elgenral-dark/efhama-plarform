@@ -1,7 +1,7 @@
 # افهمها — الباك اند والفرونت اند (مقسّمين)
 
 ```
-efhama/
+efhamha/
   backend/    Express + Postgres (Neon) — API، المحتوى المدفوع، الاختبارات
   frontend/   صفحات HTML/CSS/JS + حارس الصفحات + vercel.json + middleware.js
   docs/       تقارير قديمة وملف README الأصلي
@@ -24,7 +24,7 @@ $env:BACKEND_URL="http://localhost:4000"
 npm start
 ```
 
-بدون `DATABASE_URL` يستخدم الباك اند SQLite محليًا (`backend/data/efhama.db`).
+بدون `DATABASE_URL` يستخدم الباك اند SQLite محليًا (`backend/data/efhamha.db`).
 
 ## الاختبارات
 ```powershell
@@ -54,7 +54,7 @@ cd backend ; npm run load-test
   - `DELETE /:id` و`DELETE /` لحذف إشعارات المستخدم فقط.
   - للمسؤول فقط: `POST /` لإرسال إعلان إلى مستخدمين أو أدوار أو جميع الحسابات النشطة، و`GET /announcements` لسجل الإعلانات وإحصاءات التسليم والقراءة. يقبل POST ترويسة `Idempotency-Key` لمنع تكرار الإرسال عند إعادة المحاولة.
 - تُنشأ الإشعارات ضمن معاملات أحداث التسجيل وطلبات الاشتراك ومراجعتها (موافقة/رفض) وتسليم نتيجة الاختبار. لا توجد حاليًا كيانات تسجيل بالدورات أو معلمون أو مزود دفع في هذا المشروع؛ لم تُنشأ إشعارات وهمية لهذه الأحداث.
-- يحدّث الجرس العدد كل 30 ثانية أثناء ظهور الصفحة، ويتوقف عند إخفائها؛ يمكن ضبط `window.EFHAMA_NOTIFICATION_POLL_MS` قبل تحميل `js/navigation.js` (الحد المسموح 10–300 ثانية). لا يوجد وسيط WebSocket/SSE مشترك ضمن البنية الحالية، لذا يُستخدم الاستطلاع.
+- يحدّث الجرس العدد كل 30 ثانية أثناء ظهور الصفحة، ويتوقف عند إخفائها؛ يمكن ضبط `window.EFHAMHA_NOTIFICATION_POLL_MS` قبل تحميل `js/navigation.js` (الحد المسموح 10–300 ثانية). لا يوجد وسيط WebSocket/SSE مشترك ضمن البنية الحالية، لذا يُستخدم الاستطلاع.
 - صفحة المستخدم هي `/notifications.html`، وإدارة الإعلانات مدمجة في لوحة مراجعة الاشتراكات.
 
 ## لوحة الإدارة الكاملة
@@ -70,7 +70,7 @@ cd backend ; npm run load-test
 ### 2) Render (الباك اند)
 - New → Blueprint → اختاري هذا المستودع (يقرأ `render.yaml`).
 - في الإعدادات ضعي: `DATABASE_URL` (رابط Neon)، `ADMIN_EMAIL`، `ADMIN_PASSWORD`.
-- بعد النشر انسخي عنوان الخدمة (مثل `https://efhama-backend.onrender.com`).
+- بعد النشر انسخي عنوان الخدمة (مثل `https://efhamha-backend.onrender.com`).
 - الخطة المجانية تنام بعد فترة، فأول طلب قد يتأخر 30–50 ثانية.
 
 ### 3) Vercel (الواجهة)

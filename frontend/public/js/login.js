@@ -59,9 +59,11 @@
       var nextParam = new URLSearchParams(location.search).get("next");
       var isStaff = ["admin", "instructor", "content_manager", "analyst", "support", "super_admin"].includes(result.user.role);
       var defaultTarget = result.redirectUrl || (isStaff ? "/admin/" : "index.html");
-      var safeTarget = nextParam && !nextParam.startsWith("//") && !nextParam.startsWith("/\\")
+      var safeNext = nextParam && !nextParam.startsWith("//") && !nextParam.startsWith("/\\")
         && !/[\\\u0000-\u001f\u007f]/.test(nextParam) && !/^[a-z][a-z0-9+.-]*:/i.test(nextParam)
-        ? nextParam : defaultTarget;
+        ? nextParam : "";
+      if (safeNext.startsWith("/admin") && !isStaff) safeNext = "";
+      var safeTarget = safeNext || defaultTarget;
       window.location.replace(safeTarget);
       return;
     }

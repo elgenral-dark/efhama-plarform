@@ -1,6 +1,6 @@
 (function () {
   'use strict';
-  var E = window.Efhama, esc = E.esc;
+  var E = window.Efhamha, esc = E.esc;
   var COLORS = ['#3C4AE8', '#0F9D8A', '#E08A00', '#C2447C', '#6A7BFF', '#7A5AF8', '#2F8F46', '#B5522D'];
 
   E.charts = {

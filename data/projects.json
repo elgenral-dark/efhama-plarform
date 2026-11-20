@@ -307,7 +307,7 @@
           "starter": "const notes = JSON.parse(localStorage.getItem(\"notes\") || \"[]\");\n// أضف واجهة إدخال وحفظ الملاحظات",
           "previewHtml": "<main><label>ملاحظة <input id=\"note\"></label><button id=\"save\">حفظ</button><ul id=\"notes\"></ul></main>",
           "previewCss": "body { font-family: Arial, sans-serif; }",
-          "solution": "const notes = JSON.parse(localStorage.getItem(\"efhama-notes\") || \"[]\");\nconst list = document.querySelector(\"#notes\");\nfunction render() { list.textContent = \"\"; for (const text of notes) { const item = document.createElement(\"li\"); item.textContent = text; list.appendChild(item); } }\ndocument.querySelector(\"#save\").addEventListener(\"click\", async () => {\n  const input = await document.querySelector(\"#note\");\n  if (!input.value.trim()) return;\n  notes.push(input.value.trim());\n  localStorage.setItem(\"efhama-notes\", JSON.stringify(notes));\n  input.value = \"\";\n  render();\n});\nrender();"
+          "solution": "const notes = JSON.parse(localStorage.getItem(\"efhamha-notes\") || \"[]\");\nconst list = document.querySelector(\"#notes\");\nfunction render() { list.textContent = \"\"; for (const text of notes) { const item = document.createElement(\"li\"); item.textContent = text; list.appendChild(item); } }\ndocument.querySelector(\"#save\").addEventListener(\"click\", async () => {\n  const input = await document.querySelector(\"#note\");\n  if (!input.value.trim()) return;\n  notes.push(input.value.trim());\n  localStorage.setItem(\"efhamha-notes\", JSON.stringify(notes));\n  input.value = \"\";\n  render();\n});\nrender();"
         },
         {
           "id": "js-weather-interface", "title": "Weather Interface (Local Demo)", "level": "intermediate", "minutes": 75,

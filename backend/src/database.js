@@ -15,7 +15,7 @@ CREATE TABLE IF NOT EXISTS users (
   email         TEXT NOT NULL UNIQUE COLLATE NOCASE,
   name          TEXT NOT NULL DEFAULT '',
   password_hash TEXT NOT NULL,
-  role          TEXT NOT NULL DEFAULT 'student' CHECK (role IN ('student','admin')),
+  role          TEXT NOT NULL DEFAULT 'student' CHECK (role IN ('student','instructor','admin')),
   active        INTEGER NOT NULL DEFAULT 1,
   account_status TEXT NOT NULL DEFAULT 'active' CHECK (account_status IN ('pending','active')),
   approval_status TEXT NOT NULL DEFAULT 'approved' CHECK (approval_status IN ('pending','approved','rejected','suspended')),
@@ -200,6 +200,25 @@ CREATE INDEX IF NOT EXISTS idx_assessment_attempts_user
 CREATE INDEX IF NOT EXISTS idx_progress_lesson ON lesson_progress(lesson_id, status);
 CREATE INDEX IF NOT EXISTS idx_attempts_quiz ON quiz_attempts(quiz_key);
 CREATE INDEX IF NOT EXISTS idx_challenge_attempts_user ON challenge_attempts(user_id, challenge_id);
+CREATE TABLE IF NOT EXISTS audit_log (
+  id          INTEGER PRIMARY KEY AUTOINCREMENT,
+  ts          INTEGER NOT NULL,
+  user_id     INTEGER REFERENCES users(id) ON DELETE SET NULL,
+  username    TEXT,
+  display_name TEXT,
+  action      TEXT NOT NULL,
+  section     TEXT,
+  target_type TEXT,
+  target_id   TEXT,
+  target_name TEXT,
+  before_json TEXT,
+  after_json  TEXT,
+  details     TEXT,
+  ip          TEXT,
+  prev_hash   TEXT,
+  row_hash    TEXT
+);
+CREATE INDEX IF NOT EXISTS idx_audit_log_ts ON audit_log(ts DESC, id DESC);
 `;
 
 /* ترجمة SQL من صيغة SQLite إلى Postgres */
@@ -230,6 +249,59 @@ function openSqlite(file) {
   if (file !== ":memory:") fs.mkdirSync(path.dirname(file), { recursive: true });
   const raw = new DatabaseSync(file);
   raw.exec("PRAGMA journal_mode = WAL; PRAGMA foreign_keys = ON; PRAGMA busy_timeout = 5000;");
+  const usersTable = raw.prepare(
+    "SELECT sql FROM sqlite_master WHERE type = 'table' AND name = 'users'"
+  ).get();
+  if (usersTable && String(usersTable.sql).includes("CHECK") && !String(usersTable.sql).includes("instructor")) {
+    raw.exec("PRAGMA foreign_keys = OFF");
+    raw.exec("BEGIN");
+    raw.exec(`CREATE TABLE users_role_migration (
+      id INTEGER PRIMARY KEY AUTOINCREMENT,
+      email TEXT NOT NULL UNIQUE COLLATE NOCASE,
+      name TEXT NOT NULL DEFAULT '',
+      password_hash TEXT NOT NULL,
+      role TEXT NOT NULL DEFAULT 'student' CHECK (role IN ('student','instructor','admin')),
+      active INTEGER NOT NULL DEFAULT 1,
+      account_status TEXT NOT NULL DEFAULT 'active' CHECK (account_status IN ('pending','active')),
+      approval_status TEXT NOT NULL DEFAULT 'approved' CHECK (approval_status IN ('pending','approved','rejected','suspended')),
+      token_version INTEGER NOT NULL DEFAULT 0,
+      created_at INTEGER NOT NULL,
+      last_login_at INTEGER
+    )`);
+    raw.exec(`INSERT INTO users_role_migration
+      (id,email,name,password_hash,role,active,account_status,approval_status,token_version,created_at,last_login_at)
+      SELECT id,email,COALESCE(name,''),password_hash,role,COALESCE(active,1),
+             COALESCE(account_status,'active'),COALESCE(approval_status,'approved'),
+             COALESCE(token_version,0),COALESCE(created_at,0),last_login_at
+      FROM users`);
+    raw.exec("DROP TABLE users");
+    raw.exec("ALTER TABLE users_role_migration RENAME TO users");
+    raw.exec("COMMIT");
+    raw.exec("PRAGMA foreign_keys = ON");
+  }
+  const notificationTable = raw.prepare(
+    "SELECT 1 AS found FROM sqlite_master WHERE type = 'table' AND name = 'notifications'"
+  ).get();
+  if (notificationTable) {
+    const notificationCols = new Set(
+      raw.prepare("PRAGMA table_info(notifications)").all().map((column) => column.name)
+    );
+    if (notificationCols.has("recipient_user_id") && !notificationCols.has("user_id"))
+      raw.exec("ALTER TABLE notifications RENAME COLUMN recipient_user_id TO user_id");
+    if (notificationCols.has("category") && !notificationCols.has("type"))
+      raw.exec("ALTER TABLE notifications RENAME COLUMN category TO type");
+    const migratedNotificationCols = new Set(
+      raw.prepare("PRAGMA table_info(notifications)").all().map((column) => column.name)
+    );
+    if (!migratedNotificationCols.has("user_id"))
+      raw.exec("ALTER TABLE notifications ADD COLUMN user_id INTEGER");
+    if (!migratedNotificationCols.has("type"))
+      raw.exec("ALTER TABLE notifications ADD COLUMN type TEXT");
+    if (!migratedNotificationCols.has("event_key"))
+      raw.exec("ALTER TABLE notifications ADD COLUMN event_key TEXT");
+    if (!migratedNotificationCols.has("sender_id"))
+      raw.exec("ALTER TABLE notifications ADD COLUMN sender_id INTEGER REFERENCES users(id) ON DELETE SET NULL");
+  }
   raw.exec(SQLITE_SCHEMA);
   // ترقية قواعد SQLite القديمة: نضيف الأعمدة الناقصة (مثل إصدارات قبل الاعتماد)
   const userCols = new Set(raw.prepare("PRAGMA table_info(users)").all().map((c) => c.name));
@@ -361,7 +433,7 @@ function postgresSchema() {
     .replace(/INTEGER PRIMARY KEY AUTOINCREMENT/g, "SERIAL PRIMARY KEY")
     .replace(/\bBLOB\b/g, "BYTEA")
     .replace(/email\s+TEXT NOT NULL UNIQUE COLLATE NOCASE/, "email TEXT NOT NULL UNIQUE")
-    .replace(/(created_at|updated_at|expires_at|last_seen_at|starts_at|ends_at|attempted_at|resolved_at|taken_at|attempted_at|started_at|submitted_at|completed_at|reviewed_at|last_login_at|previous_started_at|expected_token_version|read_at)\s+INTEGER/g, "$1 BIGINT")
+    .replace(/(ts|created_at|updated_at|expires_at|last_seen_at|starts_at|ends_at|attempted_at|resolved_at|taken_at|attempted_at|started_at|submitted_at|completed_at|reviewed_at|last_login_at|previous_started_at|expected_token_version|read_at)\s+INTEGER/g, "$1 BIGINT")
     ;
 }
 

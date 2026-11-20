@@ -1,6 +1,6 @@
 (function () {
   'use strict';
-  var E = window.Efhama, esc = E.esc, Store = E.Store;
+  var E = window.Efhamha, esc = E.esc, Store = E.Store;
 
   function show(v, suffix) { return v === null || v === '' || v === undefined ? '<span class="t-sub">غير محدد</span>' : '<b dir="auto">' + esc(v) + (suffix ? ' ' + esc(suffix) : '') + '</b>'; }
 
@@ -19,7 +19,7 @@
           '<p class="hint" style="margin-top:12px">' + (cur.updatedAt ? 'آخر تعديل: ' + esc(E.fmtDate(cur.updatedAt)) + ' ' + esc(E.fmtTime(cur.updatedAt)) + ' بواسطة ' + esc(cur.updatedBy || '') : 'لم تُحفظ أي قيم بعد.') + '</p></section>' +
           '<section class="panel panel-pad"><h2 style="margin-bottom:12px">' + (canEdit ? 'تعديل الإعدادات' : 'عرض فقط') + '</h2><div data-form></div>' +
           (canEdit ? '<div style="margin-top:16px"><button class="btn primary" data-save>' + E.icon('check') + ' حفظ التغييرات</button></div>' : '') + '</section></div>' +
-          '<section class="panel panel-pad" style="margin-top:16px"><h3>كيف تصل القيم للموقع؟</h3><p class="sub" style="margin-top:6px">تُحفظ في قاعدة البيانات (مصدر واحد) وتُنشر تلقائيًا في <code dir="ltr">/public/efhama-data.json</code> تحت المفتاح <code dir="ltr">subscription</code>. اقرأها في صفحات الاشتراك والدفع من هناك بدل كتابتها داخل الملفات.</p></section>';
+          '<section class="panel panel-pad" style="margin-top:16px"><h3>كيف تصل القيم للموقع؟</h3><p class="sub" style="margin-top:6px">تُحفظ في قاعدة البيانات (مصدر واحد) وتُنشر تلقائيًا في <code dir="ltr">/public/efhamha-data.json</code> تحت المفتاح <code dir="ltr">subscription</code>. اقرأها في صفحات الاشتراك والدفع من هناك بدل كتابتها داخل الملفات.</p></section>';
         if (!canEdit) return;
         var form = E.buildForm([
           { key: 'price', label: 'سعر الاشتراك', type: 'number', min: 0, hint: 'اتركه فارغًا إن لم يُحدَّد سعر بعد.' },

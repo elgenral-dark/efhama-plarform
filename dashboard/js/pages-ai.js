@@ -1,6 +1,6 @@
 (function () {
   'use strict';
-  var E = window.Efhama, esc = E.esc, Store = E.Store;
+  var E = window.Efhamha, esc = E.esc, Store = E.Store;
   var rid = function () { return 'b_' + Math.random().toString(36).slice(2, 9); };
 
   function buildDraft(r, form, original) {
@@ -34,8 +34,8 @@
         E.$('.tabs', body).addEventListener('click', function (e) { var b = e.target.closest('button'); if (b) show(b.dataset.t); });
 
         function create(box) {
-          var redo = null; try { redo = JSON.parse(sessionStorage.getItem('efhama:ai-redo') || 'null'); } catch (e) { redo = null; }
-          sessionStorage.removeItem('efhama:ai-redo');
+          var redo = null; try { redo = JSON.parse(sessionStorage.getItem('efhamha:ai-redo') || 'null'); } catch (e) { redo = null; }
+          sessionStorage.removeItem('efhamha:ai-redo');
           var vals = redo || { level: 'beginner', duration: 10, position: 'end' };
           var modsOf = function (v) { return E.moduleOptions(v.pathId); };
           var form = E.buildForm([
@@ -69,7 +69,7 @@
             go.disabled = true; go.innerHTML = '<span class="spin"></span> جارٍ التنظيم…'; msg.textContent = 'قد يستغرق ذلك حتى دقيقتين.';
             var p = Store.data.paths.filter(function (x) { return x.id === v.pathId; })[0], m = Store.byId('modules', v.moduleId);
             Store.api('POST', '/ai/organize', { text: v.text, meta: { pathName: p && p.name, moduleTitle: m && m.title, title: v.title, level: v.level, duration: v.duration } }).then(function (r) {
-              sessionStorage.setItem('efhama:ai-draft', JSON.stringify(buildDraft(r, v, v.text)));
+              sessionStorage.setItem('efhamha:ai-draft', JSON.stringify(buildDraft(r, v, v.text)));
               E.Router.guard = null;
               E.Router.go('#/lessons/new?ai=1');
             }).catch(function (e) {

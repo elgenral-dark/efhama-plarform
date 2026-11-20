@@ -25,8 +25,8 @@
   }
 
   /* ================= مفاتيح التخزين (موحدة مع باقي الصفحات) ================= */
-  var COMPLETED_KEY = "efhama_completed";
-  var STARTED_KEY = "efhama_started";
+  var COMPLETED_KEY = "efhamha_completed";
+  var STARTED_KEY = "efhamha_started";
 
   function readList(key) {
     try { return JSON.parse(localStorage.getItem(key)) || []; }

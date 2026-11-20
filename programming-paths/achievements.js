@@ -4,9 +4,9 @@
     return;
   }
   const root = document.querySelector("[data-achievements-root]");
-  const PATH_STATE_KEY = "efhama_programming_paths";
-  const PROJECT_STATE_KEY = "efhama_projects_v1";
-  const CHALLENGE_PREFIX = "efhama_challenge_";
+  const PATH_STATE_KEY = "efhamha_programming_paths";
+  const PROJECT_STATE_KEY = "efhamha_projects_v1";
+  const CHALLENGE_PREFIX = "efhamha_challenge_";
   const TRACKS = [
     ["logic", "أساسيات البرمجة والمنطق"],
     ["python", "Python"],
@@ -21,10 +21,10 @@
     document.body.dataset.theme = theme;
     if (themeButton) themeButton.textContent = theme === "dark" ? "الوضع الفاتح" : "الوضع الداكن";
   };
-  applyTheme(localStorage.getItem("efhama_theme") || "light");
+  applyTheme(localStorage.getItem("efhamha_theme") || "light");
   themeButton?.addEventListener("click", () => {
     const next = document.body.dataset.theme === "dark" ? "light" : "dark";
-    localStorage.setItem("efhama_theme", next);
+    localStorage.setItem("efhamha_theme", next);
     applyTheme(next);
   });
 
@@ -69,7 +69,7 @@
     lessons: unit.lessons || []
   }));
 
-  const addReward = (type, id, timestamp) => window.EfhamaGamification.recordActivity(type, id, {
+  const addReward = (type, id, timestamp) => window.EfhamhaGamification.recordActivity(type, id, {
     timestamp: Number.isFinite(timestamp) ? timestamp : Date.now(),
     streak: false,
     silent: true
@@ -140,11 +140,11 @@
         }
       }
 
-      const snapshot = window.EfhamaGamification.snapshot();
-      if (completedLessons.size) window.EfhamaGamification.unlockBadge("first-lesson", Date.now(), true);
-      if (completedChallenges.size) window.EfhamaGamification.unlockBadge("first-challenge", Date.now(), true);
-      if (completedProjects.length) window.EfhamaGamification.unlockBadge("project-builder", Date.now(), true);
-      if (snapshot.streak.best >= 7) window.EfhamaGamification.unlockBadge("consistent-learner", Date.now(), true);
+      const snapshot = window.EfhamhaGamification.snapshot();
+      if (completedLessons.size) window.EfhamhaGamification.unlockBadge("first-lesson", Date.now(), true);
+      if (completedChallenges.size) window.EfhamhaGamification.unlockBadge("first-challenge", Date.now(), true);
+      if (completedProjects.length) window.EfhamhaGamification.unlockBadge("project-builder", Date.now(), true);
+      if (snapshot.streak.best >= 7) window.EfhamhaGamification.unlockBadge("consistent-learner", Date.now(), true);
 
       const foundationBadges = {
         python: "python-beginner",
@@ -157,12 +157,12 @@
         const firstUnit = course && unitsOf(course)[0];
         if (firstUnit?.lessons.length && firstUnit.lessons.every((lesson) =>
           (progress[slug]?.completed || []).includes(lesson.id))) {
-          window.EfhamaGamification.unlockBadge(badgeId, Date.now(), true);
+          window.EfhamhaGamification.unlockBadge(badgeId, Date.now(), true);
         }
       }
-      const updated = window.EfhamaGamification.snapshot();
+      const updated = window.EfhamhaGamification.snapshot();
       const earned = updated.badges;
-      const allBadges = window.EfhamaGamification.config.badges;
+      const allBadges = window.EfhamhaGamification.config.badges;
       const badgeMarkup = allBadges.map((badge) => {
         const earnedAt = earned[badge.id];
         return `<article class="achievement-badge${earnedAt ? " is-earned" : " is-locked"}">
@@ -188,7 +188,7 @@
       const encouragement = encouragements[new Date().getDate() % encouragements.length];
       root.innerHTML = `<div class="gamification-dashboard">
         <p class="gamification-notice">المكافآت للتشجيع على التعلم والتطبيق؛ لا تُمنح عند فتح المحتوى. تُحفظ الإنجازات على هذا الجهاز والمتصفح، وقد تتغير عند مسح بياناته. النظام محلي من جهة المتصفح ولا يمنع التلاعب.</p>
-        ${window.EfhamaGamification.getWarning() ? `<p class="gamification-data-warning" role="alert">${escapeHtml(window.EfhamaGamification.getWarning())}</p>` : ""}
+        ${window.EfhamhaGamification.getWarning() ? `<p class="gamification-data-warning" role="alert">${escapeHtml(window.EfhamhaGamification.getWarning())}</p>` : ""}
         ${assessmentErrors.length ? `<p class="gamification-data-warning" role="status">تعذر تحميل بيانات الاختبارات لبعض المسارات (${assessmentErrors.map((item) => escapeHtml(item.slug)).join("، ")}). بقية الإحصاءات متاحة، وقد يكون عدد الاختبارات المجتازة غير مكتمل.</p>` : ""}
         <section class="achievement-hero" aria-label="ملخص المستوى">
           <div class="achievement-xp"><span>إجمالي XP</span><strong>${updated.xp.toLocaleString("ar-EG")}</strong></div>
@@ -209,7 +209,7 @@
         <section class="achievement-section"><div class="section-head"><div><h2>تقدمك في المسارات</h2><p>يُحسب التقدم من الدروس التي حُددت مكتملة.</p></div></div><div class="achievement-tracks">${trackMarkup}</div></section>
         <details class="gamification-xp-settings"><summary>كيف تُحتسب النقاط؟</summary>
           <p>يمكن تعديل قيم النقاط وحدود المستويات في إعدادات النظام داخل <code>gamification-config.js</code>. القيمة الحالية لكل إنجاز تُسجل مرة واحدة، ولا تتغير بأثر رجعي عند تعديل الإعدادات.</p>
-          <ul>${Object.entries(window.EfhamaGamification.config.xp).map(([type, value]) => `<li>${escapeHtml(type)}: ${value} XP</li>`).join("")}</ul>
+          <ul>${Object.entries(window.EfhamhaGamification.config.xp).map(([type, value]) => `<li>${escapeHtml(type)}: ${value} XP</li>`).join("")}</ul>
         </details>
       </div>`;
     } catch (error) {
@@ -220,11 +220,11 @@
   };
 
   latestRender = render().then(() => {
-    window.addEventListener("efhama-gamification-update", () => {
+    window.addEventListener("efhamha-gamification-update", () => {
       if (document.visibilityState === "visible") latestRender = render();
     });
     window.addEventListener("storage", (event) => {
-      if ([PATH_STATE_KEY, PROJECT_STATE_KEY, window.EfhamaGamification.STORAGE_KEY].includes(event.key)) {
+      if ([PATH_STATE_KEY, PROJECT_STATE_KEY, window.EfhamhaGamification.STORAGE_KEY].includes(event.key)) {
         latestRender = render();
       }
     });

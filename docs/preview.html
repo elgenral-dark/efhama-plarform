@@ -170,7 +170,7 @@
   <body>
     <header class="topbar">
       <div class="container topbar-inner">
-        <div class="brand"><span class="logo-mark">E</span><span>Efhama</span></div>
+        <div class="brand"><span class="logo-mark">E</span><span>Efhamha</span></div>
         <nav class="navs" aria-label="التنقل الرئيسي">
           <a class="active" href="./preview.html">مسارات التعلم</a>
           <a href="#">الرئيسية</a>
@@ -183,7 +183,7 @@
       <section class="hero">
         <div class="container hero-grid">
           <div>
-            <div class="kicker">أكاديمية Efhama التعليمية</div>
+            <div class="kicker">أكاديمية Efhamha التعليمية</div>
             <h1>ابدأ رحلتك في <span>عالم البرمجة</span></h1>
             <p>اتعلم البرمجة من الصفر، افهم الأساسيات، وطبّق بنفسك لحد ما تقدر تبني مشاريع حقيقية.</p>
             <div class="hero-actions">
@@ -736,7 +736,7 @@ Character: 'A'</pre></fieldset>
         document.getElementById('previewQuizScore').textContent = `أجبت عن ${answered.length} من ${questions.length} أسئلة، منها ${correctCount} صحيحة.`;
       });
 
-      const storageKey = 'efhama_programming_paths';
+      const storageKey = 'efhamha_programming_paths';
       const saveStatus = document.getElementById('previewSaveStatus');
       const readCompletion = () => {
         try {
@@ -848,7 +848,7 @@ Character: 'A'</pre></fieldset>
           document.getElementById('stepQuizScore').textContent = `أجبت عن ${answered.length} من ${quizQuestions.length} أسئلة، منها ${correctCount} صحيحة.`;
         });
 
-        const storageKey = 'efhama_programming_paths';
+        const storageKey = 'efhamha_programming_paths';
         const completionButton = document.getElementById('stepComplete');
         const saveStatus = document.getElementById('stepSaveStatus');
         const readComplete = () => {
@@ -940,7 +940,7 @@ Character: 'A'</pre></fieldset>
           document.getElementById('logicalQuizScore').textContent = `أجبت عن ${answered.length} من ${questions.length} أسئلة، منها ${correctCount} صحيحة.`;
         });
 
-        const storageKey = 'efhama_programming_paths';
+        const storageKey = 'efhamha_programming_paths';
         const completeButton = document.getElementById('logicalComplete');
         const saveStatus = document.getElementById('logicalSaveStatus');
         const readComplete = () => {
@@ -1014,7 +1014,7 @@ Character: 'A'</pre></fieldset>
           document.getElementById('testingQuizScore').textContent = `أجبت عن ${answered.length} من ${questions.length} أسئلة، منها ${correctCount} صحيحة.`;
         });
 
-        const storageKey = 'efhama_programming_paths';
+        const storageKey = 'efhamha_programming_paths';
         const completeButton = document.getElementById('testingComplete');
         const saveStatus = document.getElementById('testingSaveStatus');
         const readComplete = () => {
@@ -1088,7 +1088,7 @@ Character: 'A'</pre></fieldset>
           document.getElementById('algorithmQuizScore').textContent = `أجبت عن ${answered.length} من ${questions.length} أسئلة، منها ${correctCount} صحيحة.`;
         });
 
-        const storageKey = 'efhama_programming_paths';
+        const storageKey = 'efhamha_programming_paths';
         const completeButton = document.getElementById('algorithmComplete');
         const saveStatus = document.getElementById('algorithmSaveStatus');
         const readComplete = () => {
@@ -1161,7 +1161,7 @@ Character: 'A'</pre></fieldset>
 
           const readComplete = () => {
             try {
-              const state = JSON.parse(localStorage.getItem('efhama_programming_paths') || '{}');
+              const state = JSON.parse(localStorage.getItem('efhamha_programming_paths') || '{}');
               return (state.logic?.completed || []).includes(lessonId);
             } catch (error) {
               return false;
@@ -1174,7 +1174,7 @@ Character: 'A'</pre></fieldset>
           };
           completeButton.addEventListener('click', () => {
             try {
-              const state = JSON.parse(localStorage.getItem('efhama_programming_paths') || '{}');
+              const state = JSON.parse(localStorage.getItem('efhamha_programming_paths') || '{}');
               const pathState = state.logic || { lastLesson: '', completed: [] };
               const completed = new Set(pathState.completed || []);
               if (completed.has(lessonId)) completed.delete(lessonId);
@@ -1182,7 +1182,7 @@ Character: 'A'</pre></fieldset>
               pathState.completed = [...completed];
               pathState.lastLesson = lessonId;
               state.logic = pathState;
-              localStorage.setItem('efhama_programming_paths', JSON.stringify(state));
+              localStorage.setItem('efhamha_programming_paths', JSON.stringify(state));
               updateLabel();
             } catch (error) {
               status.textContent = 'تعذر حفظ التقدم في هذا المتصفح.';
@@ -1278,7 +1278,7 @@ Character: 'A'</pre></fieldset>
         const saveStatus = document.getElementById('tracingSaveStatus');
         const readComplete = () => {
           try {
-            const state = JSON.parse(localStorage.getItem('efhama_programming_paths') || '{}');
+            const state = JSON.parse(localStorage.getItem('efhamha_programming_paths') || '{}');
             return (state.logic?.completed || []).includes('logic-13');
           } catch (error) {
             return false;
@@ -1291,7 +1291,7 @@ Character: 'A'</pre></fieldset>
         };
         completeButton.addEventListener('click', () => {
           try {
-            const state = JSON.parse(localStorage.getItem('efhama_programming_paths') || '{}');
+            const state = JSON.parse(localStorage.getItem('efhamha_programming_paths') || '{}');
             const pathState = state.logic || { lastLesson: '', completed: [] };
             const completed = new Set(pathState.completed || []);
             if (completed.has('logic-13')) completed.delete('logic-13');
@@ -1299,7 +1299,7 @@ Character: 'A'</pre></fieldset>
             pathState.completed = [...completed];
             pathState.lastLesson = 'logic-13';
             state.logic = pathState;
-            localStorage.setItem('efhama_programming_paths', JSON.stringify(state));
+            localStorage.setItem('efhamha_programming_paths', JSON.stringify(state));
             updateComplete();
           } catch (error) {
             saveStatus.textContent = 'تعذر حفظ التقدم في هذا المتصفح.';

@@ -145,7 +145,7 @@
       errorBox.hidden = true;
       empty.hidden = data.notifications.length > 0;
       data.notifications.forEach(function (item) { list.appendChild(createNotificationRow(item)); });
-      window.dispatchEvent(new CustomEvent("efhama:notifications-updated", {
+      window.dispatchEvent(new CustomEvent("efhamha:notifications-updated", {
         detail: { unreadCount: data.unreadCount }
       }));
       var total = data.pagination.total;

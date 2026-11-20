@@ -47,7 +47,7 @@
 
   /* ================= الوضع الداكن / الفاتح الموحد ================= */
   function setupTheme() {
-    const themeKey = 'efhama_theme';
+    const themeKey = 'efhamha_theme';
     const apply = (theme) => {
       document.documentElement.setAttribute('data-theme', theme);
       if (document.body) {

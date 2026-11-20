@@ -6,7 +6,7 @@ const THEMES = (process.argv[3] || 'light').split(',');
   const errors = [];
   for (const theme of THEMES) {
     const ctx = await b.newContext({ viewport: { width: 1440, height: 900 } });
-    await ctx.addInitScript(t => { try { localStorage.setItem('efhama:theme', t); } catch (e) {} }, theme);
+    await ctx.addInitScript(t => { try { localStorage.setItem('efhamha:theme', t); } catch (e) {} }, theme);
     const page = await ctx.newPage();
     page.on('pageerror', e => errors.push(theme + ': ' + e.message));
     page.on('console', m => { if (m.type() === 'error' && !/fonts\.g|ERR_|Failed to load resource/.test(m.text())) errors.push(theme + ': ' + m.text()); });

@@ -1,5 +1,5 @@
-var AUTH_KEY = "efhama_auth";
-var USER_KEY = "efhama_user";
+var AUTH_KEY = "efhamha_auth";
+var USER_KEY = "efhamha_user";
 
 var Sync = {
   pull: function () { return Promise.resolve(false); },
@@ -8,7 +8,7 @@ var Sync = {
     var keys = [];
     for (var index = 0; index < localStorage.length; index++) {
       var key = localStorage.key(index);
-      if (/^efhama_(completed|started|last_lesson|quiz_results|quiz_best|mistakes)$/.test(key))
+      if (/^efhamha_(completed|started|last_lesson|quiz_results|quiz_best|mistakes)$/.test(key))
         keys.push(key);
     }
     keys.forEach(function (key) { localStorage.removeItem(key); });

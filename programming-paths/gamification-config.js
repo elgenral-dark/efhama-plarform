@@ -1,4 +1,4 @@
-window.EfhamaGamificationConfig = Object.freeze({
+window.EfhamhaGamificationConfig = Object.freeze({
   version: 1,
   xp: Object.freeze({
     lesson: 10,

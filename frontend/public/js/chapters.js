@@ -9,7 +9,7 @@
   /* الوضع الليلي/النهاري موحد ويُدار مركزيًا من ui.js / navigation.js */
 
   /* ================= تقدم الطالب (نفس مفتاح الرئيسية) ================= */
-  var progressKey = "efhama_completed";
+  var progressKey = "efhamha_completed";
   function getCompleted() {
     try { return JSON.parse(localStorage.getItem(progressKey)) || []; }
     catch (e) { return []; }
@@ -253,8 +253,8 @@
   if (resetProgress) {
     resetProgress.addEventListener("click", function () {
       if (!window.confirm("هل تريد تصفير الدروس المكتملة وقيد الدراسة؟ لن تُحذف نتائج الاختبارات.")) return;
-      localStorage.setItem("efhama_completed", "[]");
-      localStorage.setItem("efhama_started", "[]");
+      localStorage.setItem("efhamha_completed", "[]");
+      localStorage.setItem("efhamha_started", "[]");
       renderCards(searchInput ? searchInput.value : "");
       renderSummary();
     });

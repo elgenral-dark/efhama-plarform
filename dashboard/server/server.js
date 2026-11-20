@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 /*
- * Efhama Dashboard server — بدون مكتبات خارجية (يحتاج Node 22.13+ لقاعدة SQLite المدمجة).
+ * Efhamha Dashboard server — بدون مكتبات خارجية (يحتاج Node 22.13+ لقاعدة SQLite المدمجة).
  *
  * التشغيل الأول:
  *   ADMIN_USERNAME=admin ADMIN_PASSWORD='كلمة-مرور-10-أحرف-أو-أكثر' node server/server.js
@@ -15,7 +15,7 @@ const http = require('http');
 const fs = require('fs');
 const path = require('path');
 const crypto = require('crypto');
-const EfhamaData = require('../integration/efhama-data.js');
+const EfhamhaData = require('../integration/efhamha-data.js');
 const { open, tx } = require('./db');
 const A = require('./auth');
 const AUD = require('./audit');
@@ -28,7 +28,7 @@ const ROOT = path.resolve(__dirname, '..');
 const PORT = Number(process.env.PORT) || 8787;
 const HOST = process.env.HOST || '127.0.0.1';
 const DATA_DIR = path.resolve(process.env.DATA_DIR || path.join(ROOT, 'data'));
-const DATA_FILE = path.join(DATA_DIR, 'efhama-data.json');
+const DATA_FILE = path.join(DATA_DIR, 'efhamha-data.json');
 const PUBLIC_DIR = path.join(DATA_DIR, 'public');
 const UPLOAD_DIR = path.join(DATA_DIR, 'uploads');
 const BACKUP_DIR = path.join(DATA_DIR, 'backups');
@@ -139,13 +139,13 @@ function subscriptionCfg() {
   return { price: v.price == null ? null : v.price, currencyLabel: v.currencyLabel || '', cashNumber: v.cashNumber || '', whatsapp: v.whatsapp || '' };
 }
 function publish() {
-  const view = EfhamaData.publicView(readData());
+  const view = EfhamhaData.publicView(readData());
   view.subscription = subscriptionCfg(); // مصدر الإعدادات المركزي الوحيد لصفحات الاشتراك والدفع
-  atomicWrite(path.join(PUBLIC_DIR, 'efhama-data.json'), JSON.stringify(view));
+  atomicWrite(path.join(PUBLIC_DIR, 'efhamha-data.json'), JSON.stringify(view));
 }
 function backup() {
   fs.mkdirSync(BACKUP_DIR, { recursive: true });
-  fs.copyFileSync(DATA_FILE, path.join(BACKUP_DIR, 'efhama-data-' + new Date().toISOString().replace(/[:.]/g, '-') + '.json'));
+  fs.copyFileSync(DATA_FILE, path.join(BACKUP_DIR, 'efhamha-data-' + new Date().toISOString().replace(/[:.]/g, '-') + '.json'));
   const files = fs.readdirSync(BACKUP_DIR).filter(f => f.endsWith('.json')).sort();
   files.slice(0, Math.max(0, files.length - 30)).forEach(f => fs.unlinkSync(path.join(BACKUP_DIR, f)));
 }
@@ -273,14 +273,14 @@ async function api(req, res, url) {
 
   /* --- حماية CSRF لكل ما يكتب --- */
   if (WRITE_ACTIONS.has(m)) {
-    if (req.headers['x-requested-with'] !== 'efhama') return err(res, 403, 'طلب مرفوض');
+    if (req.headers['x-requested-with'] !== 'efhamha') return err(res, 403, 'طلب مرفوض');
     const o = req.headers.origin;
     if (o && new URL(o).host !== req.headers.host) return err(res, 403, 'مصدر الطلب غير مسموح');
   }
 
-  const token = cookies(req).efhama_sid;
+  const token = cookies(req).efhamha_sid;
   const user = A.userFromToken(db, token);
-  if (p === '/api/health' && m === 'GET') return send(res, 200, { efhama: true, authRequired: true, authenticated: !!user, multiUser: true });
+  if (p === '/api/health' && m === 'GET') return send(res, 200, { efhamha: true, authRequired: true, authenticated: !!user, multiUser: true });
 
   if (p === '/api/login' && m === 'POST') {
     let b; try { b = await readJson(req, 4096); } catch (e) { return err(res, 400, 'طلب غير صالح'); }
@@ -299,12 +299,12 @@ async function api(req, res, url) {
     const t = A.createSession(db, row.id), u = A.publicUser(row);
     AUD.log(db, u, { action: 'login', section: 'users', targetType: 'مستخدم', targetId: u.id, targetName: u.username, details: 'تسجيل دخول', ip });
     const secure = process.env.COOKIE_SECURE === '1' || req.headers['x-forwarded-proto'] === 'https';
-    return send(res, 200, { ok: true }, { 'Set-Cookie': 'efhama_sid=' + t + '; HttpOnly; SameSite=Strict; Path=/; Max-Age=' + A.SESSION_MS / 1000 + (secure ? '; Secure' : '') });
+    return send(res, 200, { ok: true }, { 'Set-Cookie': 'efhamha_sid=' + t + '; HttpOnly; SameSite=Strict; Path=/; Max-Age=' + A.SESSION_MS / 1000 + (secure ? '; Secure' : '') });
   }
   if (p === '/api/logout' && m === 'POST') {
     if (user) AUD.log(db, user, { action: 'logout', section: 'users', targetType: 'مستخدم', targetId: user.id, targetName: user.username, details: 'تسجيل خروج', ip });
     A.destroySession(db, token);
-    return send(res, 200, { ok: true }, { 'Set-Cookie': 'efhama_sid=; HttpOnly; SameSite=Strict; Path=/; Max-Age=0' });
+    return send(res, 200, { ok: true }, { 'Set-Cookie': 'efhamha_sid=; HttpOnly; SameSite=Strict; Path=/; Max-Age=0' });
   }
 
   if (!user) return err(res, 401, 'غير مصرّح. سجّل الدخول.');
@@ -801,7 +801,7 @@ async function api(req, res, url) {
 function verifyPayload(num) {
   const c = /^[A-Z0-9-]{8,40}$/.test(num) ? db.prepare('SELECT * FROM certificates WHERE number=?').get(num) : null;
   if (!c) return { found: false };
-  const base = { found: true, number: c.number, status: c.status, pathName: c.path_name, issuedAt: c.issued_at.slice(0, 10), platform: (readData().settings || {}).name || 'Efhama' };
+  const base = { found: true, number: c.number, status: c.status, pathName: c.path_name, issuedAt: c.issued_at.slice(0, 10), platform: (readData().settings || {}).name || 'Efhamha' };
   if (c.status === 'valid') return Object.assign(base, { studentName: c.student_name, completedAt: c.completed_at.slice(0, 10) });
   if (c.status === 'replaced') return Object.assign(base, { replacedBy: c.replaced_by });
   return base; // الملغاة: لا نكشف اسم الطالب
@@ -830,8 +830,8 @@ function certificatePage(req, num) {
   const banner = c.status === 'revoked' ? '<div class="cbanner bad">هذه الشهادة ملغاة ولم تعد سارية</div>' : c.status === 'replaced' ? `<div class="cbanner warn">تم استبدال هذه الشهادة بالشهادة <span dir="ltr">${esc(c.replaced_by)}</span></div>` : '';
   const body = `<div class="noprint bar"><button data-print type="button">حفظ كملف PDF / طباعة</button></div>${banner}
 <section class="cert"><div class="frame">
-${logoOk ? `<img class="logo" src="${esc(logoOk)}" alt="${esc(s.name || 'Efhama')}">` : `<div class="logo-text">${esc(s.name || 'Efhama')}</div>`}
-<h1>شهادة إتمام</h1><p class="lead">تشهد منصة <b>${esc(s.name || 'Efhama')}</b> بأن</p>
+${logoOk ? `<img class="logo" src="${esc(logoOk)}" alt="${esc(s.name || 'Efhamha')}">` : `<div class="logo-text">${esc(s.name || 'Efhamha')}</div>`}
+<h1>شهادة إتمام</h1><p class="lead">تشهد منصة <b>${esc(s.name || 'Efhamha')}</b> بأن</p>
 <h2 class="student">${esc(c.student_name)}</h2><p class="lead">قد أتمّ بنجاح مسار</p><h3 class="path">${esc(c.path_name)}</h3>
 <p class="lead">بتاريخ ${esc(fmtDate(c.completed_at))}</p>
 <div class="meta"><div><small>رقم الشهادة</small><b dir="ltr">${esc(c.number)}</b></div><div><small>تاريخ الإصدار</small><b>${esc(fmtDate(c.issued_at))}</b></div></div>
@@ -876,7 +876,7 @@ const server = http.createServer(async (req, res) => {
       const html = certificatePage(req, mm[1].toUpperCase());
       return html ? send(res, 200, html, { 'Content-Type': 'text/html; charset=utf-8', 'Content-Security-Policy': CSP_SELF_FRAME, 'X-Frame-Options': 'SAMEORIGIN' }) : send(res, 404, 'الشهادة غير موجودة', { 'Content-Type': 'text/plain; charset=utf-8' });
     }
-    if (p === '/public/efhama-data.json') return serveFile(res, path.join(PUBLIC_DIR, 'efhama-data.json'), (process.env.PUBLIC_CORS_ORIGIN ? { 'Access-Control-Allow-Origin': process.env.PUBLIC_CORS_ORIGIN } : {}), req);
+    if (p === '/public/efhamha-data.json') return serveFile(res, path.join(PUBLIC_DIR, 'efhamha-data.json'), (process.env.PUBLIC_CORS_ORIGIN ? { 'Access-Control-Allow-Origin': process.env.PUBLIC_CORS_ORIGIN } : {}), req);
     if (p.startsWith('/uploads/')) { const f = within(UPLOAD_DIR, p.slice(9)); return f ? serveFile(res, f, { 'Cache-Control': 'public, max-age=3600' }, req) : send(res, 403, 'Forbidden'); }
     if (p === '/') p = '/index.html';
     const top = p.split('/')[1];
@@ -892,6 +892,6 @@ const server = http.createServer(async (req, res) => {
 fs.mkdirSync(UPLOAD_DIR, { recursive: true });
 try { publish(); } catch (e) { console.error('تعذر توليد الملف العام:', e.message); }
 server.listen(PORT, HOST, () => {
-  console.log('Efhama Dashboard: http://' + (HOST === '0.0.0.0' ? 'localhost' : HOST) + ':' + PORT + '/');
-  console.log('بيانات الموقع العامة:   /public/efhama-data.json');
+  console.log('Efhamha Dashboard: http://' + (HOST === '0.0.0.0' ? 'localhost' : HOST) + ':' + PORT + '/');
+  console.log('بيانات الموقع العامة:   /public/efhamha-data.json');
 });

@@ -2,7 +2,7 @@
 
 1. شغّلي Postgres:           docker compose up -d
 2. اضبطي متغيرات البيئة (مرة واحدة في الجلسة):
-   TEST_DATABASE_URL=postgres://postgres:test@localhost:5432/efhama_test
+   TEST_DATABASE_URL=postgres://postgres:test@localhost:5432/efhamha_test
    PGSSL=false
 3. شغّلي الاختبارات:          npm test
 

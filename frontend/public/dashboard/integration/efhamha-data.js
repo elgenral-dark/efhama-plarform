@@ -1,5 +1,5 @@
 /*
- * Efhama data layer — مصدر الحقيقة الوحيد لشكل البيانات وطريقة عرضها.
+ * Efhamha data layer — مصدر الحقيقة الوحيد لشكل البيانات وطريقة عرضها.
  * يُستخدم في 3 أماكن بنفس الكود:
  *   1) لوحة التحكم (المعاينة)
  *   2) الموقع التعليمي (قراءة الملف المنشور وعرضه)
@@ -8,7 +8,7 @@
 (function (root, factory) {
   var api = factory();
   if (typeof module !== 'undefined' && module.exports) module.exports = api;
-  else root.EfhamaData = api;
+  else root.EfhamhaData = api;
 })(typeof self !== 'undefined' ? self : this, function () {
   'use strict';
 
@@ -69,9 +69,9 @@
     var text = alt || (a && (a.alt || a.name)) || '';
     var dark = a && a.darkSrc ? safeUrl(a.darkSrc) : '';
     var c = cls || '';
-    var out = '<img class="' + esc(c) + (dark ? ' efhama-img-light' : '') + '" src="' + esc(light) +
+    var out = '<img class="' + esc(c) + (dark ? ' efhamha-img-light' : '') + '" src="' + esc(light) +
       '" alt="' + esc(text) + '" loading="lazy">';
-    if (dark) out += '<img class="' + esc(c) + ' efhama-img-dark" src="' + esc(dark) + '" alt="' + esc(text) + '" loading="lazy">';
+    if (dark) out += '<img class="' + esc(c) + ' efhamha-img-dark" src="' + esc(dark) + '" alt="' + esc(text) + '" loading="lazy">';
     return out;
   }
 
@@ -84,29 +84,29 @@
   function renderQuestion(data, q, opts) {
     opts = opts || {};
     if (!q) return '';
-    var h = '<div class="efhama-q" data-type="' + esc(q.type) + '">';
-    h += '<div class="efhama-q-meta"><span>' + esc(QTYPES[q.type] || q.type) + '</span>';
+    var h = '<div class="efhamha-q" data-type="' + esc(q.type) + '">';
+    h += '<div class="efhamha-q-meta"><span>' + esc(QTYPES[q.type] || q.type) + '</span>';
     if (q.points) h += '<span>' + esc(q.points) + ' نقطة</span>';
     h += '</div>';
-    h += '<p class="efhama-q-text">' + inline(q.text) + '</p>';
-    if (q.code) h += '<pre class="efhama-code" dir="ltr"><code>' + esc(q.code) + '</code></pre>';
+    h += '<p class="efhamha-q-text">' + inline(q.text) + '</p>';
+    if (q.code) h += '<pre class="efhamha-code" dir="ltr"><code>' + esc(q.code) + '</code></pre>';
     if (q.type === 'mcq') {
-      h += '<ol class="efhama-q-options">';
+      h += '<ol class="efhamha-q-options">';
       (q.options || []).forEach(function (o, i) {
         var ok = opts.showAnswer && Number(q.answer) === i + 1;
-        h += '<li' + (ok ? ' class="is-correct"' : '') + '>' + inline(o) + (ok ? ' <span class="efhama-tick">✓</span>' : '') + '</li>';
+        h += '<li' + (ok ? ' class="is-correct"' : '') + '>' + inline(o) + (ok ? ' <span class="efhamha-tick">✓</span>' : '') + '</li>';
       });
       h += '</ol>';
     } else if (q.type === 'tf') {
       var ans = String(q.answer);
-      h += '<ul class="efhama-q-options"><li' + (opts.showAnswer && ans === 'true' ? ' class="is-correct"' : '') + '>صح</li><li' +
+      h += '<ul class="efhamha-q-options"><li' + (opts.showAnswer && ans === 'true' ? ' class="is-correct"' : '') + '>صح</li><li' +
         (opts.showAnswer && ans === 'false' ? ' class="is-correct"' : '') + '>خطأ</li></ul>';
     } else if (opts.showAnswer && q.answer) {
-      h += '<div class="efhama-q-answer"><strong>الإجابة النموذجية</strong><pre dir="auto">' + esc(q.answer) + '</pre></div>';
+      h += '<div class="efhamha-q-answer"><strong>الإجابة النموذجية</strong><pre dir="auto">' + esc(q.answer) + '</pre></div>';
     }
-    if (opts.showAnswer && q.explanation) h += '<div class="efhama-q-explain"><strong>الشرح</strong><p>' + inline(q.explanation) + '</p></div>';
+    if (opts.showAnswer && q.explanation) h += '<div class="efhamha-q-explain"><strong>الشرح</strong><p>' + inline(q.explanation) + '</p></div>';
     if (opts.showHints && q.hints && q.hints.length) {
-      h += '<details class="efhama-q-hints"><summary>تلميحات</summary><ul>' +
+      h += '<details class="efhamha-q-hints"><summary>تلميحات</summary><ul>' +
         q.hints.map(function (x) { return '<li>' + inline(x) + '</li>'; }).join('') + '</ul></details>';
     }
     return h + '</div>';
@@ -126,25 +126,25 @@
       }
       case 'image':
       case 'diagram': {
-        var img = imgTag(data, b.image, b.alt, 'efhama-img');
+        var img = imgTag(data, b.image, b.alt, 'efhamha-img');
         if (!img) return '';
-        return '<figure class="efhama-figure' + (b.type === 'diagram' ? ' is-diagram' : '') + '">' + img +
+        return '<figure class="efhamha-figure' + (b.type === 'diagram' ? ' is-diagram' : '') + '">' + img +
           (b.caption ? '<figcaption>' + inline(b.caption) + '</figcaption>' : '') + '</figure>';
       }
       case 'code':
-        return '<figure class="efhama-codeblock">' + (b.caption ? '<figcaption>' + inline(b.caption) + '</figcaption>' : '') +
+        return '<figure class="efhamha-codeblock">' + (b.caption ? '<figcaption>' + inline(b.caption) + '</figcaption>' : '') +
           '<pre dir="ltr" data-lang="' + esc(b.lang || '') + '"><code>' + esc(b.code) + '</code></pre></figure>';
       case 'table': {
         var rows = parseTable(b.text);
         if (!rows.length) return '';
         var head = rows[0], body = rows.slice(1);
-        return '<div class="efhama-table-wrap"><table class="efhama-table"><thead><tr>' +
+        return '<div class="efhamha-table-wrap"><table class="efhamha-table"><thead><tr>' +
           head.map(function (c) { return '<th>' + inline(c) + '</th>'; }).join('') + '</tr></thead><tbody>' +
           body.map(function (r) { return '<tr>' + r.map(function (c) { return '<td>' + inline(c) + '</td>'; }).join('') + '</tr>'; }).join('') +
           '</tbody></table></div>';
       }
       case 'note':
-        return '<aside class="efhama-note is-' + esc(b.tone || 'info') + '">' + (b.title ? '<strong>' + inline(b.title) + '</strong>' : '') +
+        return '<aside class="efhamha-note is-' + esc(b.tone || 'info') + '">' + (b.title ? '<strong>' + inline(b.title) + '</strong>' : '') +
           '<p>' + inline(b.text) + '</p></aside>';
       case 'video': {
         var vs = safeUrl(b.src);
@@ -153,13 +153,13 @@
         var ytMatch = /(?:youtube\.com\/(?:watch\?v=|embed\/|shorts\/)|youtu\.be\/)([a-zA-Z0-9_-]{11})/i.exec(vs);
         var gdriveMatch = /drive\.google\.com\/file\/d\/([a-zA-Z0-9_-]+)/i.exec(vs);
         if (ytMatch) {
-          vHtml = '<div class="efhama-iframe-wrap"><iframe src="https://www.youtube.com/embed/' + esc(ytMatch[1]) + '" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen title="' + esc(b.title || 'فيديو يوتيوب') + '"></iframe></div>';
+          vHtml = '<div class="efhamha-iframe-wrap"><iframe src="https://www.youtube.com/embed/' + esc(ytMatch[1]) + '" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen title="' + esc(b.title || 'فيديو يوتيوب') + '"></iframe></div>';
         } else if (gdriveMatch) {
-          vHtml = '<div class="efhama-iframe-wrap"><iframe src="https://drive.google.com/file/d/' + esc(gdriveMatch[1]) + '/preview" allow="autoplay" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen title="' + esc(b.title || 'فيديو جوجل درايف') + '"></iframe></div>';
+          vHtml = '<div class="efhamha-iframe-wrap"><iframe src="https://drive.google.com/file/d/' + esc(gdriveMatch[1]) + '/preview" allow="autoplay" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen title="' + esc(b.title || 'فيديو جوجل درايف') + '"></iframe></div>';
         } else {
-          vHtml = '<video controls preload="metadata" playsinline data-efhama-video="' + esc(b.id) + '" data-efhama-lesson="' + esc(b.lessonId || '') + '" src="' + esc(vs) + '"></video>';
+          vHtml = '<video controls preload="metadata" playsinline data-efhamha-video="' + esc(b.id) + '" data-efhamha-lesson="' + esc(b.lessonId || '') + '" src="' + esc(vs) + '"></video>';
         }
-        return '<figure class="efhama-video">' + vHtml +
+        return '<figure class="efhamha-video">' + vHtml +
           (b.title ? '<figcaption>' + inline(b.title) + '</figcaption>' : '') + '</figure>';
       }
       case 'question': {
@@ -167,7 +167,7 @@
         return qs ? renderQuestion(data, qs, {}) : '';
       }
       case 'summary':
-        return '<section class="efhama-summary"><h3>الخلاصة</h3><ul>' +
+        return '<section class="efhamha-summary"><h3>الخلاصة</h3><ul>' +
           (b.items || []).map(function (i) { return '<li>' + inline(i) + '</li>'; }).join('') + '</ul></section>';
       default: return '';
     }
@@ -175,16 +175,16 @@
 
   function renderLesson(data, lesson) {
     if (!lesson) return '';
-    var h = '<article class="efhama-lesson">';
+    var h = '<article class="efhamha-lesson">';
     h += '<header><h1>' + esc(lesson.title) + '</h1>';
-    h += '<div class="efhama-meta">';
+    h += '<div class="efhamha-meta">';
     if (lesson.level) h += '<span>' + esc(LEVELS[lesson.level] || lesson.level) + '</span>';
     if (lesson.duration) h += '<span>' + esc(lesson.duration) + ' دقيقة</span>';
     h += '</div>';
-    if (lesson.summary) h += '<p class="efhama-lead">' + inline(lesson.summary) + '</p>';
+    if (lesson.summary) h += '<p class="efhamha-lead">' + inline(lesson.summary) + '</p>';
     h += '</header>';
     if ((lesson.objectives || []).length) {
-      h += '<section class="efhama-objectives"><h3>أهداف الدرس</h3><ul>' +
+      h += '<section class="efhamha-objectives"><h3>أهداف الدرس</h3><ul>' +
         lesson.objectives.map(function (o) { return '<li>' + inline(o) + '</li>'; }).join('') + '</ul></section>';
     }
     if ((lesson.prerequisites || []).length) {
@@ -192,12 +192,12 @@
         var l = (data.lessons || []).filter(function (x) { return x.id === id; })[0];
         return l ? l.title : null;
       }).filter(Boolean);
-      if (names.length) h += '<section class="efhama-prereq"><h3>قبل أن تبدأ</h3><ul>' + names.map(function (n) { return '<li>' + esc(n) + '</li>'; }).join('') + '</ul></section>';
+      if (names.length) h += '<section class="efhamha-prereq"><h3>قبل أن تبدأ</h3><ul>' + names.map(function (n) { return '<li>' + esc(n) + '</li>'; }).join('') + '</ul></section>';
     }
-    h += '<div class="efhama-body">' + (lesson.blocks || []).map(function (b) { return renderBlock(data, b.type === 'video' ? Object.assign({}, b, { lessonId: lesson.id }) : b); }).join('') + '</div>';
+    h += '<div class="efhamha-body">' + (lesson.blocks || []).map(function (b) { return renderBlock(data, b.type === 'video' ? Object.assign({}, b, { lessonId: lesson.id }) : b); }).join('') + '</div>';
     var terms = (data.glossary || []).filter(function (t) { return (t.lessonIds || []).indexOf(lesson.id) !== -1; });
     if (terms.length) {
-      h += '<section class="efhama-terms"><h3>مصطلحات الدرس</h3><dl>' + terms.map(function (t) {
+      h += '<section class="efhamha-terms"><h3>مصطلحات الدرس</h3><dl>' + terms.map(function (t) {
         return '<dt>' + esc(t.ar) + ' <span dir="ltr">' + esc(t.en) + '</span></dt><dd>' + inline(t.definition) + '</dd>';
       }).join('') + '</dl></section>';
     }
@@ -266,17 +266,17 @@
     };
   }
 
-  var STYLE_ID = 'efhama-data-styles';
+  var STYLE_ID = 'efhamha-data-styles';
   function injectStyles() {
     if (typeof document === 'undefined' || document.getElementById(STYLE_ID)) return;
     var s = document.createElement('style');
     s.id = STYLE_ID;
     s.textContent =
-      '.efhama-img-dark{display:none}' +
-      '[data-theme="dark"] .efhama-img-dark,.dark .efhama-img-dark{display:inline-block}' +
-      '[data-theme="dark"] .efhama-img-light,.dark .efhama-img-light{display:none}' +
-      '@media (prefers-color-scheme:dark){:root:not([data-theme="light"]):not(.light) .efhama-img-dark{display:inline-block}' +
-      ':root:not([data-theme="light"]):not(.light) .efhama-img-light{display:none}}';
+      '.efhamha-img-dark{display:none}' +
+      '[data-theme="dark"] .efhamha-img-dark,.dark .efhamha-img-dark{display:inline-block}' +
+      '[data-theme="dark"] .efhamha-img-light,.dark .efhamha-img-light{display:none}' +
+      '@media (prefers-color-scheme:dark){:root:not([data-theme="light"]):not(.light) .efhamha-img-dark{display:inline-block}' +
+      ':root:not([data-theme="light"]):not(.light) .efhamha-img-light{display:none}}';
     document.head.appendChild(s);
   }
 
@@ -288,7 +288,7 @@
       if (self._db) return Promise.resolve(self._db);
       return new Promise(function (res, rej) {
         if (typeof indexedDB === 'undefined') return rej(new Error('IndexedDB غير متاح'));
-        var r = indexedDB.open('efhama-dashboard', 1);
+        var r = indexedDB.open('efhamha-dashboard', 1);
         r.onupgradeneeded = function () { r.result.createObjectStore('kv'); };
         r.onsuccess = function () { self._db = r.result; res(r.result); };
         r.onerror = function () { rej(r.error); };
@@ -311,7 +311,7 @@
   };
 
   function load(url) {
-    return fetch(url || '/public/efhama-data.json', { cache: 'no-cache' }).then(function (r) {
+    return fetch(url || '/public/efhamha-data.json', { cache: 'no-cache' }).then(function (r) {
       if (!r.ok) throw new Error('تعذر تحميل بيانات المنصة (' + r.status + ')');
       return r.json();
     });
@@ -329,7 +329,7 @@
     if (typeof document === 'undefined' || !settings) return;
     var c = settings.colors || {};
     var rs = document.documentElement.style;
-    if (c.primary) rs.setProperty('--efhama-primary', c.primary);
+    if (c.primary) rs.setProperty('--efhamha-primary', c.primary);
     if (settings.name) document.title = settings.name;
   }
 

@@ -9,22 +9,22 @@ const json = (v) => { try { return JSON.parse(v); } catch { return undefined; } 
 const isId = (s) => typeof s === "string" && /^[\w-]{1,20}$/.test(s);
 
 const SIMPLE = {
-  efhama_completed: (v) => Array.isArray(json(v)) && json(v).length <= 500 && json(v).every(isId),
-  efhama_started: (v) => Array.isArray(json(v)) && json(v).length <= 500 && json(v).every(isId),
-  efhama_last_lesson: (v) => { const j = json(v); return j && typeof j === "object" && !Array.isArray(j) && isId(String(j.id)); },
-  efhama_quiz_results: (v) => { const j = json(v); return j && typeof j === "object" && !Array.isArray(j); },
-  efhama_quiz_best: (v) => { const j = json(v); return j && typeof j === "object" && !Array.isArray(j); },
-  efhama_mistakes: (v) => Array.isArray(json(v)) && json(v).length <= 2000,
-  efhama_fontsize: (v) => /^\d{1,2}$/.test(v),
-  efhama_theme: (v) => v === "light" || v === "dark",
-  efhama_sound: (v) => v === "on" || v === "off",
+  efhamha_completed: (v) => Array.isArray(json(v)) && json(v).length <= 500 && json(v).every(isId),
+  efhamha_started: (v) => Array.isArray(json(v)) && json(v).length <= 500 && json(v).every(isId),
+  efhamha_last_lesson: (v) => { const j = json(v); return j && typeof j === "object" && !Array.isArray(j) && isId(String(j.id)); },
+  efhamha_quiz_results: (v) => { const j = json(v); return j && typeof j === "object" && !Array.isArray(j); },
+  efhamha_quiz_best: (v) => { const j = json(v); return j && typeof j === "object" && !Array.isArray(j); },
+  efhamha_mistakes: (v) => Array.isArray(json(v)) && json(v).length <= 2000,
+  efhamha_fontsize: (v) => /^\d{1,2}$/.test(v),
+  efhamha_theme: (v) => v === "light" || v === "dark",
+  efhamha_sound: (v) => v === "on" || v === "off",
 };
 
 function validate(key, value) {
   if (typeof value !== "string") return "القيمة يجب أن تكون نصًا";
   if (value.length > MAX_VALUE) return "القيمة كبيرة جدًا";
   if (SIMPLE[key]) return SIMPLE[key](value) ? null : "قيمة غير صالحة";
-  if (/^efhama_challenge_[\w-]{1,60}$/.test(key)) {
+  if (/^efhamha_challenge_[\w-]{1,60}$/.test(key)) {
     const record = json(value);
     return record
       && Number.isInteger(record.attempts) && record.attempts >= 0 && record.attempts <= 100000
@@ -37,11 +37,11 @@ function validate(key, value) {
       ? null : "سجل تحدٍ غير صالح";
   }
   let m;
-  if ((m = /^efhama_pos_([\w-]{1,20})$/.exec(key))) {
+  if ((m = /^efhamha_pos_([\w-]{1,20})$/.exec(key))) {
     const n = Number(value);
     return Number.isFinite(n) && n >= 0 && n <= 1 ? null : "موضع غير صالح";
   }
-  if ((m = /^efhama_rating_([\w-]{1,20})$/.exec(key))) {
+  if ((m = /^efhamha_rating_([\w-]{1,20})$/.exec(key))) {
     const j = json(value);
     return j && Number.isInteger(j.stars) && j.stars >= 1 && j.stars <= 5 ? null : "تقييم غير صالح";
   }
@@ -55,10 +55,10 @@ module.exports = function stateRoutes(db, content, { requireAuth, requireSubscri
   // كل الدوال تستقبل d = الاتصال الحالي (قاعدة البيانات أو معاملة)
   async function derive(d, uid, key, value, ts) {
     let m;
-    if (key === "efhama_completed" || key === "efhama_started") {
+    if (key === "efhamha_completed" || key === "efhamha_started") {
       const known = new Set(await content.lessonIds());
       const ids = json(value).filter((id) => !known.size || known.has(id));
-      if (key === "efhama_completed") {
+      if (key === "efhamha_completed") {
         await d.run("DELETE FROM lesson_progress WHERE user_id = ? AND status = ?", [uid, "completed"]);
         for (const id of ids) {
           await d.run(
@@ -77,13 +77,13 @@ module.exports = function stateRoutes(db, content, { requireAuth, requireSubscri
           );
         }
       }
-    } else if ((m = /^efhama_rating_([\w-]+)$/.exec(key))) {
+    } else if ((m = /^efhamha_rating_([\w-]+)$/.exec(key))) {
       await d.run(
         `INSERT INTO ratings (user_id, lesson_id, stars, updated_at) VALUES (?, ?, ?, ?)
          ON CONFLICT(user_id, lesson_id) DO UPDATE SET stars = excluded.stars, updated_at = excluded.updated_at`,
         [uid, m[1], json(value).stars, ts]
       );
-    } else if (key === "efhama_quiz_results") {
+    } else if (key === "efhamha_quiz_results") {
       for (const [k, v] of Object.entries(json(value))) {
         if (v && Number.isInteger(v.score) && Number.isInteger(v.total) && v.total > 0 && v.score >= 0 && v.score <= v.total) {
           await d.run(
@@ -92,7 +92,7 @@ module.exports = function stateRoutes(db, content, { requireAuth, requireSubscri
           );
         }
       }
-    } else if ((m = /^efhama_challenge_([\w-]{1,60})$/.exec(key))) {
+    } else if ((m = /^efhamha_challenge_([\w-]{1,60})$/.exec(key))) {
       const record = json(value);
       await d.run(
         `INSERT INTO challenge_progress (user_id, challenge_id, attempts, best_score, completed, updated_at)

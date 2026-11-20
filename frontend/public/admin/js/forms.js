@@ -1,6 +1,6 @@
 (function () {
   'use strict';
-  var E = window.Efhama, esc = E.esc;
+  var E = window.Efhamha, esc = E.esc;
 
   function isEmpty(v) { return v == null || v === '' || (Array.isArray(v) && !v.length); }
   function opts(f, values) { return typeof f.options === 'function' ? f.options(values) : (f.options || []); }
@@ -234,7 +234,7 @@
     };
   };
 
-  E.safeImageUrl = function (u) { return !!window.EfhamaData.safeUrl(u) && /^(https?:\/\/|\/)/i.test(u); };
+  E.safeImageUrl = function (u) { return !!window.EfhamhaData.safeUrl(u) && /^(https?:\/\/|\/)/i.test(u); };
 
   E.formModal = function (o) {
     return new Promise(function (resolve) {

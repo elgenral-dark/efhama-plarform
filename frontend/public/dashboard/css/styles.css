@@ -360,28 +360,28 @@ input:focus, select:focus, textarea:focus { border-color: var(--brand); }
 .add-bar { display: flex; flex-wrap: wrap; gap: 8px; padding: 14px; border: 1px dashed var(--border); border-radius: var(--r-panel); }
 .preview-pane { max-width: 760px; margin-inline: auto; }
 .preview-pane h1 { font-size: 26px; margin-bottom: 8px; }
-.efhama-meta { display: flex; gap: 8px; margin: 8px 0; }
-.efhama-meta span { padding: 2px 10px; border-radius: 999px; background: var(--brand-soft); color: var(--brand-ink); font-size: 13px; }
-.efhama-lesson { line-height: 1.9; }
-.efhama-lesson h2, .efhama-lesson h3, .efhama-lesson h4 { margin: 22px 0 8px; }
-.efhama-lesson pre { background: #14162E; color: #E8EAFF; padding: 14px; border-radius: 10px; overflow-x: auto; font-family: var(--mono); font-size: 14px; line-height: 1.6; margin: 10px 0; }
-.efhama-lesson code { font-family: var(--mono); background: var(--surface-2); padding: 1px 6px; border-radius: 5px; font-size: .92em; }
-.efhama-lesson pre code { background: none; padding: 0; }
-.efhama-figure { margin: 14px 0; text-align: center; }
-.efhama-figure img { max-width: 100%; height: auto; border-radius: 8px; }
-.efhama-figure figcaption, .efhama-codeblock figcaption { color: var(--muted); font-size: 13px; margin-top: 6px; }
-.efhama-table-wrap { overflow-x: auto; margin: 12px 0; }
-.efhama-table { border-collapse: collapse; width: 100%; }
-.efhama-table th, .efhama-table td { border: 1px solid var(--border); padding: 8px 12px; text-align: start; }
-.efhama-table th { background: var(--surface-2); }
-.efhama-note { border-inline-start: 4px solid var(--brand); background: var(--brand-soft); padding: 10px 14px; border-radius: 8px; margin: 12px 0; }
-.efhama-note.is-warning { border-color: var(--warn); background: var(--warn-soft); }
-.efhama-note.is-tip { border-color: var(--success); background: var(--success-soft); }
-.efhama-summary, .efhama-objectives, .efhama-prereq, .efhama-terms { background: var(--surface-2); padding: 4px 18px 12px; border-radius: 10px; margin: 16px 0; }
-.efhama-q { border: 1px solid var(--border); border-radius: 10px; padding: 14px 16px; margin: 12px 0; }
-.efhama-q-meta { display: flex; gap: 8px; color: var(--muted); font-size: 13px; margin-bottom: 6px; }
-.efhama-q-options li.is-correct { color: var(--success); font-weight: 600; }
-.efhama-q-answer pre { white-space: pre-wrap; background: var(--surface-2); color: var(--text); font-family: var(--font); }
+.efhamha-meta { display: flex; gap: 8px; margin: 8px 0; }
+.efhamha-meta span { padding: 2px 10px; border-radius: 999px; background: var(--brand-soft); color: var(--brand-ink); font-size: 13px; }
+.efhamha-lesson { line-height: 1.9; }
+.efhamha-lesson h2, .efhamha-lesson h3, .efhamha-lesson h4 { margin: 22px 0 8px; }
+.efhamha-lesson pre { background: #14162E; color: #E8EAFF; padding: 14px; border-radius: 10px; overflow-x: auto; font-family: var(--mono); font-size: 14px; line-height: 1.6; margin: 10px 0; }
+.efhamha-lesson code { font-family: var(--mono); background: var(--surface-2); padding: 1px 6px; border-radius: 5px; font-size: .92em; }
+.efhamha-lesson pre code { background: none; padding: 0; }
+.efhamha-figure { margin: 14px 0; text-align: center; }
+.efhamha-figure img { max-width: 100%; height: auto; border-radius: 8px; }
+.efhamha-figure figcaption, .efhamha-codeblock figcaption { color: var(--muted); font-size: 13px; margin-top: 6px; }
+.efhamha-table-wrap { overflow-x: auto; margin: 12px 0; }
+.efhamha-table { border-collapse: collapse; width: 100%; }
+.efhamha-table th, .efhamha-table td { border: 1px solid var(--border); padding: 8px 12px; text-align: start; }
+.efhamha-table th { background: var(--surface-2); }
+.efhamha-note { border-inline-start: 4px solid var(--brand); background: var(--brand-soft); padding: 10px 14px; border-radius: 8px; margin: 12px 0; }
+.efhamha-note.is-warning { border-color: var(--warn); background: var(--warn-soft); }
+.efhamha-note.is-tip { border-color: var(--success); background: var(--success-soft); }
+.efhamha-summary, .efhamha-objectives, .efhamha-prereq, .efhamha-terms { background: var(--surface-2); padding: 4px 18px 12px; border-radius: 10px; margin: 16px 0; }
+.efhamha-q { border: 1px solid var(--border); border-radius: 10px; padding: 14px 16px; margin: 12px 0; }
+.efhamha-q-meta { display: flex; gap: 8px; color: var(--muted); font-size: 13px; margin-bottom: 6px; }
+.efhamha-q-options li.is-correct { color: var(--success); font-weight: 600; }
+.efhamha-q-answer pre { white-space: pre-wrap; background: var(--surface-2); color: var(--text); font-family: var(--font); }
 
 /* ---------- assets ---------- */
 .assets-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(190px, 1fr)); gap: 14px; padding: 16px; }
@@ -791,8 +791,8 @@ pre.json { background: var(--surface-2); border: 1px solid var(--border); border
 .ai-panel h3 { display: flex; align-items: center; gap: 8px; margin-bottom: 6px; }
 .ai-panel details { margin-top: 8px; }
 .ai-panel summary { cursor: pointer; font-weight: 500; min-height: 36px; display: flex; align-items: center; }
-.efhama-video video { width: 100%; max-height: 420px; border-radius: 8px; background: #000; }
-.efhama-video .efhama-iframe-wrap {
+.efhamha-video video { width: 100%; max-height: 420px; border-radius: 8px; background: #000; }
+.efhamha-video .efhamha-iframe-wrap {
   position: relative;
   width: 100%;
   padding-top: 56.25%; /* 16:9 Aspect Ratio */
@@ -800,7 +800,7 @@ pre.json { background: var(--surface-2); border: 1px solid var(--border); border
   overflow: hidden;
   background: #000;
 }
-.efhama-video .efhama-iframe-wrap iframe {
+.efhamha-video .efhamha-iframe-wrap iframe {
   position: absolute;
   top: 0;
   left: 0;
@@ -808,7 +808,7 @@ pre.json { background: var(--surface-2); border: 1px solid var(--border); border
   height: 100%;
   border: 0;
 }
-.efhama-lesson .efhama-video figcaption { color: var(--muted); font-size: 13px; text-align: center; margin-top: 6px; }
+.efhamha-lesson .efhamha-video figcaption { color: var(--muted); font-size: 13px; text-align: center; margin-top: 6px; }
 
 /* حقل الفيديو المحسن في محرر الدروس */
 .videofield { display: flex; flex-direction: column; gap: 10px; }

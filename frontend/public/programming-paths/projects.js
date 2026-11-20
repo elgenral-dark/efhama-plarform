@@ -1,7 +1,7 @@
 (() => {
   const root = document.querySelector("[data-projects-root]");
-  const STATE_KEY = "efhama_projects_v1";
-  const PATH_STATE_KEY = "efhama_programming_paths";
+  const STATE_KEY = "efhamha_projects_v1";
+  const PATH_STATE_KEY = "efhamha_programming_paths";
   const RUBRIC_KEYS = new Set(["correctness", "requirements", "organization", "quality", "edgeCases"]);
   const levelNames = { beginner: "مبتدئ", intermediate: "متوسط", advanced: "متقدم" };
   const pathNames = {
@@ -183,7 +183,7 @@
     const python = project.track === "python";
     const sections = [];
     if (python) {
-      sections.push(window.EfhamaPythonPlayground.render({
+      sections.push(window.EfhamhaPythonPlayground.render({
         id: project.id, code: project.starter, title: project.title,
         instructions: project.goal, expectedOutput: project.tests.join(" • "),
         solution: { code: project.solution }
@@ -192,7 +192,7 @@
     if (htmlCss) {
       const starter = typeof project.starter === "string" ? { html: project.starter, css: "" } : project.starter;
       const solution = typeof project.solution === "string" ? { html: project.solution, css: "" } : project.solution;
-      sections.push(window.EfhamaHtmlCssPlayground.render({
+      sections.push(window.EfhamhaHtmlCssPlayground.render({
         id: project.id, title: project.title, instructions: project.goal,
         html: starter.html || "", css: starter.css || "",
         expectedOutput: project.tests.join(" • "),
@@ -202,7 +202,7 @@
     if (js) {
       const starterCode = project.track === "web" ? project.starter.js : project.starter;
       const solutionCode = project.track === "web" ? project.solution.js : project.solution;
-      sections.push(window.EfhamaJavaScriptPlayground.render({
+      sections.push(window.EfhamhaJavaScriptPlayground.render({
         id: `${project.id}-javascript`, title: `${project.title} — JavaScript`,
         instructions: project.goal, code: starterCode || "",
         previewHtml: project.previewHtml || (project.track === "web" ? project.starter.html : ""),
@@ -264,9 +264,9 @@
       <a class="secondary-btn project-back-link" href="projects.html">العودة إلى قائمة المشروعات</a>
     </article>`;
 
-    window.EfhamaHtmlCssPlayground.initialize(root, "projects", project.id);
-    window.EfhamaJavaScriptPlayground.initialize(root, "projects", project.id);
-    window.EfhamaPythonPlayground.initialize(root, "projects", project.id);
+    window.EfhamhaHtmlCssPlayground.initialize(root, "projects", project.id);
+    window.EfhamhaJavaScriptPlayground.initialize(root, "projects", project.id);
+    window.EfhamhaPythonPlayground.initialize(root, "projects", project.id);
 
     root.querySelectorAll("[data-project-phase], [data-project-test], [data-rubric]").forEach((input) => {
       input.addEventListener("change", () => {
@@ -314,9 +314,9 @@
         state[project.id] = current;
       }
       if (saved && firstCompletion) {
-        if (window.EfhamaGamification) {
-          window.EfhamaGamification.recordActivity("project", project.id);
-          window.EfhamaGamification.unlockBadge("project-builder");
+        if (window.EfhamhaGamification) {
+          window.EfhamhaGamification.recordActivity("project", project.id);
+          window.EfhamhaGamification.unlockBadge("project-builder");
         }
       }
       root.querySelector("[data-project-attempts]").textContent = current.attempts;
@@ -357,7 +357,7 @@
         root.innerHTML = '<p class="assessment-error" role="alert">المشروع المطلوب غير موجود في الكتالوج.</p><a class="secondary-btn" href="projects.html">عرض كل المشروعات</a>';
         return;
       }
-      const theme = localStorage.getItem("efhama_theme") || "light";
+      const theme = localStorage.getItem("efhamha_theme") || "light";
       document.body.dataset.theme = theme;
       const themeButton = document.querySelector("[data-theme-toggle]");
       if (themeButton) {
@@ -365,7 +365,7 @@
         themeButton.addEventListener("click", () => {
           const next = document.body.dataset.theme === "dark" ? "light" : "dark";
           document.body.dataset.theme = next;
-          localStorage.setItem("efhama_theme", next);
+          localStorage.setItem("efhamha_theme", next);
           themeButton.textContent = next === "dark" ? "الوضع الفاتح" : "الوضع الداكن";
         });
       }

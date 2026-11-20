@@ -348,7 +348,7 @@ module.exports = function adminRoutes(db, content, { requireAdmin }) {
     const u = await db.get("SELECT * FROM users WHERE id = ?", [id]);
     if (!u) return res.status(404).json({ error: "not_found", message: "المستخدم غير موجود" });
     const { role, active, name, approvalStatus } = req.body || {};
-    if (role !== undefined && !["student", "admin"].includes(role))
+    if (role !== undefined && !["student", "instructor", "admin"].includes(role))
       return res.status(400).json({ error: "invalid_role", message: "دور غير صالح" });
     if (approvalStatus !== undefined && !["pending", "approved", "rejected", "suspended"].includes(approvalStatus))
       return res.status(400).json({ error: "invalid_approval_status", message: "حالة اعتماد غير صالحة" });

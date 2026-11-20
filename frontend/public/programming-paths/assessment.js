@@ -3,7 +3,7 @@
   const params = new URLSearchParams(location.search);
   const slug = params.get("slug") || "python";
   const assessmentId = params.get("assessment") || "";
-  const draftPrefix = `efhama_assessment_draft_${slug}_`;
+  const draftPrefix = `efhamha_assessment_draft_${slug}_`;
   const typeNames = {
     lesson: "اختبار درس",
     unit: "اختبار وحدة",
@@ -303,8 +303,8 @@
       clearInterval(timerInterval);
       session.status = "submitted";
       localStorage.removeItem(`${draftPrefix}${session.sessionId}`);
-      if (response.result?.passed && window.EfhamaGamification) {
-        window.EfhamaGamification.recordActivity("assessment", assessmentId);
+      if (response.result?.passed && window.EfhamhaGamification) {
+        window.EfhamhaGamification.recordActivity("assessment", assessmentId);
       }
       renderResult(response.result, automatic);
     } catch (error) {

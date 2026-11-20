@@ -1,6 +1,6 @@
 (function () {
   'use strict';
-  var E = window.Efhama, esc = E.esc, Store = E.Store, ED = window.EfhamaData, C = E.cell;
+  var E = window.Efhamha, esc = E.esc, Store = E.Store, ED = window.EfhamhaData, C = E.cell;
 
   var BT = {
     heading: ['عنوان', 'edit'], paragraph: ['فقرة', 'book'], list: ['قائمة', 'menu'], image: ['صورة', 'image'], diagram: ['رسم تعليمي', 'layers'],
@@ -124,14 +124,14 @@
       container.innerHTML = '<div class="empty panel">' + E.icon('alert') + '<h3>قراءة فقط</h3><p>ليست لديك صلاحية تعديل الدروس.</p><a class="btn primary" href="#/lessons">العودة</a></div>';
       return;
     }
-    var key = 'efhama:draft:lesson:' + (isNew ? 'new' : id);
+    var key = 'efhamha:draft:lesson:' + (isNew ? 'new' : id);
     var lesson = isNew
       ? { title: '', moduleId: ctx.params.module || '', summary: '', level: 'beginner', duration: 10, status: 'draft', objectives: [], prerequisites: [], blocks: [], terms: [] }
       : E.clone(src);
     if (!isNew) lesson.terms = Store.list('glossary').filter(function (t) { return (t.lessonIds || []).indexOf(id) !== -1; }).map(function (t) { return t.id; });
     var dirty = false, timer = null, metaForm, aiCtx = null;
     if (isNew && ctx.params.ai === '1') {
-      try { aiCtx = JSON.parse(sessionStorage.getItem('efhama:ai-draft') || 'null'); } catch (e) { aiCtx = null; }
+      try { aiCtx = JSON.parse(sessionStorage.getItem('efhamha:ai-draft') || 'null'); } catch (e) { aiCtx = null; }
       if (aiCtx && aiCtx.lesson) { lesson = aiCtx.lesson; aiCtx.selTerms = (aiCtx.ai.terms || []).map(function (_, i) { return i; }); aiCtx.selReview = (aiCtx.ai.review || []).map(function (_, i) { return i; }); dirty = true; }
       else aiCtx = null;
     }
@@ -221,7 +221,7 @@
     container.addEventListener('click', function (e) {
       var t = e.target.closest('button'); if (!t) return;
       if (t.dataset.aiOrig != null) { E.modal({ title: 'النص الأصلي', size: 'lg', body: '<pre class="json" dir="auto" style="white-space:pre-wrap;max-height:60vh;overflow:auto">' + esc(aiCtx.original) + '</pre>', footer: [{ label: 'إغلاق' }] }); return; }
-      if (t.dataset.aiRedo != null) { sessionStorage.setItem('efhama:ai-redo', JSON.stringify(aiCtx.form)); E.Router.go('#/ai'); return; }
+      if (t.dataset.aiRedo != null) { sessionStorage.setItem('efhamha:ai-redo', JSON.stringify(aiCtx.form)); E.Router.go('#/ai'); return; }
       var card = t.closest('.block'), i = card ? +card.dataset.i : -1;
       if (t.dataset.add) {
         var type = t.dataset.add, b = { id: 'b_' + Math.random().toString(36).slice(2, 9), type: type };
@@ -294,7 +294,7 @@
         });
       });
       clearTimeout(timer); localStorage.removeItem(key); dirty = false;
-      if (aiCtx) sessionStorage.removeItem('efhama:ai-draft');
+      if (aiCtx) sessionStorage.removeItem('efhamha:ai-draft');
       E.toast(publish ? 'تم نشر الدرس' : 'تم حفظ الدرس', { type: 'success' });
       if (isNew) E.Router.go('#/lessons/edit/' + newId); else { E.$('[data-dirty]', container).hidden = true; if (publish) metaForm.values.status = 'published'; E.Router.refresh(); }
     }

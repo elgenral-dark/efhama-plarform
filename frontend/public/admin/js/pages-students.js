@@ -1,6 +1,6 @@
 (function () {
   'use strict';
-  var E = window.Efhama, esc = E.esc, Store = E.Store;
+  var E = window.Efhamha, esc = E.esc, Store = E.Store;
   var SUB = [{ v: 'none', l: 'بدون اشتراك' }, { v: 'pending', l: 'معلّق' }, { v: 'active', l: 'نشط' }, { v: 'expired', l: 'منتهي' }];
   var SUBCLS = { none: '', pending: 'warn', active: 'ok', expired: 'err' };
   var CERT = { valid: ['سارية', 'ok'], revoked: ['ملغاة', 'err'], replaced: ['مستبدلة', 'warn'] };
@@ -20,7 +20,28 @@
         { key: 'subStatus', label: 'حالة الاشتراك', type: 'select', options: SUB.filter(function (x) { return x.v !== 'expired'; }), hint: 'تتحول «نشط» تلقائيًا إلى «منتهي» بعد تاريخ النهاية.' },
         { key: 'subStart', label: 'بداية الاشتراك', type: 'text', placeholder: 'YYYY-MM-DD' },
         { key: 'subEnd', label: 'نهاية الاشتراك', type: 'text', placeholder: 'YYYY-MM-DD' },
-        { key: 'pathIds', label: 'المسارات المسجّل بها', type: 'refs', wide: true, options: function () { return paths.map(function (p) { return { v: p.id, l: p.name }; }); } },
+        {
+          key: 'pathIds',
+          label: 'المسارات المسجّل بها',
+          type: 'custom',
+          wide: true,
+          render: function (slot, values, refresh) {
+            var selected = Array.isArray(values.pathIds) ? values.pathIds.slice() : [];
+            slot.innerHTML = '<div class="student-path-options">' +
+              (paths.length ? paths.map(function (p) {
+                return '<label class="student-path-option"><input type="checkbox" value="' + esc(p.id) + '"' +
+                  (selected.indexOf(p.id) !== -1 ? ' checked' : '') + '><span>' + esc(p.name) + '</span></label>';
+              }).join('') : '<div class="student-path-empty">لا توجد مسارات متاحة حاليًا</div>') +
+              '</div>';
+            slot.addEventListener('change', function (e) {
+              if (!e.target.matches('input[type=checkbox]')) return;
+              var next = [];
+              slot.querySelectorAll('input:checked').forEach(function (input) { next.push(input.value); });
+              values.pathIds = next;
+              refresh();
+            });
+          }
+        },
         { key: 'notes', label: 'ملاحظات داخلية', type: 'textarea', wide: true }
       ],
       onSave: function (v) {
@@ -43,16 +64,16 @@
     var res = E.$('[data-res]', c);
     function load() {
       Store.api('GET', '/students?' + new URLSearchParams(st)).then(function (r) {
-        if (!paths.length) { paths = r.paths; E.$('[data-f=pathId]', c).insertAdjacentHTML('beforeend', paths.map(function (p) { return '<option value="' + esc(p.id) + '">' + esc(p.name) + '</option>'; }).join('')); }
+        if (!paths.length) { paths = Array.isArray(r.paths) ? r.paths : (Store.data && Store.data.paths ? Store.data.paths.map(function (p) { return { id: p.id, name: p.name }; }) : []); E.$('[data-f=pathId]', c).insertAdjacentHTML('beforeend', paths.map(function (p) { return '<option value="' + esc(p.id) + '">' + esc(p.name) + '</option>'; }).join('')); }
         if (!r.items.length) { res.innerHTML = '<div class="empty">' + E.icon('users') + '<h3>' + (st.q || st.status || st.sub || st.pathId ? 'لا توجد نتائج' : 'لا يوجد طلاب بعد') + '</h3><p>' + (canEdit && !st.q ? 'أضف طالبًا، أو اربط الموقع لمزامنة الطلاب تلقائيًا (انظر README).' : '') + '</p></div>'; return; }
-        res.innerHTML = '<div class="tbl-wrap"><table class="tbl"><thead><tr><th>الطالب</th><th>الاشتراك</th><th>المسارات</th><th>التقدم</th><th>الدروس</th><th>الاختبارات</th><th>آخر نشاط</th><th></th></tr></thead><tbody>' + r.items.map(function (x) {
-          return '<tr><td data-label="الطالب"><div class="t-main">' + esc(x.name) + (x.status === 'suspended' ? ' <span class="badge err">موقوف</span>' : '') + '</div><div class="t-sub" dir="ltr" style="text-align:start">' + esc(x.email) + '</div>' +
-            (x.phone ? '<div class="t-sub" dir="ltr" style="text-align:start">' + esc(x.phone) + '</div>' : '') + '<div class="t-sub">تسجيل: ' + esc(E.fmtDate(x.createdAt)) + '</div></td>' +
+        res.innerHTML = '<div class="tbl-wrap student-tbl-wrap"><table class="tbl student-tbl"><thead><tr><th>الطالب</th><th>الحالة</th><th>الاشتراك</th><th>التقدم</th><th>الدروس</th><th>الاختبارات</th><th>آخر نشاط</th><th></th></tr></thead><tbody>' + r.items.map(function (x) {
+          var initial = esc((x.name || '?').trim().charAt(0));
+          return '<tr><td data-label="الطالب"><div class="student-identity"><span class="student-avatar" aria-hidden="true">' + initial + '</span><div><div class="t-main">' + esc(x.name) + '</div><div class="t-sub" dir="ltr" style="text-align:start">' + esc(x.email) + '</div><div class="t-sub student-created">تسجيل: ' + esc(E.fmtDate(x.createdAt)) + '</div></div></div></td>' +
+            '<td data-label="الحالة"><span class="badge ' + (x.status === 'suspended' ? 'err' : 'ok') + '">' + (x.status === 'suspended' ? 'موقوف' : 'نشط') + '</span></td>' +
             '<td data-label="الاشتراك">' + subBadge(x.subStatus) + '</td>' +
-            '<td data-label="المسارات">' + (x.paths.length ? esc(x.paths.map(function (p) { return p.name; }).join('، ')) : '<span class="t-sub">—</span>') + '</td>' +
-            '<td data-label="التقدم"><div class="mini-bar" title="' + x.progressPct + '%"><span style="width:' + x.progressPct + '%"></span></div><span class="t-sub">' + x.progressPct + '%</span></td>' +
-            '<td data-label="الدروس">' + E.num(x.completedLessons) + '</td><td data-label="الاختبارات">' + E.num(x.quizzes) + '</td><td data-label="آخر نشاط">' + ago(x.lastActive) + '</td>' +
-            '<td class="acts-cell" data-label=""><a class="btn sm" href="#/students/' + x.id + '">الملف</a></td></tr>';
+            '<td data-label="التقدم"><div class="student-progress"><div class="mini-bar" title="' + x.progressPct + '%"><span style="width:' + x.progressPct + '%"></span></div><b>' + x.progressPct + '%</b></div></td>' +
+            '<td data-label="الدروس"><span class="student-count">' + E.num(x.completedLessons) + '</span></td><td data-label="الاختبارات"><span class="student-count">' + E.num(x.quizzes) + '</span></td><td data-label="آخر نشاط"><span class="student-activity">' + ago(x.lastActive) + '</span></td>' +
+            '<td class="acts-cell" data-label=""><a class="btn sm student-profile-btn" href="#/students/' + x.id + '">' + E.icon('arrow') + ' الملف</a></td></tr>';
         }).join('') + '</tbody></table></div><div class="pager"><span>' + E.num(r.total) + ' طالب</span>' + (r.pages > 1 ? '<div class="btns"><button class="btn sm" data-pg="-1"' + (r.page <= 1 ? ' disabled' : '') + '>السابق</button><span>صفحة ' + r.page + ' / ' + r.pages + '</span><button class="btn sm" data-pg="1"' + (r.page >= r.pages ? ' disabled' : '') + '>التالي</button></div>' : '') + '</div>';
       }).catch(function (e) { res.innerHTML = '<div class="empty">' + E.icon('alert') + '<h3>' + esc(e.message) + '</h3></div>'; });
     }
@@ -81,6 +102,7 @@
       c.innerHTML = '<div class="page-head"><div><a class="btn ghost sm" href="#/students">' + E.icon('arrow') + ' الطلاب</a><h1 style="margin-top:6px">' + esc(s.name) + (s.status === 'suspended' ? ' <span class="badge err">الحساب موقوف</span>' : '') + '</h1><p class="sub" dir="ltr" style="text-align:start">' + esc(s.email) + '</p></div>' +
         '<div class="acts">' + (canEdit ? '<button class="btn" data-edit>' + E.icon('edit') + ' تعديل</button>' : '') +
         (canEdit && canSusp ? '<button class="btn ' + (s.status === 'active' ? '' : 'primary') + '" data-toggle>' + (s.status === 'active' ? 'إيقاف الحساب' : 'تفعيل الحساب') + '</button>' : '') +
+        (canEdit && ['admin','super_admin'].indexOf(E.me.user.role) !== -1 ? '<button class="btn danger" data-delete>' + E.icon('trash') + ' حذف الطالب</button>' : '') +
         (canIssue ? '<button class="btn primary" data-issue>' + E.icon('cert') + ' إصدار شهادة</button>' : '') + '</div></div>' +
         '<div class="grid-2"><section class="panel panel-pad"><h2 style="margin-bottom:10px">البيانات</h2><dl class="kv"><dt>حالة الاشتراك</dt><dd>' + subBadge(s.subStatus) + (s.subEnd ? ' <span class="t-sub">حتى ' + esc(s.subEnd) + '</span>' : '') + '</dd>' +
         (s.phone !== undefined ? '<dt>الهاتف</dt><dd dir="ltr" style="text-align:start">' + esc(s.phone || '—') + '</dd>' : '') +
@@ -114,6 +136,22 @@
           var to = s.status === 'active' ? 'suspended' : 'active';
           E.confirm({ title: to === 'suspended' ? 'إيقاف الحساب' : 'تفعيل الحساب', message: 'هل تريد ' + (to === 'suspended' ? 'إيقاف' : 'تفعيل') + ' حساب «' + s.name + '»؟', confirmText: 'تأكيد', danger: to === 'suspended' }).then(function (ok) {
             if (ok) Store.api('PUT', '/students/' + id, { status: to }).then(function () { E.toast('تم تحديث حالة الحساب', { type: 'success' }); profile(c, id); }).catch(function (er) { E.toast(fe(er), { type: 'error' }); });
+          });
+        }
+        else if (x.delete != null) {
+          E.confirm({
+            title: 'حذف الطالب نهائيًا',
+            message: 'سيتم حذف حساب «' + s.name + '» وجميع اشتراكاته وجلساته وبياناته المرتبطة، ولا يمكن التراجع عن هذا الإجراء.',
+            confirmText: 'حذف الطالب',
+            danger: true
+          }).then(function (ok) {
+            if (!ok) return;
+            Store.api('DELETE', '/students/' + id).then(function () {
+              E.toast('تم حذف الطالب بنجاح', { type: 'success' });
+              E.Router.go('#/students');
+            }).catch(function (er) {
+              E.toast(fe(er), { type: 'error' });
+            });
           });
         }
         else if (x.prev) certModal(x.prev);

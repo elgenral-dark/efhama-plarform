@@ -44,7 +44,10 @@ module.exports = function authRoutes(db, { requireAuth }) {
     message: { error: "too_many_requests", message: "محاولات كثيرة، حاول مرة أخرى بعد قليل" },
   });
 
-  const byEmail = (em) => db.get("SELECT * FROM users WHERE email = ?", [em]);
+  const byEmail = (em) => db.get(
+    "SELECT * FROM users WHERE email = ? COLLATE NOCASE OR name = ? COLLATE NOCASE LIMIT 1",
+    [em, em]
+  );
   const byId = (id) => db.get("SELECT * FROM users WHERE id = ?", [id]);
   const activeSessionByUser = (id) => db.get("SELECT * FROM user_sessions WHERE user_id = ?", [id]);
   const transferLifetimeMs = 2 * 60 * 1000;
@@ -130,7 +133,12 @@ module.exports = function authRoutes(db, { requireAuth }) {
 
   async function issueSessionResponse(res, session, remember) {
     issueToken(res, session.user, remember, session.sessionId);
-    return res.json({ user: (await decorateUser(session.user)).public });
+    const decorated = await decorateUser(session.user);
+    const staffRoles = new Set(["admin", "super_admin", "instructor", "content_manager", "analyst", "support"]);
+    return res.json({
+      user: decorated.public,
+      redirectUrl: staffRoles.has(decorated.public.role) ? "/admin/" : "/index.html",
+    });
   }
 
   r.get("/config", (_req, res) => res.json({ allowRegistration: config.allowRegistration }));
@@ -455,7 +463,44 @@ module.exports = function authRoutes(db, { requireAuth }) {
     res.json({ ok: true });
   });
 
-  r.get("/me", requireAuth, (req, res) => res.json({ user: publicUser(req.user) }));
+  r.get("/me", requireAuth, (req, res) => {
+    const user = publicUser(req.user);
+    const roleLabels = {
+      admin: "مدير المنصة",
+      super_admin: "مدير المنصة",
+      instructor: "مدرس",
+      content_manager: "مدير محتوى",
+      analyst: "محلل بيانات",
+      support: "دعم فني",
+      student: "طالب",
+    };
+    const sections = [
+      "overview", "paths", "modules", "lessons", "questions", "quizzes", "projects",
+      "assets", "glossary", "gamification", "settings", "data", "subscriptions",
+      "ai", "logs", "students", "analytics", "users",
+    ];
+    const perms = { sections: {}, flags: [] };
+    if (["admin", "super_admin"].includes(user.role)) {
+      sections.forEach((section) => { perms.sections[section] = "edit"; });
+    } else if (user.role === "instructor") {
+      ["overview", "paths", "modules", "lessons", "questions", "quizzes", "projects",
+       "assets", "glossary", "gamification", "ai"].forEach((section) => {
+        perms.sections[section] = ["lessons", "questions", "quizzes", "projects", "assets", "glossary", "gamification", "ai"].includes(section) ? "edit" : "view";
+      });
+    } else {
+      ["overview", "analytics"].forEach((section) => {
+        if (section === "overview") perms.sections[section] = "view";
+        if (section === "analytics" && user.role === "analyst") perms.sections[section] = "view";
+      });
+    }
+    const profile = {
+      ...user,
+      roleLabel: roleLabels[user.role] || user.role,
+      displayName: user.name || user.email,
+      perms,
+    };
+    res.json({ user: profile, roleLabel: profile.roleLabel, displayName: profile.displayName, perms });
+  });
 
   r.get("/subscription", async (req, res) => {
     if (!req.user) {
@@ -463,8 +508,15 @@ module.exports = function authRoutes(db, { requireAuth }) {
       return res.json({ user: null, request: null });
     }
     const { public: user, request } = await decorateUser(req.user);
+    let settings = null;
+    if (["admin", "super_admin"].includes(req.user.role)) {
+      const row = await db.get("SELECT json FROM content WHERE kind = ? AND id = ?", ["dashboard", "main"]);
+      if (row) {
+        try { settings = JSON.parse(row.json)?.subscription || null; } catch {}
+      }
+    }
     res.set("Cache-Control", "no-store");
-    res.json({ user, request });
+    res.json({ ...(settings || {}), user, request, settings });
   });
 
   r.post("/subscription-request", requireAuth, limiter, async (req, res) => {

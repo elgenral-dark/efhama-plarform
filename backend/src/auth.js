@@ -109,7 +109,8 @@ function makeAuth(db) {
   };
   const requireSubscription = (req, res, next) => {
     if (!req.user) return res.status(401).json({ error: "unauthorized", message: "يجب تسجيل الدخول" });
-    if (req.user.role === "admin" || req.user.subscriptionStatus === "active") return next();
+    if (["admin", "super_admin", "instructor", "content_manager", "analyst", "support"].includes(req.user.role)
+      || req.user.subscriptionStatus === "active") return next();
     return res.status(403).json({
       error: "subscription_required",
       message: "يلزم وجود اشتراك سنوي نشط للوصول إلى محتوى المنصة.",
@@ -118,7 +119,8 @@ function makeAuth(db) {
   };
   const requireAdmin = (req, res, next) => {
     if (!req.user) return res.status(401).json({ error: "unauthorized", message: "يجب تسجيل الدخول" });
-    if (req.user.role !== "admin") return res.status(403).json({ error: "forbidden", message: "صلاحيات المسؤول مطلوبة" });
+    if (!["admin", "super_admin", "instructor", "content_manager", "analyst", "support"].includes(req.user.role))
+      return res.status(403).json({ error: "forbidden", message: "صلاحيات فريق المنصة مطلوبة" });
     next();
   };
   return { attach, requireAuth, requireSubscription, requireAdmin };

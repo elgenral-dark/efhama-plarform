@@ -4,8 +4,8 @@ const config = require("./config");
 const { openDatabase } = require("./database");
 
 async function main() {
-  const email = String(process.env.EFHAMA_ADMIN_EMAIL || "").trim().toLowerCase();
-  const password = String(process.env.EFHAMA_ADMIN_PASSWORD || "");
+  const email = String(process.env.EFHAMHA_ADMIN_EMAIL || "").trim().toLowerCase();
+  const password = String(process.env.EFHAMHA_ADMIN_PASSWORD || "");
   if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
     throw new Error("البريد الإلكتروني غير صحيح أو لم يصل من أداة الاستعادة.");
   }

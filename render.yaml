@@ -1,7 +1,7 @@
 # Render Blueprint: الباك اند فقط (الواجهة على Vercel)
 services:
   - type: web
-    name: efhama-backend
+    name: efhamha-backend
     runtime: node
     rootDir: backend
     plan: free

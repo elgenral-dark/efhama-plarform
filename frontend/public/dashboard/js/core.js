@@ -1,7 +1,7 @@
 (function () {
   'use strict';
-  var E = (window.Efhama = window.Efhama || {});
-  var ED = window.EfhamaData;
+  var E = (window.Efhamha = window.Efhamha || {});
+  var ED = window.EfhamhaData;
 
   /* ---------- helpers ---------- */
   E.esc = ED.esc;
@@ -227,8 +227,8 @@
     emit: function () { var s = this; this._subs.forEach(function (f) { try { f(s); } catch (e) { console.error(e); } }); },
 
     api: function (method, path, body) {
-      var cfg = window.EFHAMA_CONFIG || {};
-      var opts = { method: method, credentials: 'same-origin', headers: { 'X-Requested-With': 'efhama' } };
+      var cfg = window.EFHAMHA_CONFIG || {};
+      var opts = { method: method, credentials: 'same-origin', headers: { 'X-Requested-With': 'efhamha' } };
       if (body !== undefined) { opts.headers['Content-Type'] = 'application/json'; opts.body = JSON.stringify(body); }
       return fetch((cfg.apiBase || '/api') + path, opts).then(function (r) {
         return r.json().catch(function () { return {}; }).then(function (j) {
@@ -240,12 +240,12 @@
     },
 
     init: function () {
-      var s = this, cfg = window.EFHAMA_CONFIG || {};
+      var s = this, cfg = window.EFHAMHA_CONFIG || {};
       return fetch((cfg.apiBase || '/api') + '/health', { credentials: 'same-origin' })
         .then(function (r) { return r.ok ? r.json() : null; })
         .catch(function () { return null; })
         .then(function (j) {
-          if (j && j.efhama) { s.mode = 'server'; s.authRequired = !!j.authRequired; s.authenticated = !!j.authenticated; }
+          if (j && j.efhamha) { s.mode = 'server'; s.authRequired = !!j.authRequired; s.authenticated = !!j.authenticated; }
           if (s.mode === 'server' && !s.authenticated) return 'login';
           return s.loadMe().then(function () { return s.load(); }).then(function () { return 'ready'; });
         });
@@ -261,7 +261,7 @@
         return s.api('GET', '/data').then(function (d) { s.data = migrate(d); s.dirty = false; s.emit(); });
       }
       return ED.idb.get('data').catch(function () { return null; }).then(function (saved) {
-        s.data = migrate(saved || E.clone(window.EFHAMA_SEED || {}));
+        s.data = migrate(saved || E.clone(window.EFHAMHA_SEED || {}));
         s.dirty = false; s.emit();
       });
     },
@@ -453,7 +453,7 @@
 
   /* ---------- theme ---------- */
   E.theme = {
-    get: function () { return localStorage.getItem('efhama:theme') || 'system'; },
+    get: function () { return localStorage.getItem('efhamha:theme') || 'system'; },
     apply: function () {
       var t = this.get();
       var dark = t === 'dark' || (t === 'system' && window.matchMedia('(prefers-color-scheme: dark)').matches);
@@ -463,7 +463,7 @@
     },
     toggle: function () {
       var dark = document.documentElement.getAttribute('data-theme') === 'dark';
-      localStorage.setItem('efhama:theme', dark ? 'light' : 'dark'); this.apply();
+      localStorage.setItem('efhamha:theme', dark ? 'light' : 'dark'); this.apply();
     }
   };
   if (window.matchMedia) window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', function () { E.theme.apply(); });

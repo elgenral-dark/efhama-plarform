@@ -15,7 +15,7 @@ const { launch, login, api, ok, overflow, report, BASE } = require('./helper');
   const sp = await ctx.newPage(); const tracks = [];
   sp.on('request', r => { if (r.url().includes('/api/track')) tracks.push(r.postData()); });
   await sp.goto(BASE + '/preview/site-preview.html?student=ext-v#/lesson/l_a');
-  await sp.waitForSelector('video[data-efhama-video]');
+  await sp.waitForSelector('video[data-efhamha-video]');
   await sp.waitForFunction(() => document.querySelector('video').readyState >= 2, null, { timeout: 15000 });
   await sp.waitForTimeout(1500);
   const afterOpen = await vstat();

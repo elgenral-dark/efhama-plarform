@@ -1,6 +1,6 @@
 (function () {
   'use strict';
-  var E = window.Efhama, esc = E.esc, Store = E.Store, ED = window.EfhamaData, C = E.cell, CH = E.charts;
+  var E = window.Efhamha, esc = E.esc, Store = E.Store, ED = window.EfhamhaData, C = E.cell, CH = E.charts;
 
   /* =============== نظرة عامة =============== */
   var NO_USAGE = 'لا توجد بيانات استخدام بعد. ستظهر هنا عندما يرسل الموقع تقدّم الطلاب (usage) أو عند استيراد ملف يحتوي عليها.';
@@ -517,8 +517,8 @@
       var server = Store.mode === 'server';
       c.innerHTML = '<div class="page-head"><div><h1>البيانات والنسخ الاحتياطي</h1><p class="sub">تصدير واستيراد بيانات المنصة بصيغة JSON.</p></div></div>' +
         '<div class="stack"><section class="panel panel-pad"><h2>حدود المزامنة</h2><p style="margin-top:8px">' +
-        (server ? 'أنت متصل بالخادم: كل تعديل يُحفظ في ملف <code dir="ltr">data/efhama-data.json</code> على الخادم، ويُنشر للموقع في <code dir="ltr">/public/efhama-data.json</code> (المنشور فقط، بدون المسودات). الخادم يحتفظ بآخر 30 نسخة تلقائيًا.' :
-          'أنت في <b>الوضع المحلي</b>: البيانات محفوظة في هذا المتصفح فقط (IndexedDB) ولا تُزامَن بين الأجهزة، ولا تظهر في الموقع تلقائيًا. للنشر: نزّل «ملف الموقع» وضعه في مشروع Efhama (انظر README)، أو شغّل الخادم المرفق لربط حقيقي ومحمي.') + '</p></section>' +
+        (server ? 'أنت متصل بالخادم: كل تعديل يُحفظ في ملف <code dir="ltr">data/efhamha-data.json</code> على الخادم، ويُنشر للموقع في <code dir="ltr">/public/efhamha-data.json</code> (المنشور فقط، بدون المسودات). الخادم يحتفظ بآخر 30 نسخة تلقائيًا.' :
+          'أنت في <b>الوضع المحلي</b>: البيانات محفوظة في هذا المتصفح فقط (IndexedDB) ولا تُزامَن بين الأجهزة، ولا تظهر في الموقع تلقائيًا. للنشر: نزّل «ملف الموقع» وضعه في مشروع Efhamha (انظر README)، أو شغّل الخادم المرفق لربط حقيقي ومحمي.') + '</p></section>' +
         '<section class="panel panel-pad"><h2>تصدير</h2><div class="acts" style="display:flex;gap:10px;flex-wrap:wrap;margin-top:12px">' +
         '<button class="btn primary" data-x="full">' + E.icon('download') + ' تنزيل نسخة احتياطية كاملة</button><button class="btn" data-x="site">' + E.icon('download') + ' تنزيل ملف الموقع (المنشور فقط)</button></div>' +
         '<p class="hint" style="margin-top:8px">النسخة الكاملة تشمل المسودات والإعدادات وبيانات الاستخدام. ملف الموقع هو ما يراه الطلاب.</p></section>' +
@@ -544,10 +544,10 @@
       c.addEventListener('click', function (e) {
         var b = e.target.closest('button'); if (!b) return;
         var dx = b.dataset;
-        if (dx.x === 'full') { E.download('efhama-backup-' + stamp() + '.json', Store.data); E.toast('تم تنزيل النسخة الاحتياطية', { type: 'success' }); }
-        else if (dx.x === 'site') E.download('efhama-data.json', ED.publicView(Store.data));
+        if (dx.x === 'full') { E.download('efhamha-backup-' + stamp() + '.json', Store.data); E.toast('تم تنزيل النسخة الاحتياطية', { type: 'success' }); }
+        else if (dx.x === 'site') E.download('efhamha-data.json', ED.publicView(Store.data));
         else if (dx.x === 'imp') file.click();
-        else if (dx.d) ED.idb.get(dx.d).then(function (v) { E.download('efhama-backup-' + stamp() + '.json', v.data); });
+        else if (dx.d) ED.idb.get(dx.d).then(function (v) { E.download('efhamha-backup-' + stamp() + '.json', v.data); });
         else if (dx.k) E.confirm({ title: 'حذف النسخة', message: 'سيتم حذف هذه النسخة المحفوظة نهائيًا.', confirmText: 'حذف', danger: true }).then(function (ok) { if (ok) ED.idb.del(dx.k).then(bk); });
         else if (dx.r) ED.idb.get(dx.r).then(function (v) {
           E.confirm({ title: 'استعادة النسخة', message: 'سيتم استبدال بيانات المنصة الحالية بهذه النسخة. تُحفظ نسخة من الوضع الحالي قبل ذلك.', confirmText: 'استعادة', danger: true }).then(function (ok) {

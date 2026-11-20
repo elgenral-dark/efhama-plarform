@@ -1,6 +1,6 @@
 (function () {
   'use strict';
-  var E = window.Efhama, esc = E.esc, Store = E.Store;
+  var E = window.Efhamha, esc = E.esc, Store = E.Store;
 
   function fieldErr(e) { return e.fields ? Object.keys(e.fields).map(function (k) { return e.fields[k]; }).join(' — ') : e.message; }
 

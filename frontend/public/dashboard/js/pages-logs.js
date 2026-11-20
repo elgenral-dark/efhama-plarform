@@ -1,6 +1,6 @@
 (function () {
   'use strict';
-  var E = window.Efhama, esc = E.esc, Store = E.Store;
+  var E = window.Efhamha, esc = E.esc, Store = E.Store;
   var AL = { create: 'إضافة', update: 'تعديل', delete: 'حذف', reorder: 'إعادة ترتيب', publish: 'نشر', unpublish: 'إلغاء نشر', login: 'تسجيل دخول', logout: 'تسجيل خروج', login_failed: 'فشل تسجيل دخول',
     permissions: 'تغيير صلاحيات', suspend: 'إيقاف حساب', activate: 'تفعيل حساب', issue: 'إصدار شهادة', reissue: 'إعادة إصدار شهادة', revoke: 'إلغاء شهادة', upload: 'رفع ملف', ai_organize: 'تنظيم بالذكاء الاصطناعي' };
   var CLS = { delete: 'err', revoke: 'err', suspend: 'err', login_failed: 'err', create: 'ok', publish: 'ok', issue: 'ok', activate: 'ok', permissions: 'warn', unpublish: 'warn' };

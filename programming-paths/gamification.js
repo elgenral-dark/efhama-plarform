@@ -2,10 +2,10 @@
   const api = factory();
   if (typeof module === "object" && module.exports) module.exports = api;
   if (root) {
-    const config = root.EfhamaGamificationConfig;
+    const config = root.EfhamhaGamificationConfig;
     const notifications = [];
     let notificationTimer = null;
-    root.EfhamaGamification = api.create(root.localStorage, config, (message, kind) => {
+    root.EfhamhaGamification = api.create(root.localStorage, config, (message, kind) => {
       if (!root.document?.body) return;
       let toast = root.document.querySelector("[data-gamification-toast]");
       if (!toast) {
@@ -37,7 +37,7 @@
     });
   }
 })(typeof window === "undefined" ? null : window, () => {
-  const STORAGE_KEY = "efhama_gamification_v1";
+  const STORAGE_KEY = "efhamha_gamification_v1";
   const DEFAULT_CONFIG = {
     xp: { lesson: 10, challenge: 25, assessment: 40, project: 60, unit: 25 },
     levels: [
@@ -106,7 +106,7 @@
       try {
         storage.setItem(STORAGE_KEY, JSON.stringify(state));
         if (typeof window !== "undefined" && typeof window.dispatchEvent === "function" && typeof CustomEvent === "function") {
-          window.dispatchEvent(new CustomEvent("efhama-gamification-update"));
+          window.dispatchEvent(new CustomEvent("efhamha-gamification-update"));
         }
         return true;
       } catch (error) {

@@ -70,10 +70,10 @@ self.addEventListener("message", async (event) => {
   let result;
   try {
     globals = pyodide.toPy({});
-    globals.set("_efhama_source", String(data.code || ""));
+    globals.set("_efhamha_source", String(data.code || ""));
     result = await pyodide.runPythonAsync([
       "import contextlib, io, traceback",
-      "class _EfhamaWriter(io.StringIO):",
+      "class _EfhamhaWriter(io.StringIO):",
       "    def __init__(self):",
       "        super().__init__()",
       "        self.size = 0",
@@ -87,22 +87,22 @@ self.addEventListener("message", async (event) => {
       "        if len(text) > remaining:",
       "            self.truncated = True",
       "        return len(text)",
-      "_efhama_stdout = _EfhamaWriter()",
-      "_efhama_stderr = _EfhamaWriter()",
-      "_efhama_error = None",
+      "_efhamha_stdout = _EfhamhaWriter()",
+      "_efhamha_stderr = _EfhamhaWriter()",
+      "_efhamha_error = None",
       "try:",
-      "    with contextlib.redirect_stdout(_efhama_stdout), contextlib.redirect_stderr(_efhama_stderr):",
-      "        exec(compile(_efhama_source, '<student>', 'exec'), {})",
-      "except BaseException as _efhama_exception:",
-      "    _efhama_error = {",
-      "        'name': type(_efhama_exception).__name__,",
-      "        'message': ''.join(traceback.format_exception(_efhama_exception))[-12000:]",
+      "    with contextlib.redirect_stdout(_efhamha_stdout), contextlib.redirect_stderr(_efhamha_stderr):",
+      "        exec(compile(_efhamha_source, '<student>', 'exec'), {})",
+      "except BaseException as _efhamha_exception:",
+      "    _efhamha_error = {",
+      "        'name': type(_efhamha_exception).__name__,",
+      "        'message': ''.join(traceback.format_exception(_efhamha_exception))[-12000:]",
       "    }",
       "{",
-      "    'stdout': _efhama_stdout.getvalue(),",
-      "    'stderr': _efhama_stderr.getvalue(),",
-      "    'error': _efhama_error,",
-      "    'truncated': _efhama_stdout.truncated or _efhama_stderr.truncated",
+      "    'stdout': _efhamha_stdout.getvalue(),",
+      "    'stderr': _efhamha_stderr.getvalue(),",
+      "    'error': _efhamha_error,",
+      "    'truncated': _efhamha_stdout.truncated or _efhamha_stderr.truncated",
       "}"
     ].join("\\n"), { globals });
     const output = result.toJs({ dict_converter: Object.fromEntries });
@@ -122,7 +122,7 @@ self.addEventListener("message", async (event) => {
   }
 
   function iframeRunner(token, assetsUrl, workerRuntimeSource) {
-    const channel = 'efhama-python-playground';
+    const channel = 'efhamha-python-playground';
     let worker = null;
     let workerUrl = '';
     let executionTimer = 0;
@@ -305,7 +305,7 @@ self.addEventListener("message", async (event) => {
       const retryButton = playground.querySelector('[data-python-runtime-retry]');
       const token = makeToken();
       const defaults = typeof config.code === 'string' ? config.code : '';
-      const key = `efhama_python_playground_${slug}_${lessonId}_${config.id || 'default'}`;
+      const key = `efhamha_python_playground_${slug}_${lessonId}_${config.id || 'default'}`;
       let runnerReady = false;
       let pendingRun = false;
       let isRunning = false;
@@ -315,7 +315,7 @@ self.addEventListener("message", async (event) => {
         status.dataset.state = state;
       };
       const updateEditor = () => {
-        highlighted.innerHTML = window.EfhamaCodeBlocks.highlight(editor.value, 'python') || '&#8203;';
+        highlighted.innerHTML = window.EfhamhaCodeBlocks.highlight(editor.value, 'python') || '&#8203;';
         gutter.textContent = Array.from({ length: editor.value.split('\n').length }, (_, index) => index + 1).join('\n');
         stage.classList.toggle('has-long-lines', editor.value.split('\n').some((line) => line.length > 100));
       };
@@ -351,7 +351,7 @@ self.addEventListener("message", async (event) => {
         }
       };
       const sendToRunner = (command, details = {}) => {
-        runner.contentWindow?.postMessage({ channel: 'efhama-python-playground', token, command, ...details }, '*');
+        runner.contentWindow?.postMessage({ channel: 'efhamha-python-playground', token, command, ...details }, '*');
       };
       const run = () => {
         if (editor.value.length > MAX_CODE_LENGTH) {
@@ -409,7 +409,7 @@ self.addEventListener("message", async (event) => {
       runner.src = runnerUrl.href;
 
       window.addEventListener('message', (event) => {
-        if (event.source !== runner.contentWindow || event.data?.channel !== 'efhama-python-playground' || event.data?.token !== token) return;
+        if (event.source !== runner.contentWindow || event.data?.channel !== 'efhamha-python-playground' || event.data?.token !== token) return;
         const data = event.data;
         if (data.type === 'loading') {
           runnerReady = false;
@@ -538,5 +538,5 @@ self.addEventListener("message", async (event) => {
     });
   };
 
-  window.EfhamaPythonPlayground = Object.freeze({ render, initialize });
+  window.EfhamhaPythonPlayground = Object.freeze({ render, initialize });
 })();

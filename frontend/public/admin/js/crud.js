@@ -1,6 +1,6 @@
 (function () {
   'use strict';
-  var E = window.Efhama, esc = E.esc, Store = E.Store;
+  var E = window.Efhamha, esc = E.esc, Store = E.Store;
 
   function normalizeOrder(arr, groupKey) {
     var groups = {};
@@ -40,8 +40,10 @@
           '<div class="toolbar">' +
           '<div class="search">' + E.icon('search') + '<input type="search" placeholder="بحث في ' + esc(cfg.title) + '…" aria-label="بحث" value="' + esc(st.q) + '"></div>' +
           filters.map(function (f) {
+            var filterOptions = typeof f.options === 'function' ? f.options() : f.options;
+            if (!Array.isArray(filterOptions)) filterOptions = [];
             return '<select data-f="' + f.key + '" aria-label="' + esc(f.label) + '"><option value="">' + esc(f.label) + '</option>' +
-              f.options().map(function (o) { return '<option value="' + esc(o.v) + '"' + (st.filters[f.key] === o.v ? ' selected' : '') + '>' + esc(o.l) + '</option>'; }).join('') + '</select>';
+              filterOptions.map(function (o) { return '<option value="' + esc(o.v) + '"' + (st.filters[f.key] === o.v ? ' selected' : '') + '>' + esc(o.l) + '</option>'; }).join('') + '</select>';
           }).join('') +
           (emb && !ro ? '<button class="btn primary" data-act="add" style="margin-inline-start:auto">' + E.icon('plus') + ' إضافة ' + esc(cfg.singular) + '</button>' : '') +
           '</div><div class="panel" data-res></div>';
@@ -85,13 +87,13 @@
           }
           var pages = Math.max(1, Math.ceil(list.length / size));
           if (st.page > pages) st.page = pages;
-          var slice = list.slice((st.page - 1) * size, st.page * size);
+          var slice = Array.isArray(list) ? list.slice((st.page - 1) * size, st.page * size) : [];
           var byOrder = st.sort.key === 'order';
           var head = cfg.columns.map(function (c) {
             var on = st.sort.key === c.key;
             return '<th scope="col"' + (on ? ' aria-sort="' + (st.sort.dir > 0 ? 'ascending' : 'descending') + '"' : '') + '>' +
               (c.sort || c.key === 'order' ? '<button type="button" data-sort="' + c.key + '">' + esc(c.label) + (on ? E.icon(st.sort.dir > 0 ? 'up' : 'down') : '') + '</button>' : esc(c.label)) + '</th>';
-          }).join('') + '<th scope="col"><span class="sr-only">إجراءات</span></th>';
+          }).join('') + '<th scope="col" class="operations-head">العمليات</th>';
           var rows = slice.map(function (x) {
             var g = byOrder ? groupOf(x).slice().sort(function (a, b) { return (a.order || 0) - (b.order || 0); }) : [];
             var gi = g.findIndex(function (y) { return y.id === x.id; });
@@ -107,7 +109,7 @@
               '<button type="button" class="icon-btn danger" data-del="' + x.id + '" aria-label="حذف" title="حذف">' + E.icon('trash') + '</button>');
             return '<tr data-id="' + x.id + '">' + cells + '<td class="acts-cell" data-label=""><div class="acts">' + acts + '</div></td></tr>';
           }).join('');
-          res.innerHTML = '<div class="tbl-wrap"><table class="tbl"><thead><tr>' + head + '</tr></thead><tbody>' + rows + '</tbody></table></div>' +
+          res.innerHTML = '<div class="tbl-wrap crud-table-wrap crud-table-' + esc(section) + '"><table class="tbl crud-table"><thead><tr>' + head + '</tr></thead><tbody>' + rows + '</tbody></table></div>' +
             '<div class="pager"><span>' + E.num(list.length) + ' ' + esc(list.length === 1 ? cfg.singular : cfg.title) + (list.length !== total ? ' من ' + E.num(total) : '') + '</span>' +
             (pages > 1 ? '<div class="btns"><button class="btn sm" data-pg="-1"' + (st.page <= 1 ? ' disabled' : '') + '>السابق</button><span>صفحة ' + st.page + ' / ' + pages + '</span><button class="btn sm" data-pg="1"' + (st.page >= pages ? ' disabled' : '') + '>التالي</button></div>' : '') + '</div>';
         }

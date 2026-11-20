@@ -1,6 +1,6 @@
-var AUTH_KEY = "efhama_auth";
-var USER_KEY = "efhama_user";
-var SESSION_USER_KEY = "efhama_session_user";
+var AUTH_KEY = "efhamha_auth";
+var USER_KEY = "efhamha_user";
+var SESSION_USER_KEY = "efhamha_session_user";
 
 var Sync = {
   pull: function () { return Promise.resolve(false); },
@@ -9,7 +9,7 @@ var Sync = {
     var rm = [];
     for (var i = 0; i < localStorage.length; i++) {
       var key = localStorage.key(i);
-      if (/^efhama_(completed|started|last_lesson|quiz_results|quiz_best|mistakes)$/.test(key)) rm.push(key);
+      if (/^efhamha_(completed|started|last_lesson|quiz_results|quiz_best|mistakes)$/.test(key)) rm.push(key);
     }
     rm.forEach(function (key) { localStorage.removeItem(key); });
   },
@@ -193,7 +193,8 @@ var Auth = {
         return null;
       }
 
-      var hasSub = user.role === "admin" || user.subscriptionStatus === "active";
+      var hasSub = ["admin","super_admin","instructor","content_manager","analyst","support"].includes(user.role)
+        || user.subscriptionStatus === "active";
       if (!hasSub && !isOpen && !["admin", "super_admin", "instructor"].includes(user.role)) {
         window.location.replace("/register.html");
         return null;

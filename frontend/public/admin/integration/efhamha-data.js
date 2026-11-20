@@ -1,5 +1,5 @@
 /*
- * Efhama data layer — مصدر الحقيقة الوحيد لشكل البيانات وطريقة عرضها.
+ * Efhamha data layer — مصدر الحقيقة الوحيد لشكل البيانات وطريقة عرضها.
  * يُستخدم في 3 أماكن بنفس الكود:
  *   1) لوحة التحكم (المعاينة)
  *   2) الموقع التعليمي (قراءة الملف المنشور وعرضه)
@@ -8,7 +8,7 @@
 (function (root, factory) {
   var api = factory();
   if (typeof module !== 'undefined' && module.exports) module.exports = api;
-  else root.EfhamaData = api;
+  else root.EfhamhaData = api;
 })(typeof self !== 'undefined' ? self : this, function () {
   'use strict';
 
@@ -69,9 +69,9 @@
     var text = alt || (a && (a.alt || a.name)) || '';
     var dark = a && a.darkSrc ? safeUrl(a.darkSrc) : '';
     var c = cls || '';
-    var out = '<img class="' + esc(c) + (dark ? ' efhama-img-light' : '') + '" src="' + esc(light) +
+    var out = '<img class="' + esc(c) + (dark ? ' efhamha-img-light' : '') + '" src="' + esc(light) +
       '" alt="' + esc(text) + '" loading="lazy">';
-    if (dark) out += '<img class="' + esc(c) + ' efhama-img-dark" src="' + esc(dark) + '" alt="' + esc(text) + '" loading="lazy">';
+    if (dark) out += '<img class="' + esc(c) + ' efhamha-img-dark" src="' + esc(dark) + '" alt="' + esc(text) + '" loading="lazy">';
     return out;
   }
 
@@ -85,32 +85,32 @@
     opts = opts || {};
     if (!q) return '';
     var showAns = opts.showAnswer !== false;
-    var h = '<div class="efhama-q" data-type="' + esc(q.type) + '">';
-    h += '<div class="efhama-q-head">';
-    h += '<div class="efhama-q-meta"><span class="efhama-q-type-badge">' + esc(QTYPES[q.type] || q.type) + '</span>';
-    if (q.points) h += '<span class="efhama-q-pts"><svg viewBox="0 0 24 24" fill="currentColor" width="13" height="13"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg> ' + esc(q.points) + ' نقطة</span>';
+    var h = '<div class="efhamha-q" data-type="' + esc(q.type) + '">';
+    h += '<div class="efhamha-q-head">';
+    h += '<div class="efhamha-q-meta"><span class="efhamha-q-type-badge">' + esc(QTYPES[q.type] || q.type) + '</span>';
+    if (q.points) h += '<span class="efhamha-q-pts"><svg viewBox="0 0 24 24" fill="currentColor" width="13" height="13"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg> ' + esc(q.points) + ' نقطة</span>';
     h += '</div>';
     h += '</div>';
-    h += '<p class="efhama-q-text">' + inline(q.text) + '</p>';
-    if (q.code) h += '<pre class="efhama-code" dir="ltr"><code>' + esc(q.code) + '</code></pre>';
+    h += '<p class="efhamha-q-text">' + inline(q.text) + '</p>';
+    if (q.code) h += '<pre class="efhamha-code" dir="ltr"><code>' + esc(q.code) + '</code></pre>';
     if (q.type === 'mcq') {
-      h += '<ol class="efhama-q-options">';
+      h += '<ol class="efhamha-q-options">';
       (q.options || []).forEach(function (o, i) {
         var ok = showAns && Number(q.answer) === i + 1;
         var letter = ['أ', 'ب', 'ج', 'د', 'هـ', 'و'][i] || (i + 1);
-        h += '<li' + (ok ? ' class="is-correct"' : '') + '><span class="opt-idx">' + letter + '</span><span class="opt-text">' + inline(o) + '</span>' + (ok ? ' <span class="efhama-tick">✓ إجابة صحيحة</span>' : '') + '</li>';
+        h += '<li' + (ok ? ' class="is-correct"' : '') + '><span class="opt-idx">' + letter + '</span><span class="opt-text">' + inline(o) + '</span>' + (ok ? ' <span class="efhamha-tick">✓ إجابة صحيحة</span>' : '') + '</li>';
       });
       h += '</ol>';
     } else if (q.type === 'tf') {
       var ans = String(q.answer);
-      h += '<ul class="efhama-q-options is-tf"><li' + (showAns && ans === 'true' ? ' class="is-correct"' : '') + '><span class="opt-text">صح</span>' + (showAns && ans === 'true' ? ' <span class="efhama-tick">✓</span>' : '') + '</li><li' +
-        (showAns && ans === 'false' ? ' class="is-correct"' : '') + '><span class="opt-text">خطأ</span>' + (showAns && ans === 'false' ? ' <span class="efhama-tick">✓</span>' : '') + '</li></ul>';
+      h += '<ul class="efhamha-q-options is-tf"><li' + (showAns && ans === 'true' ? ' class="is-correct"' : '') + '><span class="opt-text">صح</span>' + (showAns && ans === 'true' ? ' <span class="efhamha-tick">✓</span>' : '') + '</li><li' +
+        (showAns && ans === 'false' ? ' class="is-correct"' : '') + '><span class="opt-text">خطأ</span>' + (showAns && ans === 'false' ? ' <span class="efhamha-tick">✓</span>' : '') + '</li></ul>';
     } else if (showAns && q.answer) {
-      h += '<div class="efhama-q-answer"><strong>الإجابة النموذجية:</strong><pre dir="auto">' + esc(q.answer) + '</pre></div>';
+      h += '<div class="efhamha-q-answer"><strong>الإجابة النموذجية:</strong><pre dir="auto">' + esc(q.answer) + '</pre></div>';
     }
-    if (showAns && q.explanation) h += '<div class="efhama-q-explain"><strong>الشرح والتوضيح:</strong><p>' + inline(q.explanation) + '</p></div>';
+    if (showAns && q.explanation) h += '<div class="efhamha-q-explain"><strong>الشرح والتوضيح:</strong><p>' + inline(q.explanation) + '</p></div>';
     if (opts.showHints && q.hints && q.hints.length) {
-      h += '<details class="efhama-q-hints"><summary>💡 تلميحات الحل</summary><ul>' +
+      h += '<details class="efhamha-q-hints"><summary>💡 تلميحات الحل</summary><ul>' +
         q.hints.map(function (x) { return '<li>' + inline(x) + '</li>'; }).join('') + '</ul></details>';
     }
     return h + '</div>';
@@ -120,7 +120,7 @@
     switch (b.type) {
       case 'heading': {
         var lv = Math.min(4, Math.max(2, Number(b.level) || 2));
-        return '<h' + lv + ' class="efhama-heading">' + inline(b.text) + '</h' + lv + '>';
+        return '<h' + lv + ' class="efhamha-heading">' + inline(b.text) + '</h' + lv + '>';
       }
       case 'paragraph':
         return String(b.text || '').split(/\n{2,}/).map(function (p) { return '<p>' + inline(p).replace(/\n/g, '<br>') + '</p>'; }).join('');
@@ -130,20 +130,20 @@
       }
       case 'image':
       case 'diagram': {
-        var img = imgTag(data, b.image, b.alt, 'efhama-img');
+        var img = imgTag(data, b.image, b.alt, 'efhamha-img');
         if (!img) return '';
-        return '<figure class="efhama-figure' + (b.type === 'diagram' ? ' is-diagram' : '') + '">' +
-          (b.type === 'diagram' ? '<div class="efhama-fig-badge">📊 رسم توضيحي</div>' : '') +
+        return '<figure class="efhamha-figure' + (b.type === 'diagram' ? ' is-diagram' : '') + '">' +
+          (b.type === 'diagram' ? '<div class="efhamha-fig-badge">📊 رسم توضيحي</div>' : '') +
           img +
           (b.caption ? '<figcaption>' + inline(b.caption) + '</figcaption>' : '') + '</figure>';
       }
       case 'code': {
         var lang = esc(b.lang || 'code');
-        return '<figure class="efhama-codeblock">' +
-          '<div class="efhama-code-head">' +
-            '<div class="efhama-code-dots"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span></div>' +
-            '<span class="efhama-code-lang">' + lang + '</span>' +
-            '<button type="button" class="efhama-code-copy" onclick="var c=this.closest(\'.efhama-codeblock\').querySelector(\'code\');if(c&&navigator.clipboard){navigator.clipboard.writeText(c.innerText);this.classList.add(\'copied\');var s=this;setTimeout(function(){s.classList.remove(\'copied\');},2000);}" title="نسخ الكود">' +
+        return '<figure class="efhamha-codeblock">' +
+          '<div class="efhamha-code-head">' +
+            '<div class="efhamha-code-dots"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span></div>' +
+            '<span class="efhamha-code-lang">' + lang + '</span>' +
+            '<button type="button" class="efhamha-code-copy" onclick="var c=this.closest(\'.efhamha-codeblock\').querySelector(\'code\');if(c&&navigator.clipboard){navigator.clipboard.writeText(c.innerText);this.classList.add(\'copied\');var s=this;setTimeout(function(){s.classList.remove(\'copied\');},2000);}" title="نسخ الكود">' +
               '<span class="copy-lbl">نسخ الكود</span><span class="copied-lbl">تم النسخ ✓</span>' +
             '</button>' +
           '</div>' +
@@ -155,7 +155,7 @@
         var rows = parseTable(b.text);
         if (!rows.length) return '';
         var head = rows[0], body = rows.slice(1);
-        return '<div class="efhama-table-wrap"><table class="efhama-table"><thead><tr>' +
+        return '<div class="efhamha-table-wrap"><table class="efhamha-table"><thead><tr>' +
           head.map(function (c) { return '<th>' + inline(c) + '</th>'; }).join('') + '</tr></thead><tbody>' +
           body.map(function (r) { return '<tr>' + r.map(function (c) { return '<td>' + inline(c) + '</td>'; }).join('') + '</tr>'; }).join('') +
           '</tbody></table></div>';
@@ -163,16 +163,16 @@
       case 'note': {
         var tone = esc(b.tone || 'info');
         var icons = {
-          info: '<svg class="efhama-note-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg>',
-          tip: '<svg class="efhama-note-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18h6M10 22h4M12 2a7 7 0 0 0-4 12.7V17h8v-2.3A7 7 0 0 0 12 2z"/></svg>',
-          warning: '<svg class="efhama-note-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z"/><path d="M12 9v4M12 17h.01"/></svg>'
+          info: '<svg class="efhamha-note-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg>',
+          tip: '<svg class="efhamha-note-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18h6M10 22h4M12 2a7 7 0 0 0-4 12.7V17h8v-2.3A7 7 0 0 0 12 2z"/></svg>',
+          warning: '<svg class="efhamha-note-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z"/><path d="M12 9v4M12 17h.01"/></svg>'
         };
         var toneLabels = { info: 'ملاحظة', tip: 'فكرة مفيدة', warning: 'تنبيه' };
         var ico = icons[tone] || icons.info;
         var ttl = b.title ? inline(b.title) : (toneLabels[tone] || 'ملاحظة');
-        return '<aside class="efhama-note is-' + tone + '">' +
-          '<div class="efhama-note-head">' + ico + '<strong>' + ttl + '</strong></div>' +
-          '<div class="efhama-note-content"><p>' + inline(b.text) + '</p></div>' +
+        return '<aside class="efhamha-note is-' + tone + '">' +
+          '<div class="efhamha-note-head">' + ico + '<strong>' + ttl + '</strong></div>' +
+          '<div class="efhamha-note-content"><p>' + inline(b.text) + '</p></div>' +
         '</aside>';
       }
       case 'video': {
@@ -182,13 +182,13 @@
         var ytMatch = /(?:youtube\.com\/(?:watch\?v=|embed\/|shorts\/)|youtu\.be\/)([a-zA-Z0-9_-]{11})/i.exec(vs);
         var gdriveMatch = /drive\.google\.com\/file\/d\/([a-zA-Z0-9_-]+)/i.exec(vs);
         if (ytMatch) {
-          vHtml = '<div class="efhama-iframe-wrap"><iframe src="https://www.youtube.com/embed/' + esc(ytMatch[1]) + '" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen title="' + esc(b.title || 'فيديو يوتيوب') + '"></iframe></div>';
+          vHtml = '<div class="efhamha-iframe-wrap"><iframe src="https://www.youtube.com/embed/' + esc(ytMatch[1]) + '" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen title="' + esc(b.title || 'فيديو يوتيوب') + '"></iframe></div>';
         } else if (gdriveMatch) {
-          vHtml = '<div class="efhama-iframe-wrap"><iframe src="https://drive.google.com/file/d/' + esc(gdriveMatch[1]) + '/preview" allow="autoplay" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen title="' + esc(b.title || 'فيديو جوجل درايف') + '"></iframe></div>';
+          vHtml = '<div class="efhamha-iframe-wrap"><iframe src="https://drive.google.com/file/d/' + esc(gdriveMatch[1]) + '/preview" allow="autoplay" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen title="' + esc(b.title || 'فيديو جوجل درايف') + '"></iframe></div>';
         } else {
-          vHtml = '<video controls preload="metadata" playsinline data-efhama-video="' + esc(b.id) + '" data-efhama-lesson="' + esc(b.lessonId || '') + '" src="' + esc(vs) + '"></video>';
+          vHtml = '<video controls preload="metadata" playsinline data-efhamha-video="' + esc(b.id) + '" data-efhamha-lesson="' + esc(b.lessonId || '') + '" src="' + esc(vs) + '"></video>';
         }
-        return '<figure class="efhama-video">' + vHtml +
+        return '<figure class="efhamha-video">' + vHtml +
           (b.title ? '<figcaption>' + inline(b.title) + '</figcaption>' : '') + '</figure>';
       }
       case 'question': {
@@ -196,16 +196,16 @@
         return qs ? renderQuestion(data, qs, { showAnswer: true, showHints: true }) : '';
       }
       case 'summary':
-        return '<section class="efhama-summary">' +
-          '<div class="efhama-sec-head">' +
-            '<span class="efhama-sec-badge efhama-badge-summary">' +
+        return '<section class="efhamha-summary">' +
+          '<div class="efhamha-sec-head">' +
+            '<span class="efhamha-sec-badge efhamha-badge-summary">' +
               '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>' +
             '</span>' +
             '<h3>خلاصة الدرس وأهم النقاط</h3>' +
           '</div>' +
-          '<ul class="efhama-summary-list">' +
+          '<ul class="efhamha-summary-list">' +
             (b.items || []).map(function (i) {
-              return '<li><span class="efhama-summary-star">✦</span><span>' + inline(i) + '</span></li>';
+              return '<li><span class="efhamha-summary-star">✦</span><span>' + inline(i) + '</span></li>';
             }).join('') +
           '</ul>' +
         '</section>';
@@ -218,46 +218,46 @@
     var mod = lesson.moduleId && (data.modules || []).filter(function (m) { return m.id === lesson.moduleId; })[0];
     var path = mod && mod.pathId && (data.paths || []).filter(function (p) { return p.id === mod.pathId; })[0];
 
-    var h = '<article class="efhama-lesson">';
-    h += '<header class="efhama-header">';
+    var h = '<article class="efhamha-lesson">';
+    h += '<header class="efhamha-header">';
     if (path || mod) {
-      h += '<nav class="efhama-breadcrumb" aria-label="مسار الدرس">';
-      if (path) h += '<span class="efhama-crumb"><span class="efhama-crumb-ico">🧭</span> ' + esc(path.name) + '</span>';
-      if (path && mod) h += '<span class="efhama-crumb-sep">›</span>';
-      if (mod) h += '<span class="efhama-crumb"><span class="efhama-crumb-ico">📦</span> ' + esc(mod.title) + '</span>';
+      h += '<nav class="efhamha-breadcrumb" aria-label="مسار الدرس">';
+      if (path) h += '<span class="efhamha-crumb"><span class="efhamha-crumb-ico">🧭</span> ' + esc(path.name) + '</span>';
+      if (path && mod) h += '<span class="efhamha-crumb-sep">›</span>';
+      if (mod) h += '<span class="efhamha-crumb"><span class="efhamha-crumb-ico">📦</span> ' + esc(mod.title) + '</span>';
       h += '</nav>';
     }
-    h += '<h1 class="efhama-title">' + esc(lesson.title) + '</h1>';
-    h += '<div class="efhama-meta">';
+    h += '<h1 class="efhamha-title">' + esc(lesson.title) + '</h1>';
+    h += '<div class="efhamha-meta">';
     if (lesson.level) {
-      h += '<span class="efhama-chip efhama-chip-level is-' + esc(lesson.level) + '"><span class="efhama-chip-dot"></span>' + esc(LEVELS[lesson.level] || lesson.level) + '</span>';
+      h += '<span class="efhamha-chip efhamha-chip-level is-' + esc(lesson.level) + '"><span class="efhamha-chip-dot"></span>' + esc(LEVELS[lesson.level] || lesson.level) + '</span>';
     }
     if (lesson.duration) {
-      h += '<span class="efhama-chip efhama-chip-duration"><svg class="efhama-chip-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg> ' + esc(lesson.duration) + ' دقيقة</span>';
+      h += '<span class="efhamha-chip efhamha-chip-duration"><svg class="efhamha-chip-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg> ' + esc(lesson.duration) + ' دقيقة</span>';
     }
     if (lesson.status) {
       var isPub = lesson.status === 'published';
-      h += '<span class="efhama-chip efhama-chip-status is-' + (isPub ? 'published' : 'draft') + '">' + (isPub ? '● منشور' : '○ مسودة') + '</span>';
+      h += '<span class="efhamha-chip efhamha-chip-status is-' + (isPub ? 'published' : 'draft') + '">' + (isPub ? '● منشور' : '○ مسودة') + '</span>';
     }
     var blockCount = (lesson.blocks || []).length;
     if (blockCount) {
-      h += '<span class="efhama-chip efhama-chip-count"><svg class="efhama-chip-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg> ' + blockCount + ' عناصر محتوى</span>';
+      h += '<span class="efhamha-chip efhamha-chip-count"><svg class="efhamha-chip-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg> ' + blockCount + ' عناصر محتوى</span>';
     }
     h += '</div>';
-    if (lesson.summary) h += '<p class="efhama-lead">' + inline(lesson.summary) + '</p>';
+    if (lesson.summary) h += '<p class="efhamha-lead">' + inline(lesson.summary) + '</p>';
     h += '</header>';
 
     if ((lesson.objectives || []).length) {
-      h += '<section class="efhama-objectives">' +
-        '<div class="efhama-sec-head">' +
-          '<span class="efhama-sec-badge efhama-badge-goals">' +
+      h += '<section class="efhamha-objectives">' +
+        '<div class="efhamha-sec-head">' +
+          '<span class="efhamha-sec-badge efhamha-badge-goals">' +
             '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg>' +
           '</span>' +
           '<h3>أهداف الدرس وما ستتعلمه</h3>' +
         '</div>' +
-        '<ul class="efhama-goals-list">' +
+        '<ul class="efhamha-goals-list">' +
           lesson.objectives.map(function (o) {
-            return '<li><span class="efhama-check-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></span><span>' + inline(o) + '</span></li>';
+            return '<li><span class="efhamha-check-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></span><span>' + inline(o) + '</span></li>';
           }).join('') +
         '</ul>' +
       '</section>';
@@ -268,33 +268,33 @@
         return l ? l.title : null;
       }).filter(Boolean);
       if (names.length) {
-        h += '<section class="efhama-prereq">' +
-          '<div class="efhama-sec-head">' +
-            '<span class="efhama-sec-badge efhama-badge-prereq">' +
+        h += '<section class="efhamha-prereq">' +
+          '<div class="efhamha-sec-head">' +
+            '<span class="efhamha-sec-badge efhamha-badge-prereq">' +
               '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"/></svg>' +
             '</span>' +
             '<h3>قبل أن تبدأ (المتطلبات السابقة)</h3>' +
           '</div>' +
-          '<ul class="efhama-prereq-list">' +
+          '<ul class="efhamha-prereq-list">' +
             names.map(function (n) {
-              return '<li><span class="efhama-prereq-pill"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg> ' + esc(n) + '</span></li>';
+              return '<li><span class="efhamha-prereq-pill"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg> ' + esc(n) + '</span></li>';
             }).join('') +
           '</ul>' +
         '</section>';
       }
     }
-    h += '<div class="efhama-body">' + (lesson.blocks || []).map(function (b) { return renderBlock(data, b.type === 'video' ? Object.assign({}, b, { lessonId: lesson.id }) : b); }).join('') + '</div>';
+    h += '<div class="efhamha-body">' + (lesson.blocks || []).map(function (b) { return renderBlock(data, b.type === 'video' ? Object.assign({}, b, { lessonId: lesson.id }) : b); }).join('') + '</div>';
     var terms = (data.glossary || []).filter(function (t) { return (t.lessonIds || []).indexOf(lesson.id) !== -1; });
     if (terms.length) {
-      h += '<section class="efhama-terms">' +
-        '<div class="efhama-sec-head">' +
-          '<span class="efhama-sec-badge efhama-badge-terms">' +
+      h += '<section class="efhamha-terms">' +
+        '<div class="efhamha-sec-head">' +
+          '<span class="efhamha-sec-badge efhamha-badge-terms">' +
             '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>' +
           '</span>' +
           '<h3>مصطلحات الدرس (القاموس التقني)</h3>' +
         '</div>' +
-        '<dl class="efhama-terms-grid">' + terms.map(function (t) {
-          return '<div class="efhama-term-card">' +
+        '<dl class="efhamha-terms-grid">' + terms.map(function (t) {
+          return '<div class="efhamha-term-card">' +
             '<dt><span class="term-ar">' + esc(t.ar) + '</span> <span class="term-en" dir="ltr">' + esc(t.en) + '</span></dt>' +
             '<dd>' + inline(t.definition) + '</dd>' +
           '</div>';
@@ -346,17 +346,17 @@
     };
   }
 
-  var STYLE_ID = 'efhama-data-styles';
+  var STYLE_ID = 'efhamha-data-styles';
   function injectStyles() {
     if (typeof document === 'undefined' || document.getElementById(STYLE_ID)) return;
     var s = document.createElement('style');
     s.id = STYLE_ID;
     s.textContent =
-      '.efhama-img-dark{display:none}' +
-      '[data-theme="dark"] .efhama-img-dark,.dark .efhama-img-dark{display:inline-block}' +
-      '[data-theme="dark"] .efhama-img-light,.dark .efhama-img-light{display:none}' +
-      '@media (prefers-color-scheme:dark){:root:not([data-theme="light"]):not(.light) .efhama-img-dark{display:inline-block}' +
-      ':root:not([data-theme="light"]):not(.light) .efhama-img-light{display:none}}';
+      '.efhamha-img-dark{display:none}' +
+      '[data-theme="dark"] .efhamha-img-dark,.dark .efhamha-img-dark{display:inline-block}' +
+      '[data-theme="dark"] .efhamha-img-light,.dark .efhamha-img-light{display:none}' +
+      '@media (prefers-color-scheme:dark){:root:not([data-theme="light"]):not(.light) .efhamha-img-dark{display:inline-block}' +
+      ':root:not([data-theme="light"]):not(.light) .efhamha-img-light{display:none}}';
     document.head.appendChild(s);
   }
 
@@ -368,7 +368,7 @@
       if (self._db) return Promise.resolve(self._db);
       return new Promise(function (res, rej) {
         if (typeof indexedDB === 'undefined') return rej(new Error('IndexedDB غير متاح'));
-        var r = indexedDB.open('efhama-dashboard', 1);
+        var r = indexedDB.open('efhamha-dashboard', 1);
         r.onupgradeneeded = function () { r.result.createObjectStore('kv'); };
         r.onsuccess = function () { self._db = r.result; res(r.result); };
         r.onerror = function () { rej(r.error); };
@@ -391,7 +391,7 @@
   };
 
   function load(url) {
-    return fetch(url || '/public/efhama-data.json', { cache: 'no-cache' }).then(function (r) {
+    return fetch(url || '/public/efhamha-data.json', { cache: 'no-cache' }).then(function (r) {
       if (!r.ok) throw new Error('تعذر تحميل بيانات المنصة (' + r.status + ')');
       return r.json();
     });
@@ -409,7 +409,7 @@
     if (typeof document === 'undefined' || !settings) return;
     var c = settings.colors || {};
     var rs = document.documentElement.style;
-    if (c.primary) rs.setProperty('--efhama-primary', c.primary);
+    if (c.primary) rs.setProperty('--efhamha-primary', c.primary);
     if (settings.name) document.title = settings.name;
   }
 

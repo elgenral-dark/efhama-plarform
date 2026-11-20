@@ -1,8 +1,8 @@
-/* موقع تجريبي مصغّر يقرأ ملف النشر فقط — يوضح كيف يربط موقع Efhama بالبيانات */
+/* موقع تجريبي مصغّر يقرأ ملف النشر فقط — يوضح كيف يربط موقع Efhamha بالبيانات */
 (function () {
-  var ED = window.EfhamaData, data, app = document.getElementById('app');
-  var studentId = new URLSearchParams(location.search).get('student'), tracking = !!(studentId && window.EfhamaTracker);
-  if (tracking) EfhamaTracker.init({ endpoint: '/api/track', studentId: studentId });
+  var ED = window.EfhamhaData, data, app = document.getElementById('app');
+  var studentId = new URLSearchParams(location.search).get('student'), tracking = !!(studentId && window.EfhamhaTracker);
+  if (tracking) EfhamhaTracker.init({ endpoint: '/api/track', studentId: studentId });
   function esc(s) { return ED.esc(s); }
   function counts(pid) {
     var ms = data.modules.filter(function (m) { return m.pathId === pid; });
@@ -45,9 +45,9 @@
     app.innerHTML = '<a class="back" href="#/path/' + encodeURIComponent(m ? m.pathId : '') + '">← رجوع</a>' + ED.renderLesson(data, l) +
       (tracking ? '<p><button id="done" type="button">أكملت الدرس</button></p>' : '');
     if (tracking) {
-      EfhamaTracker.lessonOpen(l.id);
-      EfhamaTracker.bindVideos(app);
-      document.getElementById('done').onclick = function () { EfhamaTracker.lessonComplete(l.id); EfhamaTracker.flush(); this.textContent = 'تم تسجيل الإكمال'; };
+      EfhamhaTracker.lessonOpen(l.id);
+      EfhamhaTracker.bindVideos(app);
+      document.getElementById('done').onclick = function () { EfhamhaTracker.lessonComplete(l.id); EfhamhaTracker.flush(); this.textContent = 'تم تسجيل الإكمال'; };
     }
   }
   function projects() {
@@ -70,7 +70,7 @@
     ED.injectStyles(); ED.applySettings(data.settings);
     window.addEventListener('hashchange', route); route();
   }
-  ED.load('/public/efhama-data.json').then(function (d) { data = d; start('يقرأ من /public/efhama-data.json (المنشور فقط)'); })
+  ED.load('/public/efhamha-data.json').then(function (d) { data = d; start('يقرأ من /public/efhamha-data.json (المنشور فقط)'); })
     .catch(function () {
       return ED.loadLocalDraft().then(function (d) { data = d; start('وضع التطوير: يقرأ النسخة المحلية المحفوظة من لوحة التحكم في هذا المتصفح (المنشور فقط)'); });
     }).catch(function () { app.innerHTML = '<div class="empty">لا توجد بيانات. شغّل الخادم أو افتح لوحة التحكم أولًا من نفس العنوان.</div>'; });

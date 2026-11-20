@@ -26,5 +26,5 @@ if (!fs.existsSync(qrSource)) {
 }
 fs.mkdirSync(path.dirname(qrDestination), { recursive: true });
 fs.copyFileSync(qrSource, qrDestination);
-fs.writeFileSync(siteConfig, `window.EFHAMA_SITE_URL = ${JSON.stringify(process.env.EFHAMA_SITE_URL || "")};\n`);
+fs.writeFileSync(siteConfig, `window.EFHAMHA_SITE_URL = ${JSON.stringify(process.env.EFHAMHA_SITE_URL || "")};\n`);
 console.log(`تم تجهيز رمز QR ورابط المنصة في ${path.relative(root, siteConfig)}`);

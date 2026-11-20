@@ -8,7 +8,7 @@ async function login(page, u, p) {
   await page.fill('#un', u); await page.fill('#pw', p); await page.click('.login button[type=submit]');
   await page.waitForSelector('.side');
 }
-const api = (page, method, path, body) => page.request.fetch(BASE + path, { method, headers: { 'X-Requested-With': 'efhama', 'content-type': 'application/json' }, data: body === undefined ? undefined : JSON.stringify(body) }).then(async r => ({ status: r.status(), body: await r.json().catch(() => null) }));
+const api = (page, method, path, body) => page.request.fetch(BASE + path, { method, headers: { 'X-Requested-With': 'efhamha', 'content-type': 'application/json' }, data: body === undefined ? undefined : JSON.stringify(body) }).then(async r => ({ status: r.status(), body: await r.json().catch(() => null) }));
 async function overflow(page) { return page.evaluate(() => document.documentElement.scrollWidth - document.documentElement.clientWidth); }
 function report() { console.log(results.map(r => r.join(' | ')).join('\n')); console.log('TOTAL', results.length, 'FAILS', results.filter(r => r[0] === 'FAIL').length); }
 module.exports = { launch, login, api, ok, overflow, report, BASE, results };

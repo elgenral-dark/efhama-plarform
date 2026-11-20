@@ -55,7 +55,7 @@ test.after(async () => {
 const TEST_PROOF = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8/x8AAwMCAO+j4QAAAABJRU5ErkJggg==";
 
 test("ترحيل قاعدة قديمة يضيف حالة الحساب دون فقد المستخدم الموجود", async () => {
-  const file = path.join(os.tmpdir(), `efhama-legacy-${process.pid}-${Date.now()}.db`);
+  const file = path.join(os.tmpdir(), `efhamha-legacy-${process.pid}-${Date.now()}.db`);
   const legacy = new DatabaseSync(file);
   legacy.exec(`
     CREATE TABLE users (
@@ -312,7 +312,7 @@ test("تقدم التحديات يتحقق منه ويُشتق إلى سجلات
     password: "password123"
   });
   assert.equal(registration.status, 201);
-  const challengeKey = "efhama_challenge_py-functions";
+  const challengeKey = "efhamha_challenge_py-functions";
   const invalid = await c("PUT", `/api/state/${challengeKey}`, { value: JSON.stringify({ attempts: 1 }) });
   assert.equal(invalid.status, 400);
   const now = Date.now();
@@ -616,9 +616,9 @@ test("اعتماد الحساب ونقل الجلسة بين جهازين مع �
   const firstLogin = await firstDevice("POST", "/api/auth/login", { email: "device-bound@example.com", password: "password123" });
   assert.equal(firstLogin.status, 200);
   assert.match(firstLogin.headers.get("set-cookie"), /HttpOnly/i);
-  const sessionCookie = firstLogin.cookie.split("; ").find((cookie) => cookie.startsWith("efhama_token="));
+  const sessionCookie = firstLogin.cookie.split("; ").find((cookie) => cookie.startsWith("efhamha_token="));
   assert.ok(sessionCookie);
-  assert.equal(firstLogin.headers.get("set-cookie").includes("efhama_device_"), false);
+  assert.equal(firstLogin.headers.get("set-cookie").includes("efhamha_device_"), false);
 
   await firstDevice("POST", "/api/auth/logout");
   assert.equal((await firstDevice("GET", "/api/auth/me")).status, 401);
@@ -744,21 +744,21 @@ test("المحتوى مطابق لملفات المنهج الأصلية", async
 test("مزامنة الحالة + الجداول المشتقة", async () => {
   const c = client();
   await c("POST", "/api/auth/register", { email: "s1@test.com", password: "password123" });
-  assert.equal((await c("PUT", "/api/state/efhama_completed", { value: JSON.stringify(["1-1", "1-2"]) })).status, 200);
-  assert.equal((await c("PUT", "/api/state/efhama_started", { value: JSON.stringify(["1-2", "2-1"]) })).status, 200);
-  assert.equal((await c("PUT", "/api/state/efhama_pos_2-1", { value: "0.42" })).status, 200);
-  assert.equal((await c("PUT", "/api/state/efhama_rating_1-1", { value: JSON.stringify({ stars: 5, at: 1 }) })).status, 200);
-  assert.equal((await c("PUT", "/api/state/efhama_quiz_results", { value: JSON.stringify({ "chapter-1": { score: 7, total: 10, at: 1700000000000 } }) })).status, 200);
+  assert.equal((await c("PUT", "/api/state/efhamha_completed", { value: JSON.stringify(["1-1", "1-2"]) })).status, 200);
+  assert.equal((await c("PUT", "/api/state/efhamha_started", { value: JSON.stringify(["1-2", "2-1"]) })).status, 200);
+  assert.equal((await c("PUT", "/api/state/efhamha_pos_2-1", { value: "0.42" })).status, 200);
+  assert.equal((await c("PUT", "/api/state/efhamha_rating_1-1", { value: JSON.stringify({ stars: 5, at: 1 }) })).status, 200);
+  assert.equal((await c("PUT", "/api/state/efhamha_quiz_results", { value: JSON.stringify({ "chapter-1": { score: 7, total: 10, at: 1700000000000 } }) })).status, 200);
   // رفض القيم/المفاتيح غير الصالحة
-  assert.equal((await c("PUT", "/api/state/efhama_auth", { value: "1" })).status, 400);
-  assert.equal((await c("PUT", "/api/state/efhama_pos_1-1", { value: "5" })).status, 400);
-  assert.equal((await c("PUT", "/api/state/efhama_rating_1-1", { value: JSON.stringify({ stars: 9 }) })).status, 400);
-  assert.equal((await c("PUT", "/api/state/efhama_completed", { value: "not json" })).status, 400);
-  assert.equal((await c("PUT", "/api/state/efhama_completed", { value: 5 })).status, 400);
+  assert.equal((await c("PUT", "/api/state/efhamha_auth", { value: "1" })).status, 400);
+  assert.equal((await c("PUT", "/api/state/efhamha_pos_1-1", { value: "5" })).status, 400);
+  assert.equal((await c("PUT", "/api/state/efhamha_rating_1-1", { value: JSON.stringify({ stars: 9 }) })).status, 400);
+  assert.equal((await c("PUT", "/api/state/efhamha_completed", { value: "not json" })).status, 400);
+  assert.equal((await c("PUT", "/api/state/efhamha_completed", { value: 5 })).status, 400);
 
   const st = (await c("GET", "/api/state")).json.state;
-  assert.equal(st.efhama_pos_2_1 ?? st["efhama_pos_2-1"], "0.42");
-  assert.deepEqual(JSON.parse(st.efhama_completed), ["1-1", "1-2"]);
+  assert.equal(st.efhamha_pos_2_1 ?? st["efhamha_pos_2-1"], "0.42");
+  assert.deepEqual(JSON.parse(st.efhamha_completed), ["1-1", "1-2"]);
 
   const u = (await q.get("SELECT id FROM users WHERE email='s1@test.com'", [])).id;
   const rows = (await q.all("SELECT lesson_id, status FROM lesson_progress WHERE user_id=? ORDER BY lesson_id", [u]));
@@ -766,10 +766,10 @@ test("مزامنة الحالة + الجداول المشتقة", async () => {
   assert.equal((await q.get("SELECT stars FROM ratings WHERE user_id=?", [u])).stars, 5);
   assert.equal((await q.get("SELECT COUNT(*) c FROM quiz_attempts WHERE user_id=?", [u])).c, 1);
   // إعادة إرسال نفس النتيجة لا تكرر المحاولة
-  await c("PUT", "/api/state/efhama_quiz_results", { value: JSON.stringify({ "chapter-1": { score: 7, total: 10, at: 1700000000000 } }) });
+  await c("PUT", "/api/state/efhamha_quiz_results", { value: JSON.stringify({ "chapter-1": { score: 7, total: 10, at: 1700000000000 } }) });
   assert.equal((await q.get("SELECT COUNT(*) c FROM quiz_attempts WHERE user_id=?", [u])).c, 1);
 
-  const bulk = await c("PUT", "/api/state", { items: { efhama_theme: "dark", efhama_fontsize: "2", bogus_key: "x" } });
+  const bulk = await c("PUT", "/api/state", { items: { efhamha_theme: "dark", efhamha_fontsize: "2", bogus_key: "x" } });
   assert.equal(bulk.json.saved, 2); assert.ok(bulk.json.rejected.bogus_key);
 
   // عزل المستخدمين

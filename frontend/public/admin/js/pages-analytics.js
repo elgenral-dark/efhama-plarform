@@ -1,6 +1,6 @@
 (function () {
   'use strict';
-  var E = window.Efhama, esc = E.esc, Store = E.Store, CH = E.charts;
+  var E = window.Efhamha, esc = E.esc, Store = E.Store, CH = E.charts;
   var DAY = 86400000;
   var iso = function (d) { return new Date(d).toISOString().slice(0, 10); };
   var mins = function (s) { return s == null ? '—' : s >= 3600 ? (s / 3600).toFixed(1) + ' ساعة' : s >= 60 ? Math.round(s / 60) + ' دقيقة' : s + ' ثانية'; };
@@ -70,6 +70,39 @@
       }
       function draw() {
         var d = data, a = d.access, pv = d.previous ? d.previous.cards : {}, noData = !a.entered && !a.sessions && !d.lessons.rows.some(function (l) { return l.opened; }) && !d.quizzes.attempts;
+        d.meta = d.meta || { paths: [], lessons: [] };
+        d.previous = d.previous || null;
+        d.lessons = d.lessons || { rows: [], mostViewed: [], leastViewed: [], avgLearningSeconds: 0, startedNotCompletedStudents: null };
+        d.lessons.rows = Array.isArray(d.lessons.rows) ? d.lessons.rows : [];
+        d.lessons.mostViewed = Array.isArray(d.lessons.mostViewed) ? d.lessons.mostViewed : [];
+        d.lessons.leastViewed = Array.isArray(d.lessons.leastViewed) ? d.lessons.leastViewed : [];
+        d.videos = d.videos || { rows: [] };
+        d.videos.rows = Array.isArray(d.videos.rows) ? d.videos.rows : [];
+        d.quizzes = d.quizzes || { attempts: 0, perQuiz: [], mostMissed: [], failedStudents: null, failedCount: 0 };
+        d.quizzes.perQuiz = Array.isArray(d.quizzes.perQuiz) ? d.quizzes.perQuiz : [];
+        d.quizzes.mostMissed = Array.isArray(d.quizzes.mostMissed) ? d.quizzes.mostMissed : [];
+        d.paths = d.paths || { rows: [], mostStudied: [], leastActive: [] };
+        d.paths.rows = Array.isArray(d.paths.rows) ? d.paths.rows : [];
+        d.paths.mostStudied = Array.isArray(d.paths.mostStudied) ? d.paths.mostStudied : [];
+        d.paths.leastActive = Array.isArray(d.paths.leastActive) ? d.paths.leastActive : [];
+        d.subscriptions = d.subscriptions || {};
+        d.subscriptions.revenue = d.subscriptions.revenue === undefined ? null : d.subscriptions.revenue;
+        d.access = d.access || {};
+        d.access.entered = Number(d.access.entered || 0);
+        d.access.dau = Number(d.access.dau || 0);
+        d.access.wau = Number(d.access.wau || 0);
+        d.access.mau = Number(d.access.mau || 0);
+        d.access.sessions = Number(d.access.sessions || 0);
+        d.access.left = Number(d.access.left || 0);
+        d.access.totalStudents = Number(d.access.totalStudents || 0);
+        d.access.avgSessionSeconds = Number(d.access.avgSessionSeconds || 0);
+        d.access.daily = Array.isArray(d.access.daily) ? d.access.daily : [];
+        d.access.hours = Array.isArray(d.access.hours) ? d.access.hours : Array(24).fill(0);
+        d.cards = d.cards || {};
+        d.cards.completions = Number(d.cards.completions || 0);
+        d.cards.attempts = Number(d.cards.attempts || 0);
+        d.cards.newSubs = Number(d.cards.newSubs || 0);
+        d.filters = d.filters || { inactiveDays: st.inactiveDays };
         var cards = [
           ['طلاب دخلوا المنصة', a.entered, delta(a.entered, pv.entered), 'users', 'students'],
           ['نشطون اليوم (DAU)', a.dau, '', 'sparkle', 'active-day'],
@@ -83,7 +116,7 @@
           ['اشتراكات جديدة', d.cards.newSubs, delta(d.cards.newSubs, pv.newSubs), 'wallet', 'subs-done']
         ];
         var h = '';
-        if (noData) h += '<div class="banner modern-banner" role="note"><div class="banner-icon">' + E.icon('alert') + '</div><div><b>لا توجد بيانات تتبع في هذه الفترة حتى الآن</b><p class="banner-desc">تظهر الإحصائيات الحية عندما يتفاعل الطلاب مع الموقع ويتم إرسال الأحداث عبر <code dir="ltr">efhama-tracker.js</code>. (إجمالي الطلاب المسجلين بالمنصة: ' + E.num(a.totalStudents) + ' طالب).</p></div></div>';
+        if (noData) h += '<div class="banner modern-banner" role="note"><div class="banner-icon">' + E.icon('alert') + '</div><div><b>لا توجد بيانات تتبع في هذه الفترة حتى الآن</b><p class="banner-desc">تظهر الإحصائيات الحية عندما يتفاعل الطلاب مع الموقع ويتم إرسال الأحداث عبر <code dir="ltr">efhamha-tracker.js</code>. (إجمالي الطلاب المسجلين بالمنصة: ' + E.num(a.totalStudents) + ' طالب).</p></div></div>';
         if (d.previous) h += '<div class="notice-pill">' + E.icon('history') + ' مقارنة بالفترة السابقة: ' + esc(d.previous.range.from) + ' ← ' + esc(d.previous.range.to) + '</div>';
         
         h += '<div class="section-title"><h3>المؤشرات الرئيسية للأداء</h3></div>';
